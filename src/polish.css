@@ -1,0 +1,117 @@
+/* ===================== Визуальный слой v2 ===================== */
+:root{
+  --display:"IgroDisplay","Bahnschrift","Arial Narrow",system-ui,sans-serif;
+  --body:"IgroText","Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",sans-serif;
+  --shadow-hard:rgba(8,10,34,.78);
+}
+body{font:500 clamp(16px,.72vw + 11px,30px)/1.45 var(--body);font-feature-settings:"kern","calt";letter-spacing:-.003em}
+h1,h2,h3,.big,.bar-title,.stepper b,.tchip .sc,.timer .tnum,.cipher{font-family:var(--display);font-weight:900;letter-spacing:-.012em}
+.big{font-size:clamp(28px,4.2vw,78px);line-height:1.04}
+.mid-t{font-size:clamp(20px,2.1vw,40px);font-weight:700;line-height:1.28}
+.btn,.opt,.chipbtn,.pill,.kicker{font-family:var(--body);font-weight:800}
+
+/* --- комната игры: фон окрашен цветом игры --- */
+.room{position:relative;isolation:isolate}
+.room::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(1100px 620px at 88% -12%,color-mix(in srgb,var(--accent) 38%,transparent),transparent 64%),
+    radial-gradient(900px 560px at -6% 108%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 62%)}
+.motif{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.motif span{position:absolute;font-size:clamp(90px,13vw,240px);opacity:.075;filter:saturate(.6) blur(.4px);transform:rotate(var(--r,-12deg))}
+.motif span:nth-child(1){left:-2%;top:62%;--r:-14deg}
+.motif span:nth-child(2){right:3%;top:10%;--r:12deg;font-size:clamp(120px,17vw,320px)}
+.motif span:nth-child(3){left:24%;top:78%;--r:8deg}
+.motif span:nth-child(4){right:30%;top:58%;--r:-6deg;font-size:clamp(70px,9vw,170px)}
+.motif span:nth-child(5){left:40%;top:-3%;--r:18deg}
+.motif span:nth-child(6){right:-2%;top:76%;--r:-18deg}
+
+/* --- наклейки-иллюстрации --- */
+.stk{--tone:#fff;--s:168px;position:relative;flex:none;width:var(--s);height:var(--s);display:grid;place-items:center;
+  border:3px solid var(--ink);border-radius:30%;
+  background:radial-gradient(circle at 30% 22%,#fff 0,color-mix(in srgb,var(--tone) 55%,#fff) 46%,color-mix(in srgb,var(--tone) 88%,#9aa6e0) 100%);
+  box-shadow:0 7px 0 var(--ink),inset 0 -10px 22px rgba(14,18,51,.1);
+  transform:rotate(var(--tilt,0deg));animation:stk-pop .5s cubic-bezier(.2,1.5,.4,1) both;user-select:none}
+.stk-main{font-size:calc(var(--s)*.58);line-height:1;filter:drop-shadow(0 4px 0 rgba(14,18,51,.18))}
+.stk-sub{position:absolute;display:grid;place-items:center;width:34%;height:34%;font-size:calc(var(--s)*.21);line-height:1;
+  background:#fff;border:3px solid var(--ink);border-radius:50%;box-shadow:0 3px 0 var(--ink)}
+.stk-sub.s1{right:-9%;bottom:-8%;transform:rotate(8deg)}
+.stk-sub.s2{left:-9%;top:-8%;transform:rotate(-10deg)}
+.stk-s{--s:56px;border-width:2px;border-radius:26%;box-shadow:0 4px 0 var(--ink)}.stk-s .stk-sub{display:none}
+.stk-m{--s:88px}.stk-m .stk-sub{border-width:2px}
+.stk-l{--s:128px}.stk-xl{--s:clamp(120px,15vw,240px)}
+@keyframes stk-pop{from{opacity:0;transform:rotate(calc(var(--tilt,0deg) - 14deg)) scale(.55)}to{opacity:1}}
+
+/* карточка с иллюстрацией слева */
+.card.withpic{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,2.6vw,48px);align-items:center}
+.card.withpic>.qbody{display:flex;flex-direction:column;gap:1rem;min-width:0}
+@media(max-width:700px){.card.withpic{grid-template-columns:1fr;justify-items:center;text-align:center}.card.withpic>.qbody{align-items:center}}
+.card.accent{background:radial-gradient(circle at 105% -10%,rgba(255,255,255,.34),transparent 52%),var(--accent)}
+.card{box-shadow:9px 10px 0 var(--shadow-hard),0 28px 50px -22px rgba(0,0,0,.5)}
+.card.center .stk{margin-bottom:.4rem}
+
+/* появление экрана: один согласованный жест при смене хода */
+.stage>*{animation:rise .32s cubic-bezier(.2,.9,.3,1) both}
+.stage>*:nth-child(2){animation-delay:.05s}.stage>*:nth-child(3){animation-delay:.1s}.stage>*:nth-child(4){animation-delay:.15s}.stage>*:nth-child(n+5){animation-delay:.2s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+
+/* --- каталог --- */
+.hero h1{font-size:clamp(64px,11vw,190px);line-height:.9;letter-spacing:-.035em;
+  background:linear-gradient(180deg,#fff 20%,#aebaff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 rgba(8,10,34,.55))}
+.gcard{box-shadow:7px 8px 0 var(--shadow-hard)}
+.gcard .art{position:relative;height:clamp(130px,11vw,190px);overflow:hidden;font-size:0;
+  background:radial-gradient(circle at 24% 18%,rgba(255,255,255,.55),transparent 55%),repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 10px,transparent 10px 22px),var(--c)}
+.gcard .art span{position:absolute;line-height:1;filter:drop-shadow(0 4px 0 rgba(14,18,51,.22));transition:transform .25s cubic-bezier(.2,1.4,.4,1)}
+.gcard .art .a1{font-size:clamp(64px,5.8vw,100px);left:50%;top:50%;transform:translate(-50%,-50%) rotate(-4deg)}
+.gcard .art .a2{font-size:clamp(30px,2.8vw,50px);left:11%;top:14%;transform:rotate(-14deg)}
+.gcard .art .a3{font-size:clamp(30px,2.8vw,50px);right:11%;bottom:12%;transform:rotate(12deg)}
+.gcard:hover .art .a1{transform:translate(-50%,-54%) rotate(3deg) scale(1.08)}
+.gcard:hover .art .a2{transform:rotate(-24deg) translate(-4px,-4px)}
+.gcard:hover .art .a3{transform:rotate(22deg) translate(4px,4px)}
+.gcard h3{font-size:1.5em;letter-spacing:-.015em}
+.gcard .tag{color:#394072;font-weight:500}
+
+/* --- вступление --- */
+.title-row .stk{--s:clamp(96px,9vw,150px)}
+.title-row h1{font-size:clamp(40px,5.6vw,104px);letter-spacing:-.025em;line-height:.98}
+.panel{box-shadow:7px 8px 0 var(--shadow-hard)}
+.seg button{font-family:var(--body);font-weight:800}
+
+/* --- дилеммы: варианты с картинками --- */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(10px,2vw,28px);align-items:stretch}
+@media(max-width:760px){.vs{grid-template-columns:1fr}}
+.vsopt{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1rem;text-align:center;
+  padding:clamp(16px,2.4vw,34px) clamp(14px,2vw,28px);position:relative;font:inherit;border-width:3px}
+.vsopt b{position:absolute;left:.8rem;top:.8rem;display:grid;place-items:center;width:2em;height:2em;background:var(--ink);color:var(--paper);border-radius:12px;font-family:var(--display)}
+.vsopt .vt{font-family:var(--display);font-weight:900;font-size:clamp(22px,2.6vw,48px);line-height:1.1;letter-spacing:-.01em}
+.vsopt .stk{--s:clamp(110px,12vw,200px)}
+.vs-or{align-self:center;font-family:var(--display);font-weight:900;background:var(--ink);color:var(--paper);padding:.5em .7em;border-radius:999px;border:3px solid var(--paper-2)}
+.vsopt.dim{opacity:.4;filter:saturate(.5)}
+
+/* --- мелочи --- */
+.opt{font-size:1em;transition:transform .08s,box-shadow .08s,background .15s}
+.opt:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
+.opt:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.bar{background:rgba(14,18,51,.62)}
+.cover{background:linear-gradient(180deg,rgba(14,18,51,.92),rgba(14,18,51,.82))}
+.cipher{letter-spacing:.1em}
+.susp{position:relative}
+@media (prefers-reduced-motion:reduce){.stage>*,.stk{animation:none}.gcard .art span{transition:none}}
+
+/* --- телефон: верхняя панель не должна вылезать за экран --- */
+@media(max-width:560px){
+  .bar{gap:8px;padding:8px 10px;flex-wrap:nowrap;min-width:0}
+  .bar>*{min-width:0}
+  .bar .btn{padding:.45em .65em;font-size:.85em}
+  .bar .bar-title{font-size:1.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
+  .bar .spacer{display:none}
+  html,body{overflow-x:hidden}
+}
+
+/* --- иконки интерфейса (одна семья, штрих 2px) --- */
+.ico{display:inline-grid;place-items:center;width:1.25em;height:1.25em;flex:none}
+.ico svg{width:100%;height:100%;display:block}
+.btn:has(>.ico+*){gap:.45em}
+.btn.icon{min-width:2.6em;min-height:2.6em;display:inline-grid;place-items:center}
+.btn.icon .ico{width:1.35em;height:1.35em}
+.btn.ghost.small,.btn.ghost.icon{min-height:2.6em}
+.susp .avatar{height:clamp(120px,10vw,170px)}
