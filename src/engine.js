@@ -192,14 +192,14 @@ function Home() {
     chips.replaceChildren(...CATS.map(c => h('button', { class: 'chipbtn', type: 'button', 'aria-pressed': c === cat, onclick: () => { cat = c; store.set('cat', c); paint(); } }, c)));
     const list = G.games.filter(g => cat === 'Все' || g.cats.includes(cat));
     grid.replaceChildren(...list.map((g, i) => h('button', { class: 'gcard', type: 'button', style: { '--c': g.color, '--rot': ((i % 3) - 1) * .8 + 'deg' }, onclick: () => { sfx.click(); Intro(g); } },
-      h('div', { class: 'art' }, ...gameArt(g).map((e, k) => h('span', { class: 'a' + (k + 1) }, e))),
+      h('div', { class: 'art' + (DATA.art && DATA.art[g.id] ? ' has-ill' : '') }, DATA.art && DATA.art[g.id] ? Pics.ill(g.id) : null, ...(DATA.art && DATA.art[g.id] ? [] : gameArt(g).map((e, k) => h('span', { class: 'a' + (k + 1) }, e)))),
       h('div', { class: 'body' }, h('h3', null, g.title), h('p', { class: 'tag' }, g.tagline),
         h('div', { class: 'meta' }, h('span', { class: 'pill' }, g.coop ? 'вся компания' : playersLabel(g)), h('span', { class: 'pill' }, '~' + g.mins + ' мин'))))));
   }
   paint();
   mount(h('div', { class: 'wrap' },
     h('div', { class: 'hero' },
-      h('div', null, h('h1', null, 'Игротека'), h('p', { style: { marginTop: '.6rem' } }, 'Игры для компании на одном экране. Поставьте ноутбук или телевизор на стол — телефоны и интернет не нужны.')),
+      h('div', { class: 'hero-main' }, Pics.ill('hero', 'hero-ill'), h('div', null, h('h1', null, 'Игротека'), h('p', { style: { marginTop: '.6rem' } }, 'Игры для компании на одном экране. Поставьте ноутбук или телевизор на стол — телефоны и интернет не нужны.'))),
       h('div', { class: 'top' }, muteBtn(), fullBtn())),
     chips, grid,
     h('div', { class: 'foot' },
@@ -238,7 +238,7 @@ function Intro(g) {
     h('div', { class: 'row', style: { marginBottom: '1.2rem' } }, withIco(btn('Каталог', Home, 'ghost small'), 'home'), h('span', { class: 'grow' }), muteBtn(), fullBtn()),
     h('div', { class: 'intro' },
       h('div', null,
-        h('div', { class: 'title-row' }, Pics.sticker(gameArt(g), { size: 'l', tone: g.color, flat: true }), h('h1', null, g.title)),
+        h('div', { class: 'title-row' }, (DATA.art && DATA.art[g.id] ? h('div', { class: 'ill-badge', style: { '--c': g.color } }, Pics.ill(g.id)) : Pics.sticker(gameArt(g), { size: 'l', tone: g.color, flat: true })), h('h1', null, g.title)),
         h('p', { class: 'mid-t', style: { marginBottom: '1.2rem' } }, g.tagline),
         h('div', { class: 'panel' }, h('h2', null, 'Как играть'), h('div', { class: 'rules', html: g.rules }))),
       h('div', { class: 'panel dark' },

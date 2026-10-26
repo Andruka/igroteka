@@ -31,5 +31,7 @@ const Pics = (() => {
   /* по тексту сразу в наклейку */
   function of(text, o = {}) { return sticker(find(text, o.max || 2), { key: text, ...o }); }
   const parts = s => typeof Intl !== 'undefined' && Intl.Segmenter ? [...new Intl.Segmenter('ru', { granularity: 'grapheme' }).segment(s)].map(x => x.segment) : Array.from(s);
-  return { find, sticker, of, hash, parts };
+  /* иллюстрация Icons8 (SVG встроен в файл) */
+  function ill(id, cls = '') { const el = h('div', { class: 'ill ' + cls, 'aria-hidden': 'true' }); el.innerHTML = (DATA.art && DATA.art[id]) || ''; return el; }
+  return { find, sticker, of, hash, parts, ill };
 })();

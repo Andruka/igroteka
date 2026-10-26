@@ -115,3 +115,24 @@ h1,h2,h3,.big,.bar-title,.stepper b,.tchip .sc,.timer .tnum,.cipher{font-family:
 .btn.icon .ico{width:1.35em;height:1.35em}
 .btn.ghost.small,.btn.ghost.icon{min-height:2.6em}
 .susp .avatar{height:clamp(120px,10vw,170px)}
+
+/* --- иллюстрации Icons8 (Bouncy) --- */
+.ill{display:grid;place-items:center}
+.ill svg{width:100%;height:100%;display:block;overflow:visible}
+.gcard .art.has-ill{display:grid;place-items:center}
+.gcard .art.has-ill .ill{width:58%;height:84%;filter:drop-shadow(0 6px 0 rgba(14,18,51,.22));transition:transform .25s cubic-bezier(.2,1.4,.4,1)}
+.gcard:hover .art.has-ill .ill{transform:rotate(-5deg) scale(1.07)}
+.ill-badge{flex:none;width:clamp(110px,10vw,170px);aspect-ratio:1;padding:14px;border:3px solid var(--ink);border-radius:30%;box-shadow:0 7px 0 var(--ink);
+  background:radial-gradient(circle at 30% 22%,#fff 0,color-mix(in srgb,var(--c) 40%,#fff) 100%);animation:stk-pop .5s cubic-bezier(.2,1.5,.4,1) both}
+.ill-badge .ill{width:100%;height:100%}
+.hero-main{display:flex;align-items:center;gap:clamp(16px,3vw,48px)}
+.hero-ill{flex:none;width:clamp(96px,12vw,200px);aspect-ratio:1;filter:drop-shadow(0 8px 0 rgba(8,10,34,.5));animation:stk-pop .6s cubic-bezier(.2,1.5,.4,1) both}
+@media(max-width:560px){.hero-ill{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-ill,.ill-badge{animation:none}}
+.gcard .art.has-ill{display:block}
+.gcard .art.has-ill .ill{position:absolute;inset:12% 18%;width:auto;height:auto}
+.hero-ill{padding:12px;border:3px solid var(--ink);border-radius:30%;box-shadow:0 7px 0 var(--ink);background:radial-gradient(circle at 30% 22%,#fff,#cfd8ff);filter:none}
+.ill{position:relative}
+.ill svg{position:absolute;inset:0;width:100%;height:100%}
+.gcard .art.has-ill .ill{position:absolute}
+.ill-badge .ill{aspect-ratio:1}

@@ -22,3 +22,6 @@ node test/bot.js all    # прогон всех игр случайными кл
 - `src/*.css` — оформление; `src/fonts.css` генерирует `tools/make_fonts.py` (Inter, лицензия OFL)
 
 Иллюстрации подбираются по смыслу текста вопроса из словаря эмодзи (`src/data/d_pics.js`).
+
+## Иллюстрации
+Обложки игр — иллюстрации [Icons8 Ouch](https://icons8.com/illustrations), стиль Bouncy (бесплатное распространение), SVG встроены в `index.html`. Оригиналы лежат в `art/`.
