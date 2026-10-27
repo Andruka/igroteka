@@ -225,13 +225,16 @@ function Intro(g) {
   const unit = g.unit || 'Команда';
   let n = clamp(store.get('n.' + g.id, Math.max(t.min, Math.min(2, t.max))), t.min, t.max);
   const saved = store.get('names', []);
-  const names = range(8).map(i => saved[i] || (unit + ' ' + (i + 1)));
+  const isDef = x => !x || /^(Команда|Игрок) \d$/.test(String(x).trim());
+  const names = range(8).map(i => isDef(saved[i]) ? unit + ' ' + (i + 1) : saved[i]);
   const optVals = {};
   (g.opts || []).forEach(o => { optVals[o.key] = store.get('o.' + g.id + '.' + o.key, o.def); });
   const teamBox = h('div'), countBox = h('div', { class: 'stepper' });
   function paintTeams() {
     countBox.replaceChildren(btn('−', () => { if (n > t.min) { n--; paintTeams(); } }, 'paper icon'), h('b', null, n), btn('+', () => { if (n < t.max) { n++; paintTeams(); } }, 'paper icon'), h('span', null, plural(n, g.unitOne || 'участник', g.unitFew || 'участника', g.unitMany || 'участников')));
-    teamBox.replaceChildren(...range(n).map(i => h('div', { class: 'teamrow', style: { '--c': TEAM_COLORS[i] } }, h('span', { class: 'dot' }), h('input', { class: 'input', value: names[i], maxlength: 22, 'aria-label': 'Название ' + (i + 1), oninput: e => { names[i] = e.target.value; } }))));
+    const swap = (i, j) => { [names[i], names[j]] = [names[j], names[i]]; paintTeams(); };
+    teamBox.replaceChildren(...range(n).map(i => h('div', { class: 'teamrow', style: { '--c': TEAM_COLORS[i] } }, h('span', { class: 'dot' }), h('input', { class: 'input', value: names[i], maxlength: 22, 'aria-label': 'Название ' + (i + 1), oninput: e => { names[i] = e.target.value; } }),
+      n > 1 ? h('span', { class: 'mv' }, h('button', { class: 'btn paper icon small', type: 'button', disabled: i === 0, 'aria-label': 'Поднять выше: ходит раньше', title: 'Ходит раньше', onclick: () => { sfx.click(); swap(i, i - 1); } }, '↑'), h('button', { class: 'btn paper icon small', type: 'button', disabled: i === n - 1, 'aria-label': 'Опустить ниже: ходит позже', title: 'Ходит позже', onclick: () => { sfx.click(); swap(i, i + 1); } }, '↓')) : null)));
   }
   const optBox = (g.opts || []).map(o => {
     const seg = h('div', { class: 'seg' });
@@ -241,7 +244,7 @@ function Intro(g) {
   paintTeams();
   const start = () => {
     const list = range(g.coop ? 1 : n).map(i => ({ name: (g.coop ? (names[0] && names[0].trim() ? names[0] : 'Мы') : (names[i] || '').trim() || (unit + ' ' + (i + 1))), color: TEAM_COLORS[i] }));
-    if (!g.coop) { store.set('n.' + g.id, n); store.set('names', names.map((x, i) => (x || '').trim() || (unit + ' ' + (i + 1)))); }
+    if (!g.coop) { store.set('n.' + g.id, n); store.set('names', names.map(x => (x || '').trim())); }
     for (const k in optVals) store.set('o.' + g.id + '.' + k, optVals[k]);
     keepAwake(); startSession(g, list, { ...optVals });
   };
@@ -254,7 +257,7 @@ function Intro(g) {
         h('div', { class: 'panel' }, h('h2', null, 'Как играть'), h('div', { class: 'rules', html: g.rules }))),
       h('div', { class: 'panel dark' },
         g.coop ? h('div', null, h('h2', null, 'Играет вся компания'), h('p', { class: 'muted' }, 'Обсуждайте, спорьте и решайте вместе. Можно задать название команды.'), h('div', { class: 'teamrow', style: { '--c': TEAM_COLORS[0] } }, h('span', { class: 'dot' }), h('input', { class: 'input', value: names[0].startsWith(unit) ? 'Мы' : names[0], maxlength: 22, oninput: e => { names[0] = e.target.value; } })))
-          : h('div', null, h('h2', null, t.min === t.max ? 'Участники' : (g.unitTitle || 'Кто играет')), countBox, h('div', { style: { marginTop: '.6rem' } }, teamBox)),
+          : h('div', null, h('h2', null, t.min === t.max ? 'Участники' : (g.unitTitle || 'Кто играет')), countBox, n > 1 ? h('p', { class: 'muted', style: { marginTop: '.5rem' } }, 'Сверху вниз — порядок ходов. Стрелки меняют команды местами.') : null, h('div', { style: { marginTop: '.6rem' } }, teamBox)),
         optBox,
         h('div', { style: { marginTop: '1.4rem' } }, btn('Играть', start, 'huge', { 'data-primary': true, style: '' }))))));
 }

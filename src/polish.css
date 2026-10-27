@@ -186,3 +186,6 @@ h1,h2,h3,.big,.bar-title,.stepper b,.tchip .sc,.timer .tnum,.cipher{font-family:
 .chip.bad{background:var(--ink);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.35)}
 .picks .btn.pick[aria-pressed=false]{opacity:.62}
 .picks .btn.pick[aria-pressed=true]{opacity:1}
+.teamrow .mv{display:flex;gap:.3rem;flex:none}
+.teamrow .mv .btn{min-width:2.4em;padding:.25em .5em}
+.teamrow .mv .btn:disabled{opacity:.35}
