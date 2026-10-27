@@ -22,7 +22,7 @@
         const twist = (api.opts.twist === 2 || (api.opts.twist === 1 && Math.random() < .35)) ? pick(DATA.twists) : null;
         const timer = api.opts.prep ? Timer(api.opts.prep, { onEnd: () => sfx.buzz() }) : null;
         api.show([
-          h('div', { class: 'card accent withpic' }, Pics.of(p.q, { size: 'xl', fallback: PTYPE[p.t] || '✍️' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Задание ' + round + ' из ' + total + ' · ' + p.t), h('div', { class: 'big' }, p.q),
+          h('div', { class: 'card accent withpic' }, Pics.of(p.q, { size: 'xl', fallback: PTYPE[p.t] || '✍️' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Задание ' + round + ' из ' + total + ' · ' + p.t), h('div', { class: 'big', 'data-tts': p.q }, p.q),
             twist ? h('div', { class: 'ans' }, 'Усложнение: ' + twist) : null, timer ? timer.el : null)),
           h('p', { class: 'mid-t muted' }, 'Придумайте ответ и запомните его. Когда все готовы — читаем по очереди.'),
           btn('Читаем ответы', () => read(0), 'big', { 'data-primary': true })

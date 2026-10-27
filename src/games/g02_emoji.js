@@ -8,6 +8,7 @@
     tagline: 'Смайлики зашифровали название фильма, мультфильма или сериала. Кто угадает быстрее?',
     rules: '<ul><li>Команда видит цепочку смайликов и угадывает название. Достаточно назвать его близко к оригиналу.</li><li>Чем меньше подсказок, тем больше очков: <b>3</b> без подсказки, <b>2</b> с первой, <b>1</b> со второй.</li><li>Отвечает только команда, чей сейчас ход. Когда время вышло или она готова ответить, нажмите «Показать ответ» и отметьте, угадала ли она.</li><li>Если не угадала, остальные команды могут перехватить загадку: та, что назвала верно, получает 1 очко.</li></ul>',
     opts: [
+      { key: 'types', label: 'Что загадываем', multi: true, values: ['Фильм', 'Мультфильм', 'Сериал', 'Сказка', 'Книга'], def: [] },
       { key: 'rounds', label: 'Загадок у каждой команды', values: [3, 5, 8], def: 5 },
       { key: 'level', label: 'Сложность', values: [[0, 'Любая'], [1, 'Лёгкая'], [2, 'Средняя'], [3, 'Сложная']], def: 0 },
       { key: 'time', label: 'Время на загадку', values: [[30, '30 секунд'], [45, '45 секунд'], [60, '60 секунд']], def: 45 }
@@ -15,7 +16,7 @@
     cards: () => DATA.emoji.length,
     start(api) {
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
-        const lvl = api.opts.level; const c = deck.draw(x => !lvl || x.l === lvl);
+        const lvl = api.opts.level; const ty = api.opts.types || [], c = deck.draw(x => (!lvl || x.l === lvl) && (!ty.length || ty.includes(x.t))) || deck.draw();
         let hints = 0, revealed = false;
         const timer = Timer(api.opts.time, { onEnd: () => reveal() });
         const hintBox = h('div', { class: 'mid-t' }), actions = h('div', { class: 'row' }), after = h('div', { class: 'stack' });

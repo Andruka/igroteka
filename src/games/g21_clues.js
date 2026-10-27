@@ -16,7 +16,7 @@
           const who = (ti + step) % api.n;
           const lines = q.c.slice(0, step + 1).map((c, i) => h('li', { class: i === step ? 'newest' : '' }, c));
           api.show([
-            h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Загадка ' + k + ' из ' + total + ' · ' + q.cat), h('ol', { class: 'cluelist' }, lines), h('div', { class: 'mid-t' }, 'Подсказка ' + (step + 1) + ' из ' + q.c.length + ' · за ответ ' + pts(q.c.length - step))),
+            h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Загадка ' + k + ' из ' + total + ' · ' + q.cat), h('ol', { class: 'cluelist', 'data-tts': 'Подсказки. ' + q.c.slice(0, step + 1).join('. ') }, lines), h('div', { class: 'mid-t' }, 'Подсказка ' + (step + 1) + ' из ' + q.c.length + ' · за ответ ' + pts(q.c.length - step))),
             peek(h('div', { class: 'ans' }, 'Ответ: ' + q.a), 'Зажмите, чтобы ведущий проверил ответ'),
             judgeRow(api, 'Что ответила команда?', 'Угадали', ok => { if (ok) { api.score(who, q.c.length - step); sfx.ok(); done('Угадали: ' + api.teams[who].name + ' (+' + pts(q.c.length - step) + ').'); } else { sfx.bad(); step++; step >= q.c.length ? done('Подсказки закончились. Никто не угадал.') : clue(); } }, 'Мимо')
           ], { turn: who, role: 'Отвечает по подсказке ' + (step + 1) });

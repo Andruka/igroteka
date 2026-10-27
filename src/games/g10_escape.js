@@ -47,7 +47,7 @@
       const txt = c => (c.p === 0 && c.w === 0) ? 'ни одной верной цифры' : [c.p ? 'на своём месте: ' + c.p : '', c.w ? 'верные, но не на месте: ' + c.w : ''].filter(Boolean).join('; ');
       return { type: 'code', body: ['Код из трёх разных цифр. Перед вами старые попытки:', h('div', { class: 'codes' }, clues.map(c => h('div', null, h('b', null, c.g.join('')), ' — ' + txt(c))))], ans: [secret.join('')], hint: 'Первая цифра кода — ' + secret[0] + '.', digits: true };
     },
-    riddle() { const r = riddleDeck.draw(); return { type: 'riddle', body: [h('div', { class: 'big' }, r.q)], ans: r.a, hint: 'Ответ начинается на «' + r.a[0][0].toUpperCase() + '».' }; }
+    riddle() { const r = riddleDeck.draw(); return { type: 'riddle', body: [h('div', { class: 'big', 'data-tts': r.q }, r.q)], ans: r.a, hint: 'Ответ начинается на «' + r.a[0][0].toUpperCase() + '».' }; }
   };
   G.escGen = mk;
   registerGame({

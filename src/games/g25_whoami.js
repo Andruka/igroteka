@@ -9,20 +9,21 @@
     tagline: 'Вам загадали персонажа или предмет. Задавайте остальным вопросы, на которые можно ответить «да» или «нет».',
     rules: '<ul><li>Угадывающий отворачивается от экрана. Остальные видят загаданное слово.</li><li>Угадывающий задаёт вопросы, на которые можно ответить только «да» или «нет»: «Я живой?», «Я из мультфильма?».</li><li>Время ограничено. Угадал: 3, 2 или 1 очко в зависимости от скорости.</li><li>Слово можно сменить один раз за ход, если оно оказалось совсем незнакомым.</li></ul>',
     opts: [
+      { key: 'cats', label: 'Категории', multi: true, values: () => [...new Set(items.map(x => x.c))], def: [] },
       { key: 'rounds', label: 'Ходов у каждого', values: [1, 2, 3], def: 2 },
       { key: 'time', label: 'Время на вопросы', values: [[60, '60 секунд'], [90, '90 секунд'], [120, '2 минуты']], def: 90 }
     ],
     cards: () => items.length,
     start(api) {
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
-        const name = api.teams[ti].name; let card = deck.draw(), swapped = false;
+        const name = api.teams[ti].name; const cs = api.opts.cats || [], filt = x => !cs.length || cs.includes(x.c); let card = deck.draw(filt), swapped = false;
         api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total), h('div', { class: 'big' }, name + ' угадывает'),
           h('p', { class: 'mid-t' }, name + ', отвернитесь от экрана. Остальные, запомните слово и отвечайте только «да» или «нет».'),
           btn('Показать слово остальным', show, 'big', { 'data-primary': true })), { turn: ti, mid: true, role: 'Отворачивается и угадывает' });
         function show() {
           api.show([
             h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Только для остальных · ' + card.c), Pics.of(card.w, { size: 'l', fallback: '🎭' }), h('div', { class: 'big' }, card.w)),
-            h('div', { class: 'row' }, btn('Запомнили — начинаем', play, 'big', { 'data-primary': true }), !swapped ? btn('Другое слово', () => { swapped = true; card = deck.draw(); show(); }, 'paper') : null)
+            h('div', { class: 'row' }, btn('Запомнили — начинаем', play, 'big', { 'data-primary': true }), !swapped ? btn('Другое слово', () => { swapped = true; card = deck.draw(filt); show(); }, 'paper') : null)
           ], { turn: ti, role: 'Угадывающий не смотрит' });
         }
         function play() {

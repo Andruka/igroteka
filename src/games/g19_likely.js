@@ -13,7 +13,7 @@
       function next() {
         if (k >= total) return api.end(); k++; const t = deck.draw();
         api.show([
-          h('div', { class: 'card accent withpic' }, Pics.of(t, { size: 'xl', fallback: '👉' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Фраза ' + k + ' из ' + total), h('div', { class: 'big' }, 'Кто скорее всего ' + t + '?'))),
+          h('div', { class: 'card accent withpic' }, Pics.of(t, { size: 'xl', fallback: '👉' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Фраза ' + k + ' из ' + total), h('div', { class: 'big', 'data-tts': 'Кто скорее всего ' + t + '?' }, 'Кто скорее всего ' + t + '?'))),
           h('p', { class: 'mid-t' }, 'Считайте «раз, два, три» и показывайте пальцем. Потом выберите того, на кого показали чаще всех.'),
           api.pickTeam('На кого показали чаще всех?', who => { if (who >= 0) { api.score(who, 1); sfx.ok(); } k >= total ? api.end() : next(); }, { none: 'Ничья' })
         ], { turn: -1, role: 'Показывают пальцем на того, кто подходит', who: 'Все игроки' });

@@ -23,7 +23,7 @@
         const holder0 = (first + round - 1) % api.n;
         api.show([
           h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'xl', fallback: card.t === 'a' ? '🎬' : '💣' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Бомба ' + round + ' из ' + total + (card.t === 'a' ? ' · задание' : ' · тема')),
-            h('div', { class: 'big' }, card.q), h('p', { class: 'mid-t muted' }, 'Первым бомбу получает ' + api.teams[holder0].name + '.'))),
+            h('div', { class: 'big', 'data-tts': card.q }, card.q), h('p', { class: 'mid-t muted' }, 'Первым бомбу получает ' + api.teams[holder0].name + '.'))),
           btn('Запустить бомбу', () => play(card, holder0), 'big', { 'data-primary': true })
         ], { turn: holder0, role: 'Первым получает бомбу' });
       }

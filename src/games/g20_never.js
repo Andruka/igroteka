@@ -16,7 +16,7 @@
           const b = h('button', { class: 'btn big pick', type: 'button', 'aria-pressed': 'false', style: { '--c': tm.color }, onclick: () => { sfx.click(); sel.has(i) ? sel.delete(i) : sel.add(i); b.setAttribute('aria-pressed', sel.has(i)); b.classList.toggle('on', sel.has(i)); } }, tm.name); return b;
         }));
         api.show([
-          h('div', { class: 'card accent withpic' }, Pics.of(t, { size: 'xl', fallback: '🙈' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Фраза ' + k + ' из ' + total), h('div', { class: 'big' }, 'Я никогда ' + t))),
+          h('div', { class: 'card accent withpic' }, Pics.of(t, { size: 'xl', fallback: '🙈' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Фраза ' + k + ' из ' + total), h('div', { class: 'big', 'data-tts': 'Я никогда ' + t }, 'Я никогда ' + t))),
           h('p', { class: 'mid-t' }, 'Кто это делал, поднимите руку. Нажмите на тех, кто признался.'),
           row,
           h('div', { class: 'row' }, btn(k >= total ? 'Итоги' : 'Дальше', () => { sel.forEach(i => api.score(i, 1)); sel.size ? sfx.ok() : 0; next(); }, 'big', { 'data-primary': true }))

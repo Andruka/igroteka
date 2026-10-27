@@ -9,13 +9,14 @@
     tagline: 'Покажите слово жестами и мимикой, не произнося ни звука. Команда угадывает, пока не вышло время.',
     rules: '<ul><li>В свой ход один из команды становится актёром. Остальные в команде — угадывающие, соперники следят за честностью.</li><li>Актёр видит слово на экране, пока остальные отвернулись. Затем включается таймер.</li><li>Показывать можно жестами, мимикой и движениями. Говорить, издавать звуки и показывать на предметы с буквами нельзя.</li><li>Чем быстрее угадали, тем больше очков: от 1 до 3. Слово можно сменить два раза за ход.</li></ul>',
     opts: [
+      { key: 'cats', label: 'Категории слов', multi: true, values: () => [...new Set(items.map(x => x.c))], def: [] },
       { key: 'rounds', label: 'Ходов у каждой команды', values: [2, 3, 5], def: 3 },
       { key: 'time', label: 'Время на показ', values: [[45, '45 секунд'], [60, '60 секунд'], [90, '90 секунд']], def: 60 },
       { key: 'level', label: 'Сложность слов', values: [[1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные'], [0, 'Все вперемешку']], def: 2 }
     ],
     cards: () => items.length,
     start(api) {
-      const lvl = api.opts.level, filt = x => !lvl || x.l === lvl;
+      const lvl = api.opts.level, cs = api.opts.cats || [], filt = x => (!lvl || x.l === lvl) && (!cs.length || cs.includes(x.c));
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name; let skips = 2, card = deck.draw(filt);
         intro();

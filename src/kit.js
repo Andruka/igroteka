@@ -26,7 +26,7 @@ function choiceRound(api, c) {
     const nb = btn(c.last ? 'Итоги' : 'Дальше', c.next, 'big', { 'data-primary': true });
     actions.replaceChildren(nb); nb.focus();
   }
-  function good(who, p) { sfx.ok(); api.score(who, p); say(api.teams[who].name + ': +' + pts(p) + '.'); reveal(); }
+  function good(who, p) { sfx.ok(); try { const b = bs.find((_, i) => items[i].ok); if (b) { b.classList.add('flash-good'); fx.burst(b); } } catch (e) {} api.score(who, p); say(api.teams[who].name + ': +' + pts(p) + '.'); reveal(); }
   function fail(i) { sfx.bad(); if (i != null && i >= 0) { bs[i].classList.add('wrong', 'shake'); bs[i].disabled = true; wrong.add(i); } }
   function steal() {
     if (c.steal === false || api.n < 2) { say('Верный ответ подсвечен.'); return reveal(); }
@@ -47,8 +47,8 @@ function choiceRound(api, c) {
   }
   function timeUp() { if (done) return; sfx.buzz(); if (stealer >= 0) { say('Время вышло.'); return reveal(); } say('Время вышло!'); steal(); }
   api.show([
-    h('div', { class: 'card accent' + (c.pic ? ' withpic' : '') }, c.pic || null, h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, c.kicker), typeof c.title === 'string' ? h('div', { class: 'big' }, c.title) : c.title, timer ? timer.el : null)),
-    h('div', { class: 'opts' }, bs), info, exp, actions
+    h('div', { class: 'card accent' + (c.pic ? ' withpic' : '') }, c.pic || null, h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, c.kicker), typeof c.title === 'string' ? h('div', { class: 'big', 'data-tts': c.title }, c.title) : (c.title.setAttribute('data-tts', ''), c.title), timer ? timer.el : null)),
+    h('div', { class: 'opts', 'data-tts': items.map((it, i) => 'Вариант ' + letters[i] + '. ' + it.t).join('. ') }, bs), info, exp, actions
   ], { turn: c.ti, role: c.role || 'Отвечает на вопрос' });
   if (timer) timer.start();
 }

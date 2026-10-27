@@ -19,6 +19,7 @@ const SKIP = /^(Выход|Каталог|Правила|Сбросить ист
     if (only && id !== only) continue;
     errors.length = 0;
     await page.goto(file);
+    if (process.env.PACK) await page.evaluate(p => store.set('pack', p), process.env.PACK);
     await page.evaluate(id => Intro(G.games.find(g => g.id === id)), id);
     const ngames = await page.evaluate(() => 0);
     await page.getByRole('button',{name:'Играть',exact:true}).click();

@@ -22,7 +22,7 @@
       announce();
       function announce() {
         api.show([
-          h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'xl', fallback: MTAG[card.t] || '🎯' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total + ' · ' + card.t), h('div', { class: 'big' }, name), h('div', { class: 'mid-t' }, card.q), h('div', { class: 'ans' }, 'На выполнение: ' + card.s + ' с'))),
+          h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'xl', fallback: MTAG[card.t] || '🎯' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total + ' · ' + card.t), h('div', { class: 'big' }, name), h('div', { class: 'mid-t', 'data-tts': card.q }, card.q), h('div', { class: 'ans' }, 'На выполнение: ' + card.s + ' с'))),
           h('div', { class: 'row' }, btn('Старт!', go, 'big', { 'data-primary': true }), swapped ? null : btn('Заменить задание', () => { swapped = true; card = open.draw(); announce(); }, 'paper'))
         ], { turn: ti, role: 'Получает задание' });
       }

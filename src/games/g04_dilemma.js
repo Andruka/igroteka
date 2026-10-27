@@ -29,7 +29,7 @@
               ? h('button', { class: 'vsopt ' + cls, type: 'button', onclick: () => onPick(letter) }, h('b', null, letter), pic, h('span', { class: 'vt' }, text))
               : h('div', { class: 'vsopt ' + cls + (sel && sel !== letter ? ' dim' : '') + (sel === letter ? ' sel' : '') }, h('b', null, letter), pic, h('span', { class: 'vt' }, text));
           };
-          return h('div', { class: 'vs' }, mk('a', 'А', A), h('div', { class: 'vs-or' }, 'или'), mk('b', 'Б', B));
+          return h('div', { class: 'vs', 'data-tts': 'Вариант А. ' + A + '. Или вариант Б. ' + B }, mk('a', 'А', A), h('div', { class: 'vs-or' }, 'или'), mk('b', 'Б', B));
         };
         const others = range(api.n).filter(i => i !== ti);
         step1();

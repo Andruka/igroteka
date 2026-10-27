@@ -22,7 +22,7 @@
         function card(kind) {
           const c = (kind === 't' ? truths : dares).draw(filt) || (kind === 't' ? truths : dares).draw();
           api.show([
-            h('div', { class: 'card accent withpic' }, Pics.of(c.t, { size: 'xl', fallback: kind === 't' ? '🗣️' : '🎭' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, kind === 't' ? 'Правда' : 'Действие'), h('div', { class: 'big' }, c.t))),
+            h('div', { class: 'card accent withpic' }, Pics.of(c.t, { size: 'xl', fallback: kind === 't' ? '🗣️' : '🎭' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, kind === 't' ? 'Правда' : 'Действие'), h('div', { class: 'big', 'data-tts': c.t }, c.t))),
             judgeRow(api, 'Остальные решают: засчитываем?', kind === 't' ? 'Ответил(а) честно (+1)' : 'Выполнил(а) (+1)', ok => { if (ok) { api.score(ti, 1); sfx.ok(); } else sfx.bad(); step(ok); }, 'Пас (0)')
           ], { turn: ti, role: kind === 't' ? 'Отвечает честно' : 'Выполняет задание' });
         }
