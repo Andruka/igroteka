@@ -29,7 +29,7 @@
         function play() {
           const total0 = api.opts.time; let done = false;
           const timer = Timer(total0, { onEnd: timeUp });
-          const hold = peek(h('div', { class: 'card withpic' }, art(card, 'l'), h('div', { class: 'qbody' }, h('div', { class: 'big' }, card.w))), 'Подсмотреть выражение (зажать)');
+          const hold = peek(h('div', { class: 'card withpic' }, art(card, 'l'), h('div', { class: 'qbody' }, h('div', { class: 'big' }, card.w))), 'Подсмотреть выражение');
           api.show([
             h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Описывает ' + name), h('div', { class: 'mid-t' }, 'Расскажите, что происходит «на самом деле», как будто выражение понимается дословно.'), timer.el),
             hold,

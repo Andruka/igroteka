@@ -32,7 +32,7 @@
         }
         function play() {
           const total0 = api.opts.time; let done = false; const timer = Timer(total0, { onEnd: timeUp });
-          const hold = peek(h('div', { class: 'card' }, h('div', { class: 'big' }, card.w)), 'Подсмотреть слово (зажать)');
+          const hold = peek(h('div', { class: 'card' }, h('div', { class: 'big' }, card.w)), 'Подсмотреть слово');
           api.show([
             h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, card.c), h('div', { class: 'mid-t' }, 'Показывайте слово без звуков. Команда угадывает вслух.'), timer.el),
             hold,

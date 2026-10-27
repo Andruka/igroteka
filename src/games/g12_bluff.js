@@ -19,7 +19,7 @@
         function secret() {
           api.show([
             h('div', { class: 'card' }, h('div', { class: 'kicker' }, 'Только для рассказчика'), h('div', { class: 'mid-t' }, topic),
-              peek(h('div', { class: 'big ' + (truth ? 'vgood' : 'vbad') }, truth ? 'Это правда: расскажите то, что было на самом деле.' : 'Это выдумка: сочиняйте на ходу.'), 'Зажмите, чтобы узнать роль')),
+              peek(h('div', { class: 'big ' + (truth ? 'vgood' : 'vbad') }, truth ? 'Это правда: расскажите то, что было на самом деле.' : 'Это выдумка: сочиняйте на ходу.'), 'Нажмите, чтобы узнать роль')),
             btn('Запомнил — рассказываю', tell, 'big', { 'data-primary': true })
           ], { turn: ti, role: 'Читает свою роль' });
         }

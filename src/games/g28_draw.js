@@ -10,7 +10,12 @@
       ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
       for (const s of strokes) { ctx.strokeStyle = s.c; ctx.fillStyle = s.c; ctx.lineWidth = s.w; ctx.beginPath(); s.p.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); if (s.p.length === 1) { ctx.arc(s.p[0][0], s.p[0][1], s.w / 2, 0, 7); ctx.fill(); } else ctx.stroke(); }
     };
-    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * W / r.width, (e.clientY - r.top) * H / r.height]; };
+    const pos = e => { const r = cv.getBoundingClientRect(), bx = cv.clientLeft, by = cv.clientTop; return [(e.clientX - r.left - bx) * W / cv.clientWidth, (e.clientY - r.top - by) * H / cv.clientHeight]; };
+    const setCursor = () => {
+      const k = (cv.clientWidth || 800) / W, d = Math.max(8, Math.min(120, Math.round((eraser ? size * 1.8 : size) * k))), c = d / 2 + 2, n = d + 4;
+      const svg = eraser ? '<svg xmlns="http://www.w3.org/2000/svg" width="' + n + '" height="' + n + '"><rect x="2" y="2" width="' + d + '" height="' + d + '" fill="rgba(255,255,255,.6)" stroke="#141a46" stroke-width="2" stroke-dasharray="4 3"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="' + n + '" height="' + n + '"><circle cx="' + c + '" cy="' + c + '" r="' + d / 2 + '" fill="' + color + '" fill-opacity=".85" stroke="#fff" stroke-width="2"/><circle cx="' + c + '" cy="' + c + '" r="' + (d / 2 + 1) + '" fill="none" stroke="#141a46" stroke-width="1"/></svg>';
+      cv.style.cursor = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") ' + c + ' ' + c + ', crosshair';
+    };
     cv.addEventListener('pointerdown', e => { e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = { c: eraser ? '#fff' : color, w: eraser ? size * 1.8 : size, p: [pos(e)] }; strokes.push(cur); redraw(); });
     cv.addEventListener('pointermove', e => { if (!cur) return; cur.p.push(pos(e)); redraw(); });
     const up = () => { cur = null; }; ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => cv.addEventListener(n, up));
@@ -19,8 +24,8 @@
     const sizeBtns = SIZES.map(([s, l]) => h('button', { class: 'szb', type: 'button', 'aria-label': l + ' кисть', 'aria-pressed': s === size, onclick: () => { size = s; paint(); } }, h('i', { style: { width: Math.max(6, s) + 'px', height: Math.max(6, s) + 'px' } })));
     const er = h('button', { class: 'btn paper small', type: 'button', 'aria-pressed': false, onclick: () => { eraser = !eraser; paint(); } }, 'Ластик');
     const undo = btn('Отменить', () => { strokes.pop(); redraw(); }, 'paper small'), clear = btn('Очистить', () => { strokes = []; redraw(); }, 'paper small');
-    function paint() { colorBtns.forEach((b, i) => b.setAttribute('aria-pressed', !eraser && COLORS[i] === color)); sizeBtns.forEach((b, i) => b.setAttribute('aria-pressed', SIZES[i][0] === size)); er.setAttribute('aria-pressed', eraser); }
-    paint();
+    function paint() { setCursor(); colorBtns.forEach((b, i) => b.setAttribute('aria-pressed', !eraser && COLORS[i] === color)); sizeBtns.forEach((b, i) => b.setAttribute('aria-pressed', SIZES[i][0] === size)); er.setAttribute('aria-pressed', eraser); }
+    paint(); if (window.ResizeObserver) new ResizeObserver(setCursor).observe(cv);
     return { el: h('div', { class: 'padwrap' }, cv), tools: h('div', { class: 'padtools' }, h('div', { class: 'sws' }, colorBtns), h('div', { class: 'sws' }, sizeBtns), h('div', { class: 'sws' }, er, undo, clear)) };
   }
   registerGame({

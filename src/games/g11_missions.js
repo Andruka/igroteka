@@ -47,7 +47,7 @@
       if (i >= api.n) return party();
       handover(api, api.teams[i].name, 'Возьмите устройство и отвернитесь от остальных. Прочитайте миссию и запомните её.', () => {
         api.show([
-          h('div', { class: 'card' }, h('div', { class: 'kicker' }, 'Секретная миссия · ' + api.teams[i].name), peek(h('div', { class: 'card withpic' }, Pics.of(mis[i], { size: 'l', fallback: '🕶️' }), h('div', { class: 'qbody' }, h('div', { class: 'big' }, mis[i]))), 'Зажмите, чтобы прочитать')),
+          h('div', { class: 'card' }, h('div', { class: 'kicker' }, 'Секретная миссия · ' + api.teams[i].name), peek(h('div', { class: 'card withpic' }, Pics.of(mis[i], { size: 'l', fallback: '🕶️' }), h('div', { class: 'qbody' }, h('div', { class: 'big' }, mis[i]))), 'Нажмите, чтобы прочитать')),
           btn(i === api.n - 1 ? 'Запомнил — к вечеру' : 'Запомнил — передать дальше', () => deal(i + 1), 'big', { 'data-primary': true })
         ], { turn: i, role: 'Запоминает тайную миссию' });
       }, 'Показать миссию', i);

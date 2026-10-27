@@ -32,7 +32,7 @@
           const cnt = h('span', null, '0');
           api.show([
             h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, name + ' задаёт вопросы'), h('div', { class: 'mid-t' }, 'Вопросов задано: ', cnt), timer.el),
-            peek(h('div', { class: 'ans' }, 'Загадано: ' + card.w), 'Зажмите, чтобы напомнить слово остальным'),
+            peek(h('div', { class: 'ans' }, 'Загадано: ' + card.w), 'Нажмите, чтобы напомнить слово остальным'),
             h('div', { class: 'row' }, btn('Вопрос задан', () => { asked++; cnt.textContent = asked; sfx.click(); }, 'paper'), btn('Угадал!', () => { if (done) return; done = true; const left = timer.left; timer.stop(); const p = left >= total0 * .6 ? 3 : left >= total0 * .3 ? 2 : 1; api.score(ti, p); sfx.ok(); finish(true, p); }, 'big good', { 'data-primary': true }))
           ], { turn: ti, role: 'Задаёт вопросы «да» или «нет»' });
           timer.start();

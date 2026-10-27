@@ -146,17 +146,17 @@ function confetti(n = 80) {
   }
 }
 /* «зажмите, чтобы посмотреть» — тайная информация видна, пока держишь кнопку */
-function peek(secret, label = 'Зажмите, чтобы посмотреть') {
+function peek(secret, label = 'Нажмите, чтобы посмотреть') {
   const hold = h('button', { class: 'btn big sky', type: 'button', style: { touchAction: 'none' } }, label);
   const body = h('div', { class: 'hidden' }, secret);
   const wrap = h('div', { class: 'stack center', style: { alignItems: 'center' } }, body, hold);
-  const show = () => { body.classList.remove('hidden'); hold.textContent = 'Отпустите, чтобы спрятать'; };
-  const hide = () => { body.classList.add('hidden'); hold.textContent = label; };
-  ['pointerdown'].forEach(e => hold.addEventListener(e, ev => { ev.preventDefault(); show(); }));
-  ['pointerup', 'pointerleave', 'pointercancel'].forEach(e => hold.addEventListener(e, hide));
-  hold.addEventListener('keydown', ev => { if (ev.key === ' ' || ev.key === 'Enter') { ev.preventDefault(); show(); } });
-  hold.addEventListener('keyup', ev => { if (ev.key === ' ' || ev.key === 'Enter') hide(); });
-  hold.addEventListener('blur', hide);
+  let shown = false, t0 = 0;
+  const show = () => { shown = true; body.classList.remove('hidden'); hold.textContent = 'Нажмите, чтобы спрятать'; };
+  const hide = () => { shown = false; body.classList.add('hidden'); hold.textContent = label; };
+  /* короткое нажатие переключает, долгое удержание работает как раньше */
+  hold.addEventListener('pointerdown', ev => { ev.preventDefault(); t0 = performance.now(); if (!shown) show(); else { hide(); t0 = -1; } });
+  hold.addEventListener('pointerup', () => { if (t0 > 0 && performance.now() - t0 > 450) hide(); });
+  hold.addEventListener('keydown', ev => { if (ev.key === ' ' || ev.key === 'Enter') { ev.preventDefault(); shown ? hide() : show(); } });
   hold.addEventListener('contextmenu', e => e.preventDefault());
   return wrap;
 }

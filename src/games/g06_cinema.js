@@ -30,7 +30,7 @@
         }
         function play() {
           const timer = Timer(api.opts.time, { onEnd: () => timeUp() }); const total0 = api.opts.time; let done = false;
-          const hold = peek(h('div', { class: 'card' }, h('div', { class: 'big' }, card.title)), 'Подсмотреть название (зажать)');
+          const hold = peek(h('div', { class: 'card' }, h('div', { class: 'big' }, card.title)), 'Подсмотреть название');
           api.show([
             h('div', { class: 'card accent withpic' }, Pics.of(card.style ? card.style.s + ' ' + card.style.d : '', { size: 'xl', fallback: '🎭' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Идёт рассказ · ' + name), h('div', { class: 'big' }, card.style ? card.style.s : 'Объясняйте как хотите'), card.style ? h('div', { class: 'mid-t' }, card.style.d) : null, timer.el)),
             hold,
