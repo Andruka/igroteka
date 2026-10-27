@@ -199,6 +199,7 @@ function muteBtn() {
   return b;
 }
 function fullBtn() {
+  if (!document.fullscreenEnabled && !document.webkitFullscreenEnabled) return null;
   const b = h('button', { class: 'btn ghost icon', type: 'button', title: 'На весь экран', 'aria-label': 'На весь экран', onclick: toggleFull }, ico(document.fullscreenElement ? 'exit' : 'full'));
   const sync = () => { if (b.isConnected) b.replaceChildren(ico(document.fullscreenElement ? 'exit' : 'full')); else document.removeEventListener('fullscreenchange', sync); };
   document.addEventListener('fullscreenchange', sync);
@@ -350,9 +351,9 @@ function startSession(game, teamList, opts) {
   const frame = h('div', { class: 'frame room', style: { '--accent': game.color } },
     h('div', { class: 'motif', 'aria-hidden': 'true' }, ...gameArt(game).concat(gameArt(game)).map(e => h('span', null, e))),
     h('header', { class: 'bar' },
-      withIco(btn('Выход', () => api.exit(), 'ghost small'), 'back'),
+      withIco(btn(h('span', { class: 'lbl' }, 'Выход'), () => api.exit(), 'ghost small', { 'aria-label': 'Выход' }), 'back'),
       h('div', { class: 'bar-title' }, h('i', null, game.icon), game.title),
-      withIco(btn('Правила', () => api.rules(), 'ghost small'), 'help'), (ttsEl = ttsBtn(api)), flagBtn(api), setBtn(), muteBtn(), fullBtn()),
+      withIco(btn(h('span', { class: 'lbl' }, 'Правила'), () => api.rules(), 'ghost small', { 'aria-label': 'Правила' }), 'help'), (ttsEl = ttsBtn(api)), flagBtn(api), setBtn(), muteBtn(), fullBtn()),
     board, turnbar, stage);
   paintBoard(); mount(frame); game.start(api);
 }

@@ -249,3 +249,68 @@ h1,h2,h3,.big,.bar-title,.stepper b,.tchip .sc,.timer .tnum,.cipher{font-family:
 .drawside .padtools{flex-direction:column;align-items:stretch;gap:.6rem}.drawside .sws{flex-wrap:wrap}
 @media(max-width:900px){.drawlay{grid-template-columns:1fr}.pad{width:100%}}
 .veil .panel .muted,.panel:not(.dark) .muted{color:#4b5388}
+
+/* ===================== АДАПТАЦИЯ ПОД УСТРОЙСТВА ===================== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+button,.btn,.opt,.gcard,.chip,.tile{touch-action:manipulation}
+body{min-height:100vh;min-height:100dvh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+input,select,textarea{font-size:max(16px,1em)}
+.wrap{padding-left:max(clamp(18px,3vw,40px),env(safe-area-inset-left));padding-right:max(clamp(18px,3vw,40px),env(safe-area-inset-right))}
+
+/* наведение — только там, где есть мышь */
+@media(hover:none){
+  .btn:hover{filter:none}
+  .gcard:hover .art.has-ill .ill{transform:none}
+}
+
+/* пальцы: крупные цели касания */
+@media(pointer:coarse){
+  .btn{min-height:46px}
+  .btn.small,.btn.ghost.small,.btn.icon{min-height:46px}
+  .btn.icon{min-width:46px}
+  .chipbtn{min-height:44px}
+  .opt{min-height:56px}
+  .teamrow .mv .btn{min-width:46px}
+}
+
+/* шапка игры на телефоне: подписи прячем, остаются иконки */
+@media(max-width:640px){
+  .bar .btn .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .bar .btn.small{padding:.45em;min-width:44px}
+  .bar .bar-title{font-size:1em}
+  .bar{gap:6px;padding:6px max(8px,env(safe-area-inset-left))}
+}
+@media(max-width:400px){
+  .bar .bar-title{font-size:0;gap:0}
+  .bar .bar-title i{font-size:16px}
+  .bar .grow,.bar .bar-title{flex:1 1 auto}
+}
+
+/* телефон в ландшафте: экономим высоту */
+@media(max-height:520px) and (orientation:landscape){
+  .bar{padding-top:4px;padding-bottom:4px}
+  .turnbar{padding-top:4px;padding-bottom:4px}
+  .stage{padding-top:8px}
+  .hero h1{font-size:clamp(36px,8vh,64px)}
+  .hero-ill{display:none}
+  .pad{width:min(100%,calc((100vh - 150px)*1200/680))}
+}
+
+/* большие экраны/ТВ */
+@media(min-width:2200px){html{font-size:125%}}
+@media(min-width:3000px){html{font-size:175%}}
+
+/* Своя игра на узком экране: равные колонки, плотные подписи */
+.jp{grid-template-columns:repeat(var(--cols),minmax(0,1fr))}
+.jp-head{overflow-wrap:anywhere;hyphens:auto}
+@media(max-width:640px){
+  .jp{gap:5px}.jp-col{gap:5px}
+  .jp-head{font-size:.74rem;min-height:3.4em;padding:.3em .15em;border-radius:10px;line-height:1.1}
+  .jp-cell{font-size:1.15rem;padding:.55em .1em;border-radius:10px;min-height:48px}
+}
+/* шапка игры: на самых узких экранах убираем название, чтобы влезли все кнопки */
+@media(max-width:460px){
+  .bar .bar-title{display:none}
+  .bar{justify-content:space-between}
+  .bar .btn,.bar .btn.small,.bar .btn.icon{min-width:40px;min-height:44px;padding:.4em}
+}
