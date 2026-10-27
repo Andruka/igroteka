@@ -17,9 +17,9 @@
         const name = api.teams[ti].name; let skips = 2, card = deck.draw();
         intro();
         function intro() {
-          api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total), h('div', { class: 'big' }, name),
+          api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total),
             h('p', { class: 'mid-t' }, 'Выберите рассказчика. Остальные отвернитесь от экрана: выражение увидит только он.'),
-            btn('Показать рассказчику', reveal, 'big', { 'data-primary': true })), { turn: ti, mid: true });
+            btn('Показать рассказчику', reveal, 'big', { 'data-primary': true })), { turn: ti, mid: true, role: 'Выбирает рассказчика' });
         }
         function reveal() {
           api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Только для рассказчика'), art(card, 'xl'), h('div', { class: 'big' }, card.w), h('p', { class: 'hint' }, 'Смысл: ' + card.m + '.'),
@@ -34,7 +34,7 @@
             h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Описывает ' + name), h('div', { class: 'mid-t' }, 'Расскажите, что происходит «на самом деле», как будто выражение понимается дословно.'), timer.el),
             hold,
             h('div', { class: 'row' }, btn('Угадали!', guessed, 'big good', { 'data-primary': true }), skips > 0 ? btn('Пропустить (' + skips + ')', () => { skips--; timer.stop(); card = deck.draw(); reveal(); }, 'paper') : null)
-          ], { turn: ti });
+          ], { turn: ti, role: 'Описывает картинку, не называя слов' });
           timer.start();
           function guessed() {
             if (done) return; done = true; const left = timer.left; timer.stop();

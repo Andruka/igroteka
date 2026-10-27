@@ -18,9 +18,9 @@
         const fresh = () => card = { title: films.draw(), style: api.opts.style ? styles.draw() : null };
         fresh(); intro();
         function intro() {
-          api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total), h('div', { class: 'big' }, name),
+          api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total),
             h('p', { class: 'mid-t' }, 'Выберите рассказчика. Остальные отвернитесь от экрана — задание увидит только он.'),
-            btn('Показать задание рассказчику', reveal, 'big', { 'data-primary': true })), { turn: ti, mid: true });
+            btn('Показать задание рассказчику', reveal, 'big', { 'data-primary': true })), { turn: ti, mid: true, role: 'Выбирает рассказчика' });
         }
         function styleBox() { return card.style ? h('div', { class: 'ans' }, h('div', { class: 'kv' }, h('span', { class: 'badge' }, 'Стиль'), h('b', null, card.style.s)), h('div', { class: 'hint', style: { color: '#c7cdf5' } }, card.style.d)) : null; }
         function reveal() {
@@ -35,7 +35,7 @@
             h('div', { class: 'card accent withpic' }, Pics.of(card.style ? card.style.s + ' ' + card.style.d : '', { size: 'xl', fallback: '🎭' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Идёт рассказ · ' + name), h('div', { class: 'big' }, card.style ? card.style.s : 'Объясняйте как хотите'), card.style ? h('div', { class: 'mid-t' }, card.style.d) : null, timer.el)),
             hold,
             h('div', { class: 'row' }, btn('Угадали!', guessed, 'big good', { 'data-primary': true }), skips > 0 ? btn('Пропустить (' + skips + ')', () => { skips--; timer.stop(); fresh(); reveal(); }, 'paper') : null)
-          ], { turn: ti });
+          ], { turn: ti, role: 'Объясняет без слов названия' });
           timer.start();
           function guessed() {
             if (done) return; done = true; const left = timer.left; timer.stop(); const p = left >= total0 * .66 ? 3 : left >= total0 * .33 ? 2 : 1;

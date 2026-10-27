@@ -26,24 +26,23 @@
             twist ? h('div', { class: 'ans' }, 'Усложнение: ' + twist) : null, timer ? timer.el : null)),
           h('p', { class: 'mid-t muted' }, 'Придумайте ответ и запомните его. Когда все готовы — читаем по очереди.'),
           btn('Читаем ответы', () => read(0), 'big', { 'data-primary': true })
-        ], { turn: -1 });
+        ], { turn: -1, role: 'Все придумывают ответ', who: 'Все команды' });
         if (timer) timer.start();
       }
       function read(i) {
         if (i >= api.n) return vote();
         api.show([
-          h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Отвечает'), h('div', { class: 'big' }, api.teams[i].name),
-            h('p', { class: 'mid-t' }, 'Прочитайте свой ответ вслух.'), btn(i === api.n - 1 ? 'Все прочитали' : 'Дальше', () => read(i + 1), 'big', { 'data-primary': true }))
-        ], { turn: i, mid: true });
+          h('div', { class: 'cover' }, h('p', { class: 'mid-t' }, 'Прочитайте свой ответ вслух.'), btn(i === api.n - 1 ? 'Все прочитали' : 'Дальше', () => read(i + 1), 'big', { 'data-primary': true }))
+        ], { turn: i, mid: true, role: 'Читает свой ответ вслух' });
       }
       function vote() {
         if (api.n === 2) {
-          return api.show([h('div', { class: 'big' }, 'Чей ответ был смешнее?'), api.pickTeam('Решаете вдвоём:', who => { if (who < 0) { api.score(0, 1); api.score(1, 1); } else api.score(who, 2); sfx.ok(); after(who < 0 ? 'Ничья: по одному очку.' : api.teams[who].name + ' берёт раунд.'); }, { none: 'Ничья' })], { turn: -1 });
+          return api.show([h('div', { class: 'big' }, 'Чей ответ был смешнее?'), api.pickTeam('Решаете вдвоём:', who => { if (who < 0) { api.score(0, 1); api.score(1, 1); } else api.score(who, 2); sfx.ok(); after(who < 0 ? 'Ничья: по одному очку.' : api.teams[who].name + ' берёт раунд.'); }, { none: 'Ничья' })], { turn: -1, role: 'Решаете вдвоём', who: 'Обе команды' });
         }
         const votes = new Array(api.n).fill(0);
         const ask = j => {
           if (j >= api.n) { votes.forEach((v, i) => v && api.score(i, v)); const best = Math.max(...votes); const winners = votes.map((v, i) => v === best ? api.teams[i].name : null).filter(Boolean); sfx.ok(); return after(best ? 'Больше всего голосов: ' + winners.join(', ') + ' — ' + best + '.' : 'Никто не получил голосов.'); }
-          api.show([h('div', { class: 'big' }, api.teams[j].name + ', ваш голос'), api.pickTeam('Чей чужой ответ был самым смешным?', who => { if (who >= 0) votes[who]++; ask(j + 1); }, { exclude: [j], none: 'Никто' })], { turn: j });
+          api.show([api.pickTeam('Чей чужой ответ был самым смешным?', who => { if (who >= 0) votes[who]++; ask(j + 1); }, { exclude: [j], none: 'Никто' })], { turn: j, role: 'Голосует за самый смешной ответ' });
         };
         ask(0);
       }

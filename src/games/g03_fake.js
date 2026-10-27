@@ -16,7 +16,7 @@
         const f = deck.draw();
         const items = shuffle([...f.t.map(t => ({ t, ok: false })), { t: f.fake, ok: true }]);
         choiceRound(api, {
-          pic: Pics.of(f.topic, { size: 'xl', fallback: '🕵️' }), ti, kicker: '🕵️ Тема: ' + f.topic + ' · найдите фейк · ' + pts(200), title: 'Какое утверждение — фейк?',
+          pic: Pics.of(f.topic, { size: 'xl', fallback: '🕵️' }), ti, role: 'Ищет фейк', kicker: '🕵️ Тема: ' + f.topic + ' · найдите фейк · ' + pts(200), title: 'Какое утверждение — фейк?',
           items, pts: 200, stealPts: 100, time: api.opts.time, explain: 'Фейк: «' + f.fake + '» ' + f.why, last, next
         });
       });

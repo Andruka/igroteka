@@ -31,10 +31,11 @@ function choiceRound(api, c) {
   function steal() {
     if (c.steal === false || api.n < 2) { say('Верный ответ подсвечен.'); return reveal(); }
     const go = who => {
-      stealer = who; actions.replaceChildren(); say(api.teams[who].name + ', ваш шанс: верный ответ даст ' + pts(half) + '.');
+      stealer = who; api.setTurn(who, 'Перехватывает вопрос'); actions.replaceChildren(); say(api.teams[who].name + ', ваш шанс: верный ответ даст ' + pts(half) + '.');
       if (timer) { timer.reset(c.time); timer.start(); }
     };
     if (api.n === 2) return go(1 - c.ti);
+    api.setTurn(-1, 'Перехват за половину очков', 'Кто рискнёт?');
     say('Перехват за половину очков!');
     actions.replaceChildren(api.pickTeam('Кто перехватывает?', who => who < 0 ? (say('Никто не рискнул.'), reveal()) : go(who), { exclude: [c.ti], none: 'Никто' }));
   }
@@ -48,7 +49,7 @@ function choiceRound(api, c) {
   api.show([
     h('div', { class: 'card accent' + (c.pic ? ' withpic' : '') }, c.pic || null, h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, c.kicker), typeof c.title === 'string' ? h('div', { class: 'big' }, c.title) : c.title, timer ? timer.el : null)),
     h('div', { class: 'opts' }, bs), info, exp, actions
-  ], { turn: c.ti });
+  ], { turn: c.ti, role: c.role || 'Отвечает на вопрос' });
   if (timer) timer.start();
 }
 
@@ -59,11 +60,12 @@ function judgeRow(api, text, okLabel, onDone, badLabel = 'Не вышло') {
 }
 
 /* Кнопка-заглушка «передайте устройство» */
-function handover(api, who, text, go, label = 'Я готов') {
-  api.show(h('div', { class: 'cover' }, h('div', { class: 'big' }, who), h('p', { class: 'mid-t' }, text), btn(label, go, 'big', { 'data-primary': true })), { mid: true });
+function handover(api, who, text, go, label = 'Я готов', ti) {
+  api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Передайте устройство'), h('div', { class: 'big' }, who), h('p', { class: 'mid-t' }, text), btn(label, go, 'big', { 'data-primary': true })), ti === undefined ? { mid: true } : { mid: true, turn: ti, role: 'Берёт устройство' });
 }
 
 /* Заголовок хода */
 function turnHead(api, ti, sub) {
-  return h('div', null, h('div', { class: 'big' }, api.teams[ti].name), sub ? h('p', { class: 'mid-t muted' }, sub) : null);
+  /* имя игрока теперь показывает баннер хода; здесь остаётся только подсказка */
+  return sub ? h('p', { class: 'mid-t turnsub' }, sub) : null;
 }

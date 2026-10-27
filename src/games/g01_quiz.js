@@ -20,7 +20,7 @@
         api.show([
           turnHead(api, ti, 'Вопрос ' + k + ' из ' + total + '. Выберите тему и очки.'),
           h('div', { class: 'grid', style: { gridTemplateColumns: 'repeat(auto-fill,minmax(min(100%,230px),1fr))' } }, tiles)
-        ], { turn: ti });
+        ], { turn: ti, role: 'Выбирает тему и очки' });
         function ask(cat, lvl) {
           const q = deck.draw(x => x.c === cat.id && x.l === lvl);
           choiceRound(api, {

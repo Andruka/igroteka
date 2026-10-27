@@ -43,7 +43,7 @@
           turnHead(api, ti, 'Загадка ' + k + ' из ' + total),
           h('div', { class: 'card center' }, kick, h('div', { class: 'emoji-big' }, c.e), timer.el, hintBox),
           actions, after
-        ], { turn: ti });
+        ], { turn: ti, role: 'Угадывает фильм по эмодзи' });
         timer.start();
       });
     }

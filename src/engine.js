@@ -156,6 +156,8 @@ const ICO = {
   on: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7M19.2 5.8a9 9 0 010 12.4"/>',
   off: '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9.5l5 5M22 9.5l-5 5"/>',
   full: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2.2.7 3.5 2.6 3.5 5.6"/>',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   search: '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
   cam: '<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10.5l5-3v9l-5-3"/>',
@@ -188,9 +190,18 @@ function Home() {
   let cat = store.get('cat', 'Все'); if (!CATS.includes(cat)) cat = 'Все';
   const grid = h('div', { class: 'grid' }), chips = h('div', { class: 'filters' });
   const total = G.games.reduce((s, g) => s + (g.cards ? g.cards() : 0), 0);
+  let np = store.get('np', 0); if (![0, 2, 3, 4, 5, 6].includes(np)) np = 0;
+  const fits = g => { const t = g.teams || { min: 2, max: 8 }; return !np || g.coop || (np === 6 ? t.max >= 6 : np >= t.min && np <= t.max); };
+  const visible = () => G.games.filter(g => (cat === 'Все' || g.cats.includes(cat)) && fits(g));
+  const randomBtn = btn('Случайная игра', () => { const l = visible(); if (l.length) Intro(pick(l)); }, 'small paper');
   function paint() {
-    chips.replaceChildren(...CATS.map(c => h('button', { class: 'chipbtn', type: 'button', 'aria-pressed': c === cat, onclick: () => { cat = c; store.set('cat', c); paint(); } }, c)));
-    const list = G.games.filter(g => cat === 'Все' || g.cats.includes(cat));
+    chips.replaceChildren(...CATS.map(c => h('button', { class: 'chipbtn', type: 'button', 'aria-pressed': c === cat, onclick: () => { cat = c; store.set('cat', c); paint(); } }, c)),
+      h('span', { class: 'fsep', 'aria-hidden': 'true' }),
+      h('span', { class: 'flabel' }, 'Сколько вас?'),
+      ...[[0, 'Любо'], [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6+']].map(([n, l]) => h('button', { class: 'chipbtn num', type: 'button', 'aria-pressed': n === np, 'aria-label': n ? 'Игроков: ' + l : 'Любое число игроков', onclick: () => { np = n; store.set('np', n); paint(); } }, n ? l : 'Любое')),
+      randomBtn);
+    const list = visible();
+    if (!list.length) { grid.replaceChildren(h('div', { class: 'empty' }, h('b', null, 'Для такой компании игр не нашлось.'), h('span', null, 'Выберите другой раздел или число игроков.'))); return; }
     grid.replaceChildren(...list.map((g, i) => h('button', { class: 'gcard', type: 'button', style: { '--c': g.color, '--rot': ((i % 3) - 1) * .8 + 'deg' }, onclick: () => { sfx.click(); Intro(g); } },
       h('div', { class: 'art' + (DATA.art && DATA.art[g.id] ? ' has-ill' : '') }, DATA.art && DATA.art[g.id] ? Pics.ill(g.id) : null, ...(DATA.art && DATA.art[g.id] ? [] : gameArt(g).map((e, k) => h('span', { class: 'a' + (k + 1) }, e)))),
       h('div', { class: 'body' }, h('h3', null, g.title), h('p', { class: 'tag' }, g.tagline),
@@ -251,8 +262,18 @@ function Intro(g) {
 /* ---------- сессия ---------- */
 function startSession(game, teamList, opts) {
   const T = teamList.map(t => ({ name: t.name, color: t.color, score: 0 }));
-  const board = h('div', { class: 'board' }), stage = h('main', { class: 'stage' });
-  let turn = -1;
+  const board = h('div', { class: 'board' }), stage = h('main', { class: 'stage' }), turnbar = h('div', { class: 'turnbar', 'aria-live': 'polite' });
+  let turn = -1, lastBar = '';
+  /* крупный баннер «кто сейчас действует»: o.turn — индекс команды, o.role — что делает, o.all — действуют все */
+  function paintTurn(o) {
+    const role = o.role || '';
+    if (o.bar === false || (turn < 0 && !role)) { turnbar.className = 'turnbar off'; turnbar.replaceChildren(); lastBar = ''; return; }
+    const t = turn >= 0 ? T[turn] : null, key = (t ? t.name : '*') + '|' + role;
+    turnbar.className = 'turnbar' + (t ? '' : ' all') + (key !== lastBar && (t ? t.name : '*') !== lastBar.split('|')[0] ? ' swap' : '');
+    turnbar.style.setProperty('--c', t ? t.color : 'var(--sun)');
+    turnbar.replaceChildren(h('span', { class: 'tb-ico' }, ico(t ? 'user' : 'users')), h('div', { class: 'tb-txt' }, h('div', { class: 'tb-role' }, role || 'Сейчас ход'), h('div', { class: 'tb-name' }, t ? t.name : (o.who || 'Вся компания'))));
+    lastBar = key;
+  }
   function paintBoard(bumpIdx) {
     board.replaceChildren(...T.map((t, i) => h('div', { class: 'tchip' + (i === turn ? ' on' : '') + (i === bumpIdx ? ' bump' : ''), style: { '--c': t.color } }, h('span', null, t.name), game.noScore ? null : h('span', { class: 'sc' }, t.score))));
     board.style.display = (game.coop && game.noBoard) ? 'none' : '';
@@ -261,10 +282,10 @@ function startSession(game, teamList, opts) {
     game, teams: T, opts, n: T.length, stage,
     show(content, o = {}) {
       runLeave(); stage.className = 'stage' + (o.mid ? ' mid' : ''); stage.replaceChildren(...[].concat(content).flat(Infinity).filter(Boolean));
-      if (o.turn !== undefined) turn = o.turn; paintBoard(); window.scrollTo(0, 0);
+      if (o.turn !== undefined) turn = o.turn; paintBoard(); paintTurn(o); window.scrollTo(0, 0);
       const p = stage.querySelector('[data-primary]'); if (p) p.focus({ preventScroll: true });
     },
-    setTurn(i) { turn = i; paintBoard(); },
+    setTurn(i, role, who) { turn = i; paintBoard(); paintTurn({ role, who }); },
     score(i, d) { T[i].score += d; paintBoard(d ? i : undefined); },
     rules() { const m = modal(h('div', null, h('h2', { style: { marginBottom: '.6rem' } }, game.title), h('div', { class: 'rules', html: game.rules })), [btn('Понятно', () => m.close(), '')]); },
     exit() { confirmBox('Выйти из игры? Очки не сохранятся.', Home, 'Выйти', 'Остаться'); },
@@ -283,7 +304,7 @@ function startSession(game, teamList, opts) {
       withIco(btn('Выход', () => api.exit(), 'ghost small'), 'back'),
       h('div', { class: 'bar-title' }, h('i', null, game.icon), game.title),
       withIco(btn('Правила', () => api.rules(), 'ghost small'), 'help'), muteBtn(), fullBtn()),
-    board, stage);
+    board, turnbar, stage);
   paintBoard(); mount(frame); game.start(api);
 }
 

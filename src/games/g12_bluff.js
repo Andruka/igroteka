@@ -15,26 +15,26 @@
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name, topic = deck.draw(), truth = Math.random() < .5;
         const voters = range(api.n).filter(i => i !== ti);
-        handover(api, name, 'Ход ' + k + ' из ' + total + '. Остальные, отвернитесь от экрана: роль увидит только рассказчик.', secret, 'Показать роль');
+        handover(api, name, 'Ход ' + k + ' из ' + total + '. Остальные, отвернитесь от экрана: роль увидит только рассказчик.', secret, 'Показать роль', ti);
         function secret() {
           api.show([
             h('div', { class: 'card' }, h('div', { class: 'kicker' }, 'Только для рассказчика'), h('div', { class: 'mid-t' }, topic),
               peek(h('div', { class: 'big ' + (truth ? 'vgood' : 'vbad') }, truth ? 'Это правда: расскажите то, что было на самом деле.' : 'Это выдумка: сочиняйте на ходу.'), 'Зажмите, чтобы узнать роль')),
             btn('Запомнил — рассказываю', tell, 'big', { 'data-primary': true })
-          ], { turn: ti });
+          ], { turn: ti, role: 'Читает свою роль' });
         }
         function tell() {
           api.show([
             h('div', { class: 'card accent withpic' }, Pics.of(topic, { size: 'xl', fallback: '💭' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Рассказывает ' + name), h('div', { class: 'big' }, topic), h('p', { class: 'mid-t' }, 'Расскажите историю. Когда закончите, начнутся вопросы.'))),
             btn('Рассказ окончен — вопросы', ask, 'big', { 'data-primary': true })
-          ], { turn: ti });
+          ], { turn: ti, role: 'Рассказывает историю' });
         }
         function ask() {
           const timer = Timer(api.opts.ask, { onEnd: () => { sfx.buzz(); vote(); } });
           api.show([
             h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Вопросы к ' + name), h('p', { class: 'mid-t' }, 'Задавайте любые уточняющие вопросы: где, когда, кто был рядом, что сказали. Рассказчик отвечает уверенно.'), timer.el),
             btn('К голосованию', () => { timer.stop(); vote(); }, 'big', { 'data-primary': true })
-          ], { turn: ti });
+          ], { turn: ti, role: 'Отвечает на вопросы' });
           timer.start();
         }
         function vote() {
@@ -46,7 +46,7 @@
             go.disabled = [...choice.values()].some(v => v === null);
           };
           paint();
-          api.show([h('div', { class: 'big' }, 'Голосуем'), h('p', { class: 'mid-t' }, 'Каждый слушатель решает: верит он рассказчику или нет.'), box, go], { turn: ti });
+          api.show([h('div', { class: 'big' }, 'Голосуем'), h('p', { class: 'mid-t' }, 'Каждый слушатель решает: верит он рассказчику или нет.'), box, go], { turn: -1, role: 'Голосуют слушатели', who: 'Все, кроме рассказчика' });
           function reveal() {
             let fooled = 0, right = [];
             voters.forEach(i => { const ok = choice.get(i) === truth; if (ok) { api.score(i, 1); right.push(api.teams[i].name); } else fooled++; });
@@ -56,7 +56,7 @@
               h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Это была'), h('div', { class: 'big' }, truth ? 'ПРАВДА' : 'ВЫДУМКА'),
                 h('p', { class: 'mid-t' }, 'Угадали: ' + (right.length ? right.join(', ') : 'никто') + '.' + (fooled ? ' ' + name + ' получает ' + pts(fooled) + '.' : '')),
                 btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true }))
-            ], { turn: ti, mid: true });
+            ], { turn: ti, mid: true, role: 'Итог раунда' });
           }
         }
       });

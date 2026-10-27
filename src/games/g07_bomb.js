@@ -25,7 +25,7 @@
           h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'xl', fallback: card.t === 'a' ? '🎬' : '💣' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Бомба ' + round + ' из ' + total + (card.t === 'a' ? ' · задание' : ' · тема')),
             h('div', { class: 'big' }, card.q), h('p', { class: 'mid-t muted' }, 'Первым бомбу получает ' + api.teams[holder0].name + '.'))),
           btn('Запустить бомбу', () => play(card, holder0), 'big', { 'data-primary': true })
-        ], { turn: holder0 });
+        ], { turn: holder0, role: 'Первым получает бомбу' });
       }
       function play(card, start) {
         let holder = start, over = false, passes = 0;
@@ -47,7 +47,7 @@
         const paint = () => {
           who.textContent = api.teams[holder].name;
           sub.textContent = 'Бомба у вас. Назовите и передайте.';
-          api.setTurn && api.setTurn(holder);
+          api.setTurn(holder, 'Держит бомбу');
         };
         function explode(by) {
           if (over) return; over = true; stop();
@@ -60,7 +60,7 @@
               h('div', { class: 'big' }, api.teams[loser].name + ' выбывает из раунда'),
               h('p', { class: 'mid-t' }, 'Остальные получают по очку. Передач за раунд: ' + passes + '.'),
               btn(round >= total ? 'Итоги' : 'Следующая бомба', next, 'big', { 'data-primary': true }))
-          ], { turn: loser, mid: true });
+          ], { turn: loser, mid: true, role: 'Бомба взорвалась у игрока' });
         }
         api.show([
           h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'l', fallback: card.t === 'a' ? '🎬' : '💣' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, card.t === 'a' ? 'Задание' : 'Тема'), h('div', { class: 'big' }, card.q))),
@@ -68,7 +68,7 @@
           h('div', { class: 'row' },
             btn('Передать дальше', () => { passes++; sfx.click(); holder = (holder + 1) % api.n; paint(); }, 'huge', { 'data-primary': true }),
             btn('Повтор или мимо — взрыв!', () => explode('foul'), 'bad'))
-        ], { turn: holder });
+        ], { turn: holder, role: 'Держит бомбу' });
         paint();
         tick();
         boomTimer = setTimeout(() => explode('time'), fuse);

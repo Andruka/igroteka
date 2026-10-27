@@ -24,14 +24,14 @@
         api.show([
           h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'xl', fallback: MTAG[card.t] || '🎯' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total + ' · ' + card.t), h('div', { class: 'big' }, name), h('div', { class: 'mid-t' }, card.q), h('div', { class: 'ans' }, 'На выполнение: ' + card.s + ' с'))),
           h('div', { class: 'row' }, btn('Старт!', go, 'big', { 'data-primary': true }), swapped ? null : btn('Заменить задание', () => { swapped = true; card = open.draw(); announce(); }, 'paper'))
-        ], { turn: ti });
+        ], { turn: ti, role: 'Получает задание' });
       }
       function go() {
         const timer = Timer(card.s, { onEnd: () => { sfx.buzz(); } });
         api.show([
           h('div', { class: 'card accent withpic' }, Pics.of(card.q, { size: 'l', fallback: MTAG[card.t] || '🎯' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, name + ' · ' + card.t), h('div', { class: 'mid-t' }, card.q), timer.el)),
           judgeRow(api, 'Остальные решают: получилось?', 'Получилось (+2)', ok => { timer.stop(); if (ok) { api.score(ti, 2); sfx.ok(); } else sfx.bad(); after(ok); }, 'Не вышло')
-        ], { turn: ti });
+        ], { turn: ti, role: 'Выполняет задание' });
         timer.start();
       }
       function after(ok) {
@@ -49,8 +49,8 @@
         api.show([
           h('div', { class: 'card' }, h('div', { class: 'kicker' }, 'Секретная миссия · ' + api.teams[i].name), peek(h('div', { class: 'card withpic' }, Pics.of(mis[i], { size: 'l', fallback: '🕶️' }), h('div', { class: 'qbody' }, h('div', { class: 'big' }, mis[i]))), 'Зажмите, чтобы прочитать')),
           btn(i === api.n - 1 ? 'Запомнил — к вечеру' : 'Запомнил — передать дальше', () => deal(i + 1), 'big', { 'data-primary': true })
-        ], { turn: i });
-      }, 'Показать миссию');
+        ], { turn: i, role: 'Запоминает тайную миссию' });
+      }, 'Показать миссию', i);
     }
     function party() {
       const timer = Timer(api.opts.mins * 60, { onEnd: () => { sfx.buzz(); reveal(0); }, quiet: true });
@@ -58,7 +58,7 @@
         h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Идёт вечер'), h('div', { class: 'big' }, 'Общайтесь как обычно'),
           h('p', { class: 'mid-t' }, 'Тихо выполняйте свои миссии. Не раскрывайте их и не просите прямо. Когда таймер закончится, признавайтесь.'), timer.el),
         btn('Закончить досрочно', () => { timer.stop(); reveal(0); }, 'paper')
-      ], { turn: -1 });
+      ], { turn: -1, role: 'Идёт вечер: все тихо выполняют миссии', who: 'Вся компания' });
       timer.start();
     }
     function reveal(i) {
@@ -66,7 +66,7 @@
       api.show([
         h('div', { class: 'card accent withpic' }, Pics.of(mis[i], { size: 'l', fallback: '🕶️' }), h('div', { class: 'qbody' }, h('div', { class: 'kicker' }, 'Признание'), h('div', { class: 'big' }, api.teams[i].name), h('div', { class: 'mid-t' }, 'Миссия: ' + mis[i]))),
         judgeRow(api, 'Остальные решают: миссия выполнена и осталась незамеченной?', 'Засчитать (+3)', ok => { if (ok) { api.score(i, 3); sfx.ok(); } else sfx.bad(); reveal(i + 1); }, 'Не засчитывать')
-      ], { turn: i });
+      ], { turn: i, role: 'Признаётся в своей миссии' });
     }
   }
 }

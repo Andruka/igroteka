@@ -39,13 +39,13 @@
             vs(),
             h('p', { class: 'mid-t' }, (others.length === 1 ? api.teams[others[0]].name + ', на' : 'Остальные, на') + ' счёт «три» покажите пальцами: 1 — вариант А, 2 — вариант Б.'),
             btn('Угадали — показываем выбор', step2, 'big', { 'data-primary': true })
-          ], { turn: ti });
+          ], { turn: ti, role: 'Остальные угадывают выбор игрока' });
         }
         function step2() {
           api.show([
             turnHead(api, ti, name + ', каков ваш настоящий выбор?'),
             vs(letter => step3(letter))
-          ], { turn: ti });
+          ], { turn: ti, role: 'Делает настоящий выбор' });
         }
         function step3(choice) {
           const right = new Set();
@@ -60,7 +60,7 @@
             vs(null, choice),
             h('div', { class: 'stack' }, h('div', { class: 'mid-t' }, 'Кто угадал? Нажмите на тех, кто показал такой же вариант.'), picks),
             btn('Готово', () => done(choice, right), 'big', { 'data-primary': true })
-          ], { turn: ti });
+          ], { turn: ti, role: 'Сделал(а) выбор — проверяем догадки' });
         }
         function done(choice, right) {
           right.forEach(i => api.score(i, 1));
@@ -72,7 +72,7 @@
             vs(null, choice),
             h('div', { class: 'card' }, h('div', { class: 'mid-t' }, 'А теперь объясните свой выбор. Остальные могут задать по одному вопросу.')),
             btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true })
-          ], { turn: ti });
+          ], { turn: ti, role: 'Объясняет свой выбор' });
         }
       });
     }
