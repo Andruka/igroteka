@@ -6,7 +6,7 @@
     id: 'emoji', title: 'Эмодзи-кино', icon: '🎬', color: '#ff7ab8',
     cats: ['Викторины', 'Для компании', 'Для двоих'], teams: { min: 1, max: 8 }, mins: 25,
     tagline: 'Смайлики зашифровали название фильма, мультфильма или сериала. Кто угадает быстрее?',
-    rules: '<ul><li>Команда видит цепочку смайликов и угадывает название. Достаточно назвать его близко к оригиналу.</li><li>Чем меньше подсказок, тем больше очков: <b>3</b> без подсказки, <b>2</b> с первой, <b>1</b> со второй.</li><li>Когда время вышло или команда готова ответить, нажмите «Показать ответ» и отметьте, кто назвал верно.</li><li>Если угадала другая команда, она получает 1 очко.</li></ul>',
+    rules: '<ul><li>Команда видит цепочку смайликов и угадывает название. Достаточно назвать его близко к оригиналу.</li><li>Чем меньше подсказок, тем больше очков: <b>3</b> без подсказки, <b>2</b> с первой, <b>1</b> со второй.</li><li>Отвечает только команда, чей сейчас ход. Когда время вышло или она готова ответить, нажмите «Показать ответ» и отметьте, угадала ли она.</li><li>Если не угадала, остальные команды могут перехватить загадку: та, что назвала верно, получает 1 очко.</li></ul>',
     opts: [
       { key: 'rounds', label: 'Загадок у каждой команды', values: [3, 5, 8], def: 5 },
       { key: 'level', label: 'Сложность', values: [[0, 'Любая'], [1, 'Лёгкая'], [2, 'Средняя'], [3, 'Сложная']], def: 0 },
@@ -33,15 +33,25 @@
           const p = points();
           after.replaceChildren(
             h('div', { class: 'ans' }, h('div', { class: 'kv' }, h('span', { class: 'badge' }, c.t), h('span', { class: 'big' }, c.n))),
-            api.pickTeam('Кто назвал правильно?', who => {
-              if (who === ti) { api.score(ti, p); sfx.ok(); } else if (who >= 0) { api.score(who, 1); sfx.ok(); } else sfx.bad();
-              after.replaceChildren(btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true })); after.firstChild.focus();
-            }, { none: 'Никто не угадал' }));
+            h('div', { class: 'stack' }, h('div', { class: 'mid-t' }, api.teams[ti].name + ' назвала название верно?'),
+              h('div', { class: 'row' }, btn('Да, +' + pts(p), () => done(ti, p), 'big good', { 'data-primary': true }), btn('Нет', miss, 'big bad'))));
+          api.setTurn(ti, 'Проверка ответа');
+        }
+        function done(who, p) {
+          if (who >= 0) { api.score(who, p); sfx.ok(); } else sfx.bad();
+          after.replaceChildren(btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true })); after.firstChild.focus();
+        }
+        function miss() {
+          sfx.bad();
+          if (api.n < 2) return done(-1, 0);
+          api.setTurn(-1, 'Перехват за 1 очко', 'Остальные команды');
+          after.replaceChildren(h('div', { class: 'ans' }, h('div', { class: 'kv' }, h('span', { class: 'badge' }, c.t), h('span', { class: 'big' }, c.n))),
+            api.pickTeam('Перехват: кто из остальных назвал название верно? (+1 очко)', who => done(who, 1), { exclude: [ti], none: 'Никто не угадал' }));
         }
         actions.append(btn('Показать ответ', reveal, 'big', { 'data-primary': true }), hintBtn);
         api.show([
           turnHead(api, ti, 'Загадка ' + k + ' из ' + total),
-          h('div', { class: 'card center' }, kick, h('div', { class: 'emoji-big' }, c.e), timer.el, hintBox),
+          h('div', { class: 'card center' }, kick, h('p', { class: 'hint' }, 'Отвечает ' + api.teams[ti].name + '. Остальные молчат: если она не угадает, будет перехват.'), h('div', { class: 'emoji-big' }, c.e), timer.el, hintBox),
           actions, after
         ], { turn: ti, role: 'Угадывает фильм по эмодзи' });
         timer.start();

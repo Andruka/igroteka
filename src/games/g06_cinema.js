@@ -44,7 +44,7 @@
           function timeUp() {
             if (done) return; done = true; sfx.buzz();
             const who = api.n > 1 ? api.pickTeam('Время вышло. Кто из соперников назвал фильм?', w => { if (w >= 0) { api.score(w, 1); sfx.ok(); } finish(w >= 0 ? api.teams[w].name + ' угадали: +1 очко.' : 'Никто не угадал.'); }, { exclude: [ti], none: 'Никто' }) : null;
-            api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Время вышло. Это был фильм:'), h('div', { class: 'big' }, card.title)), who || btn('Дальше', next, 'big', { 'data-primary': true })], { turn: ti });
+            api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Время вышло. Это был фильм:'), h('div', { class: 'big' }, card.title)), who || btn('Дальше', next, 'big', { 'data-primary': true })], api.n > 1 ? { turn: -1, role: 'Перехват: отмечаем, кто угадал', who: 'Соперники' } : { turn: ti });
           }
         }
         function finish(msg) {

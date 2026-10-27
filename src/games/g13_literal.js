@@ -40,11 +40,11 @@
             if (done) return; done = true; const left = timer.left; timer.stop();
             const p = left >= total0 * .66 ? 3 : left >= total0 * .33 ? 2 : 1;
             if (api.n === 2) { who(0, p, true); return; }
-            api.show([h('div', { class: 'big' }, 'Кто угадал?'), api.pickTeam('Выберите команду, которая назвала выражение:', w => who(w, p), {})], { turn: ti });
+            api.show([h('div', { class: 'big' }, 'Кто угадал?'), api.pickTeam('Выберите команду, которая назвала выражение:', w => who(w, p), {})], { turn: -1, role: 'Отмечаем, кто угадал', who: 'Все команды' });
           }
           function who(w, p, two) {
             if (two) {
-              return api.show([h('div', { class: 'big' }, 'Кто угадал?'), api.pickTeam('Кто назвал выражение?', w2 => who2(w2, p), {})], { turn: ti });
+              return api.show([h('div', { class: 'big' }, 'Кто угадал?'), api.pickTeam('Кто назвал выражение?', w2 => who2(w2, p), {})], { turn: -1, role: 'Отмечаем, кто угадал', who: 'Все команды' });
             }
             who2(w, p);
           }
@@ -61,7 +61,7 @@
           function timeUp() {
             if (done) return; done = true; sfx.buzz();
             const q = api.pickTeam('Время вышло. Кто из соперников всё-таки назвал выражение?', w => { if (w >= 0) { api.score(w, 1); sfx.ok(); } show2(w >= 0 ? api.teams[w].name + ' угадали: +1 очко.' : 'Никто не угадал.'); }, { exclude: [ti], none: 'Никто' });
-            api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Время вышло. Это было:'), art(card, 'l'), h('div', { class: 'big' }, card.w)), q], { turn: ti });
+            api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Время вышло. Это было:'), art(card, 'l'), h('div', { class: 'big' }, card.w)), q], { turn: api.n > 1 ? -1 : ti, role: 'Перехват: отмечаем, кто угадал', who: 'Соперники' });
           }
           function show2(msg) {
             api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, card.w), h('div', { class: 'big' }, card.m), h('p', { class: 'mid-t' }, msg), btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true })), { turn: ti, mid: true });
