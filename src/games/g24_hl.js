@@ -1,6 +1,6 @@
 /* 24. Больше или меньше */
 {
-  const deck = makeDeck('hl', DATA.hl);
+  const deck0 = makeDeck('hl', DATA.hl), deckH = makeDeck('hlhard', DATA.hlHard);
   const CATE = [[/высот|выше/i, '⛰️'], [/река|длиннее/i, '🌊'], [/страна|площад/i, '🗺️'], [/тяжелее/i, '⚖️'], [/быстрее/i, '💨'], [/живёт/i, '⏳'], [/жител|мире/i, '👥'], [/диаметр|солнц/i, '🪐'], [/глубже/i, '🌊'], [/длиннее/i, '📏']];
   const vsPic = q => { const a = Pics.find(q.a, 1)[0], b = Pics.find(q.b, 1)[0], c = (CATE.find(x => x[0].test(q.q)) || [0, '📏'])[1]; return a && b ? [a, b] : a || b ? [a || b, c] : [c]; };
   const fmt = (v, u) => v.toLocaleString('ru-RU') + ' ' + u;
@@ -9,12 +9,13 @@
     cats: ['Викторины', 'Для компании', 'Командные', 'Для двоих'], teams: { min: 1, max: 8 }, mins: 15,
     tagline: 'Что выше, длиннее, тяжелее? Угадайте, у какого варианта значение больше.',
     rules: '<ul><li>Команды ходят по очереди. Читайте вопрос и два варианта.</li><li>Нажмите тот, у которого значение больше.</li><li>Верно: 2 очка. Ошиблись: соперники могут перехватить за 1 очко. После ответа показываем числа.</li></ul>',
-    opts: [
+    opts: [LEVEL_OPT, 
       { key: 'rounds', label: 'Вопросов у каждой команды', values: [4, 6, 10], def: 6 },
       { key: 'time', label: 'Время на ответ', values: [[0, 'Без таймера'], [15, '15 секунд'], [30, '30 секунд']], def: 0 }
     ],
-    cards: () => DATA.hl.length,
+    cards: () => DATA.hl.length + DATA.hlHard.length,
     start(api) {
+      const deck = levelDeck(deck0, deckH, api.opts.level);
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const q = deck.draw(), aw = q.va > q.vb;
         choiceRound(api, {

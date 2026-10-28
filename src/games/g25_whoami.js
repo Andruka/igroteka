@@ -2,19 +2,22 @@
 {
   const items = [];
   const _seen = new Set(); for (const c in DATA.whoami) DATA.whoami[c].split(',').forEach(w => { w = w.trim(); if (w && !_seen.has(w.toLowerCase())) { _seen.add(w.toLowerCase()); items.push({ c, w }); } });
-  const deck = makeDeck('whoami', items);
+  const itemsH = []; for (const c in DATA.whoamiHard) DATA.whoamiHard[c].split(',').forEach(w => { w = w.trim(); if (w) itemsH.push({ c, w }); });
+  const deck0 = makeDeck('whoami', items), deckH = makeDeck('whoamihard', itemsH);
   registerGame({
     id: 'whoami', title: 'Кто я?', icon: '🎭', color: '#ff7ab8',
     cats: ['Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 8 }, unit: 'Игрок', unitOne: 'игрок', unitFew: 'игрока', unitMany: 'игроков', mins: 20,
     tagline: 'Вам загадали персонажа или предмет. Задавайте остальным вопросы, на которые можно ответить «да» или «нет».',
     rules: '<ul><li>Угадывающий отворачивается от экрана. Остальные видят загаданное слово.</li><li>Угадывающий задаёт вопросы, на которые можно ответить только «да» или «нет»: «Я живой?», «Я из мультфильма?».</li><li>Время ограничено. Угадал: 3, 2 или 1 очко в зависимости от скорости.</li><li>Слово можно сменить один раз за ход, если оно оказалось совсем незнакомым.</li></ul>',
     opts: [
-      { key: 'cats', label: 'Категории', multi: true, values: () => [...new Set(items.map(x => x.c))], def: [] },
+      LEVEL_OPT,
+      { key: 'cats', label: 'Категории', multi: true, values: () => [...new Set(items.concat(itemsH).map(x => x.c))], def: [] },
       { key: 'rounds', label: 'Ходов у каждого', values: [1, 2, 3], def: 2 },
       { key: 'time', label: 'Время на вопросы', values: [[60, '60 секунд'], [90, '90 секунд'], [120, '2 минуты']], def: 90 }
     ],
-    cards: () => items.length,
+    cards: () => items.length + itemsH.length,
     start(api) {
+      const deck = levelDeck(deck0, deckH, api.opts.level);
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name; const cs = api.opts.cats || [], filt = x => !cs.length || cs.includes(x.c); let card = deck.draw(filt), swapped = false;
         api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total), h('div', { class: 'big' }, name + ' угадывает'),

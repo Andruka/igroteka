@@ -69,3 +69,12 @@ function turnHead(api, ti, sub) {
   /* имя игрока теперь показывает баннер хода; здесь остаётся только подсказка */
   return sub ? h('p', { class: 'mid-t turnsub' }, sub) : null;
 }
+
+/* Выбор сложности «Обычная / Смешанная / Для знатоков»: возвращает колоду-обёртку */
+const LEVEL_OPT = { key: 'level', label: 'Сложность', values: [['norm', 'Обычная'], ['mix', 'Смешанная'], ['hard', 'Для знатоков']], def: 'norm' };
+function levelDeck(norm, hard, level) {
+  return {
+    draw(f) { const useH = level === 'hard' || (level === 'mix' && Math.random() < .5); const d = useH && hard.has(f) ? hard : norm; return d.draw(f); },
+    has(f) { return level === 'hard' ? hard.has(f) : norm.has(f) || hard.has(f); }
+  };
+}

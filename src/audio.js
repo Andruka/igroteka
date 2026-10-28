@@ -132,7 +132,7 @@ function openSettings() {
 function setBtn() { const b = h('button', { class: 'btn ghost icon', type: 'button', title: 'Настройки', 'aria-label': 'Настройки звука и озвучки' }, ico('gear')); b.onclick = () => { sfx.click(); openSettings(); }; return b; }
 
 /* ---------- настроение музыки по играм ---------- */
-const MOOD_BY_GAME = { bomb: 'tense', defuse: 'tense', escape: 'tense', spy: 'tense', detective: 'calm', radio: 'calm', bluff: 'calm', dilemma: 'calm', hang: 'calm', charades: 'party', taboo: 'party', tod: 'party', likely: 'party', never: 'party', missions: 'party', literal: 'party', cinema: 'party', nofinish: 'party', whoami: 'party', draw: 'party', assoc: 'party', jeopardy: 'fun', cities: 'calm' };
+const MOOD_BY_GAME = { bomb: 'tense', defuse: 'tense', escape: 'tense', spy: 'tense', detective: 'calm', radio: 'calm', bluff: 'calm', dilemma: 'calm', hang: 'calm', charades: 'party', taboo: 'party', tod: 'party', likely: 'party', never: 'party', missions: 'party', literal: 'party', cinema: 'party', nofinish: 'party', whoami: 'party', draw: 'party', jeopardy: 'fun' };
 
 /* ---------- кнопки в шапке игры ---------- */
 function ttsBtn(api) {

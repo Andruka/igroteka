@@ -1,14 +1,15 @@
 /* 21. Пять подсказок */
 {
-  const deck = makeDeck('clues', DATA.clues);
+  const deck0 = makeDeck('clues', DATA.clues), deckH = makeDeck('clueshard', DATA.cluesHard);
   registerGame({
     id: 'clues', title: 'Пять подсказок', icon: '🔎', color: '#19c2c9',
     cats: ['Викторины', 'Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 6 }, mins: 20,
     tagline: 'Угадайте загаданное по подсказкам: чем раньше угадали, тем больше очков. Подсказки ходят по командам по кругу.',
     rules: '<ul><li>Ведущий читает подсказку вслух. Первая подсказка самая трудная, последняя самая лёгкая.</li><li>Отвечать может только команда, чей сейчас ход. Она называет ответ вслух, ведущий проверяет по экрану.</li><li>Угадали по первой подсказке: 5 очков. По второй: 4. И так до одного очка.</li><li>Не угадали? Следующая подсказка достаётся следующей команде.</li></ul>',
-    opts: [{ key: 'rounds', label: 'Загадок у каждой команды', values: [1, 2, 3], def: 2 }],
-    cards: () => DATA.clues.length,
+    opts: [LEVEL_OPT, { key: 'rounds', label: 'Загадок у каждой команды', values: [1, 2, 3], def: 2 }],
+    cards: () => DATA.clues.length + DATA.cluesHard.length,
     start(api) {
+      const deck = levelDeck(deck0, deckH, api.opts.level);
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const q = deck.draw(); let step = 0;
         clue();

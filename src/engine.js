@@ -124,7 +124,7 @@ function Timer(sec, o = {}) {
 }
 
 /* ---------- UI-кирпичики ---------- */
-const TEAM_COLORS = ['#ff6b57', '#3aa0ff', '#2fd6a0', '#ffc233', '#9a6bff', '#ff7ab8', '#19c2c9', '#b6e24b'];
+const TEAM_COLORS = ['#ff6b57', '#3aa0ff', '#2fd6a0', '#ffc233', '#9a6bff', '#ff7ab8', '#19c2c9', '#b6e24b', '#ff9f43', '#7aa2ff', '#e56bff', '#8de0d0'];
 function btn(label, onclick, cls = '', attrs = {}) {
   const b = h('button', { class: 'btn ' + cls, type: 'button', ...attrs }, label);
   b.addEventListener('click', e => { sfx.click(); onclick && onclick(e, b); });
@@ -256,7 +256,7 @@ function Intro(g) {
   let n = clamp(store.get('n.' + g.id, Math.max(t.min, Math.min(2, t.max))), t.min, t.max);
   const saved = store.get('names', []);
   const isDef = x => !x || /^(Команда|Игрок) \d$/.test(String(x).trim());
-  const names = range(8).map(i => isDef(saved[i]) ? unit + ' ' + (i + 1) : saved[i]);
+  const names = range(12).map(i => isDef(saved[i]) ? unit + ' ' + (i + 1) : saved[i]);
   const optVals = {};
   (g.opts || []).forEach(o => { optVals[o.key] = store.get('o.' + g.id + '.' + o.key, o.def); });
   const teamBox = h('div'), countBox = h('div', { class: 'stepper' });
@@ -375,5 +375,10 @@ function Results(api, o) {
     h('div', { class: 'row center', style: { marginTop: '1rem' } }, btn('Сыграть ещё раз', () => startSession(g, api.teams.map(t => ({ name: t.name, color: t.color })), api.opts), 'big', { 'data-primary': true }), btn('В каталог', Home, 'big paper'))), { turn: -1 });
 }
 
+
+/* защита от случайных выделений и контекстных меню при касаниях */
+document.addEventListener('contextmenu', e => { if (!e.target.closest || !e.target.closest('input,textarea,.selectable')) e.preventDefault(); });
+document.addEventListener('selectstart', e => { const t = e.target && (e.target.nodeType === 3 ? e.target.parentElement : e.target); if (!t || !t.closest || !t.closest('input,textarea,.selectable')) e.preventDefault(); });
+document.addEventListener('dragstart', e => { if (!e.target.closest || !e.target.closest('input,textarea')) e.preventDefault(); });
 /* ---------- запуск ---------- */
 function boot() { Home(); }

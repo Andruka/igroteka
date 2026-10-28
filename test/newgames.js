@@ -6,14 +6,6 @@ const path = require('path');
   const errs = []; page.on('pageerror', e => errs.push(e.message)); page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
   const file = 'file://' + path.resolve(__dirname, '../index.html');
   const go = async id => { await page.goto(file); await page.evaluate(id => Intro(G.games.find(g => g.id === id)), id); await page.getByRole('button', { name: 'Играть', exact: true }).click(); };
-  // cities
-  await go('cities'); await page.getByRole('button', { name: 'Поехали' }).click();
-  const need = await page.locator('.big').first().innerText(); console.log('cities need', need);
-  const L = (await page.locator('.card .big').first().innerText()).trim().toLowerCase(); console.log('letter', L);
-  const sample = await page.evaluate(l => (DATA.cities.find(c => c[0].toLowerCase() === l) || ''), L);
-  await page.fill('.city-in', sample); await page.keyboard.press('Enter'); await page.waitForTimeout(300);
-  console.log('after city', sample, '->', (await page.locator('.card .big').first().innerText()).trim());
-  await page.screenshot({ path: '/tmp/cities.png' });
   // draw
   await go('draw'); await page.getByRole('button', { name: /Показать слово/ }).click(); await page.getByRole('button', { name: /Запомнил/ }).click();
   const cv = page.locator('canvas.pad'); const b = await cv.boundingBox();

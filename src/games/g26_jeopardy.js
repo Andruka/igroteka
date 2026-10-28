@@ -1,15 +1,16 @@
 /* 26. Своя игра — табло с темами и ценами */
 {
-  const deck = makeDeck('jeopardy', DATA.jeopardy);
+  const deck = makeDeck('jeopardy', DATA.jeopardy), deckH = makeDeck('jeopardyhard', DATA.jeopardyHard);
   registerGame({
     id: 'jeopardy', title: 'Своя игра', icon: '🧠', color: '#6fa8ff',
     cats: ['Викторины', 'Для компании', 'Командные'], teams: { min: 2, max: 6 }, mins: 30,
     tagline: 'Табло с темами и ценами, как на телевидении. Выбирайте вопросы подороже и забирайте очки у соперников.',
     rules: '<ul><li>На экране табло: пять тем и пять цен от 100 до 500. Команда выбирает клетку и отвечает вслух.</li><li>Нажмите «Показать ответ» — и решите вместе, верно ли ответила команда. Верный ответ приносит столько очков, сколько стоит вопрос. Тот, кто ответил верно, выбирает следующий вопрос.</li><li>Если ответ неверный, другая команда может перехватить вопрос за половину цены.</li><li>Игра заканчивается, когда открыты все клетки.</li></ul>',
-    opts: [{ key: 'themes', label: 'Тем на табло', values: [[3, '3 темы'], [4, '4 темы'], [5, '5 тем']], def: 4 }],
-    cards: () => DATA.jeopardy.length * 5,
+    opts: [{ key: 'level', label: 'Сложность', values: [['norm', 'Обычная'], ['mix', 'Смешанная'], ['hard', 'Для знатоков']], def: 'norm' }, { key: 'themes', label: 'Тем на табло', values: [[3, '3 темы'], [4, '4 темы'], [5, '5 тем']], def: 4 }],
+    cards: () => (DATA.jeopardy.length + DATA.jeopardyHard.length) * 5,
     start(api) {
-      const themes = deck.drawN(api.opts.themes);
+      const n = api.opts.themes, lv = api.opts.level;
+      const themes = lv === 'hard' ? deckH.drawN(n) : lv === 'mix' ? shuffle([...deckH.drawN(Math.ceil(n / 2)), ...deck.drawN(Math.floor(n / 2))]) : deck.drawN(n);
       const done = themes.map(() => [false, false, false, false, false]);
       let left = themes.length * 5, ti = 0;
       board();
