@@ -1,8 +1,8 @@
 // Мафия: правила победы, роли и полный ход игры. node test/mafia.js
-const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 (async () => {
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args: ['--no-sandbox'] });
+  const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const p = await (await b.newContext({ viewport: { width: 1280, height: 900 } })).newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message));
   let fail = 0; const ok = (c, m) => { console.log((c ? 'ok   ' : 'FAIL ') + m); if (!c) fail++; };

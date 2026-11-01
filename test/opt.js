@@ -1,9 +1,9 @@
 // node test/opt.js <gameId> "<текст кнопки опции>" ... : прогон с выбранными опциями
-const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 (async () => {
   const [id, ...labels] = process.argv.slice(2);
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args: ['--no-sandbox'] });
+  const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const p = await b.newPage({ viewport: { width: 1280, height: 800 } }); const errs = [];
   p.on('pageerror', e => errs.push(e.message)); p.on('console', m => m.type() === 'error' && errs.push(m.text()));
   await p.goto('file://' + path.resolve(__dirname, '../index.html'));

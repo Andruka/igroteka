@@ -1,9 +1,9 @@
 // node test/contrast.js <game id> [клики через |]  — контраст видимого текста (плоские фоны)
-const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 (async () => {
   const [, , id, clicks] = process.argv;
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args: ['--no-sandbox'] });
+  const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
   await p.goto('file://' + path.resolve(__dirname, '../index.html'));
   if (id !== 'home') {

@@ -1,12 +1,12 @@
 // Прогон игр случайным «игроком»: node test/bot.js [id игры] [шагов]
-const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 const file = 'file://' + path.resolve(__dirname, '../index.html');
 const only = process.argv[2] && process.argv[2] !== 'all' ? process.argv[2] : null;
 const maxSteps = +(process.argv[3] || 400);
 const SKIP = /^(Выход|Каталог|Правила|Сбросить историю карточек|В каталог)$/;
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
   const page = await ctx.newPage();
   const errors = [];

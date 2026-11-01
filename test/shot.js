@@ -1,10 +1,10 @@
 // node test/shot.js <id|home> <out.png> [кликов-вперёд скрипт]
-const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 const file = 'file://' + path.resolve(__dirname, '../index.html');
 (async () => {
   const [, , id, out, clicks, w, hgt] = process.argv;
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const page = await (await browser.newContext({ viewport: { width: +(w || 1280), height: +(hgt || 800) } })).newPage();
   page.on('pageerror', e => console.log('PAGEERROR', e.message));
   await page.goto(file);

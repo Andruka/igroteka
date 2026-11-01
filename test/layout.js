@@ -1,10 +1,10 @@
 // Проверка вёрстки: горизонтальный скролл и вылезающие элементы на разных размерах. node test/layout.js [id] [w] [h]
-const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = require('playwright');
 const path = require('path');
 (async () => {
   const only = process.argv[2] && process.argv[2] !== 'all' ? process.argv[2] : null;
   const W = +(process.argv[3] || 390), H = +(process.argv[4] || 844);
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args: ['--no-sandbox'] });
+  const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const p = await (await b.newContext({ viewport: { width: W, height: H } })).newPage();
   const errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.goto('file://' + path.resolve(__dirname, '../index.html'));
