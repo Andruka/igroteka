@@ -1,0 +1,30 @@
+/* Точки и квадраты */
+.dt-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.dt-vs{display:flex;gap:.7em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(14px,1.6vw,22px);line-height:1.1}
+.dt-vs span[style]{color:var(--ink);padding:.15em .6em;border-radius:999px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,#fff)}
+.dt-vs b{font-family:var(--display);font-size:1.25em}
+.dt-colon{opacity:.5}
+.dt-board{--c:#999;position:relative;flex:none;width:var(--s,320px);height:var(--s,320px);max-width:100%;background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);box-sizing:border-box;transition:box-shadow .2s}
+.dt-board.dt-over{box-shadow:0 5px 0 var(--ink),0 0 0 6px color-mix(in srgb,var(--c) 45%,transparent)}
+.dt-svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;pointer-events:none;-webkit-user-select:none;user-select:none}
+.dt-dot{fill:var(--ink)}
+.dt-ghost{stroke:var(--ink);opacity:.16;stroke-linecap:round}
+.dt-line{stroke-dasharray:var(--len);animation:dt-draw .22s ease-out both}
+.dt-halo{stroke:#ffc233;opacity:.55;animation:dt-pulse 1.1s ease-in-out infinite;pointer-events:none}
+.dt-box{fill-opacity:.55;transform-box:fill-box;transform-origin:center;animation:dt-pop .45s cubic-bezier(.2,1.5,.4,1) both}
+.dt-lbl{fill:var(--ink);font-family:var(--display);font-weight:900;text-anchor:middle;dominant-baseline:central;pointer-events:none;animation:dt-fade .5s .1s both}
+@keyframes dt-draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+@keyframes dt-pop{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes dt-pulse{0%,100%{opacity:.2}50%{opacity:.6}}
+@keyframes dt-fade{from{opacity:0}to{opacity:1}}
+/* зоны касания: настоящие кнопки поверх SVG, увеличенные невидимые */
+.dt-e{position:absolute;margin:0;padding:0;border:0;background:transparent;border-radius:999px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;box-shadow:none;outline:none}
+.dt-e:disabled{cursor:default;pointer-events:none}
+.dt-e::after{content:"";position:absolute;background:var(--c);border-radius:999px;opacity:0;transition:opacity .12s;pointer-events:none}
+.dt-e.h::after{left:-39%;width:178%;top:50%;height:calc(var(--s,320px)*var(--k,.01));transform:translateY(-50%)}
+.dt-e.v::after{top:-39%;height:178%;left:50%;width:calc(var(--s,320px)*var(--k,.01));transform:translateX(-50%)}
+@media(hover:hover){.dt-e:not(:disabled):hover::after{opacity:.55}}
+.dt-e:not(:disabled):focus-visible::after{opacity:.8}
+.dt-e:not(:disabled):active::after{opacity:.9}
+.dt-cpu .dt-e{cursor:progress}
+@media(prefers-reduced-motion:reduce){.dt-line,.dt-box,.dt-lbl{animation:none}.dt-halo{animation:none;opacity:.4}}

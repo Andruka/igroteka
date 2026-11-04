@@ -1,0 +1,16 @@
+/* Анаграммы */
+.an-head{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:baseline;justify-content:space-between}
+.an-worth{font-family:var(--display);font-weight:900;font-size:clamp(1rem,2.2vw,1.6rem);color:#ffd45a}
+.an-tiles,.an-slots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;--w:clamp(24px,min(calc((100vw - 48px) / var(--n,8) - 6px),7.6vh),110px);margin:.15rem auto;max-width:100%}
+.an-tile,.an-slot{display:inline-flex;align-items:center;justify-content:center;width:var(--w);height:calc(var(--w) * 1.25);border-radius:calc(var(--w) * .2);font-family:var(--display);font-weight:900;font-size:calc(var(--w) * .72);line-height:1;user-select:none;-webkit-user-select:none}
+.an-tile{background:#fff8e8;color:#141a46;border:3px solid #141a46;box-shadow:0 5px 0 #141a46}
+.an-slot{border-bottom:4px solid rgba(255,255,255,.55);border-radius:6px;width:calc(var(--w) * .8);height:calc(var(--w) * .9);font-size:calc(var(--w) * .62);color:transparent}
+.an-slot.on{color:#ffd45a;border-bottom-color:#ffd45a}
+.an-slot.lost{color:#ff8da1}
+.an-msg{text-align:center}.an-msg:empty{display:none}.an-judge{font-weight:800;opacity:.85}
+.an-head .kicker{flex:1 1 100%}.an-head{gap:.1rem 1rem}
+.an-actions{margin-top:.2rem}
+@media (max-height:700px){.an-tile{box-shadow:0 3px 0 #141a46}}
+.an-box{display:flex;flex-direction:column;gap:.45rem;width:100%}
+.an-head{flex-wrap:wrap}
+@media (min-width:700px){.an-head .kicker{flex:1 1 auto}}

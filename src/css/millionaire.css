@@ -1,0 +1,32 @@
+/* Миллионер */
+.mil-ladder{display:flex;gap:3px;justify-content:center;flex-wrap:nowrap}
+.mil-ladder span{flex:1 1 0;max-width:46px;min-width:0;height:26px;border-radius:7px;background:rgba(255,255,255,.14);color:rgba(255,255,255,.75);font:800 12px/22px var(--body);text-align:center;border:2px solid transparent}
+.mil-ladder span.safe{border-color:var(--sun)}
+.mil-ladder span.done{background:var(--mint);color:var(--ink)}
+.mil-ladder span.cur{background:var(--sun);color:var(--ink);transform:scale(1.12)}
+.mil-prize{display:flex;flex-wrap:wrap;gap:.2rem 1rem;justify-content:space-between;align-items:baseline;font-weight:800}
+.mil-prize b{font-family:var(--display);font-size:1.5em;color:var(--sun)}
+.mil-prize small{opacity:.8;font-size:.95em}
+.mil-q{padding:clamp(10px,1.6vw,22px)}
+.mil-q .big{font-size:clamp(20px,2.3vw,38px)}
+.mil-opts{display:grid;grid-template-columns:1fr;gap:.6rem}
+@media(min-width:640px){.mil-opts{grid-template-columns:1fr 1fr}}
+.mil-opts .opt{position:relative;min-height:56px;overflow:hidden}
+.mil-opts .opt.gone{visibility:hidden}
+.mil-opts .opt.picked{outline:4px solid var(--sky)}
+.mil-opts .opt span{position:relative;z-index:1}
+.mil-pct{margin-left:auto;font-weight:900;font-style:normal;position:relative;z-index:1}
+.mil-bar{position:absolute;left:0;top:0;bottom:0;background:rgba(58,160,255,.35);z-index:0}
+.mil-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+.mil-actions .btn{flex:1 1 140px;min-height:52px}
+.mil-actions .btn:disabled{opacity:.4}
+.mil-info{font-weight:800;text-align:center;min-height:1.3em}
+@media(max-height:760px){
+.stage:has(.mil-ladder){gap:5px;padding-top:6px;padding-bottom:6px}
+.mil-ladder span{height:20px}
+.mil-prize{flex-wrap:nowrap;font-size:.85em}.mil-prize b{font-size:1.3em;white-space:nowrap}.mil-prize small{display:none}
+.mil-q{padding:8px 12px}.mil-q .kicker{display:none}.mil-q .big{font-size:clamp(17px,4.6vw,30px)}
+.mil-opts{gap:.35rem}.mil-opts .opt{min-height:44px;padding-top:.25em;padding-bottom:.25em}.mil-opts .opt b{width:1.6em;height:1.6em}
+.mil-actions{gap:.4rem}.mil-actions .btn{min-height:46px;padding-top:.3em;padding-bottom:.3em}
+.mil-info{min-height:0;font-size:.85em}
+}

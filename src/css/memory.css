@@ -1,0 +1,21 @@
+/* Игра «Пары» */
+.mem-info{min-height:1.5em;font-size:clamp(14px,1.1vw + 8px,20px);line-height:1.3;text-align:center;color:var(--paper-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:-6px 0 -4px}
+.mem-wrap{width:100%;display:flex;justify-content:center}
+.mem-grid{display:grid;justify-content:center;align-content:start;perspective:1000px}
+.mem-card{--tc:var(--mint);position:relative;padding:0;margin:0;border:0;background:none;cursor:pointer;min-width:0;min-height:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none;perspective:700px}
+.mem-in{position:absolute;inset:0;display:block;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.3,.9,.3,1)}
+.mem-card.open .mem-in,.mem-card.done .mem-in{transform:rotateY(180deg)}
+.mem-back,.mem-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border:3px solid var(--ink);border-radius:var(--mem-r,14px);box-shadow:0 4px 0 var(--ink);backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.mem-back{background:repeating-linear-gradient(45deg,var(--felt-3) 0 8px,var(--felt-2) 8px 16px);color:var(--sun)}
+.mem-back i{font:800 var(--bf,32px)/1 var(--display);font-style:normal;opacity:.85}
+.mem-card:hover:not(.open):not(.done) .mem-back{filter:brightness(1.2)}
+.mem-card:focus-visible{outline-offset:2px}
+.mem-face{transform:rotateY(180deg);background:var(--paper);color:var(--ink);text-align:center;font-family:var(--display);font-weight:800;line-height:1.08}
+.mem-card.k-r .mem-face{background:#ffe9a8}
+.mem-card.emo .mem-face{background:var(--paper)}
+.mem-t{display:block;font-size:20px;overflow-wrap:normal;word-break:normal;hyphens:manual}
+.mem-card.emo .mem-t{line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-weight:400}
+.mem-card.done .mem-face{border-color:var(--tc);box-shadow:0 4px 0 var(--tc);animation:mem-pop .45s ease-out}
+.mem-card.done,.mem-card:disabled{cursor:default;opacity:1;filter:none}
+@keyframes mem-pop{0%{filter:brightness(1.4)}100%{filter:none}}
+@media (prefers-reduced-motion:reduce){.mem-in{transition:none}.mem-card.done .mem-face{animation:none}}
