@@ -1,0 +1,33 @@
+.ai-head{text-align:center;display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem 1rem;padding-top:.6rem;padding-bottom:.6rem}
+.ai-head .kicker{flex-basis:100%}
+.ai-cat{display:flex;gap:.6rem;align-items:center;justify-content:center;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:800;line-height:1.15}
+.ai-ico{font-size:1.2em}
+.ai-lv{display:inline-block;padding:.25rem .9rem;border-radius:99px;background:var(--ink);color:var(--paper);font-weight:700;font-size:clamp(1rem,2.4vw,1.3rem)}
+.ai-lv4,.ai-lv5{background:#c8321f}
+.ai-fin{border-color:#ff6b57}
+.ai-me{text-align:center}
+.ai-stakes{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.ai-stake{min-height:72px;font-size:clamp(1.3rem,3vw,2rem)}
+.ai-stake:disabled{opacity:.35}
+.ai-final{align-items:center}
+.ai-val{font-size:clamp(2.2rem,7vw,3.4rem);font-weight:900;text-align:center;line-height:1}
+.ai-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;width:100%}
+.ai-all{background:#ff6b57;color:#fff}
+.ai-go{display:flex;justify-content:center}
+.ai-go .big{min-width:min(100%,320px)}
+.ai-sticky{position:fixed;left:0;right:0;bottom:0;z-index:5;padding:.7rem 16px calc(.7rem + env(safe-area-inset-bottom));background:rgba(27,37,89,.94);box-shadow:0 -6px 18px rgba(0,0,0,.25)}
+.stage>.ai-sticky{animation:none}
+.ai-pad{height:96px}
+.ai-q .qbody{text-align:center}
+.opt.ai-sel{outline:4px solid var(--sun);outline-offset:2px}
+.ai-res{display:flex;flex-direction:column;gap:.6rem}
+.ai-row{display:grid;grid-template-columns:1fr auto auto auto;gap:.8rem;align-items:center;padding:.5rem 1rem;border-radius:16px;border:3px solid var(--c,var(--ink));background:var(--paper);color:var(--ink);font-weight:700;font-size:clamp(1rem,2.6vw,1.4rem)}
+.ai-row .ai-rn{overflow:hidden;text-overflow:ellipsis}
+.ai-row .ai-rb{font-weight:500;opacity:.75}
+.ai-row.good .ai-rm,.ai-row.good .ai-rd{color:#18803a}
+.ai-row.bad .ai-rm,.ai-row.bad .ai-rd{color:#c8321f}
+.ai-rd{min-width:3.2ch;text-align:right}
+@media (max-width:620px){.ai-steps{grid-template-columns:repeat(2,1fr)}.ai-stakes{grid-template-columns:repeat(2,1fr)}.ai-row{grid-template-columns:1fr auto auto}.ai-row .ai-rb{display:none}}
+.opt.ai-opt{scroll-margin-bottom:120px}
+.ai-ans{padding-top:.6rem;padding-bottom:.6rem}
+.ai-ans .big{font-size:clamp(1.3rem,3.6vw,2rem)}
