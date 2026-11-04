@@ -1,0 +1,9 @@
+/* Невысокие экраны (ноутбук 1280×720, ТВ): шапка хода компактнее, больше места под поле */
+@media (min-width:700px) and (max-height:820px){
+  .turnbar{padding:.35rem 1rem;margin-bottom:.45rem}
+  .turnbar .tb-ico{width:1.9em;height:1.9em}
+  .turnbar .tb-name{font-size:clamp(20px,2.2vw,32px)}
+  .turnbar .tb-role{font-size:.8em}
+  .board{padding-top:.35rem;padding-bottom:.25rem;gap:.5rem}
+  .tchip{padding-block:.15em;font-size:clamp(.95rem,1.2vw,1.3rem)}
+}
