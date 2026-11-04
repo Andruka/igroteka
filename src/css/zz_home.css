@@ -1,0 +1,7 @@
+/* Главная: поиск, значок «Новое», компактная шапка */
+.gsearch{display:block;width:100%;max-width:420px;margin:0 0 clamp(14px,2vw,22px);padding:.7em 1em;border-radius:14px;border:3px solid var(--ink);background:var(--paper,#fff);color:var(--ink);font:inherit;font-weight:700;box-shadow:0 4px 0 var(--ink)}
+.gsearch:focus-visible{outline:3px solid #ffd447;outline-offset:2px}
+.pill.new{background:#ffd447;color:#141a46;border-color:#141a46}
+@media (max-height:900px) and (min-width:700px){.hero h1{font-size:clamp(52px,7.5vw,120px)}.hero{margin-bottom:14px}.hero-ill{width:clamp(72px,8vw,120px);height:auto}.hero p{font-size:.95em}}
+@media (prefers-reduced-motion:reduce){.gcard,.gcard *{transition:none!important}}
+@media (max-height:900px) and (min-width:1100px){.filters{gap:.4rem;margin-bottom:12px}.filters .chipbtn{font-size:.9rem;padding:.45em .8em}.hero-main p{max-width:60ch}}

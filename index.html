@@ -809,6 +809,14 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .mil-info{min-height:0;font-size:.85em}
 }
 
+/* Главная: поиск, значок «Новое», компактная шапка */
+.gsearch{display:block;width:100%;max-width:420px;margin:0 0 clamp(14px,2vw,22px);padding:.7em 1em;border-radius:14px;border:3px solid var(--ink);background:var(--paper,#fff);color:var(--ink);font:inherit;font-weight:700;box-shadow:0 4px 0 var(--ink)}
+.gsearch:focus-visible{outline:3px solid #ffd447;outline-offset:2px}
+.pill.new{background:#ffd447;color:#141a46;border-color:#141a46}
+@media (max-height:900px) and (min-width:700px){.hero h1{font-size:clamp(52px,7.5vw,120px)}.hero{margin-bottom:14px}.hero-ill{width:clamp(72px,8vw,120px);height:auto}.hero p{font-size:.95em}}
+@media (prefers-reduced-motion:reduce){.gcard,.gcard *{transition:none!important}}
+@media (max-height:900px) and (min-width:1100px){.filters{gap:.4rem;margin-bottom:12px}.filters .chipbtn{font-size:.9rem;padding:.45em .8em}.hero-main p{max-width:60ch}}
+
 </style>
 </head>
 <body>
@@ -1037,7 +1045,11 @@ function Home() {
   let pack = curPack(); if (!PACKS.some(p => p[0] === pack)) pack = 'all';
   const packHas = (g, p) => (g.decks || []).some(n => DATA.themed && DATA.themed[n] && DATA.themed[n][p] && DATA.themed[n][p].length);
   const packOk = g => pack !== 'kids' || !(g.decks || []).length || packHas(g, 'kids');
-  const visible = () => G.games.filter(g => (cat === 'Все' || g.cats.includes(cat)) && fits(g) && packOk(g));
+  let q = '';
+  const NEW_IDS = ['millionaire', 'allin', 'anagram', 'memory', 'dots', 'hang'];
+  const found = g => !q || (g.title + ' ' + g.tagline).toLowerCase().includes(q);
+  const visible = () => G.games.filter(g => (cat === 'Все' || g.cats.includes(cat)) && fits(g) && packOk(g) && found(g));
+  const search = h('input', { class: 'gsearch', type: 'search', placeholder: 'Найти игру…', 'aria-label': 'Найти игру по названию', autocomplete: 'off', oninput: e => { q = e.target.value.trim().toLowerCase(); paint(); } });
   const randomBtn = btn('Случайная игра', () => { const l = visible(); if (l.length) Intro(pick(l)); }, 'small paper');
   function paint() {
     chips.replaceChildren(h('span', { class: 'flabel' }, 'Тема вечера'), ...PACKS.map(([id, lab, em]) => h('button', { class: 'chipbtn pack', type: 'button', 'aria-pressed': id === pack, onclick: () => { pack = id; store.set('pack', id); paint(); } }, em + ' ' + lab)),
@@ -1052,14 +1064,14 @@ function Home() {
     grid.replaceChildren(...list.map((g, i) => h('button', { class: 'gcard', type: 'button', style: { '--c': g.color, '--rot': ((i % 3) - 1) * .8 + 'deg' }, onclick: () => { sfx.click(); Intro(g); } },
       h('div', { class: 'art' + (DATA.art && DATA.art[g.id] ? ' has-ill' : '') }, DATA.art && DATA.art[g.id] ? Pics.ill(g.id) : null, ...(DATA.art && DATA.art[g.id] ? [] : gameArt(g).map((e, k) => h('span', { class: 'a' + (k + 1) }, e)))),
       h('div', { class: 'body' }, h('h3', null, g.title), h('p', { class: 'tag' }, g.tagline),
-        h('div', { class: 'meta' }, pack !== 'all' && packHas(g, pack) ? h('span', { class: 'pill hot' }, PACKS.find(p => p[0] === pack)[2] + ' есть наборы') : null, h('span', { class: 'pill' }, g.coop ? 'вся компания' : playersLabel(g)), h('span', { class: 'pill' }, '~' + g.mins + ' мин'))))));
+        h('div', { class: 'meta' }, NEW_IDS.includes(g.id) ? h('span', { class: 'pill new' }, 'Новое') : null, pack !== 'all' && packHas(g, pack) ? h('span', { class: 'pill hot' }, PACKS.find(p => p[0] === pack)[2] + ' есть наборы') : null, h('span', { class: 'pill' }, g.coop ? 'вся компания' : playersLabel(g)), h('span', { class: 'pill' }, '~' + g.mins + ' мин'))))));
   }
   paint();
   mount(h('div', { class: 'wrap' },
     h('div', { class: 'hero' },
       h('div', { class: 'hero-main' }, Pics.ill('hero', 'hero-ill'), h('div', null, h('h1', null, 'Игротека'), h('p', { style: { marginTop: '.6rem' } }, 'Игры для компании на одном экране. Поставьте ноутбук или телевизор на стол — телефоны и интернет не нужны.'))),
       h('div', { class: 'top' }, setBtn(), muteBtn(), fullBtn())),
-    chips, grid,
+    chips, search, grid,
     h('div', { class: 'foot' },
       h('span', null, 'В коробке ' + total + ' ' + plural(total, 'карточка', 'карточки', 'карточек') + '. Они не повторяются, пока не кончатся все.'),
       btn('Сбросить историю карточек', () => confirmBox('Все карточки снова станут «новыми». Сбросить?', () => { store.clearSeen(); Home(); }, 'Сбросить'), 'ghost small'))));
