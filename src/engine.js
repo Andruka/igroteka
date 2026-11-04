@@ -229,7 +229,7 @@ function Home() {
   const packHas = (g, p) => (g.decks || []).some(n => DATA.themed && DATA.themed[n] && DATA.themed[n][p] && DATA.themed[n][p].length);
   const packOk = g => pack !== 'kids' || !(g.decks || []).length || packHas(g, 'kids');
   let q = '';
-  const NEW_IDS = ['millionaire', 'allin', 'anagram', 'memory', 'dots', 'hang'];
+  const NEW_IDS = ['connect', 'reversi', 'hex', 'nonogram', 'sapper', 'flood', 'dots'];
   const found = g => !q || (g.title + ' ' + g.tagline).toLowerCase().includes(q);
   const visible = () => G.games.filter(g => (cat === 'Все' || (cat === '★ Любимые' ? isFav(g.id) : g.cats.includes(cat))) && fits(g) && packOk(g) && found(g)).sort((a, b) => cat === 'Все' && !q ? isFav(b.id) - isFav(a.id) : 0);
   const search = h('input', { class: 'gsearch', type: 'search', placeholder: 'Найти игру…', 'aria-label': 'Найти игру по названию', autocomplete: 'off', oninput: e => { q = e.target.value.trim().toLowerCase(); paint(); } });

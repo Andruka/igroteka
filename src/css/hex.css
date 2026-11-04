@@ -1,0 +1,24 @@
+/* Гекс */
+.hx-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.hx-vs{display:flex;gap:.7em;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:800;font-size:clamp(14px,1.6vw,22px);line-height:1.1}
+.hx-chip{color:var(--ink);padding:.2em .7em;border-radius:999px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,#fff);opacity:.7;transition:opacity .2s,transform .2s}
+.hx-chip.on{opacity:1;transform:scale(1.06);box-shadow:0 3px 0 var(--ink)}
+.hx-board{--c:#999;position:relative;flex:none;width:var(--w,320px);height:var(--h,260px);max-width:100%;background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);box-sizing:border-box;transition:box-shadow .2s}
+.hx-board.hx-over{box-shadow:0 5px 0 var(--ink),0 0 0 6px color-mix(in srgb,var(--c) 45%,transparent)}
+.hx-svg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;-webkit-user-select:none;user-select:none}
+.hx-cell{fill:#f1eefb;stroke:var(--ink);stroke-opacity:.35;stroke-width:.06;transition:fill .2s}
+.hx-cell.hx-win{fill:#fff3b8;stroke-opacity:.8}
+.hx-stone{stroke:var(--ink);stroke-width:.1}
+.hx-st.new{transform-box:fill-box;transform-origin:center;animation:hx-pop .4s cubic-bezier(.2,1.5,.4,1) both}
+.hx-dot{fill:var(--ink)}
+.hx-link{stroke:var(--ink);opacity:.85;animation:hx-fade .6s both}
+.hx-b{position:absolute;margin:0;padding:0;border:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.hx-b:disabled{cursor:default;pointer-events:none}
+@media(hover:hover){.hx-b:not(:disabled):hover{background:color-mix(in srgb,var(--c) 45%,transparent)}}
+.hx-b:not(:disabled):focus-visible{background:color-mix(in srgb,var(--c) 60%,transparent)}
+.hx-b:not(:disabled):active{background:color-mix(in srgb,var(--c) 75%,transparent)}
+.hx-cpu .hx-b{cursor:progress}
+.hx-swap[hidden]{display:none}
+@keyframes hx-pop{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes hx-fade{from{opacity:0}to{opacity:.85}}
+@media(prefers-reduced-motion:reduce){.hx-st.new,.hx-link{animation:none}.hx-chip{transition:none}}

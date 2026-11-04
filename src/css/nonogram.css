@@ -1,0 +1,43 @@
+/* Японские кроссворды */
+.ng-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.ng-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;width:min(100%,560px);color:var(--paper);font-weight:700;font-size:clamp(14px,1.5vw,20px);line-height:1.2}
+.ng-clock{font-family:var(--display);font-size:1.3em;color:#f2b134;font-variant-numeric:tabular-nums}
+.ng-cnt.ng-warn{color:#ff9a8f}
+.ng-board{--cs:30px;--u:18px;--fs:14px;display:grid;grid-template-columns:calc(var(--rc)*var(--u)) calc(var(--n)*var(--cs));grid-template-rows:calc(var(--cc)*var(--u)) calc(var(--n)*var(--cs));flex:none;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:3px;box-shadow:0 5px 0 var(--ink);-webkit-user-select:none;user-select:none}
+.ng-cols{display:grid;grid-template-columns:repeat(var(--n),var(--cs))}
+.ng-rows{display:grid;grid-template-rows:repeat(var(--n),var(--cs))}
+.ng-cc{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:2px;box-sizing:border-box}
+.ng-rc{display:flex;justify-content:flex-end;align-items:center;padding-right:3px;box-sizing:border-box}
+.ng-cc span,.ng-rc span{font-size:var(--fs);font-weight:800;font-family:var(--display);line-height:var(--u);text-align:center;min-width:var(--u);height:var(--u);transition:opacity .15s}
+.ng-cc.ngr{box-shadow:inset -2px 0 0 rgba(14,18,51,.55)}
+.ng-rc.ngb{box-shadow:inset 0 -2px 0 rgba(14,18,51,.55)}
+.ng-cc.ng-cur,.ng-rc.ng-cur{background:rgba(242,177,52,.45)}
+.ng-cc.ng-ok span,.ng-rc.ng-ok span{opacity:.3;text-decoration:line-through}
+.ng-grid{display:grid;grid-template-columns:repeat(var(--n),var(--cs));grid-template-rows:repeat(var(--n),var(--cs));background:#fff;touch-action:none;cursor:pointer;outline:2px solid var(--ink)}
+.ng-c{box-sizing:border-box;border:1px solid rgba(14,18,51,.22);position:relative;-webkit-tap-highlight-color:transparent}
+.ng-c.ngr{border-right:2px solid var(--ink)}
+.ng-c.ngb{border-bottom:2px solid var(--ink)}
+.ng-c.ng-f{background:#1f2570}
+.ng-c.ng-f.ng-lk{background:#1f2570;box-shadow:inset 0 0 0 3px #f2b134}
+.ng-c.ng-x{background:linear-gradient(45deg,transparent 44%,#6a73b8 44% 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,#6a73b8 44% 56%,transparent 56%);background-size:70% 70%;background-position:center;background-repeat:no-repeat}
+.ng-c.ng-bad{background-color:#e8483f;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px);background-size:auto;background-repeat:repeat}
+.ng-c.ng-bad.ng-x{background-image:linear-gradient(45deg,transparent 40%,#fff 40% 60%,transparent 60%),linear-gradient(-45deg,transparent 40%,#fff 40% 60%,transparent 60%);background-size:70% 70%;background-repeat:no-repeat}
+.ng-c.ng-rev{background:var(--fc,#333);animation:ng-rev .5s both;box-shadow:none}
+.ng-done .ng-grid{outline-color:#f2b134}
+@keyframes ng-rev{from{transform:scale(.4);opacity:.2}to{transform:scale(1);opacity:1}}
+.ng-ctl{display:flex;gap:8px;width:min(100%,560px)}
+.ng-seg,.ng-acts{display:flex;gap:8px}
+.ng-seg{flex:2.6}.ng-acts{flex:1.9}
+.ng-m{padding-inline:.3em}
+.ng-b{padding-inline:.2em;white-space:nowrap}
+@media(max-width:480px){.ng-ico{display:none}.ng-m,.ng-b{font-size:14px;gap:0;white-space:nowrap}.ng-b{font-size:13px}}
+.ng-m,.ng-b{flex:1;min-height:48px;padding:.4em .6em;border:3px solid var(--ink);border-radius:14px;background:var(--paper);color:var(--ink);font:inherit;font-weight:800;font-size:clamp(14px,1.4vw,18px);display:flex;align-items:center;justify-content:center;gap:.5em;cursor:pointer;box-shadow:0 3px 0 var(--ink);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.ng-m.on{background:#f2b134}
+.ng-m:active,.ng-b:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.ng-b:disabled,.ng-m:disabled{opacity:.5;cursor:default}
+.ng-ico{display:inline-block;width:1.1em;height:1.1em;border:2px solid var(--ink);border-radius:3px;box-sizing:border-box}
+.ng-ico.f{background:#1f2570}
+.ng-ico.x{background:linear-gradient(45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%),linear-gradient(-45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%),#fff}
+.ng-art{background:var(--paper);border:4px solid var(--ink);border-radius:16px;padding:10px;box-shadow:0 5px 0 var(--ink);line-height:0}
+.ng-pic{display:block;animation:ng-rev .5s both}
+@media(prefers-reduced-motion:reduce){.ng-c.ng-rev,.ng-pic{animation:none}}

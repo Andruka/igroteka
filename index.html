@@ -757,6 +757,30 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .an-head{flex-wrap:wrap}
 @media (min-width:700px){.an-head .kicker{flex:1 1 auto}}
 
+/* Четыре в ряд */
+.cn-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.cn-leg{display:flex;flex-wrap:wrap;gap:.5em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(13px,1.5vw,20px);line-height:1.1}
+.cn-chip{display:inline-flex;align-items:center;gap:.4em;padding:.2em .7em .2em .3em;border-radius:999px;border:3px solid var(--ink);background:color-mix(in srgb,var(--c) 18%,#fff);color:var(--ink);opacity:.7;transition:opacity .2s,transform .2s}
+.cn-chip.on{opacity:1;transform:scale(1.07);border-color:var(--c);box-shadow:0 0 0 3px var(--ink)}
+.cn-ci{width:1.6em;height:1.6em;flex:none;display:block}
+.cn-board{--c:#999;position:relative;flex:none;width:var(--w,320px);height:var(--h,280px);max-width:100%;background:#27304f;border:4px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);box-sizing:border-box;overflow:hidden;transition:box-shadow .2s}
+.cn-board.cn-over{box-shadow:0 5px 0 var(--ink),0 0 0 6px color-mix(in srgb,var(--c) 45%,transparent)}
+.cn-svg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;-webkit-user-select:none;user-select:none}
+.cn-slot{fill:#fff;opacity:.92}
+.cn-frame{fill:#2f4a9e}
+.cn-disc{animation:cn-fall var(--t,.4s) cubic-bezier(.55,0,.9,.6) both}
+.cn-win{stroke:#fff;stroke-width:9;animation:cn-pulse .7s ease-in-out infinite}
+@keyframes cn-fall{0%{transform:translateY(var(--from))}78%{transform:translateY(0);animation-timing-function:ease-out}86%{transform:translateY(-9px)}100%{transform:translateY(0)}}
+@keyframes cn-pulse{0%,100%{opacity:.3;stroke-width:6}50%{opacity:1;stroke-width:12}}
+/* столбцы: настоящие кнопки на всю высоту поля */
+.cn-col{position:absolute;top:0;bottom:0;margin:0;padding:0;border:0;border-radius:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;box-shadow:none;outline:none;transition:background .12s}
+.cn-col:disabled{cursor:default;pointer-events:none}
+@media(hover:hover){.cn-col:not(:disabled):hover{background:color-mix(in srgb,var(--c) 30%,transparent)}}
+.cn-col:not(:disabled):focus-visible{background:color-mix(in srgb,var(--c) 40%,transparent)}
+.cn-col:not(:disabled):active{background:color-mix(in srgb,var(--c) 55%,transparent)}
+.cn-cpu .cn-col{cursor:progress}
+@media(prefers-reduced-motion:reduce){.cn-disc{animation:none}.cn-win{animation:none;opacity:.9}.cn-chip{transition:none}}
+
 /* Точки и квадраты */
 .dt-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
 .dt-vs{display:flex;gap:.7em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(14px,1.6vw,22px);line-height:1.1}
@@ -787,6 +811,62 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .dt-e:not(:disabled):active::after{opacity:.9}
 .dt-cpu .dt-e{cursor:progress}
 @media(prefers-reduced-motion:reduce){.dt-line,.dt-box,.dt-lbl{animation:none}.dt-halo{animation:none;opacity:.4}}
+
+/* Захват территории */
+.fl-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.fl-bar{display:flex;flex-wrap:wrap;gap:.4em .6em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(13px,1.5vw,20px);line-height:1.1}
+.fl-pl{color:var(--ink);padding:.18em .6em .18em .25em;border-radius:999px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,#fff);display:inline-flex;align-items:center;gap:.2em;transition:transform .2s}
+.fl-pl.on{transform:scale(1.07);box-shadow:0 3px 0 var(--ink)}
+.fl-pl em{font-style:normal;font-family:var(--display);background:var(--c);color:var(--ink);border-radius:50%;width:1.5em;height:1.5em;display:inline-grid;place-items:center;margin-right:.2em}
+.fl-pl b{font-family:var(--display);font-size:1.2em}
+.fl-pl small{opacity:.7;font-size:.8em;font-weight:700}
+.fl-board{flex:none;width:var(--s,320px);height:var(--s,320px);max-width:100%;background:#fff;border:4px solid var(--ink);border-radius:14px;box-shadow:0 5px 0 var(--ink);box-sizing:border-box;overflow:hidden;-webkit-user-select:none;user-select:none}
+.fl-board.fl-over{box-shadow:0 5px 0 var(--ink),0 0 0 6px #ffc23380}
+.fl-grid{display:grid;grid-template-columns:repeat(var(--n),1fr);grid-template-rows:repeat(var(--n),1fr);width:100%;height:100%}
+.fl-c{position:relative;display:grid;place-items:center;color:#fff;font-size:calc(var(--s,320px)/var(--n)*.5);line-height:1;text-shadow:0 1px 2px #0008;transition:background-color .25s;overflow:hidden;pointer-events:none}
+.fl-c::after{content:attr(data-t);position:absolute;right:6%;bottom:2%;font:900 calc(var(--s,320px)/var(--n)*.3)/1 var(--display);color:#fff;text-shadow:0 0 2px #000,0 0 2px #000}
+.fl-sm .fl-c::after{display:none}
+.fl-c:not(.fl-own)::after{display:none}
+.fl-c.fl-pop{animation:fl-pop .45s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes fl-pop{0%{transform:scale(.4)}100%{transform:scale(1)}}
+.fl-pal{display:flex;gap:8px;justify-content:center;width:100%;max-width:max(var(--s,320px),320px)}
+.fl-btn{flex:1 1 0;min-width:44px;min-height:52px;max-width:96px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;margin:0;padding:4px 2px;border:3px solid var(--ink);border-radius:14px;background:var(--k);color:#fff;font:900 24px/1 var(--display);text-shadow:0 1px 2px #000a;box-shadow:0 4px 0 var(--ink);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:transform .08s,box-shadow .08s,opacity .2s,filter .2s}
+.fl-btn i{font-style:normal;font-size:13px;font-weight:800}
+.fl-btn:not(:disabled):active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.fl-btn:disabled{cursor:default}
+.fl-btn.fl-off{opacity:.3;filter:grayscale(.6);box-shadow:none;transform:translateY(3px)}
+.fl-btn:disabled:not(.fl-off){opacity:.8}
+.fl-btn:not(:disabled):focus-visible{outline:3px solid #fff;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.fl-c,.fl-btn,.fl-pl{transition:none}.fl-c.fl-pop{animation:none}}
+.fl-mid{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.fl-side .fl-mid{flex-direction:row;justify-content:center;align-items:center;gap:16px}
+.fl-side .fl-pal{flex-direction:column;width:auto;max-width:none;height:var(--s,320px);gap:6px}
+.fl-side .fl-btn{flex:1 1 0;width:78px;min-height:44px;max-width:none}
+
+/* Гекс */
+.hx-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.hx-vs{display:flex;gap:.7em;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:800;font-size:clamp(14px,1.6vw,22px);line-height:1.1}
+.hx-chip{color:var(--ink);padding:.2em .7em;border-radius:999px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,#fff);opacity:.7;transition:opacity .2s,transform .2s}
+.hx-chip.on{opacity:1;transform:scale(1.06);box-shadow:0 3px 0 var(--ink)}
+.hx-board{--c:#999;position:relative;flex:none;width:var(--w,320px);height:var(--h,260px);max-width:100%;background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);box-sizing:border-box;transition:box-shadow .2s}
+.hx-board.hx-over{box-shadow:0 5px 0 var(--ink),0 0 0 6px color-mix(in srgb,var(--c) 45%,transparent)}
+.hx-svg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;-webkit-user-select:none;user-select:none}
+.hx-cell{fill:#f1eefb;stroke:var(--ink);stroke-opacity:.35;stroke-width:.06;transition:fill .2s}
+.hx-cell.hx-win{fill:#fff3b8;stroke-opacity:.8}
+.hx-stone{stroke:var(--ink);stroke-width:.1}
+.hx-st.new{transform-box:fill-box;transform-origin:center;animation:hx-pop .4s cubic-bezier(.2,1.5,.4,1) both}
+.hx-dot{fill:var(--ink)}
+.hx-link{stroke:var(--ink);opacity:.85;animation:hx-fade .6s both}
+.hx-b{position:absolute;margin:0;padding:0;border:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.hx-b:disabled{cursor:default;pointer-events:none}
+@media(hover:hover){.hx-b:not(:disabled):hover{background:color-mix(in srgb,var(--c) 45%,transparent)}}
+.hx-b:not(:disabled):focus-visible{background:color-mix(in srgb,var(--c) 60%,transparent)}
+.hx-b:not(:disabled):active{background:color-mix(in srgb,var(--c) 75%,transparent)}
+.hx-cpu .hx-b{cursor:progress}
+.hx-swap[hidden]{display:none}
+@keyframes hx-pop{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes hx-fade{from{opacity:0}to{opacity:.85}}
+@media(prefers-reduced-motion:reduce){.hx-st.new,.hx-link{animation:none}.hx-chip{transition:none}}
 
 /* Игра «Пары» */
 .mem-info{min-height:1.5em;font-size:clamp(14px,1.1vw + 8px,20px);line-height:1.3;text-align:center;color:var(--paper-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:-6px 0 -4px}
@@ -842,6 +922,118 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .mil-actions{gap:.4rem}.mil-actions .btn{min-height:46px;padding-top:.3em;padding-bottom:.3em}
 .mil-info{min-height:0;font-size:.85em}
 }
+
+/* Японские кроссворды */
+.ng-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.ng-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;width:min(100%,560px);color:var(--paper);font-weight:700;font-size:clamp(14px,1.5vw,20px);line-height:1.2}
+.ng-clock{font-family:var(--display);font-size:1.3em;color:#f2b134;font-variant-numeric:tabular-nums}
+.ng-cnt.ng-warn{color:#ff9a8f}
+.ng-board{--cs:30px;--u:18px;--fs:14px;display:grid;grid-template-columns:calc(var(--rc)*var(--u)) calc(var(--n)*var(--cs));grid-template-rows:calc(var(--cc)*var(--u)) calc(var(--n)*var(--cs));flex:none;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:3px;box-shadow:0 5px 0 var(--ink);-webkit-user-select:none;user-select:none}
+.ng-cols{display:grid;grid-template-columns:repeat(var(--n),var(--cs))}
+.ng-rows{display:grid;grid-template-rows:repeat(var(--n),var(--cs))}
+.ng-cc{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:2px;box-sizing:border-box}
+.ng-rc{display:flex;justify-content:flex-end;align-items:center;padding-right:3px;box-sizing:border-box}
+.ng-cc span,.ng-rc span{font-size:var(--fs);font-weight:800;font-family:var(--display);line-height:var(--u);text-align:center;min-width:var(--u);height:var(--u);transition:opacity .15s}
+.ng-cc.ngr{box-shadow:inset -2px 0 0 rgba(14,18,51,.55)}
+.ng-rc.ngb{box-shadow:inset 0 -2px 0 rgba(14,18,51,.55)}
+.ng-cc.ng-cur,.ng-rc.ng-cur{background:rgba(242,177,52,.45)}
+.ng-cc.ng-ok span,.ng-rc.ng-ok span{opacity:.3;text-decoration:line-through}
+.ng-grid{display:grid;grid-template-columns:repeat(var(--n),var(--cs));grid-template-rows:repeat(var(--n),var(--cs));background:#fff;touch-action:none;cursor:pointer;outline:2px solid var(--ink)}
+.ng-c{box-sizing:border-box;border:1px solid rgba(14,18,51,.22);position:relative;-webkit-tap-highlight-color:transparent}
+.ng-c.ngr{border-right:2px solid var(--ink)}
+.ng-c.ngb{border-bottom:2px solid var(--ink)}
+.ng-c.ng-f{background:#1f2570}
+.ng-c.ng-f.ng-lk{background:#1f2570;box-shadow:inset 0 0 0 3px #f2b134}
+.ng-c.ng-x{background:linear-gradient(45deg,transparent 44%,#6a73b8 44% 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,#6a73b8 44% 56%,transparent 56%);background-size:70% 70%;background-position:center;background-repeat:no-repeat}
+.ng-c.ng-bad{background-color:#e8483f;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,transparent 3px 7px);background-size:auto;background-repeat:repeat}
+.ng-c.ng-bad.ng-x{background-image:linear-gradient(45deg,transparent 40%,#fff 40% 60%,transparent 60%),linear-gradient(-45deg,transparent 40%,#fff 40% 60%,transparent 60%);background-size:70% 70%;background-repeat:no-repeat}
+.ng-c.ng-rev{background:var(--fc,#333);animation:ng-rev .5s both;box-shadow:none}
+.ng-done .ng-grid{outline-color:#f2b134}
+@keyframes ng-rev{from{transform:scale(.4);opacity:.2}to{transform:scale(1);opacity:1}}
+.ng-ctl{display:flex;gap:8px;width:min(100%,560px)}
+.ng-seg,.ng-acts{display:flex;gap:8px}
+.ng-seg{flex:2.6}.ng-acts{flex:1.9}
+.ng-m{padding-inline:.3em}
+.ng-b{padding-inline:.2em;white-space:nowrap}
+@media(max-width:480px){.ng-ico{display:none}.ng-m,.ng-b{font-size:14px;gap:0;white-space:nowrap}.ng-b{font-size:13px}}
+.ng-m,.ng-b{flex:1;min-height:48px;padding:.4em .6em;border:3px solid var(--ink);border-radius:14px;background:var(--paper);color:var(--ink);font:inherit;font-weight:800;font-size:clamp(14px,1.4vw,18px);display:flex;align-items:center;justify-content:center;gap:.5em;cursor:pointer;box-shadow:0 3px 0 var(--ink);touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.ng-m.on{background:#f2b134}
+.ng-m:active,.ng-b:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.ng-b:disabled,.ng-m:disabled{opacity:.5;cursor:default}
+.ng-ico{display:inline-block;width:1.1em;height:1.1em;border:2px solid var(--ink);border-radius:3px;box-sizing:border-box}
+.ng-ico.f{background:#1f2570}
+.ng-ico.x{background:linear-gradient(45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%),linear-gradient(-45deg,transparent 42%,var(--ink) 42% 58%,transparent 58%),#fff}
+.ng-art{background:var(--paper);border:4px solid var(--ink);border-radius:16px;padding:10px;box-shadow:0 5px 0 var(--ink);line-height:0}
+.ng-pic{display:block;animation:ng-rev .5s both}
+@media(prefers-reduced-motion:reduce){.ng-c.ng-rev,.ng-pic{animation:none}}
+
+/* Реверси */
+.rv-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.rv-vs{display:flex;gap:.6em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(13px,1.5vw,20px);line-height:1.1;flex-wrap:wrap}
+.rv-chip{display:inline-flex;align-items:center;gap:.4em;color:var(--ink);padding:.2em .7em;border-radius:999px;border:3px solid var(--ink);background:#fff;opacity:.7;transition:opacity .2s,transform .2s}
+.rv-chip.rv-on{opacity:1;transform:scale(1.06);box-shadow:0 3px 0 var(--ink)}
+.rv-chip b{font-family:var(--display);font-size:1.25em}
+.rv-colon{opacity:.5}
+.rv-mini{display:inline-block;width:1.1em;height:1.1em;border-radius:50%;border:2px solid #111;box-sizing:border-box;flex:none}
+.rv-mini0{background:radial-gradient(circle,#eee 0 18%,#222 20%)}
+.rv-mini1{background:#fff;box-shadow:inset 0 0 0 .18em #fff,inset 0 0 0 .3em #444}
+.rv-msg{min-height:1.3em;font-weight:800;color:var(--ink);text-align:center;font-size:clamp(13px,1.4vw,18px);opacity:0;transition:opacity .2s}
+.rv-msg.rv-show{opacity:1}
+.rv-board{--s:320px;display:grid;grid-template-columns:repeat(var(--n),1fr);grid-template-rows:repeat(var(--n),1fr);gap:2px;padding:3px;flex:none;width:var(--s);height:var(--s);max-width:100%;box-sizing:border-box;background:#1d6b42;border:4px solid var(--ink);border-radius:14px;box-shadow:0 5px 0 var(--ink)}
+.rv-cell{position:relative;margin:0;padding:0;border:0;border-radius:4px;background:#3aa86b;cursor:default;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;min-width:0;min-height:0;box-shadow:none}
+.rv-cell.rv-last{box-shadow:inset 0 0 0 3px #ffc233}
+.rv-cell.rv-ok{cursor:pointer;background:#46bb7a}
+.rv-cell:disabled{pointer-events:none}
+.rv-hint{display:none;position:absolute;left:50%;top:50%;width:26%;height:26%;transform:translate(-50%,-50%);border-radius:50%;box-sizing:border-box;opacity:.55;transition:transform .12s,opacity .12s}
+.rv-ok .rv-hint{display:block}
+.rv-p0 .rv-hint{background:#111}
+.rv-p1 .rv-hint{background:transparent;border:3px solid #fff}
+@media(hover:hover){.rv-ok:hover .rv-hint{opacity:1;transform:translate(-50%,-50%) scale(1.3)}}
+.rv-cell.rv-ok:focus-visible{box-shadow:inset 0 0 0 3px #fff}
+.rv-disc{position:absolute;inset:9%;border-radius:50%;transform-style:preserve-3d;transform:rotateY(0) scale(0);transition:transform .5s cubic-bezier(.3,1.2,.4,1);pointer-events:none}
+.rv-disc.rv-has{transform:rotateY(0) scale(1)}
+.rv-disc.rv-has[data-s="1"]{transform:rotateY(180deg) scale(1)}
+.rv-f{position:absolute;inset:0;border-radius:50%;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-sizing:border-box}
+.rv-f0{background:radial-gradient(circle at 50% 50%,#e8e8e8 0 14%,transparent 16%),radial-gradient(circle at 35% 30%,#555,#111 70%);border:2px solid #000;box-shadow:0 2px 3px rgba(0,0,0,.4)}
+.rv-f1{transform:rotateY(180deg);background:radial-gradient(circle at 35% 30%,#fff,#ddd 80%);border:2px solid #555;box-shadow:inset 0 0 0 .28em #f4f4f4,inset 0 0 0 .4em #555,0 2px 3px rgba(0,0,0,.4)}
+.rv-disc.rv-new{animation:rv-drop .35s ease-out}
+@keyframes rv-drop{from{filter:brightness(1.6)}to{filter:none}}
+@media(prefers-reduced-motion:reduce){.rv-disc{transition:none!important}.rv-disc.rv-new{animation:none}.rv-chip,.rv-hint{transition:none}}
+
+/* Сапёры */
+.sp-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.sp-vs{display:flex;gap:.7em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(13px,1.6vw,20px);line-height:1.1}
+.sp-vs span[style]{color:var(--ink);padding:.15em .6em;border-radius:999px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,#fff)}
+.sp-vs b{font-family:var(--display);font-size:1.25em}
+.sp-top{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:center}
+.sp-colon{opacity:.5}
+.sp-modes{display:flex;gap:6px;align-items:center}
+.sp-m{min-height:44px;padding:0 12px;border-radius:12px;border:3px solid var(--ink);background:#fff;color:var(--ink);font:800 clamp(14px,1.5vw,18px) var(--display);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.sp-m[aria-pressed=true]{background:var(--ink);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.sp-info{font:800 clamp(15px,1.5vw,19px) var(--display);margin-left:4px;white-space:nowrap}
+.sp-board{--tc:#999;display:grid;grid-template-columns:repeat(var(--n,9),var(--cs,32px));grid-auto-rows:var(--cs,32px);flex:none;background:var(--ink);border:3px solid var(--tc);border-radius:12px;gap:0;box-shadow:0 5px 0 var(--ink);overflow:hidden;transition:border-color .2s;-webkit-user-select:none;user-select:none}
+.sp-board.sp-flagmode{outline:3px dashed #e8564f;outline-offset:2px}
+.sp-c{position:relative;margin:0;padding:0;border:0;border-radius:0;background:linear-gradient(#f4efe4,#d9d2c1);color:var(--ink);font:900 calc(var(--cs,32px)*.58) var(--display);line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent;box-shadow:inset 2px 2px 0 rgba(255,255,255,.8),inset -2px -2px 0 rgba(0,0,0,.18)}
+.sp-c:disabled{cursor:default;opacity:1}
+@media(hover:hover){.sp-c:not(:disabled):hover{background:linear-gradient(#fff,#e8e2d2)}}
+.sp-c:not(:disabled):focus-visible{outline:3px solid var(--tc);outline-offset:-3px}
+.sp-cpu .sp-c{cursor:progress}
+.sp-open{background:#fff;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.3);animation:sp-pop .28s var(--d,0ms) ease-out both}
+.sp-c sub{position:absolute;right:2px;bottom:1px;font:900 calc(var(--cs,32px)*.28) var(--display);color:var(--ink);line-height:1}
+.sp-flag,.sp-boom{background:color-mix(in srgb,var(--c) 55%,#fff);font-size:calc(var(--cs,32px)*.55);box-shadow:inset 0 0 0 2px var(--c);animation:sp-pop .35s ease-out both}
+.sp-boom{background:var(--c);box-shadow:inset 0 0 0 2px var(--ink)}
+.sp-wrong{background:#fff3f0}
+.sp-w{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:calc(var(--cs,32px)*.45);opacity:.45}
+.sp-wrong::after{content:"✗";position:absolute;right:2px;top:0;font-size:calc(var(--cs,32px)*.4);color:#c62828}
+.sp-wrong span{position:relative;z-index:1}
+.sp-n1{color:#1565c0}.sp-n2{color:#2e7d32}.sp-n3{color:#d32f2f}.sp-n4{color:#4a148c}
+.sp-n5{color:#8d2f00}.sp-n6{color:#00838f}.sp-n7{color:#212121}.sp-n8{color:#616161}
+/* различимость не только цветом: подчёркивание, курсив, надчёркивание */
+.sp-n3 span{text-decoration:underline;text-decoration-thickness:2px}
+.sp-n4 span{font-style:italic}
+.sp-n5 span,.sp-n6 span,.sp-n7 span,.sp-n8 span{text-decoration:overline;text-decoration-thickness:2px}
+@keyframes sp-pop{0%{transform:scale(.6);opacity:.2}100%{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){.sp-open,.sp-flag,.sp-boom{animation:none}}
 
 /* Главная: поиск, значок «Новое», компактная шапка */
 .gsearch{display:block;width:100%;max-width:420px;margin:0 0 clamp(14px,2vw,22px);padding:.7em 1em;border-radius:14px;border:3px solid var(--ink);background:var(--paper,#fff);color:var(--ink);font:inherit;font-weight:700;box-shadow:0 4px 0 var(--ink)}
@@ -1097,7 +1289,7 @@ function Home() {
   const packHas = (g, p) => (g.decks || []).some(n => DATA.themed && DATA.themed[n] && DATA.themed[n][p] && DATA.themed[n][p].length);
   const packOk = g => pack !== 'kids' || !(g.decks || []).length || packHas(g, 'kids');
   let q = '';
-  const NEW_IDS = ['millionaire', 'allin', 'anagram', 'memory', 'dots', 'hang'];
+  const NEW_IDS = ['connect', 'reversi', 'hex', 'nonogram', 'sapper', 'flood', 'dots'];
   const found = g => !q || (g.title + ' ' + g.tagline).toLowerCase().includes(q);
   const visible = () => G.games.filter(g => (cat === 'Все' || (cat === '★ Любимые' ? isFav(g.id) : g.cats.includes(cat))) && fits(g) && packOk(g) && found(g)).sort((a, b) => cat === 'Все' && !q ? isFav(b.id) - isFav(a.id) : 0);
   const search = h('input', { class: 'gsearch', type: 'search', placeholder: 'Найти игру…', 'aria-label': 'Найти игру по названию', autocomplete: 'off', oninput: e => { q = e.target.value.trim().toLowerCase(); paint(); } });
@@ -8968,6 +9160,1119 @@ function mfPickVictim(votes) {
 
       api.show(root, { turn: 0, role: 'Проводит линию', compact: true });
       paintTurnUI(); paintVs(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+    }
+  });
+}
+
+/* ---- src/games/g39_connect.js ---- */
+/* 39. Четыре в ряд — классика: бросайте фишки в столбцы и собирайте четыре своих в линию */
+{
+  const CN_NS = 'http://www.w3.org/2000/svg';
+  const cnSvg = (tag, attrs, ...kids) => { const e = document.createElementNS(CN_NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); kids.forEach(x => e.append(x)); return e; };
+  /* символ игрока на фишке: кольцо, треугольник, квадрат, ромб (для различения без цвета) */
+  const cnSym = (k, cx, cy, r) => {
+    const a = { fill: 'none', stroke: '#1b1b2f', 'stroke-width': r * .26, 'stroke-linejoin': 'round', class: 'cn-sym' };
+    if (k === 0) return cnSvg('circle', { ...a, cx, cy, r: r * .62 });
+    if (k === 1) return cnSvg('polygon', { ...a, points: `${cx},${cy - r * .72} ${cx + r * .74},${cy + r * .55} ${cx - r * .74},${cy + r * .55}` });
+    if (k === 2) return cnSvg('rect', { ...a, x: cx - r * .55, y: cy - r * .55, width: r * 1.1, height: r * 1.1, rx: r * .08 });
+    return cnSvg('polygon', { ...a, points: `${cx},${cy - r * .78} ${cx + r * .7},${cy} ${cx},${cy + r * .78} ${cx - r * .7},${cy}` });
+  };
+  const cnDirs = [[0, 1], [1, 0], [1, 1], [1, -1]];
+  registerGame({
+    id: 'connect', title: 'Четыре в ряд', icon: '🔴', color: '#ff7a59',
+    cats: ['Командные', 'Для двоих'], teams: { min: 1, max: 4 }, mins: 10,
+    tagline: 'Бросайте фишки в столбцы: они падают до самого низа. Соберите четыре своих в ряд: по горизонтали, вертикали или диагонали.',
+    rules: '<ul><li>Команды по очереди выбирают столбец: касанием по нему. Фишка падает на самое нижнее свободное место.</li><li>Побеждает тот, кто первым выстроил <b>четыре своих фишки в линию</b>: по горизонтали, вертикали или по диагонали.</li><li>Фишки игроков различаются цветом и значком: кольцо, треугольник, квадрат, ромб.</li><li>Если поле заполнено, а линии нет, партия заканчивается <b>ничьей</b>.</li><li>Если играет один участник, соперником станет компьютер: уровень выбирается в настройках.</li><li>Три и четыре команды играют на увеличенном поле 9×7.</li></ul>',
+    opts: [
+      { key: 'size', label: 'Поле', values: [[0, 'Классика 7×6'], [1, 'Побольше 9×7 (3–4 команды: всегда)']], def: 0 },
+      { key: 'level', label: 'Компьютер (при одном участнике)', values: [[0, 'Лёгкий'], [1, 'Средний'], [2, 'Сильный']], def: 1 }
+    ],
+    cards: () => 0,
+    start(api) {
+      const solo = api.n === 1, big = api.n >= 3 || +api.opts.size === 1;
+      const C = big ? 9 : 7, R = big ? 7 : 6, level = [0, 1, 2].includes(+api.opts.level) ? +api.opts.level : 1;
+      const sides = api.teams.map(t => ({ name: t.name, color: t.color }));
+      if (solo) sides.push({ name: 'Компьютер', color: TEAM_COLORS[1] });
+      const S = sides.length;
+      const g = Array(C * R).fill(-1);
+      let cur = 0, placed = 0, locked = false, over = false;
+      const rowOf = c => { for (let r = R - 1; r >= 0; r--) if (g[r * C + c] < 0) return r; return -1; };
+
+      /* линия из 4+ фишек игрока p через клетку (r,c): список клеток или null */
+      function lineAt(gr, r, c, p) {
+        for (const [dr, dc] of cnDirs) {
+          const cells = [[r, c]];
+          for (const s of [1, -1]) for (let k = 1; k < R + C; k++) { const rr = r + dr * k * s, cc = c + dc * k * s; if (rr < 0 || rr >= R || cc < 0 || cc >= C || gr[rr * C + cc] !== p) break; cells.push([rr, cc]); }
+          if (cells.length >= 4) return cells;
+        }
+        return null;
+      }
+
+      /* ---- SVG: фишки под доской, доска с дырками сверху ---- */
+      const gDisc = cnSvg('g', {}), gHi = cnSvg('g', {});
+      let hole = `M0 0H${C * 100}V${R * 100}H0Z`;
+      for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) { const x = c * 100 + 50, y = r * 100 + 50; hole += `M${x - 40} ${y}a40 40 0 1 0 80 0a40 40 0 1 0 -80 0Z`; }
+      const slots = cnSvg('g', {});
+      for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) slots.append(cnSvg('circle', { cx: c * 100 + 50, cy: r * 100 + 50, r: 40, class: 'cn-slot' }));
+      const svg = cnSvg('svg', { viewBox: `0 0 ${C * 100} ${R * 100}`, class: 'cn-svg', 'aria-hidden': 'true', focusable: 'false' }, slots, gDisc, cnSvg('path', { d: hole, 'fill-rule': 'evenodd', class: 'cn-frame' }), gHi);
+
+      const board = h('div', { class: 'cn-board' }, svg);
+      const cols = [];
+      for (let c = 0; c < C; c++) {
+        const b = h('button', { class: 'cn-col', type: 'button', 'aria-label': 'Столбец ' + (c + 1), style: { left: (c * 100 / C) + '%', width: (100 / C) + '%' }, onclick: () => drop(c, false) });
+        cols.push(b); board.append(b);
+      }
+      const chips = sides.map((s, k) => {
+        const ic = cnSvg('svg', { viewBox: '0 0 20 20', class: 'cn-ci', 'aria-hidden': 'true' }, cnSvg('circle', { cx: 10, cy: 10, r: 9.2, fill: s.color, stroke: '#1b1b2f', 'stroke-width': 1.2 }), cnSym(k, 10, 10, 9));
+        return h('span', { class: 'cn-chip', style: { '--c': s.color } }, ic, s.name);
+      });
+      const leg = h('div', { class: 'cn-leg' }, ...chips);
+      const root = h('div', { class: 'cn-wrap' }, leg, board);
+      function fit() {
+        if (!root.isConnected) return;
+        const top = root.getBoundingClientRect().top + leg.offsetHeight + 8;
+        const availH = window.innerHeight - top - 14 - (parseFloat(getComputedStyle(root.parentElement).paddingBottom) || 0);
+        const w = Math.max(200, Math.min(root.clientWidth, availH * C / R, 900));
+        board.style.setProperty('--w', Math.floor(w) + 'px'); board.style.setProperty('--h', Math.floor(w * R / C) + 'px');
+      }
+      const onResize = () => { if (!root.isConnected) return window.removeEventListener('resize', onResize); fit(); };
+      window.addEventListener('resize', onResize);
+
+      function paintTurn() {
+        requestAnimationFrame(fit);
+        board.style.setProperty('--c', sides[cur].color);
+        chips.forEach((c, k) => c.classList.toggle('on', !over && k === cur));
+        board.classList.toggle('cn-cpu', solo && cur === 1);
+        cols.forEach((b, c) => b.disabled = over || rowOf(c) < 0);
+      }
+      function banner() {
+        if (solo && cur === 1) api.setTurn(-1, 'Ход компьютера', 'Компьютер');
+        else api.setTurn(cur, 'Бросает фишку');
+      }
+
+      function drop(c, byAi) {
+        if (locked || over) return;
+        if (!byAi && solo && cur === 1) return;
+        const r = rowOf(c); if (r < 0) return;
+        const who = cur; g[r * C + c] = who; placed++;
+        const d = cnSvg('g', { class: 'cn-disc', style: `--from:${-(r + 1.3) * 100}px;--t:${(.24 + .04 * r).toFixed(2)}s` },
+          cnSvg('circle', { cx: c * 100 + 50, cy: r * 100 + 50, r: 41, fill: sides[who].color, class: 'cn-fill' }),
+          cnSvg('circle', { cx: c * 100 + 50, cy: r * 100 + 50, r: 29, fill: 'none', stroke: '#fff', 'stroke-opacity': .35, 'stroke-width': 3 }),
+          cnSym(who, c * 100 + 50, r * 100 + 50, 40));
+        gDisc.append(d);
+        locked = true;
+        const line = lineAt(g, r, c, who), full = placed >= R * C;
+        setTimeout(() => {
+          if (!root.isConnected) return;
+          sfx.click();
+          if (line) return win(who, line);
+          if (full) return finish(-1);
+          cur = (cur + 1) % S; locked = false; paintTurn(); banner();
+          if (solo && cur === 1) { locked = true; setTimeout(ai, 400 + rnd(300)); }
+        }, 300 + 40 * r);
+      }
+
+      /* ---- компьютер: минимакс с альфа-бета отсечением ---- */
+      function evalPos(gr, me) {
+        let sc = 0;
+        for (let r = 0; r < R; r++) { const v = gr[r * C + (C >> 1)]; if (v >= 0) sc += v === me ? 3 : -3; }
+        for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) for (const [dr, dc] of cnDirs) {
+          const er = r + dr * 3, ec = c + dc * 3; if (er < 0 || er >= R || ec < 0 || ec >= C) continue;
+          let m = 0, o = 0;
+          for (let k = 0; k < 4; k++) { const v = gr[(r + dr * k) * C + c + dc * k]; if (v === me) m++; else if (v >= 0) o++; }
+          if (m && o) continue;
+          if (m) sc += [1, 5, 25][m - 1] || 0; else if (o) sc -= [1, 5, 40][o - 1] || 0;
+        }
+        return sc;
+      }
+      const order = Array.from({ length: C }, (_, i) => i).sort((a, b) => Math.abs(a - (C - 1) / 2) - Math.abs(b - (C - 1) / 2));
+      function search(gr, depth, a, b, p, me, last) {
+        /* last = [r,c,кто] — последний ход; победа предыдущего игрока */
+        if (last && lineAt(gr, last[0], last[1], last[2])) return last[2] === me ? 100000 + depth : -100000 - depth;
+        if (depth === 0) return evalPos(gr, me);
+        let any = false, best = p === me ? -Infinity : Infinity;
+        for (const c of order) {
+          let r = -1; for (let q = R - 1; q >= 0; q--) if (gr[q * C + c] < 0) { r = q; break; }
+          if (r < 0) continue; any = true;
+          gr[r * C + c] = p;
+          const v = search(gr, depth - 1, a, b, 1 - p, me, [r, c, p]);
+          gr[r * C + c] = -1;
+          if (p === me) { if (v > best) best = v; if (best > a) a = best; } else { if (v < best) best = v; if (best < b) b = best; }
+          if (a >= b) break;
+        }
+        return any ? best : 0;
+      }
+      function ai() {
+        locked = false; if (!root.isConnected || over) return;
+        const legal = order.filter(c => rowOf(c) >= 0); if (!legal.length) return;
+        const depth = [2, 4, big ? 5 : 6][level];
+        let pick;
+        if (level === 0 && Math.random() < .3) pick = legal[rnd(legal.length)];
+        else {
+          const gr = g.slice(); let best = -Infinity, bl = [];
+          for (const c of legal) {
+            const r = rowOf(c); gr[r * C + c] = 1;
+            const v = search(gr, depth - 1, -Infinity, Infinity, 0, 1, [r, c, 1]);
+            gr[r * C + c] = -1;
+            if (v > best) { best = v; bl = [c]; } else if (v === best) bl.push(c);
+          }
+          pick = bl[rnd(bl.length)];
+        }
+        drop(pick, true);
+      }
+
+      function win(who, line) {
+        over = true; locked = true; paintTurn();
+        line.forEach(([r, c]) => gHi.append(cnSvg('circle', { cx: c * 100 + 50, cy: r * 100 + 50, r: 46, class: 'cn-win', fill: 'none' })));
+        sfx.win(); try { fx.burst(board, 10); } catch (x) { }
+        board.classList.add('cn-over');
+        setTimeout(() => finish(who), 1700);
+      }
+      function finish(who) {
+        over = true; locked = true; paintTurn();
+        if (!root.isConnected) return;
+        window.removeEventListener('resize', onResize);
+        if (who < 0) return api.end({ custom: true, title: 'Ничья!', sub: 'Поле заполнено, линии нет', lines: [], win: true });
+        if (!solo) { api.score(who, 1); return api.end(); }
+        if (who === 0) { api.score(0, 1); api.end({ custom: true, title: sides[0].name + ' побеждает!', sub: 'Четыре в ряд!', lines: [], win: true }); }
+        else api.end({ custom: true, title: 'Компьютер победил', sub: 'Четыре в ряд у компьютера', lines: ['Сыграйте ещё раз: реванш за вами.'], win: false });
+      }
+
+      api.show(root, { turn: 0, role: 'Бросает фишку', compact: true });
+      paintTurn(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+    }
+  });
+}
+
+/* ---- src/games/g40_reversi.js ---- */
+/* 40. Реверси — классический Отелло: зажмите фишки соперника между своими, и они перевернутся */
+{
+  registerGame({
+    id: 'reversi', title: 'Реверси', icon: '⚫', color: '#3aa86b',
+    cats: ['Командные', 'Для двоих'], teams: { min: 1, max: 2 }, mins: 15,
+    tagline: 'Ставьте фишку так, чтобы зажать ряд фишек соперника, и они станут вашими. У кого в конце больше фишек, тот и победил.',
+    rules: '<ul><li>Играют две стороны: <b>чёрные</b> (с точкой в центре) и <b>белые</b> (с кольцом). Первыми ходят чёрные.</li><li>Ход: поставьте фишку на пустую клетку, подсвеченную точкой. Ход допустим, если по прямой (по горизонтали, вертикали или диагонали) между новой фишкой и вашей старой окажется ряд фишек соперника. Все они <b>переворачиваются</b>.</li><li>Если допустимых ходов нет, ход автоматически переходит к сопернику.</li><li>Партия кончается, когда поле заполнено или никто не может сходить. Побеждает тот, у кого больше фишек.</li><li>Углы забрать выгодно: их нельзя перевернуть.</li><li>Если играет один участник, соперником станет компьютер: вы играете чёрными.</li></ul>',
+    opts: [
+      { key: 'size', label: 'Размер поля', values: [[6, '6×6 · быстрая партия'], [8, '8×8 · классика']], def: 8 },
+      { key: 'level', label: 'Сила компьютера (при одном игроке)', values: [[1, 'Лёгкий'], [2, 'Средний'], [3, 'Сильный']], def: 2 }
+    ],
+    cards: () => 0,
+    start(api) {
+      const N = +api.opts.size === 6 ? 6 : 8, LV = [1, 2, 3].includes(+api.opts.level) ? +api.opts.level : 2, solo = api.n === 1;
+      const sides = [{ name: api.teams[0].name }, { name: solo ? 'Компьютер' : api.teams[1].name }];
+      const MARK = ['Чёрные', 'Белые'];
+      const DIRS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+      /* ---- чистая логика: b — массив N*N (-1 пусто, 0 чёрные, 1 белые) ---- */
+      const flipsAt = (b, i, p) => {
+        if (b[i] !== -1) return [];
+        const r = (i / N) | 0, c = i % N, out = [];
+        for (const [dr, dc] of DIRS) {
+          const line = []; let y = r + dr, x = c + dc;
+          while (y >= 0 && y < N && x >= 0 && x < N && b[y * N + x] === 1 - p) { line.push(y * N + x); y += dr; x += dc; }
+          if (line.length && y >= 0 && y < N && x >= 0 && x < N && b[y * N + x] === p) out.push(...line);
+        }
+        return out;
+      };
+      const movesOf = (b, p) => { const m = []; for (let i = 0; i < N * N; i++) if (b[i] === -1) { const f = flipsAt(b, i, p); if (f.length) m.push({ i, f }); } return m; };
+      const applyMove = (b, mv, p) => { const nb = b.slice(); nb[mv.i] = p; mv.f.forEach(k => nb[k] = p); return nb; };
+      const count = b => { let a = 0, w = 0; b.forEach(v => { if (v === 0) a++; else if (v === 1) w++; }); return [a, w]; };
+      const startBoard = () => { const b = Array(N * N).fill(-1), q = N / 2; b[(q - 1) * N + q - 1] = 1; b[q * N + q] = 1; b[(q - 1) * N + q] = 0; b[q * N + q - 1] = 0; return b; };
+      /* позиционные веса: углы дороги, клетки рядом с углами опасны */
+      const W = Array.from({ length: N * N }, (_, i) => {
+        const r = (i / N) | 0, c = i % N, er = Math.min(r, N - 1 - r), ec = Math.min(c, N - 1 - c);
+        if (er === 0 && ec === 0) return 100;
+        if (er === 1 && ec === 1) return -40; /* X-клетки */
+        if (er + ec === 1) return -20; /* C-клетки */
+        if (er === 0 || ec === 0) return 6;
+        return er === 1 || ec === 1 ? -3 : 1;
+      });
+      const evalPos = (b, p) => {
+        let s = 0; for (let i = 0; i < N * N; i++) if (b[i] === p) s += W[i]; else if (b[i] === 1 - p) s -= W[i];
+        return s + 4 * (movesOf(b, p).length - movesOf(b, 1 - p).length);
+      };
+      const search = (b, p, d, a, bt) => { /* негамакс с альфа-бета; значение с точки зрения p */
+        const mv = movesOf(b, p);
+        if (!mv.length) {
+          if (!movesOf(b, 1 - p).length) { const [x, y] = count(b); return (p === 0 ? x - y : y - x) * 1000; }
+          return d === 0 ? evalPos(b, p) : -search(b, 1 - p, d - 1, -bt, -a);
+        }
+        if (d === 0) return evalPos(b, p);
+        mv.sort((m, n) => W[n.i] - W[m.i]);
+        let best = -1e9;
+        for (const m of mv) { const v = -search(applyMove(b, m, p), 1 - p, d - 1, -bt, -a); if (v > best) best = v; if (v > a) a = v; if (a >= bt) break; }
+        return best;
+      };
+      const pickAi = (b, p, mv) => {
+        let pool;
+        if (LV === 1) { const mx = Math.max(...mv.map(m => m.f.length)); pool = mv.filter(m => m.f.length === mx); }
+        else if (LV === 2) { const mx = Math.max(...mv.map(m => W[m.i])); pool = mv.filter(m => W[m.i] === mx); }
+        else {
+          const depth = N === 6 ? 5 : 4; let best = -1e9; pool = [];
+          for (const m of mv) { const v = -search(applyMove(b, m, p), 1 - p, depth - 1, -1e9, 1e9); if (v > best) { best = v; pool = [m]; } else if (v === best) pool.push(m); }
+        }
+        return pool[rnd(pool.length)];
+      };
+
+      /* ---- состояние ---- */
+      let board = startBoard(), cur = 0, locked = false, over = false, last = -1;
+      const cells = [], discs = [];
+      const boardEl = h('div', { class: 'rv-board', style: { '--n': N } });
+      for (let i = 0; i < N * N; i++) {
+        const r = (i / N) | 0, c = i % N;
+        const cell = h('button', { class: 'rv-cell', type: 'button', 'aria-label': 'Клетка ' + 'абвгдежз'[c] + (r + 1), onclick: () => tap(i) });
+        const disc = h('span', { class: 'rv-disc' }, h('span', { class: 'rv-f rv-f0' }), h('span', { class: 'rv-f rv-f1' }));
+        cell.append(disc, h('span', { class: 'rv-hint' })); cells.push(cell); discs.push(disc); boardEl.append(cell);
+      }
+      const msg = h('div', { class: 'rv-msg', role: 'status', 'aria-live': 'polite' });
+      const chips = [0, 1].map(k => h('span', { class: 'rv-chip rv-s' + k }));
+      const vs = h('div', { class: 'rv-vs' }, chips[0], h('span', { class: 'rv-colon' }, '·'), chips[1]);
+      const root = h('div', { class: 'rv-wrap' }, vs, msg, boardEl);
+      const paintChips = () => {
+        const cnt = count(board);
+        cnt.forEach((n, k) => { chips[k].replaceChildren(h('i', { class: 'rv-mini rv-mini' + k }), sides[k].name + ' ', h('b', null, n)); chips[k].classList.toggle('rv-on', !over && cur === k); });
+      };
+      function fit() {
+        if (!root.isConnected) return;
+        const top = vs.getBoundingClientRect().bottom + msg.offsetHeight + 16;
+        const s = Math.max(200, Math.min(root.clientWidth, window.innerHeight - top - 12 - (parseFloat(getComputedStyle(root.parentElement).paddingBottom) || 0), 900));
+        boardEl.style.setProperty('--s', Math.floor(s) + 'px');
+      }
+      const onResize = () => { if (!root.isConnected) return window.removeEventListener('resize', onResize); fit(); };
+      window.addEventListener('resize', onResize);
+
+      function paint(delays) {
+        for (let i = 0; i < N * N; i++) {
+          const v = board[i], d = discs[i];
+          d.dataset.s = v < 0 ? '' : v;
+          d.style.transitionDelay = delays && delays.has(i) ? delays.get(i) + 'ms' : '';
+          d.classList.toggle('rv-has', v >= 0);
+          d.classList.toggle('rv-new', i === last);
+          cells[i].classList.toggle('rv-last', i === last);
+        }
+        paintHints();
+      }
+      function paintHints() {
+        const mine = !over && !locked ? new Set(movesOf(board, cur).map(m => m.i)) : new Set();
+        for (let i = 0; i < N * N; i++) {
+          const on = mine.has(i) && !(solo && cur === 1);
+          cells[i].classList.toggle('rv-ok', on); cells[i].classList.toggle('rv-p1', on && cur === 1); cells[i].classList.toggle('rv-p0', on && cur === 0);
+          cells[i].disabled = !on;
+        }
+      }
+      function banner() {
+        paintChips();
+        if (solo && cur === 1) api.setTurn(-1, 'Ход компьютера', 'Компьютер');
+        else api.setTurn(cur, MARK[cur]);
+      }
+      function say(t) { msg.textContent = t || ''; msg.classList.toggle('rv-show', !!t); }
+
+      function tap(i) {
+        if (locked || over || (solo && cur === 1)) return;
+        const f = flipsAt(board, i, cur); if (!f.length) return;
+        place({ i, f });
+      }
+      function place(mv) {
+        locked = true; const who = cur, delays = new Map();
+        board = applyMove(board, mv, who); last = mv.i;
+        const r0 = (mv.i / N) | 0, c0 = mv.i % N;
+        mv.f.forEach(k => delays.set(k, 110 * Math.max(Math.abs(((k / N) | 0) - r0), Math.abs(k % N - c0))));
+        say(''); paint(delays); paintChips(); sfx.click();
+        const wait = 400 + Math.max(0, ...delays.values());
+        try { if (mv.f.length > 3) fx.burst(cells[mv.i], 6); } catch (x) { }
+        setTimeout(() => { if (root.isConnected) next(who); }, wait);
+      }
+      function next(who) {
+        const p = 1 - who;
+        if (!movesOf(board, p).length) {
+          if (!movesOf(board, who).length) return finish();
+          say(sides[p].name + ' (' + MARK[p].toLowerCase() + ') пропускает ход: нет допустимых ходов');
+          paintChips(); sfx.bad && sfx.bad();
+          setTimeout(() => { if (!root.isConnected) return; cur = who; say(''); turn(); }, 1700);
+          return;
+        }
+        cur = p; turn();
+      }
+      function turn() {
+        locked = false; banner(); paintHints();
+        if (solo && cur === 1) { locked = true; paintHints(); setTimeout(ai, 450 + rnd(250)); }
+      }
+      function ai() {
+        if (!root.isConnected || over) return;
+        const mv = movesOf(board, 1); if (!mv.length) return;
+        place(pickAi(board, 1, mv));
+      }
+      function finish() {
+        over = true; locked = true; paintHints(); banner();
+        const [a, w] = count(board), win = a > w ? 0 : w > a ? 1 : -1;
+        say(win < 0 ? 'Ничья: ' + a + ':' + w : sides[win].name + ' побеждает: ' + Math.max(a, w) + ':' + Math.min(a, w));
+        sfx.win();
+        setTimeout(() => {
+          if (!root.isConnected) return;
+          window.removeEventListener('resize', onResize);
+          const sub = sides[0].name + ': ' + a + ' · ' + sides[1].name + ': ' + w;
+          if (!solo) { if (win >= 0) api.score(win, 1); return api.end(); }
+          if (win < 0) api.end({ custom: true, title: 'Ничья!', sub, lines: [], win: true });
+          else if (win === 0) { api.score(0, 1); api.end({ custom: true, title: sides[0].name + ' побеждает!', sub, lines: [], win: true }); }
+          else api.end({ custom: true, title: 'Компьютер победил', sub, lines: ['Сыграйте ещё раз: реванш за вами.'], win: false });
+        }, 1500);
+      }
+
+      /* отладочный доступ для тестов */
+      root.__rv = {
+        N, flipsAt: (b, i, p) => flipsAt(b, i, p), movesOf: (b, p) => movesOf(b, p).map(m => m.i), get board() { return board.slice(); }, get cur() { return cur; },
+        load(b, p) { board = b.slice(); cur = p; locked = false; over = false; last = -1; paint(); banner(); if (solo && cur === 1) { locked = true; paintHints(); setTimeout(ai, 500); } },
+        settle() { next(1 - cur); }
+      };
+      api.show(root, { turn: 0, role: MARK[0], compact: true });
+      paint(); banner(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+    }
+  });
+}
+
+/* ---- src/games/g41_hex.js ---- */
+/* 41. Гекс — соедините свои стороны ромбовидного поля цепочкой камней; ничьих не бывает */
+{
+  const HX_NS = 'http://www.w3.org/2000/svg';
+  const hxSvg = (tag, attrs, ...kids) => { const e = document.createElementNS(HX_NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); kids.forEach(x => e.append(x)); return e; };
+  const HX_D = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
+  /* кратчайшая «стоимость» соединения сторон: свой камень 0, пустая клетка 1, чужой — стена */
+  const hxDist = (cells, N, side) => {
+    const INF = 1e9, d = new Array(N * N).fill(INF), bk = [[]];
+    const cost = i => cells[i] === side ? 0 : cells[i] < 0 ? 1 : INF;
+    for (let k = 0; k < N; k++) { const i = side === 0 ? k * N : k, w = cost(i); if (w < INF) { d[i] = w; (bk[w] = bk[w] || []).push(i); } }
+    for (let L = 0; L < bk.length; L++) {
+      const q = bk[L]; if (!q) continue;
+      for (let j = 0; j < q.length; j++) {
+        const i = q[j]; if (d[i] !== L) continue;
+        const r = (i / N) | 0, c = i % N;
+        if ((side === 0 ? c : r) === N - 1) return L;
+        for (const [dr, dc] of HX_D) {
+          const rr = r + dr, cc = c + dc; if (rr < 0 || cc < 0 || rr >= N || cc >= N) continue;
+          const t = rr * N + cc, w = cost(t); if (w >= INF) continue;
+          if (L + w < d[t]) { d[t] = L + w; (bk[L + w] = bk[L + w] || []).push(t); }
+        }
+      }
+    }
+    return INF;
+  };
+  /* путь победителя: цепочка своих камней от своей стороны до противоположной или null */
+  const hxPath = (cells, N, side) => {
+    const par = new Array(N * N).fill(-2), q = [];
+    for (let k = 0; k < N; k++) { const i = side === 0 ? k * N : k; if (cells[i] === side) { par[i] = -1; q.push(i); } }
+    for (let j = 0; j < q.length; j++) {
+      const i = q[j], r = (i / N) | 0, c = i % N;
+      if ((side === 0 ? c : r) === N - 1) { const p = []; for (let x = i; x >= 0; x = par[x]) p.push(x); return p; }
+      for (const [dr, dc] of HX_D) {
+        const rr = r + dr, cc = c + dc; if (rr < 0 || cc < 0 || rr >= N || cc >= N) continue;
+        const t = rr * N + cc; if (cells[t] === side && par[t] === -2) { par[t] = i; q.push(t); }
+      }
+    }
+    return null;
+  };
+  registerGame({
+    id: 'hex', title: 'Гекс', icon: '⬡', color: '#7a6cf0',
+    cats: ['Командные', 'Для двоих'], teams: { min: 1, max: 2 }, mins: 15,
+    tagline: 'Ставьте камни на шестиугольное поле и стройте непрерывную цепочку между своими сторонами. Ничьих не бывает: победит кто-то один.',
+    rules: '<ul><li>Поле — ромб из шестиугольников. Первая команда (круги, ●) соединяет <b>левую и правую</b> стороны, вторая (ромбы, ◆) — <b>верхнюю и нижнюю</b>. Стороны окрашены в цвета игроков.</li><li>Команды по очереди ставят один камень в свободную клетку. Камни не двигаются и не снимаются.</li><li>Цепочка — это камни, соседние по грани. У каждой клетки до шести соседей.</li><li>Побеждает тот, кто первым замкнёт цепочку между своими сторонами; выигрышный путь подсветится. Ничьей быть не может.</li><li>Правило обмена (опция): после первого хода вторая команда может не ходить, а <b>поменяться местами</b> и забрать поставленный камень себе. Так первому невыгодно ходить в самый центр.</li><li>Если играет один участник, соперником станет компьютер.</li></ul>',
+    opts: [
+      { key: 'size', label: 'Размер поля', values: [[7, '7×7'], [9, '9×9'], [11, '11×11']], def: 9 },
+      { key: 'pie', label: 'Правило обмена (pie rule)', values: [[0, 'Выключено'], [1, 'Включено']], def: 0 },
+      { key: 'ai', label: 'Компьютер (если играет один)', values: [['easy', 'Лёгкий'], ['mid', 'Средний'], ['hard', 'Сильный']], def: 'mid' }
+    ],
+    cards: () => 0,
+    start(api) {
+      const N = [7, 9, 11].includes(+api.opts.size) ? +api.opts.size : 9, pie = +api.opts.pie === 1, solo = api.n === 1;
+      const lvl = ['easy', 'mid', 'hard'].includes(api.opts.ai) ? api.opts.ai : 'mid';
+      const tm = api.teams.slice(0, 2).map(t => ({ name: t.name, color: t.color }));
+      if (solo) tm.push({ name: 'Компьютер', color: TEAM_COLORS[1] });
+      const cpu = solo ? 1 : -1;            /* индекс команды-компьютера */
+      let own = [0, 1];                      /* own[сторона] = команда: сторона 0 — лево/право (●), сторона 1 — верх/низ (◆) */
+      const cells = new Array(N * N).fill(-1);
+      let turn = 0, moves = 0, locked = false, over = false, last = -1, swapped = false;
+      const col = s => tm[own[s]].color, nm = s => tm[own[s]].name;
+
+      /* ---- геометрия (единица — радиус шестиугольника) ---- */
+      const W = Math.sqrt(3), P = .75, X0 = -P, Y0 = -P;
+      const VW = W * (N + (N - 1) / 2) + 2 * P, VH = 1.5 * (N - 1) + 2 + 2 * P;
+      const cx = (r, c) => W * (c + .5 + r / 2), cy = r => 1 + 1.5 * r;
+      const hexPts = (x, y, k) => [[0, -1], [W / 2, -.5], [W / 2, .5], [0, 1], [-W / 2, .5], [-W / 2, -.5]].map(([a, b]) => (x + a * k).toFixed(3) + ',' + (y + b * k).toFixed(3)).join(' ');
+      const V = (x, y, k) => [x + [0, W / 2, W / 2, 0, -W / 2, -W / 2][k], y + [-1, -.5, .5, 1, .5, -.5][k]];
+      const line = pts => pts.map(p => p.map(v => v.toFixed(3)).join(',')).join(' ');
+      /* граница поля: side 0 — левая/правая, side 1 — верхняя/нижняя */
+      const edgeSide = (side, far) => {
+        const pts = [];
+        for (let k = 0; k < N; k++) {
+          if (side === 1) { const r = far ? N - 1 : 0, x = cx(r, k), y = cy(r); (far ? [4, 3, 2] : [5, 0, 1]).forEach((v, j) => { if (!(k > 0 && j === 0)) pts.push(V(x, y, v)); }); }
+          else if (!far) { const x = cx(k, 0), y = cy(k); if (k === 0) pts.push(V(x, y, 5)); pts.push(V(x, y, 4), V(x, y, 3)); }
+          else { const x = cx(k, N - 1), y = cy(k); if (k === 0) pts.push(V(x, y, 0)); pts.push(V(x, y, 1), V(x, y, 2)); }
+        }
+        return pts;
+      };
+
+      /* ---- SVG ---- */
+      const gBase = hxSvg('g', {}), gEdge = hxSvg('g', {}), gStone = hxSvg('g', {}), gWin = hxSvg('g', {});
+      const polys = [];
+      for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) { const p = hxSvg('polygon', { points: hexPts(cx(r, c), cy(r), .94), class: 'hx-cell' }); polys.push(p); gBase.append(p); }
+      const edgeEls = [0, 1, 2, 3].map(() => { const e = hxSvg('polyline', { class: 'hx-edge', fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': .34 }); gEdge.append(e); return e; });
+      const svg = hxSvg('svg', { viewBox: `${X0} ${Y0} ${VW} ${VH}`, class: 'hx-svg', 'aria-hidden': 'true', focusable: 'false' }, gBase, gEdge, gStone, gWin);
+      const board = h('div', { class: 'hx-board' }, svg);
+      const btns = [];
+      for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
+        const x = cx(r, c), y = cy(r);
+        const b = h('button', { class: 'hx-b', type: 'button', 'data-r': r, 'data-c': c, 'aria-label': 'Клетка: строка ' + (r + 1) + ', столбец ' + (c + 1), onclick: () => move(r * N + c, false), style: { left: ((x - W / 2 - X0) / VW * 100) + '%', top: ((y - 1 - Y0) / VH * 100) + '%', width: (W / VW * 100) + '%', height: (2 / VH * 100) + '%' } });
+        btns.push(b); board.append(b);
+      }
+      const vs = h('div', { class: 'hx-vs' });
+      const swapBtn = pie ? btn('⇄ Поменяться местами', () => doSwap(), 'sky small') : null;
+      if (swapBtn) { swapBtn.classList.add('hx-swap'); swapBtn.hidden = true; }
+      const root = h('div', { class: 'hx-wrap' }, vs, board, swapBtn);
+
+      function paintVs() {
+        vs.replaceChildren(...[0, 1].map(s => h('span', { class: 'hx-chip' + (turn === s && !over ? ' on' : ''), style: { '--c': col(s) } }, s === 0 ? '● ↔ ' : '◆ ↕ ', h('b', null, nm(s)))));
+      }
+      function paintEdges() {
+        [[0, false], [0, true], [1, false], [1, true]].forEach(([s, far], k) => {
+          edgeEls[k].setAttribute('points', line(edgeSide(s, far)));
+          edgeEls[k].setAttribute('stroke', col(s));
+        });
+      }
+      function paintStones() {
+        gStone.replaceChildren();
+        cells.forEach((v, i) => {
+          if (v < 0) return;
+          const r = (i / N) | 0, c = i % N, x = cx(r, c), y = cy(r);
+          const g = hxSvg('g', { class: 'hx-st' + (i === last ? ' new' : '') });
+          if (v === 0) g.append(hxSvg('circle', { cx: x, cy: y, r: .62, fill: col(0), class: 'hx-stone' }));
+          else g.append(hxSvg('rect', { x: x - .53, y: y - .53, width: 1.06, height: 1.06, rx: .14, fill: col(1), class: 'hx-stone', transform: `rotate(45 ${x} ${y})` }));
+          gStone.append(g);
+        });
+      }
+      function paintBtns() {
+        btns.forEach((b, i) => { b.disabled = cells[i] >= 0 || over; });
+        board.style.setProperty('--c', col(turn));
+        board.classList.toggle('hx-cpu', solo && own[turn] === cpu && !over);
+      }
+      function banner() { setTimeout(fit, 60);
+        const t = own[turn];
+        if (t === cpu) api.setTurn(-1, 'Ход компьютера', 'Компьютер');
+        else api.setTurn(t, turn === 0 ? 'Ставит камень ●' : 'Ставит камень ◆');
+      }
+      function refresh() { paintEdges(); paintStones(); paintVs(); paintBtns(); if (swapBtn) swapBtn.hidden = !(moves === 1 && !over && !swapped && own[turn] !== cpu); }
+      function fit() {
+        if (!root.isConnected) return;
+        const st = root.parentElement, cs = getComputedStyle(st);
+        const top = st.getBoundingClientRect().top + (parseFloat(cs.paddingTop) || 0) + vs.offsetHeight + (swapBtn ? 50 : 0) + 16;
+        const availH = window.innerHeight - top - 12 - (parseFloat(cs.paddingBottom) || 0);
+        const ratio = VW / VH;
+        let w = Math.min(root.clientWidth, 1100), hh = w / ratio;
+        if (hh > availH) { hh = Math.max(availH, 160); w = hh * ratio; }
+        board.style.setProperty('--w', Math.floor(w) + 'px'); board.style.setProperty('--h', Math.floor(hh) + 'px');
+      }
+      const onResize = () => { if (!root.isConnected) return window.removeEventListener('resize', onResize); fit(); };
+      window.addEventListener('resize', onResize);
+
+      function doSwap() {
+        if (locked || over || moves !== 1 || swapped) return;
+        swapped = true; own = [own[1], own[0]]; sfx.ok();
+        /* камень остаётся на месте и по-прежнему принадлежит стороне ●, но теперь её хозяин — вторая команда; ход стороны ◆ */
+        turn = 1; refresh(); banner();
+        if (own[1] === cpu) { locked = true; setTimeout(ai, 600); }
+      }
+      function move(i, byAi) {
+        if (locked || over || cells[i] >= 0) return;
+        if (!byAi && own[turn] === cpu) return;
+        cells[i] = turn; moves++; last = i; sfx.click();
+        const p = hxPath(cells, N, turn);
+        if (p) return finish(turn, p);
+        turn = 1 - turn; refresh(); banner();
+        if (own[turn] === cpu) {
+          locked = true;
+          if (pie && moves === 1 && aiShouldSwap()) setTimeout(() => { locked = false; doSwap(); }, 650); else setTimeout(ai, 450);
+        }
+      }
+      function aiShouldSwap() {
+        const r = (last / N) | 0, c = last % N, m = (N - 1) / 2;
+        return Math.max(Math.abs(r - m), Math.abs(c - m)) <= N * (lvl === 'easy' ? .15 : .3);
+      }
+      /* ---- компьютер ---- */
+      const winsAt = (i, side) => { cells[i] = side; const w = hxDist(cells, N, side) === 0; cells[i] = -1; return w; };
+      function aiPick(side) {
+        const free = []; cells.forEach((v, i) => { if (v < 0) free.push(i); });
+        for (const i of free) if (winsAt(i, side) && (lvl !== 'easy' || Math.random() < .7)) return i;
+        if (lvl !== 'easy') for (const i of free) if (winsAt(i, 1 - side)) return i;
+        const m = (N - 1) / 2, cen = i => -(Math.abs(((i / N) | 0) - m) + Math.abs((i % N) - m)) * .05;
+        const sc = free.map(i => { const t = cells.slice(); t[i] = side; return { i, s: hxDist(t, N, 1 - side) - hxDist(t, N, side) + cen(i) + Math.random() * (lvl === 'easy' ? 2.6 : .6) }; });
+        return sc.sort((a, b) => b.s - a.s);
+      }
+      function ai() {
+        locked = false; if (!root.isConnected || over) return;
+        const side = turn, res = aiPick(side);
+        if (typeof res === 'number') return move(res, true);
+        if (lvl !== 'hard') { const k = lvl === 'easy' ? Math.max(3, Math.ceil(res.length * .3)) : 1; return move(res[rnd(Math.min(k, res.length))].i, true); }
+        /* Монте-Карло с лимитом ~550 мс, кусками по ~14 мс, чтобы не вешать интерфейс */
+        const cand = res.slice(0, Math.min(12, res.length)).map(o => ({ i: o.i, w: 0, n: 0 }));
+        const empties = []; cells.forEach((v, i) => { if (v < 0) empties.push(i); });
+        const t0 = performance.now(); locked = true;
+        const play = cd => {
+          const e = empties.filter(x => x !== cd.i); for (let k = e.length - 1; k > 0; k--) { const j = (Math.random() * (k + 1)) | 0; [e[k], e[j]] = [e[j], e[k]]; }
+          const t = cells.slice(); t[cd.i] = side; let who = 1 - side;
+          for (const x of e) { t[x] = who; who = 1 - who; }
+          cd.n++; if (hxPath(t, N, side)) cd.w++;
+        };
+        const step = () => {
+          if (!root.isConnected || over) return;
+          const s = performance.now();
+          while (performance.now() - s < 14) for (const cd of cand) play(cd);
+          if (performance.now() - t0 < 550) return void setTimeout(step, 0);
+          locked = false; cand.sort((a, b) => b.w / b.n - a.w / a.n); move(cand[0].i, true);
+        };
+        setTimeout(step, 0);
+      }
+      function finish(side, path) {
+        over = true; locked = true; refresh();
+        const xy = i => [cx((i / N) | 0, i % N), cy((i / N) | 0)];
+        path.forEach(i => { polys[i].classList.add('hx-win'); const [x, y] = xy(i); gWin.append(hxSvg('circle', { cx: x, cy: y, r: .2, class: 'hx-dot' })); });
+        for (let k = 1; k < path.length; k++) { const [x1, y1] = xy(path[k - 1]), [x2, y2] = xy(path[k]); gWin.append(hxSvg('line', { x1, y1, x2, y2, class: 'hx-link', 'stroke-width': .26, 'stroke-linecap': 'round' })); }
+        board.classList.add('hx-over'); board.style.setProperty('--c', col(side));
+        const t = own[side]; sfx.win(); try { fx.burst(board, 10); } catch (x) { }
+        vs.replaceChildren(h('span', { class: 'hx-chip on', style: { '--c': col(side) } }, '🏆 ', h('b', null, tm[t].name + ': ' + (side === 0 ? 'лево и право соединены' : 'верх и низ соединены'))));
+        if (swapBtn) swapBtn.hidden = true;
+        if (t === cpu) api.setTurn(-1, 'Победа!', 'Компьютер'); else api.setTurn(t, 'Победа!');
+        setTimeout(() => {
+          if (!root.isConnected) return;
+          window.removeEventListener('resize', onResize);
+          if (!solo) { api.score(t, 1); return api.end(); }
+          const sub = tm[t].name + ' замкнул цепочку ' + (side === 0 ? '↔' : '↕');
+          if (t === 0) api.end({ custom: true, title: tm[0].name + ' побеждает!', sub, lines: [], win: true });
+          else api.end({ custom: true, title: 'Компьютер победил', sub, lines: ['Сыграйте ещё раз: реванш за вами.'], win: false });
+        }, 1800);
+      }
+
+      api.show(root, { turn: 0, role: 'Ставит камень ●', compact: true });
+      refresh(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+    }
+  });
+}
+
+/* ---- src/games/g42_nonogram.js ---- */
+/* 42. Японские кроссворды — нонограммы: числа у строк и столбцов подсказывают, какие клетки закрасить, чтобы проявилась картинка */
+{
+  const NG_PAL = { R: '#e8483f', B: '#3a8ee6', G: '#2fa866', Y: '#f5c211', N: '#8a5a3b', W: '#ffffff', K: '#2b2b3a', P: '#f27fb3', O: '#f28c28', T: '#d9a066', S: '#9aa3b5' };
+  const NG_NS = 'http://www.w3.org/2000/svg';
+  /* картинки: '.' — пусто, буква — цвет закрашенной клетки */
+  const NG_PUZ = [
+    [5, 'Сердце', ['.R.R.', 'RRRRR', 'RRRRR', '.RRR.', '..R..']],
+    [5, 'Домик', ['..R..', '.RRR.', 'RRRRR', 'YWYWY', 'YYBYY']],
+    [5, 'Ёлка', ['..G..', '.GGG.', 'GGGGG', '..N..', '..N..']],
+    [5, 'Гриб', ['.RRR.', 'RWRWR', 'RRRRR', '.TTT.', '.TTT.']],
+    [5, 'Звезда', ['..Y..', 'YYYYY', '.YYY.', '.Y.Y.', 'Y...Y']],
+    [5, 'Цветок', ['.RRR.', 'RRYRR', '.RRR.', '..G..', '.GGG.']],
+    [5, 'Колокольчик', ['..Y..', '.YYY.', '.YYY.', 'YYYYY', '..R..']],
+    [5, 'Чашка', ['NNNN.', 'NNNNN', 'NNNNN', 'NNNN.', '.NN..']],
+    [5, 'Парусник', ['..R..', '..RR.', 'RRRRR', 'NNNNN', '.NNN.']],
+    [5, 'Бриллиант', ['..B..', '.BBB.', 'BBBBB', '.BBB.', '..B..']],
+    [5, 'Полумесяц', ['.YYY.', 'YY...', 'YY...', 'YY...', '.YYY.']],
+    [5, 'Ключ', ['YYY..', 'Y.Y..', 'YYYYY', '..Y.Y', '..Y..']],
+    [5, 'Зонтик', ['.RRR.', 'RRRRR', 'R.R.R', '..N..', '.NN..']],
+    [8, 'Рыба', ['...BB...', '..BBBBB.', 'B.BBBBBB', 'BBBBBWBB', 'BBBBBBBB', 'B.BBBBBB', '..BBBBB.', '........']],
+    [8, 'Кот', ['NN....NN', 'NNN..NNN', 'NNNNNNNN', 'NWNNNNWN', 'NNNNNNNN', 'NNNRRNNN', '.NNNNNN.', '..NNNN..']],
+    [8, 'Сердце', ['........', '.RR..RR.', 'RRRRRRRR', 'RRRRRRRR', 'RRRRRRRR', '.RRRRRR.', '..RRRR..', '...RR...']],
+    [8, 'Ёлка', ['...GG...', '..GGGG..', '.GGGGGG.', '..GGGG..', '.GGGGGG.', 'GGGGGGGG', '...NN...', '...NN...']],
+    [8, 'Дом', ['...RR...', '..RRRR..', '.RRRRRR.', 'RRRRRRRR', 'YYYYYYYY', 'YWWYYBBY', 'YWWYYBBY', 'YYYYYYYY']],
+    [8, 'Бабочка', ['.N....N.', '..N..N..', 'PPPNNPPP', 'PPPNNPPP', '.PPNNPP.', 'OOONNOOO', 'OOONNOOO', '.OO..OO.']],
+    [8, 'Кофе', ['.S..S...', '..S..S..', 'NNNNNN..', 'NNNNNNNN', 'NNNNNN.N', 'NNNNNNNN', '.NNNNN..', 'SSSSSSSS']],
+    [8, 'Парусная лодка', ['...R....', '...RR...', '...RRR..', '..RRRRR.', '..RRRRRR', 'NNNNNNNN', '.NNNNNN.', 'BBBBBBBB']],
+    [8, 'Ключ', ['..YYY...', '.YY.YY..', '.Y...Y..', '.YY.YY..', '..YYY...', '...Y....', '...YYY..', '...YY...']],
+    [8, 'Гриб', ['..RRRR..', '.RWRRRR.', 'RRRRRWRR', 'RRRRRRRR', '..TTTT..', '..TTTT..', '..TTTT..', '.TTTTTT.']],
+    [8, 'Звезда', ['...YY...', '...YY...', 'YYYYYYYY', '.YYYYYY.', '..YYYY..', '..YYYY..', '.YY..YY.', '.Y....Y.']],
+    [8, 'Ракета', ['...RR...', '..RRRR..', '..RWWR..', '..RRRR..', '..RRRR..', '.RRRRRR.', 'RR.OO.RR', '...OO...']],
+    [8, 'Тюльпан', ['.R.RR.R.', '.RRRRRR.', '.RRRRRR.', '..RRRR..', '...GG...', 'GG.GG...', '.GGGG...', '...GG...']],
+    [8, 'Корона', ['Y..YY..Y', 'Y..YY..Y', 'YY.YY.YY', 'YYYYYYYY', 'YYRYYRYY', 'YYYYYYYY', '........', '........']],
+    [8, 'Зонт', ['..RRRR..', '.RRRRRR.', 'RRRRRRRR', 'R.RR.RR.', '...N....', '...N....', '...N....', '..NN....']],
+    [8, 'Яблоко', ['...NGG..', '.RRRNRR.', 'RRRRRRRR', 'RRRRRRRR', 'RRRRRRRR', '.RRRRRR.', '..RRRR..', '........']],
+    [10, 'Сова', ['NN......NN', 'NNNNNNNNNN', 'NWWWNNWWWN', 'NWKWNNWKWN', 'NNWNYYNWNN', 'NNNNYYNNNN', 'NNNNNNNNNN', '.NNNNNNNN.', '..NNNNNN..', '..YY..YY..']],
+    [10, 'Дуб', ['...GGGG...', '..GGGGGG..', '.GGGGGGGG.', '.GGRGGGRG.', 'GGGGGGGGGG', '.GGGGRGGG.', '..GGGGGG..', '....NN....', '....NN....', '...NNNN...']],
+    [10, 'Крепость', ['G.G....G.G', 'GGGGGGGGGG', '.GGGGGGGG.', '.GGGGGGGG.', '.GGGGGGGG.', '.GGGBBGGG.', '.GGBBBBGG.', '.GGBBBBGG.', '.GGBBBBGG.', 'GGGGGGGGGG']],
+    [10, 'Воздушный шар', ['..RRRRRR..', '.RRRRRRRR.', 'RRWWRRRRRR', 'RRWRRRRRRR', 'RRRRRRRRRR', '.RRRRRRRR.', '..RRRRRR..', '...RRRR...', '....NN....', '...NNNN...']],
+    [10, 'Рыба', ['....BB....', '...BBBB...', 'B.BBBBBB..', 'BBBBBWBBB.', 'BBBBBBBBBB', 'BBBBBBBBB.', 'B.BBBBBB..', '...BBBB...', '....BB....', '..........']],
+    [10, 'Кот', ['NN......NN', 'NNN....NNN', 'NNNNNNNNNN', 'NNWNNNNWNN', 'NNNNPPNNNN', '.NNNNNNNN.', '..NNNNNN..', '.NNNNNNNN.', 'NNNNNNNNNN', 'NN.NN..NN.']],
+    [10, 'Самолёт', ['....BB....', '....BB....', '....BB....', 'BBBBBBBBBB', '.BBBBBBBB.', '....BB....', '....BB....', '..BBBBBB..', '....BB....', '...BBBB...']],
+    [10, 'Корабль', ['...RR.RR..', '...RR.RR..', '..WWWWWWW.', '..WBWBWBW.', '..WWWWWWW.', 'NNNNNNNNNN', '.NNNNNNNN.', '..NNNNNN..', 'BBBBBBBBBB', '.BB.BB.BB.']],
+    [10, 'Бабочка', ['.N......N.', '..N....N..', 'PPPPNNPPPP', 'PPPPNNPPPP', '.PPPNNPPP.', '..PPNNPP..', '.OOONNOOO.', 'OOOONNOOOO', 'OOO.NN.OOO', '.O..NN..O.']],
+    [10, 'Домик', ['....RR....', '...RRRR...', '..RRRRRR..', '.RRRRRRRR.', 'RRRRRRRRRR', '.YYYYYYYY.', '.YWWBBWWY.', '.YWWBBWWY.', '.YYYBBYYY.', '.YYYBBYYY.']],
+    [10, 'Ракета', ['....RR....', '...RRRR...', '..RRRRRR..', '..RRWWRR..', '..RRWWRR..', '..RRRRRR..', '..RRRRRR..', '.RRRRRRRR.', 'RR..OO..RR', '....OO....']],
+    [10, 'Песочные часы', ['NNNNNNNNNN', '.NYYYYYYN.', '..NYYYYN..', '...NYYN...', '....NN....', '...N..N...', '..N.YY.N..', '.N.YYYY.N.', '.NYYYYYYN.', 'NNNNNNNNNN']],
+    [10, 'Утка', ['...YY.....', '..YYYY....', '..YKYOO...', '..YYYY....', '...YY.....', '...YYY....', 'YYYYYYYYY.', '.YYYYYYYY.', '..YYYYYY..', 'BBBBBBBBBB']],
+    [10, 'Кубок', ['YYYYYYYYYY', 'YYYYYYYYYY', 'Y.YYYYYY.Y', 'Y.YYYYYY.Y', '.YYYYYYYY.', '..YYYYYY..', '....YY....', '....YY....', '...YYYY...', '..YYYYYY..']],
+    [10, 'Мороженое', ['...PPPP...', '..PPPPPP..', '.PPPPPPPP.', '.PPPPPPPP.', '.TTTTTTTT.', '..TT.TTT..', '...TTTT...', '....TT....', '....TT....', '....T.....']],
+    [10, 'Новогодняя ёлка', ['....YY....', '....GG....', '...GGGG...', '..GGGGGG..', '...GGGG...', '..GGGGGG..', '.GGGGGGGG.', 'GGGGGGGGGG', '....NN....', '....NN....']]
+  ];
+  registerGame({
+    id: 'nonogram', title: 'Японские кроссворды', icon: '🧩', color: '#f2b134', coop: true, noBoard: true, puzzles: NG_PUZ, palette: NG_PAL,
+    cats: ['Загадки и истории', 'Для компании', 'Для двоих'], teams: { min: 1, max: 1 }, mins: 10,
+    tagline: 'Числа у строк и столбцов подсказывают, какие клетки закрасить. Решите головоломку всей компанией, и проявится картинка.',
+    rules: '<ul><li>Число у строки или столбца говорит, сколько закрашенных клеток идёт подряд. Несколько чисел означают несколько отрезков в этом порядке, между ними есть хотя бы одна пустая клетка.</li><li>Выберите режим <b>«Закрасить»</b> или <b>«Крестик»</b>. Крестик отмечает клетки, которые точно пустые. Он помогает думать и ни на что не влияет.</li><li>Можно вести пальцем или мышью: так закрашивается или стирается сразу несколько клеток.</li><li>Когда числа у линии сошлись, они гаснут. Если включены подсказки ошибок, неверная клетка подсвечивается красным.</li><li><b>Подсказка</b> открывает одну верную клетку, но добавляет 30 секунд к времени.</li><li>Все головоломки решаются логикой, угадывать не нужно. Когда картинка готова, она проявляется в цвете.</li></ul>',
+    opts: [
+      { key: 'size', label: 'Размер поля', values: [[5, '5×5 · лёгкое'], [8, '8×8 · среднее'], [10, '10×10 · сложное']], def: 8 },
+      { key: 'err', label: 'Подсказывать ошибки', values: [[1, 'Да'], [0, 'Нет']], def: 1 }
+    ],
+    cards: () => 0,
+    start(api) {
+      const N = [5, 8, 10].includes(+api.opts.size) ? +api.opts.size : 8, showErr = +api.opts.err !== 0;
+      const pool = NG_PUZ.filter(p => p[0] === N);
+      const seenKey = 'ng.seen.' + N; let seen = store.get(seenKey, []);
+      let fresh = pool.map((p, i) => i).filter(i => !seen.includes(i)); if (!fresh.length) { seen = []; fresh = pool.map((p, i) => i); }
+      const pi = fresh[rnd(fresh.length)]; store.set(seenKey, seen.concat(pi));
+      const pz = pool[pi], rows = pz[2], name = pz[1];
+      const sol = []; rows.forEach(r => [...r].forEach(c => sol.push(c !== '.' ? 1 : 0)));
+      const runs = a => { const o = []; let k = 0; a.forEach(v => { if (v === 1) k++; else if (k) { o.push(k); k = 0; } }); if (k) o.push(k); return o.length ? o : [0]; };
+      const rowOf = (arr, r) => arr.slice(r * N, r * N + N), colOf = (arr, c) => Array.from({ length: N }, (_, r) => arr[r * N + c]);
+      const rowClue = Array.from({ length: N }, (_, r) => runs(rowOf(sol, r))), colClue = Array.from({ length: N }, (_, c) => runs(colOf(sol, c)));
+      const rc = Math.max(...rowClue.map(x => x.length)), cc = Math.max(...colClue.map(x => x.length));
+      const st = Array(N * N).fill(0), locked = Array(N * N).fill(false), undo = [];
+      let mode = 'fill', over = false, pen = 0, hints = 0, stroke = null, strokeAct = null, curR = -1, curC = -1;
+      const t0 = performance.now();
+      const same = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
+
+      /* ---- разметка ---- */
+      const cells = Array.from({ length: N * N }, (_, i) => h('div', { class: 'ng-c' + ((i % N) % 5 === 4 && (i % N) < N - 1 ? ' ngr' : '') + ((Math.floor(i / N)) % 5 === 4 && Math.floor(i / N) < N - 1 ? ' ngb' : ''), 'data-i': i }));
+      const grid = h('div', { class: 'ng-grid', role: 'application', 'aria-label': 'Поле ' + N + ' на ' + N }, ...cells);
+      const mkClue = nums => nums.map(n => h('span', null, n));
+      const colEls = colClue.map((c, i) => h('div', { class: 'ng-cc' + ((i % 5 === 4 && i < N - 1) ? ' ngr' : '') }, ...mkClue(c)));
+      const rowEls = rowClue.map((r, i) => h('div', { class: 'ng-rc' + ((i % 5 === 4 && i < N - 1) ? ' ngb' : '') }, ...mkClue(r)));
+      const board = h('div', { class: 'ng-board', style: { '--n': N, '--rc': rc, '--cc': cc } },
+        h('div', { class: 'ng-corner' }), h('div', { class: 'ng-cols' }, ...colEls), h('div', { class: 'ng-rows' }, ...rowEls), grid);
+      const clock = h('b', { class: 'ng-clock' }, '0:00'), cnt = h('span', { class: 'ng-cnt' });
+      const top = h('div', { class: 'ng-top' }, h('span', null, 'Время: ', clock), cnt);
+      const mFill = h('button', { type: 'button', class: 'ng-m on', 'aria-pressed': 'true', onclick: () => setMode('fill') }, h('i', { class: 'ng-ico f' }), 'Закрасить');
+      const mCross = h('button', { type: 'button', class: 'ng-m', 'aria-pressed': 'false', onclick: () => setMode('cross') }, h('i', { class: 'ng-ico x' }), 'Крестик');
+      const bUndo = h('button', { type: 'button', class: 'ng-b', onclick: doUndo, disabled: true, 'aria-label': 'Отмена хода', title: 'Отмена хода' }, '↶');
+      const bHint = h('button', { type: 'button', class: 'ng-b', onclick: doHint, 'aria-label': 'Подсказка: открыть клетку, штраф 30 секунд', title: 'Подсказка (+30 с к времени)' }, '💡 −30 с');
+      const ctl = h('div', { class: 'ng-ctl' }, h('div', { class: 'ng-seg', role: 'group', 'aria-label': 'Режим' }, mFill, mCross), h('div', { class: 'ng-acts' }, bUndo, bHint));
+      const root = h('div', { class: 'ng-wrap' }, top, board, ctl);
+
+      function setMode(m) { mode = m; mFill.classList.toggle('on', m === 'fill'); mCross.classList.toggle('on', m === 'cross'); mFill.setAttribute('aria-pressed', String(m === 'fill')); mCross.setAttribute('aria-pressed', String(m === 'cross')); sfx.click(); }
+      const elapsed = () => (performance.now() - t0) / 1000 + pen;
+      const fmt = s => { s = Math.floor(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+      const tick = setInterval(() => { if (!root.isConnected) return clearInterval(tick); if (!over) clock.textContent = fmt(elapsed()); }, 250);
+      function fit() {
+        if (!root.isConnected) return;
+        const rect = root.getBoundingClientRect(), pb = parseFloat(getComputedStyle(root.parentElement).paddingBottom) || 0;
+        const availW = root.clientWidth - 18, availH = window.innerHeight - rect.top - top.offsetHeight - ctl.offsetHeight - 2 * 10 - pb - 22;
+        const K = .6; /* размер клетки подсказки в долях клетки поля */
+        const cs = Math.floor(Math.max(18, Math.min(availW / (N + rc * K), availH / (N + cc * K), 64)));
+        board.style.setProperty('--cs', cs + 'px'); board.style.setProperty('--u', Math.floor(cs * K) + 'px'); board.style.setProperty('--fs', Math.max(11, Math.floor(cs * K * .82)) + 'px');
+      }
+      const onResize = () => { if (!root.isConnected) return window.removeEventListener('resize', onResize); fit(); };
+      window.addEventListener('resize', onResize);
+
+      /* ---- состояние ---- */
+      function paint() {
+        let wrong = 0;
+        const fl = st.map(v => v === 1 ? 1 : 0);
+        cells.forEach((c, i) => {
+          const bad = showErr && ((st[i] === 1 && !sol[i]) || (st[i] === 2 && sol[i]));
+          if (bad) wrong++;
+          c.className = c.className.replace(/ ng-(f|x|bad|lk)\b/g, '') + (st[i] === 1 ? ' ng-f' : st[i] === 2 ? ' ng-x' : '') + (bad ? ' ng-bad' : '') + (locked[i] ? ' ng-lk' : '');
+        });
+        for (let r = 0; r < N; r++) rowEls[r].classList.toggle('ng-ok', same(runs(rowOf(fl, r)), rowClue[r]));
+        for (let c = 0; c < N; c++) colEls[c].classList.toggle('ng-ok', same(runs(colOf(fl, c)), colClue[c]));
+        const left = sol.filter((v, i) => v && st[i] !== 1).length;
+        cnt.textContent = (showErr && wrong ? 'Ошибок: ' + wrong + ' · ' : '') + 'Осталось клеток: ' + left;
+        cnt.classList.toggle('ng-warn', showErr && wrong > 0);
+        bUndo.disabled = !undo.length;
+        if (!over && st.every((v, i) => (v === 1) === !!sol[i])) win();
+      }
+      function paintCur() { rowEls.forEach((e, i) => e.classList.toggle('ng-cur', i === curR)); colEls.forEach((e, i) => e.classList.toggle('ng-cur', i === curC)); }
+      const cellAt = (x, y) => { const e = document.elementFromPoint(x, y); const c = e && e.closest && e.closest('.ng-c'); return c && grid.contains(c) ? +c.dataset.i : -1; };
+      function apply(i) {
+        if (i < 0 || over || locked[i]) return;
+        curR = Math.floor(i / N); curC = i % N; paintCur();
+        if (strokeAct === 'erase') { if (st[i] === 0) return; stroke.push([i, st[i]]); st[i] = 0; paint(); return; }
+        const want = strokeAct === 'fill' ? 1 : 2;
+        if (st[i] !== 0) return; /* протяжка не перекрашивает другой знак */
+        stroke.push([i, 0]); st[i] = want; paint();
+      }
+      grid.addEventListener('pointerdown', e => {
+        if (over || stroke) return;
+        e.preventDefault();
+        const i = cellAt(e.clientX, e.clientY); if (i < 0) return;
+        const m = e.pointerType === 'mouse' && e.button === 2 ? (mode === 'fill' ? 'cross' : 'fill') : mode; /* правая кнопка мыши — обратный режим */
+        const want = m === 'fill' ? 1 : 2;
+        strokeAct = (st[i] !== 0) ? 'erase' : m;
+        if (st[i] === want) strokeAct = 'erase';
+        stroke = [];
+        try { grid.setPointerCapture(e.pointerId); } catch (x) { }
+        apply(i);
+      });
+      grid.addEventListener('pointermove', e => { if (!stroke) return; const i = cellAt(e.clientX, e.clientY); if (i >= 0) apply(i); });
+      const endStroke = () => { if (!stroke) return; if (stroke.length) { undo.push(stroke); sfx.click(); } stroke = null; strokeAct = null; paint(); };
+      grid.addEventListener('pointerup', endStroke); grid.addEventListener('pointercancel', endStroke);
+      grid.addEventListener('contextmenu', e => e.preventDefault());
+      function doUndo() { if (!undo.length || over) return; undo.pop().reverse().forEach(([i, v]) => { st[i] = v; }); sfx.click(); paint(); }
+      function doHint() {
+        if (over) return;
+        const miss = st.map((v, i) => (sol[i] && v !== 1) ? i : -1).filter(i => i >= 0);
+        if (!miss.length) return;
+        const i = miss[rnd(miss.length)]; st[i] = 1; locked[i] = true; hints++; pen += 30;
+        undo.forEach(s => { for (let k = s.length - 1; k >= 0; k--) if (s[k][0] === i) s.splice(k, 1); });
+        for (let k = undo.length - 1; k >= 0; k--) if (!undo[k].length) undo.splice(k, 1);
+        sfx.ok(); clock.textContent = fmt(elapsed()); paint();
+        try { fx.burst(cells[i], 5); } catch (x) { }
+      }
+
+      function pic(size) {
+        const s = document.createElementNS(NG_NS, 'svg'); s.setAttribute('viewBox', '0 0 ' + N + ' ' + N); s.setAttribute('class', 'ng-pic'); s.style.width = size + 'px'; s.style.height = size + 'px'; s.setAttribute('role', 'img'); s.setAttribute('aria-label', name);
+        rows.forEach((row, r) => [...row].forEach((ch, c) => { if (ch === '.') return; const q = document.createElementNS(NG_NS, 'rect'); q.setAttribute('x', c); q.setAttribute('y', r); q.setAttribute('width', 1.02); q.setAttribute('height', 1.02); q.setAttribute('fill', NG_PAL[ch] || '#333'); q.setAttribute('stroke', 'rgba(14,18,51,.35)'); q.setAttribute('stroke-width', '.04'); s.append(q); }));
+        return s;
+      }
+      function win() {
+        over = true; clearInterval(tick); sfx.win();
+        const total = Math.round(elapsed()); clock.textContent = fmt(total);
+        cells.forEach((c, i) => { c.classList.remove('ng-x'); if (sol[i]) { const ch = rows[Math.floor(i / N)][i % N]; c.style.setProperty('--fc', NG_PAL[ch] || '#333'); c.classList.add('ng-rev'); c.style.animationDelay = (Math.floor(i / N) * 60 + (i % N) * 25) + 'ms'; } });
+        board.classList.add('ng-done'); cnt.textContent = 'Готово!'; bUndo.disabled = true; bHint.disabled = true; mFill.disabled = mCross.disabled = true;
+        try { fx.burst(board, 12); } catch (x) { }
+        setTimeout(() => {
+          if (!root.isConnected) return;
+          window.removeEventListener('resize', onResize);
+          api.end({ win: true, custom: true, title: 'Это — ' + name.toLowerCase() + '!', sub: 'Кроссворд ' + N + '×' + N + ' решён за ' + fmt(total) + '.',
+            art: h('div', { class: 'ng-art' }, pic(Math.round(Math.min(220, Math.max(140, window.innerHeight * .28))))),
+            lines: [hints ? 'Подсказок: ' + hints + ' (штраф ' + hints * 30 + ' с уже в общем времени).' : 'Без единой подсказки. Отличная работа!'] });
+        }, 2000);
+      }
+
+      api.show(root, { turn: -1, role: 'Решаем вместе', compact: true });
+      paint(); fit(); requestAnimationFrame(fit); setTimeout(fit, 300);
+    }
+  });
+}
+
+/* ---- src/games/g43_sapper.js ---- */
+/* 43. Сапёры — соревновательный «Сапёр» на общем поле: открывайте клетки, ставьте флажки, не подрывайтесь */
+{
+  registerGame({
+    id: 'sapper', title: 'Сапёры', icon: '💣', color: '#e8564f',
+    cats: ['Командные', 'Логика'], teams: { min: 1, max: 4 }, mins: 15,
+    tagline: 'Одно минное поле на всех. Открывайте безопасные клетки, ставьте флажки на мины и не подрывайтесь: подрыв стоит очков.',
+    rules: '<ul><li>Команды по очереди делают <b>один ход</b>: открывают клетку или ставят флажок. Переключатель «Открыть / Флажок» над полем.</li><li>Безопасная клетка приносит <b>очко за каждую открытую клетку</b>. Число в клетке показывает, сколько мин вокруг; «пустой» участок раскрывается волной, и все очки достаются вам.</li><li>Мина: <b>−5 очков</b>, клетка закрашивается цветом вашей команды, игра идёт дальше.</li><li>Флажок на мине: <b>+3</b>, на пустой клетке: <b>−2</b> (клетка при этом открывается). Флажок тоже занимает ход.</li><li>Первая клетка и все вокруг неё без мин.</li><li>Партия кончается, когда на поле не остаётся закрытых клеток. Побеждает команда с наибольшим счётом.</li><li>Если играет один участник, соперником станет компьютер.</li></ul>',
+    opts: [{ key: 'level', label: 'Поле', values: [['easy', 'Лёгкое · 9×9, 10 мин'], ['mid', 'Среднее · 12×12, 25 мин'], ['hard', 'Сложное · 14×14, 40 мин']], def: 'easy' }],
+    cards: () => 0,
+    start(api) {
+      const LV = { easy: [9, 10], mid: [12, 25], hard: [14, 40] }, [N, MINES] = LV[api.opts.level] || LV.easy, solo = api.n === 1;
+      const sides = api.teams.map(t => ({ name: t.name, color: t.color }));
+      if (solo) sides.push({ name: 'Компьютер', color: TEAM_COLORS[1] });
+      const S = sides.length, pts = sides.map(() => 0), CELLS = N * N;
+      const lab = i => (solo && i === 1 ? 'К' : String(i + 1));
+      /* состояние: 0 закрыта, 1 открыта, 2 флажок на мине, 3 взорвана */
+      const st = Array(CELLS).fill(0), mine = Array(CELLS).fill(false), num = Array(CELLS).fill(0), by = Array(CELLS).fill(-1), wrong = Array(CELLS).fill(false);
+      let placed = false, resolved = 0, flaggedMines = 0, cur = 0, locked = false, over = false, mode = 'open';
+      const nb = i => { const r = (i / N) | 0, c = i % N, o = []; for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) { if (!dr && !dc) continue; const rr = r + dr, cc = c + dc; if (rr >= 0 && rr < N && cc >= 0 && cc < N) o.push(rr * N + cc); } return o; };
+      const foundMines = () => flaggedMines + st.filter(x => x === 3).length;
+      function place(first) {
+        const ban = new Set([first, ...nb(first)]), pool = shuffle([...Array(CELLS).keys()].filter(i => !ban.has(i)));
+        pool.slice(0, MINES).forEach(i => { mine[i] = true; });
+        for (let i = 0; i < CELLS; i++) num[i] = nb(i).filter(j => mine[j]).length;
+        placed = true;
+      }
+
+      /* ---- DOM ---- */
+      const cells = [], board = h('div', { class: 'sp-board', role: 'grid', 'aria-label': 'Минное поле' });
+      for (let i = 0; i < CELLS; i++) {
+        const b = h('button', { class: 'sp-c', type: 'button', 'data-i': i, 'aria-label': 'Клетка ' + ((i / N | 0) + 1) + '-' + (i % N + 1), onclick: () => act(i, mode, false), oncontextmenu: ev => { ev.preventDefault(); act(i, 'flag', false); } });
+        cells.push(b); board.append(b);
+      }
+      const bOpen = h('button', { class: 'sp-m', type: 'button', onclick: () => setMode('open') }, '👆 Открыть'), bFlag = h('button', { class: 'sp-m', type: 'button', onclick: () => setMode('flag') }, '🚩 Флажок');
+      const info = h('div', { class: 'sp-info', title: 'Мин осталось найти' });
+      const modes = h('div', { class: 'sp-modes', role: 'group', 'aria-label': 'Действие' }, bOpen, bFlag, info);
+      const vs = solo ? h('div', { class: 'sp-vs' }) : null;
+      const root = h('div', { class: 'sp-wrap' }, h('div', { class: 'sp-top' }, vs, modes), board);
+      function setMode(m) { if (locked || over) return; mode = m; paintMode(); sfx.click(); }
+      function paintMode() { bOpen.setAttribute('aria-pressed', mode === 'open'); bFlag.setAttribute('aria-pressed', mode === 'flag'); board.classList.toggle('sp-flagmode', mode === 'flag'); }
+      function paintInfo() { info.textContent = '💣 ' + Math.max(0, MINES - foundMines()); }
+      function paintVs() { if (vs) vs.replaceChildren(...[0, 1].flatMap(k => [k ? h('span', { class: 'sp-colon' }, '·') : null, h('span', { style: { '--c': sides[k].color } }, sides[k].name + ': ', h('b', null, pts[k]))])); }
+      function fit() {
+        if (!root.isConnected) return;
+        const padB = parseFloat(getComputedStyle(root.parentElement).paddingBottom) || 0;
+        const avW = Math.min(root.clientWidth, window.innerWidth) - 8;
+        const avH = window.innerHeight - board.getBoundingClientRect().top - 8 - 14 - padB - 6 - 6;
+        const cs = Math.max(26, Math.min(Math.floor(avW / N), Math.floor(avH / N), 56));
+        board.style.setProperty('--cs', cs + 'px'); board.style.setProperty('--n', N);
+      }
+      const onResize = () => { if (!root.isConnected) return window.removeEventListener('resize', onResize); fit(); };
+      window.addEventListener('resize', onResize);
+
+      function paintCell(i, delay) {
+        const b = cells[i]; b.className = 'sp-c'; b.disabled = st[i] !== 0; b.textContent = '';
+        b.style.removeProperty('--c'); b.style.removeProperty('--d');
+        if (delay) b.style.setProperty('--d', delay + 'ms');
+        if (st[i] === 1) {
+          b.classList.add('sp-open');
+          if (wrong[i]) { b.classList.add('sp-wrong'); b.append(h('i', { class: 'sp-w' }, '🚩')); b.setAttribute('aria-label', 'Ошибочный флажок'); }
+          if (num[i]) { b.classList.add('sp-n' + num[i]); b.append(h('span', null, num[i])); }
+        } else if (st[i] >= 2) {
+          b.classList.add(st[i] === 2 ? 'sp-flag' : 'sp-boom'); b.style.setProperty('--c', sides[by[i]].color);
+          b.append(st[i] === 2 ? '🚩' : '💣', h('sub', null, lab(by[i])));
+        }
+      }
+      function score(who, d) { pts[who] += d; if (!(solo && who === 1)) api.score(who, d); paintVs(); }
+      function reveal(i) { /* открыть клетку (и волну нулей), вернуть число открытых */
+        const q = [i], seen = new Set([i]); let k = 0;
+        while (q.length) {
+          const x = q.shift(); st[x] = 1; resolved++; paintCell(x, Math.min(k, 40) * 18); k++;
+          if (num[x] === 0) nb(x).forEach(j => { if (!seen.has(j) && st[j] === 0 && !mine[j]) { seen.add(j); q.push(j); } });
+        }
+        return k;
+      }
+      function banner() { if (solo && cur === 1) api.setTurn(-1, 'Ход компьютера', 'Компьютер'); else api.setTurn(cur, 'Открывает или ставит флажок'); }
+      function paintTurnUI() { board.style.setProperty('--tc', sides[cur].color); board.classList.toggle('sp-cpu', solo && cur === 1); }
+
+      function act(i, how, byAi) {
+        if (locked || over || st[i] !== 0) return;
+        if (!byAi && solo && cur === 1) return;
+        if (!placed) place(i);
+        const who = cur;
+        if (how === 'flag') {
+          by[i] = who; resolved++;
+          if (mine[i]) { st[i] = 2; flaggedMines++; score(who, 3); sfx.ok(); }
+          else { st[i] = 1; wrong[i] = true; score(who, -2); sfx.bad(); }
+          paintCell(i);
+        } else if (mine[i]) {
+          by[i] = who; st[i] = 3; resolved++; score(who, -5); sfx.bad(); paintCell(i);
+        } else {
+          const k = reveal(i); score(who, k); k > 1 ? sfx.ok() : sfx.click();
+          try { if (k > 4) fx.burst(board, 6); } catch (x) { }
+        }
+        paintInfo();
+        if (resolved >= CELLS) return finish();
+        cur = (cur + 1) % S; mode = 'open'; paintMode(); paintTurnUI(); banner();
+        if (solo && cur === 1) { locked = true; setTimeout(ai, 400 + rnd(300)); }
+      }
+
+      /* компьютер: логика «сапёра» по видимым числам, иначе минимальный риск; иногда ошибается */
+      function ai() {
+        locked = false; if (!root.isConnected || over) return;
+        const hidden = []; for (let i = 0; i < CELLS; i++) if (st[i] === 0) hidden.push(i);
+        if (!hidden.length) return;
+        if (!placed) return act((N >> 1) * N + (N >> 1), 'open', true);
+        const safe = new Set(), bomb = new Set(), risk = new Map();
+        for (let i = 0; i < CELLS; i++) {
+          if (st[i] !== 1) continue;
+          const ns = nb(i), unk = ns.filter(j => st[j] === 0), known = ns.filter(j => st[j] === 2 || st[j] === 3).length;
+          if (!unk.length) continue;
+          const rem = num[i] - known;
+          if (rem <= 0) unk.forEach(j => safe.add(j));
+          else if (rem === unk.length) unk.forEach(j => bomb.add(j));
+          else unk.forEach(j => risk.set(j, Math.max(risk.get(j) || 0, rem / unk.length)));
+        }
+        const pick = a => a[rnd(a.length)];
+        const sa = [...safe].filter(j => !bomb.has(j)), ba = [...bomb];
+        if (Math.random() < .12) return act(pick(hidden), 'open', true);
+        if (ba.length && (!sa.length || Math.random() < .45)) return act(pick(ba), 'flag', true);
+        if (sa.length) return act(pick(sa), 'open', true);
+        const base = Math.max(0, MINES - foundMines()) / hidden.length;
+        const rk = j => risk.has(j) ? risk.get(j) : base;
+        const best = Math.min(...hidden.map(rk)), c = hidden.filter(j => rk(j) <= best + .001);
+        act(pick(c), 'open', true);
+      }
+      function finish() {
+        over = true; locked = true; paintTurnUI(); board.classList.add('sp-over'); cells.forEach(b => { b.disabled = true; });
+        const best = Math.max(...pts), win = pts.indexOf(best), tie = pts.filter(x => x === best).length > 1;
+        sfx.win();
+        setTimeout(() => {
+          if (!root.isConnected) return;
+          window.removeEventListener('resize', onResize);
+          if (!solo) return api.end();
+          const sub = sides[0].name + ': ' + pts[0] + ' · Компьютер: ' + pts[1];
+          if (tie) api.end({ custom: true, title: 'Ничья!', sub, lines: [], win: true });
+          else if (win === 0) api.end({ custom: true, title: sides[0].name + ' побеждает!', sub, lines: [], win: true });
+          else api.end({ custom: true, title: 'Компьютер победил', sub, lines: ['Сыграйте ещё раз: реванш за вами.'], win: false });
+        }, 1300);
+      }
+
+      for (let i = 0; i < CELLS; i++) paintCell(i);
+      window.__sapper = { N, MINES, mine, num, st, pts, wrong }; /* для тестов */
+      api.show(root, { turn: 0, role: 'Открывает или ставит флажок', compact: true });
+      paintMode(); paintTurnUI(); paintVs(); paintInfo(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+    }
+  });
+}
+
+/* ---- src/games/g44_flood.js ---- */
+/* 44. Захват территории — «Flood-It» для нескольких команд: перекрашивайте свою область и поглощайте соседние клетки */
+{
+  const FL_COL = [['#e5484d', '●'], ['#f5b700', '▲'], ['#2fa84f', '■'], ['#2f7de1', '◆'], ['#8e4ec6', '★'], ['#ec6fa8', '✚']];
+  const FL_NAME = ['красный', 'жёлтый', 'зелёный', 'синий', 'фиолетовый', 'розовый'];
+  registerGame({
+    id: 'flood', title: 'Захват территории', icon: '🎨', color: '#2fb8d6',
+    cats: ['Командные', 'Для двоих'], teams: { min: 1, max: 4 }, mins: 15,
+    tagline: 'Выберите цвет: вся ваша область перекрасится в него и поглотит соседние клетки этого цвета. Захватите больше половины поля.',
+    rules: '<ul><li>Каждая команда начинает с угловой клетки. Цвета различаются ещё и значками.</li><li>На своём ходу выберите цвет внизу: вся ваша область станет этого цвета и присоединит соседние клетки такого же цвета. Число на кнопке показывает прирост.</li><li>Нельзя выбрать свой текущий цвет, цвет, которым сейчас владеют все команды, а также цвет, который ничего не присоединит. Такие кнопки затемнены.</li><li>Если у команды нет ни одного хода с приростом, ход переходит дальше.</li><li>Побеждает тот, кто захватил <b>больше половины поля</b>. Если поле разобрано раньше, выигрывает владеющий большей областью.</li><li>Если играет один участник, соперником станет компьютер.</li></ul>',
+    opts: [
+      { key: 'size', label: 'Размер поля', values: [[10, '10×10'], [14, '14×14'], [18, '18×18']], def: 14 },
+      { key: 'ai', label: 'Компьютер (если играет один)', values: [[1, 'Лёгкий'], [2, 'Средний'], [3, 'Сильный']], def: 2 }
+    ],
+    cards: () => 0,
+    start(api) {
+      const N = [10, 14, 18].includes(+api.opts.size) ? +api.opts.size : 14, solo = api.n === 1;
+      const lvl = [1, 2, 3].includes(+api.opts.ai) ? +api.opts.ai : 2;
+      const sides = api.teams.map(t => ({ name: t.name, color: t.color }));
+      if (solo) sides.push({ name: 'Компьютер', color: TEAM_COLORS[1] });
+      const S = sides.length, NC = S >= 4 ? 6 : 5, T = N * N;
+      const col = Array(T).fill(0), own = Array(T).fill(-1), pc = Array(S).fill(-1), cnt = Array(S).fill(0);
+      const starts = [0, T - 1, N - 1, T - N].slice(0, S);
+      for (let i = 0; i < T; i++) col[i] = rnd(NC);
+      starts.forEach((s, p) => { let c; do { c = rnd(NC); } while (pc.includes(c)); col[s] = c; pc[p] = c; own[s] = p; cnt[p] = 1; });
+      const nb = i => { const r = (i / N) | 0, c = i % N, a = []; if (r) a.push(i - N); if (r < N - 1) a.push(i + N); if (c) a.push(i - 1); if (c < N - 1) a.push(i + 1); return a; };
+      const NB = Array.from({ length: T }, (_, i) => nb(i));
+      /* какие клетки присоединит игрок p, выбрав цвет c: [клетка, расстояние волны]; O/C — владельцы и цвета (копии при симуляции) */
+      function grab(p, c, O, C) {
+        const seen = new Set(), res = []; let q = [];
+        for (let i = 0; i < T; i++) if (O[i] === p) { seen.add(i); q.push(i); }
+        let d = 0;
+        while (q.length) { const nx = []; d++; for (const i of q) for (const j of NB[i]) if (!seen.has(j) && O[j] < 0 && C[j] === c) { seen.add(j); res.push([j, d]); nx.push(j); } q = nx; }
+        return res;
+      }
+      const legalColors = p => { const a = []; for (let c = 0; c < NC; c++) if (c !== pc[p] && !pc.every(x => x === c)) a.push(c); return a; };
+      const gains = p => legalColors(p).map(c => ({ c, g: grab(p, c, own, col).length })).filter(x => x.g > 0);
+      let cur = 0, locked = false, over = false, wave = false;
+
+      /* ---- DOM ---- */
+      const cells = [], grid = h('div', { class: 'fl-grid', style: { '--n': N } });
+      for (let i = 0; i < T; i++) { const e = h('div', { class: 'fl-c' }); cells.push(e); grid.append(e); }
+      const board = h('div', { class: 'fl-board' }, grid);
+      const bar = h('div', { class: 'fl-bar' });
+      const pal = h('div', { class: 'fl-pal' });
+      const palBtns = [];
+      for (let c = 0; c < NC; c++) {
+        const lbl = h('i', { class: 'fl-g' });
+        const b = h('button', { type: 'button', class: 'fl-btn', style: { '--k': FL_COL[c][0] }, 'aria-label': FL_NAME[c], onclick: () => move(c, false) }, h('span', { class: 'fl-sym' }, FL_COL[c][1]), lbl);
+        b._g = lbl; palBtns.push(b); pal.append(b);
+      }
+      const mid = h('div', { class: 'fl-mid' }, board, pal), root = h('div', { class: 'fl-wrap' }, bar, mid);
+
+      function paintCells(only) {
+        const list = only || cells.keys();
+        for (const i of list) {
+          const e = cells[i], o = own[i], sym = FL_COL[col[i]][1];
+          e.style.background = FL_COL[col[i]][0]; e.dataset.c = col[i]; e.dataset.o = o;
+          if (e._s !== sym) { e.textContent = sym; e._s = sym; }
+          e.classList.toggle('fl-own', o >= 0);
+          e.dataset.t = o >= 0 ? (solo && o === 1 ? 'К' : o + 1) : '';
+        }
+      }
+      function paintEdges() {
+        for (let i = 0; i < T; i++) {
+          const o = own[i], e = cells[i];
+          if (o < 0) { if (e._e) { e.style.boxShadow = ''; e._e = ''; } continue; }
+          const r = (i / N) | 0, c = i % N, same = (rr, cc) => rr >= 0 && rr < N && cc >= 0 && cc < N && own[rr * N + cc] === o;
+          const k = sides[o].color, sh = [];
+          if (!same(r - 1, c)) sh.push(`inset 0 3px 0 0 ${k}`, 'inset 0 4px 0 0 #000b');
+          if (!same(r + 1, c)) sh.push(`inset 0 -3px 0 0 ${k}`, 'inset 0 -4px 0 0 #000b');
+          if (!same(r, c - 1)) sh.push(`inset 3px 0 0 0 ${k}`, 'inset 4px 0 0 0 #000b');
+          if (!same(r, c + 1)) sh.push(`inset -3px 0 0 0 ${k}`, 'inset -4px 0 0 0 #000b');
+          const s = sh.join(','); if (e._e !== s) { e.style.boxShadow = s; e._e = s; }
+        }
+      }
+      function paintBar() {
+        bar.replaceChildren(...sides.map((s, p) => h('span', { class: 'fl-pl' + (p === cur && !over ? ' on' : ''), style: { '--c': s.color } },
+          h('em', null, solo && p === 1 ? 'К' : p + 1), S > 2 ? ' ' : ' ' + (solo && p === 1 ? 'Компьютер' : s.name) + ': ', h('b', null, cnt[p]), h('small', null, ' ' + Math.round(cnt[p] * 100 / T) + '%'))));
+      }
+      function paintPal() {
+        const g = gains(cur), m = new Map(g.map(x => [x.c, x.g])), human = !(solo && cur === 1) && !over && !wave;
+        palBtns.forEach((b, c) => {
+          const ok = m.has(c); b._g.textContent = ok ? '+' + m.get(c) : '';
+          b.classList.toggle('fl-off', !ok); b.disabled = !ok || !human || locked;
+          b.title = ok ? '' : (c === pc[cur] ? 'Это ваш цвет' : 'Ничего не присоединит');
+        });
+      }
+      function fit() {
+        if (!root.isConnected) return;
+        const cs = getComputedStyle(root.parentElement), pb = parseFloat(cs.paddingBottom) || 0;
+        const side = root.clientWidth > innerHeight * 1.25;
+        root.classList.toggle('fl-side', side);
+        const top = root.getBoundingClientRect().top + bar.offsetHeight + 8 + (side ? 0 : pal.offsetHeight + 8);
+        const avail = innerHeight - top - 12 - pb, wide = side ? root.clientWidth - 110 : root.clientWidth;
+        const s = Math.max(180, Math.min(wide, avail, 900));
+        board.style.setProperty('--s', Math.floor(s) + 'px');
+        board.classList.toggle('fl-sm', s / N < 26);
+      }
+      const onResize = () => { if (!root.isConnected) return removeEventListener('resize', onResize); fit(); };
+      addEventListener('resize', onResize);
+
+      function banner(extra) {
+        if (solo && cur === 1) api.setTurn(-1, 'Ход компьютера', 'Компьютер');
+        else api.setTurn(cur, extra || 'Выбирает цвет');
+      }
+      function nextPlayer() { /* следующий, у кого есть ход с приростом; -1 — ни у кого */
+        for (let k = 1; k <= S; k++) { const p = (cur + k) % S; if (gains(p).length) return p; }
+        return -1;
+      }
+      function move(c, byAi) {
+        if (locked || over || wave) return;
+        if (!byAi && solo && cur === 1) return;
+        if (!gains(cur).some(x => x.c === c)) return;
+        const p = cur, got = grab(p, c, own, col), ch = [];
+        for (let i = 0; i < T; i++) if (own[i] === p) { col[i] = c; ch.push(i); }
+        let md = 0;
+        got.forEach(([i, d]) => { own[i] = p; col[i] = c; md = Math.max(md, d); cells[i].style.transitionDelay = (d * 40) + 'ms'; cells[i].style.animationDelay = (d * 40) + 'ms'; });
+        pc[p] = c; cnt[p] += got.length; if (p < api.n) api.score(p, got.length);
+        paintCells(ch.concat(got.map(x => x[0]))); paintEdges(); paintBar();
+        got.forEach(([i]) => { cells[i].classList.remove('fl-pop'); void cells[i].offsetWidth; cells[i].classList.add('fl-pop'); });
+        sfx.click(); wave = true; paintPal();
+        const wait = Math.min(900, md * 40 + 280);
+        setTimeout(() => {
+          wave = false; got.forEach(([i]) => { cells[i].style.transitionDelay = ''; cells[i].style.animationDelay = ''; cells[i].classList.remove('fl-pop'); });
+          if (!root.isConnected) return;
+          if (cnt[p] * 2 > T) { try { fx.burst(board, 8); } catch (x) { } return finish(); }
+          const q = nextPlayer();
+          if (q < 0) return finish();
+          const skipped = q !== (p + 1) % S;
+          cur = q; paintBar(); paintPal(); banner(skipped ? 'Соперники без хода, ходит вне очереди' : null);
+          if (solo && cur === 1) { locked = true; setTimeout(ai, 400 + rnd(300)); }
+        }, wait);
+      }
+      function ai() {
+        locked = false; if (!root.isConnected || over) return;
+        const g = gains(cur); if (!g.length) return;
+        let pick;
+        if (lvl === 1) pick = g[rnd(g.length)];
+        else if (lvl === 2) { const m = Math.max(...g.map(x => x.g)); const l = g.filter(x => x.g === m); pick = l[rnd(l.length)]; }
+        else {
+          /* прогноз на 2 хода: прирост сейчас + лучший прирост следующим ходом */
+          let bestV = -1;
+          for (const x of g) {
+            const O = own.slice(), C = col.slice(), got = grab(cur, x.c, O, C);
+            for (let i = 0; i < T; i++) if (O[i] === cur) C[i] = x.c;
+            got.forEach(([i]) => { O[i] = cur; C[i] = x.c; });
+            let b2 = 0; for (let c2 = 0; c2 < NC; c2++) if (c2 !== x.c) b2 = Math.max(b2, grab(cur, c2, O, C).length);
+            const v = x.g + b2 + Math.random() * .5;
+            if (v > bestV) { bestV = v; pick = x; }
+          }
+        }
+        move(pick.c, true);
+      }
+      function finish() {
+        over = true; locked = true; paintBar(); paintPal(); board.classList.add('fl-over'); sfx.win();
+        const best = Math.max(...cnt), win = cnt.indexOf(best), tie = cnt.filter(x => x === best).length > 1;
+        setTimeout(() => {
+          if (!root.isConnected) return;
+          removeEventListener('resize', onResize);
+          if (!solo) return api.end();
+          const sub = sides[0].name + ': ' + cnt[0] + ' · Компьютер: ' + cnt[1];
+          if (tie) api.end({ custom: true, title: 'Ничья!', sub, lines: [], win: true });
+          else if (win === 0) api.end({ custom: true, title: sides[0].name + ' побеждает!', sub, lines: [], win: true });
+          else api.end({ custom: true, title: 'Компьютер победил', sub, lines: ['Сыграйте ещё раз: реванш за вами.'], win: false });
+        }, 1300);
+      }
+
+      api.show(root, { turn: 0, role: 'Выбирает цвет', compact: true });
+      /* стартовые области: поглощаем одноцветных соседей */
+      starts.forEach((s, p) => { const g = grab(p, pc[p], own, col); g.forEach(([i]) => { own[i] = p; }); cnt[p] += g.length; });
+      cnt.forEach((v, p) => { if (p < api.n) api.score(p, v); });
+      paintCells(); paintEdges(); paintBar();
+      if (!gains(0).length) { const q = nextPlayer(); if (q < 0) { finish(); return; } cur = q; }
+      paintBar(); paintPal(); banner(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+      if (solo && cur === 1) { locked = true; setTimeout(ai, 600); }
     }
   });
 }
