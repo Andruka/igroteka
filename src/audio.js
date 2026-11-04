@@ -152,7 +152,7 @@ function openFlag() {
 }
 function openReports() {
   const list = store.get('reports', []);
-  const copy = () => { const txt = list.map(r => '[' + r.deck + '] ' + r.text).join('\n'); try { navigator.clipboard.writeText(txt); } catch (e) { const a = h('a', { href: 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt), download: 'igroteka-reports.txt' }); document.body.append(a); a.click(); a.remove(); } };
+  const copy = () => { const txt = list.map(r => '[' + r.deck + '] ' + r.text).join('\n'); const save = () => { const a = h('a', { href: 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt), download: 'igroteka-reports.txt' }); document.body.append(a); a.click(); a.remove(); }; try { navigator.clipboard.writeText(txt).catch(save); } catch (e) { save(); } };
   const m = modal(h('div', null, h('h2', null, 'Замечания к карточкам'), list.length ? h('div', { class: 'reports' }, list.map(r => h('div', { class: 'rep' }, h('b', null, r.deck), h('span', null, r.text)))) : h('p', { class: 'muted', style: { marginTop: '.6rem' } }, 'Пока нет замечаний. Нажмите флажок в шапке игры, если заметили ошибку.')),
     [list.length ? btn('Скопировать список', copy, 'paper') : null, list.length ? btn('Вернуть скрытые', () => { Object.keys(localStorage).filter(k => k.startsWith('igroteka.bad.') || k === 'igroteka.reports').forEach(k => localStorage.removeItem(k)); m.close(); }, 'paper') : null, btn('Закрыть', () => m.close(), '')].filter(Boolean));
 }

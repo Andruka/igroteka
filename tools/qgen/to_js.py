@@ -2,7 +2,7 @@
 """merged.jsonl -> src/data/d_quiz9.js (запускать после merge.py)"""
 import json, os
 here = os.path.dirname(os.path.abspath(__file__))
-rows = [json.loads(l) for l in open(os.path.join(here, 'merged.jsonl'), encoding='utf-8')]
+rows = [json.loads(l) for l in open(os.path.join(here, 'merged_final.jsonl' if os.path.exists(os.path.join(here,'merged_final.jsonl')) else 'merged.jsonl'), encoding='utf-8')]
 data = [[r['c'], r['l'], r['q'], r['a'], *r['w']] for r in rows]
 out = os.path.join(here, '../../src/data/d_quiz9.js')
 with open(out, 'w', encoding='utf-8') as f:
