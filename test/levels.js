@@ -11,7 +11,7 @@ const path = require('path');
   const d = await p.evaluate(() => {
     const r = {};
     const q = DATA.quiz; r.quizN = q.length; r.byL = [1, 2, 3, 4, 5].map(l => q.filter(x => x.l === l).length);
-    r.badOpts = q.filter(x => new Set(x.a.map(s => s.trim().toLowerCase())).size !== 4 || x.a.some(s => !s || s.length > 120)).map(x => x.q);
+    r.badOpts = q.filter(x => new Set(x.a.map(s => /ударени/i.test(x.q) ? s.trim() : s.trim().toLowerCase())).size !== 4 || x.a.some(s => !s || s.length > 120)).map(x => x.q);
     const seenQ = {}; r.dupQ = []; q.forEach(x => { const k = x.q.toLowerCase(); if (seenQ[k]) r.dupQ.push(x.q); seenQ[k] = 1; });
     r.catLv = []; DATA.quizCats.forEach(c => [1, 2, 3, 4, 5].forEach(l => { const n = q.filter(x => x.c === c.id && x.l === l).length; if (n < 6) r.catLv.push(c.id + l + ':' + n); }));
     r.jh = DATA.jeopardyHard.map(t => t.q.length).every(n => n === 5) && DATA.jeopardyHard.length;
