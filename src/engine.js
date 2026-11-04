@@ -207,7 +207,16 @@ function fullBtn() {
 }
 
 /* ---------- каталог ---------- */
-const CATS = ['Все', 'Викторины', 'Для компании', 'Командные', 'Для двоих', 'Загадки и истории'];
+const CATS = ['Все', '★ Любимые', 'Викторины', 'Для компании', 'Командные', 'Для двоих', 'Загадки и истории'];
+const favs = () => { const a = store.get('fav', []); return Array.isArray(a) ? a : []; };
+const isFav = id => favs().includes(id);
+function favStar(g, onChange) {
+  const b = h('span', { class: 'favstar', role: 'button', tabindex: '0', 'aria-label': 'Любимая игра: ' + g.title });
+  const sync = () => { const f = isFav(g.id); b.textContent = f ? '★' : '☆'; b.setAttribute('aria-pressed', f); b.title = f ? 'Убрать из любимых' : 'В любимые'; b.classList.toggle('on', f); };
+  const tog = e => { e.stopPropagation(); e.preventDefault(); const a = favs(), i = a.indexOf(g.id); i < 0 ? a.push(g.id) : a.splice(i, 1); store.set('fav', a); sfx.click(); sync(); onChange && onChange(); };
+  b.addEventListener('click', tog); b.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') tog(e); });
+  sync(); return b;
+}
 const gameArt = g => { const a = (DATA.gameArt && DATA.gameArt[g.id]) ? Pics.parts(DATA.gameArt[g.id]) : [g.icon]; return a.length < 3 ? [a[0], a[1] || '✨', a[2] || '⭐'] : a.slice(0, 3); };
 function Home() {
   G.inSession = false; Music.stop(); Voice.stop();
@@ -222,7 +231,7 @@ function Home() {
   let q = '';
   const NEW_IDS = ['millionaire', 'allin', 'anagram', 'memory', 'dots', 'hang'];
   const found = g => !q || (g.title + ' ' + g.tagline).toLowerCase().includes(q);
-  const visible = () => G.games.filter(g => (cat === 'Все' || g.cats.includes(cat)) && fits(g) && packOk(g) && found(g));
+  const visible = () => G.games.filter(g => (cat === 'Все' || (cat === '★ Любимые' ? isFav(g.id) : g.cats.includes(cat))) && fits(g) && packOk(g) && found(g)).sort((a, b) => cat === 'Все' && !q ? isFav(b.id) - isFav(a.id) : 0);
   const search = h('input', { class: 'gsearch', type: 'search', placeholder: 'Найти игру…', 'aria-label': 'Найти игру по названию', autocomplete: 'off', oninput: e => { q = e.target.value.trim().toLowerCase(); paint(); } });
   const randomBtn = btn('Случайная игра', () => { const l = visible(); if (l.length) Intro(pick(l)); }, 'small paper');
   function paint() {
@@ -234,10 +243,11 @@ function Home() {
       ...[[0, 'Любо'], [2, '2'], [3, '3'], [4, '4'], [5, '5'], [6, '6+']].map(([n, l]) => h('button', { class: 'chipbtn num', type: 'button', 'aria-pressed': n === np, 'aria-label': n ? 'Игроков: ' + l : 'Любое число игроков', onclick: () => { np = n; store.set('np', n); paint(); } }, n ? l : 'Любое')),
       randomBtn);
     const list = visible();
+    if (!list.length && cat === '★ Любимые') { grid.replaceChildren(h('div', { class: 'empty' }, h('b', null, 'Пока нет любимых игр.'), h('span', null, 'Нажмите ☆ на карточке игры — она появится здесь и поднимется наверх списка.'))); return; }
     if (!list.length) { grid.replaceChildren(h('div', { class: 'empty' }, h('b', null, 'Для такой компании игр не нашлось.'), h('span', null, 'Выберите другой раздел или число игроков.'))); return; }
     grid.replaceChildren(...list.map((g, i) => h('button', { class: 'gcard', type: 'button', style: { '--c': g.color, '--rot': ((i % 3) - 1) * .8 + 'deg' }, onclick: () => { sfx.click(); Intro(g); } },
       h('div', { class: 'art' + (DATA.art && DATA.art[g.id] ? ' has-ill' : '') }, DATA.art && DATA.art[g.id] ? Pics.ill(g.id) : null, ...(DATA.art && DATA.art[g.id] ? [] : gameArt(g).map((e, k) => h('span', { class: 'a' + (k + 1) }, e)))),
-      h('div', { class: 'body' }, h('h3', null, g.title), h('p', { class: 'tag' }, g.tagline),
+      favStar(g, paint), h('div', { class: 'body' }, h('h3', null, g.title), h('p', { class: 'tag' }, g.tagline),
         h('div', { class: 'meta' }, NEW_IDS.includes(g.id) ? h('span', { class: 'pill new' }, 'Новое') : null, pack !== 'all' && packHas(g, pack) ? h('span', { class: 'pill hot' }, PACKS.find(p => p[0] === pack)[2] + ' есть наборы') : null, h('span', { class: 'pill' }, g.coop ? 'вся компания' : playersLabel(g)), h('span', { class: 'pill' }, '~' + g.mins + ' мин'))))));
   }
   paint();
@@ -292,7 +302,7 @@ function Intro(g) {
     h('div', { class: 'row', style: { marginBottom: '1.2rem' } }, withIco(btn('Каталог', Home, 'ghost small'), 'home'), h('span', { class: 'grow' }), setBtn(), muteBtn(), fullBtn()),
     h('div', { class: 'intro' },
       h('div', null,
-        h('div', { class: 'title-row' }, (DATA.art && DATA.art[g.id] ? h('div', { class: 'ill-badge', style: { '--c': g.color } }, Pics.ill(g.id)) : Pics.sticker(gameArt(g), { size: 'l', tone: g.color, flat: true })), h('h1', null, g.title)),
+        h('div', { class: 'title-row' }, (DATA.art && DATA.art[g.id] ? h('div', { class: 'ill-badge', style: { '--c': g.color } }, Pics.ill(g.id)) : Pics.sticker(gameArt(g), { size: 'l', tone: g.color, flat: true })), h('h1', null, g.title), favStar(g)),
         h('p', { class: 'mid-t', style: { marginBottom: '1.2rem' } }, g.tagline),
         h('div', { class: 'panel' }, h('h2', null, 'Как играть'), h('div', { class: 'rules', html: g.rules }))),
       h('div', { class: 'panel dark' },
