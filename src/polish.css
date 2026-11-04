@@ -221,13 +221,14 @@ h1,h2,h3,.big,.bar-title,.stepper b,.tchip .sc,.timer .tnum,.cipher{font-family:
 .jp-cell:hover{filter:brightness(1.1)}.jp-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .jp-cell.used{background:rgba(20,26,70,.12);border:3px dashed rgba(20,26,70,.2);box-shadow:none;cursor:default;min-height:2.2em}
 /* ---- Виселица ---- */
-.hang-top{display:grid;grid-template-columns:minmax(120px,260px) 1fr;gap:1.2rem;align-items:center;background:var(--paper,#fff);border:3px solid var(--ink);border-radius:20px;padding:1rem 1.2rem}
-.gallows svg{width:100%;height:auto;display:block}
+.hang-top{color:var(--ink);display:grid;grid-template-columns:minmax(100px,220px) 1fr;gap:1rem;align-items:center;background:var(--paper,#fff);border:3px solid var(--ink);border-radius:20px;padding:.6rem 1.1rem}
+.hang-top .kicker{color:#4a5190}.hang-top .mid-t{color:var(--ink);min-height:1.4em}
+.gallows svg{height:clamp(120px,27vh,230px);width:auto;max-width:100%;display:block;margin:0 auto}
 .hang-word{display:flex;flex-wrap:wrap;gap:.35em;margin:.5em 0}
 .hang-word .hl{width:1.5em;height:1.9em;border-bottom:4px solid var(--ink);display:inline-flex;align-items:flex-end;justify-content:center;font-family:var(--display);font-size:clamp(1.4rem,3.4vw,2.6rem);line-height:1.1}
 .hang-word .hl.sp{border:0;width:.7em}.hang-word .hl.lost{color:#d6334f}
-.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(44px,6.4vw,72px),1fr));gap:6px}
-.key{font-family:var(--display);font-size:clamp(1.1rem,2.2vw,1.7rem);padding:.55em 0;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);box-shadow:0 3px 0 var(--ink);cursor:pointer}
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(40px,5.2vw,64px),1fr));gap:5px}
+.key{font-family:var(--display);font-size:clamp(1rem,2vw,1.5rem);padding:.38em 0;border:3px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);box-shadow:0 3px 0 var(--ink);cursor:pointer}
 .key:hover:not(:disabled){background:#ffe9a8}.key.hit{background:#8ae8c6;box-shadow:none}.key.miss{background:#f3a0ae;box-shadow:none}.key:disabled{cursor:default;opacity:.85}
 @media(max-width:560px){.hang-top{grid-template-columns:1fr}}
 /* ---- Рисование ---- */
@@ -427,3 +428,6 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .mf-row{display:grid;grid-template-columns:1.2fr 1.4fr auto;gap:10px;padding:.55rem .9rem;background:rgba(14,18,51,.5);border:3px solid var(--ink);border-left:10px solid var(--c);border-radius:14px;align-items:center;text-align:left}
 .mf-row.dead{opacity:.6}.mf-row .pn{font-weight:800}
 @media(max-width:560px){.cn-cell{font-size:clamp(.78rem,3.3vw,1rem);min-height:60px}}
+
+@media(max-height:820px){.hang-word .hl{font-size:clamp(1.2rem,2.6vw,2rem)}.key{padding:.28em 0}.hang-top .kicker{font-size:.85em}}
+@media(max-width:560px){.hang-top{grid-template-columns:84px 1fr;gap:.6rem;padding:.5rem .7rem}.gallows svg{height:96px}.keys{grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:4px}.key{padding:.22em 0;font-size:1.05rem}}

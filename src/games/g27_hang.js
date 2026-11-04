@@ -21,18 +21,19 @@
     start(api) {
       rotate(api, api.opts.rounds, (ti0, k, total, next, last) => {
         const card = deck.draw(), word = card.w.toLowerCase();
+        const n = ch => ch === 'ё' ? 'е' : ch, nw = word.replace(/ё/g, 'е');
         const used = new Set(); let miss = 0, ti = ti0, over = false;
         const wordEl = h('div', { class: 'hang-word' }), gal = h('div'), msg = h('div', { class: 'mid-t' }), kb = h('div', { class: 'keys' }), actions = h('div', { class: 'row' });
-        const shown = () => [...word].map(ch => ch === ' ' ? ' ' : (used.has(ch) || over ? ch : '_'));
-        const complete = () => [...word].every(ch => ch === ' ' || used.has(ch));
+        const shown = () => [...word].map(ch => ch === ' ' ? ' ' : (used.has(n(ch)) || over ? ch : '_'));
+        const complete = () => [...word].every(ch => ch === ' ' || used.has(n(ch)));
         function paint() {
-          wordEl.replaceChildren(...[...word].map((ch, i) => h('span', { class: 'hl' + (ch === ' ' ? ' sp' : '') + (over && !used.has(ch) && ch !== ' ' ? ' lost' : '') }, ch === ' ' ? '' : (used.has(ch) || over ? ch.toUpperCase() : ''))));
+          wordEl.replaceChildren(...[...word].map((ch, i) => h('span', { class: 'hl' + (ch === ' ' ? ' sp' : '') + (over && !used.has(n(ch)) && ch !== ' ' ? ' lost' : '') }, ch === ' ' ? '' : (used.has(n(ch)) || over ? ch.toUpperCase() : ''))));
           gal.replaceChildren(gallows(miss));
-          kb.replaceChildren(...ABC.map(ch => h('button', { class: 'key' + (used.has(ch) ? (word.includes(ch) ? ' hit' : ' miss') : ''), type: 'button', disabled: used.has(ch) || over, onclick: () => pick(ch) }, ch.toUpperCase())));
+          kb.replaceChildren(...ABC.map(ch => h('button', { class: 'key' + (used.has(ch) ? (nw.includes(ch) ? ' hit' : ' miss') : ''), type: 'button', disabled: used.has(ch) || over, onclick: () => pick(ch) }, ch.toUpperCase())));
         }
         function pick(ch) {
           if (over || used.has(ch)) return; used.add(ch);
-          const c = [...word].filter(x => x === ch).length;
+          const c = [...nw].filter(x => x === ch).length;
           if (c) { sfx.ok(); api.score(ti, c); msg.textContent = api.teams[ti].name + ': есть «' + ch.toUpperCase() + '», +' + c; if (complete()) return win(ti); }
           else { sfx.bad(); miss++; msg.textContent = 'Буквы «' + ch.toUpperCase() + '» нет. Ход переходит дальше.'; if (miss >= MAX) return lose(); ti = (ti + 1) % api.n; api.setTurn(ti, 'Называет букву'); }
           paint();
@@ -41,7 +42,7 @@
         function lose() { over = true; sfx.buzz(); paint(); finish('Виселица достроена. Слово не отгадано.'); }
         function finish(t) { msg.textContent = t; actions.replaceChildren(btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true })); kb.querySelectorAll('button').forEach(b => b.disabled = true); }
         const whole = btn('Назвать слово целиком', () => {
-          if (over) return; actions.replaceChildren(judgeRow(api, api.teams[ti].name + ' называет слово. Верно ли оно?', 'Верно', ok => { if (ok) { word.split('').forEach(ch => used.add(ch)); win(ti); } else { miss++; sfx.bad(); if (miss >= MAX) return lose(); ti = (ti + 1) % api.n; api.setTurn(ti, 'Называет букву'); msg.textContent = 'Слово неверное. Ход переходит дальше.'; actions.replaceChildren(whole); paint(); } }, 'Нет'));
+          if (over) return; actions.replaceChildren(judgeRow(api, api.teams[ti].name + ' называет слово. Верно ли оно?', 'Верно', ok => { if (ok) { [...nw].forEach(ch => used.add(ch)); win(ti); } else { miss++; sfx.bad(); if (miss >= MAX) return lose(); ti = (ti + 1) % api.n; api.setTurn(ti, 'Называет букву'); msg.textContent = 'Слово неверное. Ход переходит дальше.'; actions.replaceChildren(whole); paint(); } }, 'Нет'));
         }, 'paper small');
         actions.replaceChildren(whole);
         api.show([h('div', { class: 'hang-top' }, gal, h('div', { class: 'hang-side' }, h('div', { class: 'kicker' }, 'Слово ' + k + ' из ' + total + ' · ' + card.c + ' · ' + word.replace(/ /g, '').length + ' букв'), wordEl, msg)), kb, actions], { turn: ti, role: 'Называет букву' });
