@@ -5,7 +5,7 @@ DATA.quizCats = [
   { id: 'mus', name: 'Музыка', icon: '🎵' }, { id: 'art', name: 'Книги и искусство', icon: '📚' },
   { id: 'food', name: 'Еда и напитки', icon: '🍕' }, { id: 'sport', name: 'Спорт', icon: '⚽' },
   { id: 'ani', name: 'Животные', icon: '🐾' }, { id: 'lang', name: 'Язык и слова', icon: '🔤' },
-  { id: 'rus', name: 'Россия и СССР', icon: '🪆' }, { id: 'tech', name: 'Техника и сеть', icon: '💻' }
+  { id: 'rus', name: 'Россия и СССР', icon: '🪆' }, { id: 'tech', name: 'Техника и сеть', icon: '💻' }, { id: 'med', name: 'Медицина', icon: '🩺' }
 ];
 DATA.quiz = [];
 const Q = (c, l, q, a, x, y, z) => DATA.quiz.push({ c, l, q, a: [a, x, y, z] });
