@@ -1,0 +1,3 @@
+/* Кнопки внутри экрана передачи устройства: «.cover .big» красил текст в цвет фона кнопки (жёлтый на жёлтом) */
+.cover .btn,.cover .btn.big{color:var(--ink)}
+.cover .btn.ghost,.cover .btn.paper{color:var(--ink)}

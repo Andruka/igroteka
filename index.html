@@ -757,6 +757,30 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .an-head{flex-wrap:wrap}
 @media (min-width:700px){.an-head .kicker{flex:1 1 auto}}
 
+/* Кодовые имена: режим «Дуэт» */
+.cd-hud{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 16px;width:100%;font-weight:800;margin-bottom:6px}
+.cd-tok{display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.cd-tok i{width:16px;height:16px;border-radius:50%;border:3px solid var(--ink);background:transparent;display:block}
+.cd-tok i.on{background:var(--sun)}
+.cd-info{text-align:center;margin-bottom:6px}
+.cd-hint{padding:.6rem 1rem;font-weight:700}
+.cn-grid.cd-grid .cn-cell{min-height:clamp(44px,8.5vh,80px)}
+.cn-cell.cd-found{background:#5fcf86;box-shadow:none;cursor:default;color:#10281a}
+.cn-cell.cd-miss{background:#d9d2bd;box-shadow:none;cursor:default;color:#3a3628}
+.cn-cell.cd-key-cell{cursor:default}
+.cd-keywrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.cd-legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-weight:800}
+.cd-lg{padding:.15rem .6rem;border-radius:999px;border:2px solid var(--ink)}
+.cd-lg.g{background:#5fcf86;color:#10281a}.cd-lg.n{background:#e8e0c8;color:#3a3628}.cd-lg.x{background:#1a1a1f;color:#fff}
+.cn-cell.cd-k-g{background:#5fcf86;color:#10281a;box-shadow:none}
+.cn-cell.cd-k-n{background:#e8e0c8;color:#3a3628;box-shadow:none}
+.cn-cell.cd-k-x{background:#1a1a1f;color:#fff;box-shadow:none}
+.cn-cell.cd-was{opacity:.5}
+.cd-ok{position:absolute;left:6px;bottom:2px;font-style:normal;font-weight:900}
+.cn-grid.cd-key.cd-grid .cn-cell{font-size:clamp(.7rem,1.5vw,1.05rem)}
+.cn-grid.cd-final{max-width:640px}
+@media(max-width:560px){.cn-grid.cd-grid .cn-cell{font-size:clamp(.66rem,3vw,.9rem);min-height:46px}}
+
 /* Четыре в ряд */
 .cn-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
 .cn-leg{display:flex;flex-wrap:wrap;gap:.5em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(13px,1.5vw,20px);line-height:1.1}
@@ -812,6 +836,25 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .dt-cpu .dt-e{cursor:progress}
 @media(prefers-reduced-motion:reduce){.dt-line,.dt-box,.dt-lbl{animation:none}.dt-halo{animation:none;opacity:.4}}
 
+/* Дуэт: Табу, Рисуй и угадывай, Крокодил */
+.du-roles{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;width:100%}
+.du-role{--c:#888;display:flex;flex-direction:column;align-items:center;gap:.15rem;min-width:9em;padding:.6rem 1.1rem;border-radius:18px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,var(--ink));color:var(--paper)}
+.du-role small{font-weight:700;opacity:.85}
+.du-role b{font-family:var(--display);font-size:1.3em}
+.du-strip{display:inline-block;padding:.3rem .9rem;border-radius:999px;background:rgba(127,127,127,.18);border:2px solid currentColor;font-weight:700;align-self:center}
+.du-strip b{font-family:var(--display);font-size:1.2em}
+.du-play{display:flex;flex-direction:column;gap:.8rem;width:100%}
+.du-zone{display:flex;flex-direction:column;gap:.6rem;border-radius:20px}
+.du-zl{font-weight:800;opacity:.85;text-align:center}
+.du-gu{padding:.7rem;border:3px dashed currentColor;background:rgba(127,127,127,.08)}
+.du-taboo{width:100%;min-height:72px;font-size:1.6em}
+.du-ex .row{justify-content:center}
+@media (prefers-reduced-motion:reduce){.du-role,.du-taboo{transition:none;animation:none}}
+.du-btns{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.du-btns .btn{flex:1 1 30%;min-width:96px;min-height:56px}
+.du-btns .du-taboo{width:auto;min-height:56px;font-size:1.25em}
+@media (max-width:480px){.du-btns{gap:.4rem}.du-btns .btn{min-width:0;padding-inline:.3em;font-size:1em}.du-btns .btn.big{font-size:1.05em}}
+
 /* Захват территории */
 .fl-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
 .fl-bar{display:flex;flex-wrap:wrap;gap:.4em .6em;align-items:center;justify-content:center;font-weight:800;font-size:clamp(13px,1.5vw,20px);line-height:1.1}
@@ -843,6 +886,13 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .fl-side .fl-pal{flex-direction:column;width:auto;max-width:none;height:var(--s,320px);gap:6px}
 .fl-side .fl-btn{flex:1 1 0;width:78px;min-height:44px;max-width:none}
 
+/* Виселица: режим «Загадывают игроки» */
+.hd-form{max-width:520px;width:100%;margin:0 auto}
+.hd-in{font-size:1.2rem;min-height:48px;width:100%}
+.hd-err{color:#d6334f;min-height:1.4em}
+.hd-conf{letter-spacing:.12em;word-break:break-all}
+.row .hd-in{flex:1;min-width:140px}
+
 /* Гекс */
 .hx-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
 .hx-vs{display:flex;gap:.7em;align-items:center;justify-content:center;flex-wrap:wrap;font-weight:800;font-size:clamp(14px,1.6vw,22px);line-height:1.1}
@@ -867,6 +917,43 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 @keyframes hx-pop{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes hx-fade{from{opacity:0}to{opacity:.85}}
 @media(prefers-reduced-motion:reduce){.hx-st.new,.hx-link{animation:none}.hx-chip{transition:none}}
+
+/* Кто кого знает */
+.km-wrap{display:flex;flex-direction:column;gap:clamp(10px,1.8vh,18px);width:100%;max-width:960px;margin:0 auto}
+.km-kick{text-align:center;font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:clamp(12px,1.4vw,16px);opacity:.85}
+.km-q{background:#fff;color:var(--ink);border:4px solid var(--ink);border-radius:20px;box-shadow:0 5px 0 var(--ink);padding:clamp(12px,2.2vh,24px) clamp(14px,2.4vw,28px);text-align:center;font-family:var(--display);font-weight:800;font-size:clamp(20px,3.4vw,40px);line-height:1.15}
+.km-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4vw,16px)}
+.km-opt{--c:#ff7a8a;position:relative;display:flex;align-items:center;gap:.7em;min-height:64px;padding:.7em .9em;text-align:left;font:inherit;font-weight:800;font-size:clamp(16px,2.2vw,26px);line-height:1.2;color:var(--ink);background:color-mix(in srgb,var(--c) 30%,#fff);border:4px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .12s,box-shadow .12s,background .15s}
+.km-opt:not(.km-rev):active{transform:translateY(3px);box-shadow:0 2px 0 var(--ink)}
+@media(hover:hover){.km-opt:not(.km-rev):hover{background:color-mix(in srgb,var(--c) 55%,#fff)}}
+.km-opt[aria-pressed=true]{background:var(--c);transform:translateY(2px);box-shadow:0 3px 0 var(--ink),0 0 0 5px color-mix(in srgb,var(--c) 45%,transparent)}
+.km-opt:focus-visible{outline:4px solid #ffc233;outline-offset:2px}
+.km-let{flex:none;display:grid;place-items:center;width:2em;height:2em;border-radius:50%;background:var(--c);border:3px solid var(--ink);font-family:var(--display);font-weight:900;font-size:.9em}
+.km-opt[aria-pressed=true] .km-let{background:#fff}
+.km-t{flex:1;min-width:0;overflow-wrap:anywhere}
+.km-act{display:flex;justify-content:center}
+.km-act .btn:disabled{opacity:.45}
+.km-rev{cursor:default;flex-wrap:wrap;animation:km-in .4s var(--d,0ms) both}
+.km-rev.km-dim{opacity:.6;box-shadow:0 3px 0 var(--ink)}
+.km-rev.km-right{background:#b9f2c5;opacity:1;box-shadow:0 5px 0 var(--ink),0 0 0 6px #3ccf6a;animation:km-in .4s var(--d,0ms) both,km-glow 1.4s .5s ease-in-out 2}
+.km-rev.km-right .km-let{background:#3ccf6a}
+.km-tag{flex-basis:100%;font-size:.6em;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:#126b32}
+.km-chips{flex-basis:100%;display:flex;flex-wrap:wrap;gap:.3em}
+.km-chips:empty{display:none}
+.km-chip{font-size:.6em;padding:.1em .7em;border-radius:999px;border:2px solid var(--ink);background:color-mix(in srgb,var(--c) 55%,#fff);color:var(--ink)}
+.km-msg{text-align:center;font-family:var(--display);font-weight:800;font-size:clamp(18px,2.6vw,30px)}
+.km-msg.good{color:#7dffa0}
+.km-index{text-align:center;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.km-pct{font-family:var(--display);font-weight:900;font-size:clamp(56px,12vw,128px);line-height:1;color:#ff7a8a}
+.km-cap{font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.km-bar{width:min(480px,80vw);height:18px;border-radius:999px;background:rgba(255,255,255,.18);border:3px solid var(--ink);overflow:hidden}
+.km-bar i{display:block;height:100%;background:linear-gradient(90deg,#ff7a8a,#ffb03a);animation:km-grow 1s ease-out both}
+@keyframes km-in{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes km-glow{50%{box-shadow:0 5px 0 var(--ink),0 0 0 12px rgba(60,207,106,.45)}}
+@keyframes km-grow{from{width:0!important}}
+@media(max-width:560px){.km-grid{grid-template-columns:1fr}.km-opt{min-height:56px;padding:.5em .8em}.km-q{font-size:clamp(18px,5vw,24px)}}
+@media(max-height:560px){.km-opt{min-height:48px}.km-q{padding:8px 12px}}
+@media(prefers-reduced-motion:reduce){.km-rev,.km-rev.km-right,.km-bar i{animation:none}.km-opt{transition:none}}
 
 /* Игра «Пары» */
 .mem-info{min-height:1.5em;font-size:clamp(14px,1.1vw + 8px,20px);line-height:1.3;text-align:center;color:var(--paper-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:-6px 0 -4px}
@@ -1036,6 +1123,69 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .sp-n5 span,.sp-n6 span,.sp-n7 span,.sp-n8 span{text-decoration:overline;text-decoration-thickness:2px}
 @keyframes sp-pop{0%{transform:scale(.6);opacity:.2}100%{transform:scale(1);opacity:1}}
 @media(prefers-reduced-motion:reduce){.sp-open,.sp-flag,.sp-boom{animation:none}}
+
+/* Шкала */
+.sc-stage{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.6vh,16px);width:100%;max-width:760px;margin:0 auto}
+.sc-hud{display:flex;gap:1em;justify-content:center;flex-wrap:wrap;font-weight:800;font-size:clamp(14px,1.6vw,20px)}
+.sc-hud b{font-family:var(--display);font-size:1.2em}
+.sc-total{padding:.1em .7em;border-radius:999px;background:var(--sun);color:var(--ink)}
+.sc-card{width:100%;background:#fff;color:var(--ink);border:4px solid var(--ink);border-radius:22px;box-shadow:0 5px 0 var(--ink);padding:clamp(8px,1.6vh,18px) clamp(10px,2vw,24px) clamp(8px,1.4vh,14px);box-sizing:border-box}
+.sc-dial{position:relative;width:100%;max-width:min(560px,calc(60vh * 1.7));margin:0 auto;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;border-radius:16px}
+.sc-live{cursor:grab}.sc-live.sc-drag{cursor:grabbing}
+.sc-svg{display:block;width:100%;height:auto;overflow:visible;pointer-events:none}
+.sc-needle{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.sc-nl{stroke:#0e1233;stroke-width:3.2;stroke-linecap:round}
+.sc-nt{fill:#0e1233}
+.sc-hub{fill:#0e1233}
+.sc-zone{transform-box:fill-box;transform-origin:center bottom}
+.sc-reveal .sc-zone{animation:sc-zin .6s cubic-bezier(.2,1.4,.4,1) both}
+.sc-reveal .sc-zone.z3{animation-delay:.12s}.sc-reveal .sc-zone.z4{animation-delay:.24s}
+@keyframes sc-zin{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.sc-ends{display:flex;justify-content:space-between;gap:.8em;margin-top:.5em;font-family:var(--display);font-weight:900;font-size:clamp(15px,2.4vw,26px);line-height:1.05;text-transform:uppercase;letter-spacing:.01em}
+.sc-ends span{flex:1;min-width:0;overflow-wrap:anywhere}
+.sc-l{color:#1f78d6;text-align:left}.sc-r{color:#d63a5a;text-align:right}
+.sc-hint{text-align:center;margin:0;max-width:34em}
+.sc-steps{display:flex;gap:10px;justify-content:center}
+.sc-step{min-width:56px;min-height:48px;font-size:22px;font-weight:900;touch-action:manipulation}
+.sc-res{text-align:center;color:var(--ink);background:#fff;border:4px solid var(--ink);border-radius:18px;padding:.4em 1.2em;box-shadow:0 4px 0 var(--ink);animation:sc-pop .45s cubic-bezier(.2,1.5,.4,1) both}
+.sc-res.p4{background:#aef0d8}.sc-res.p3{background:#ffe9a8}.sc-res.p2{background:#ffd4ae}.sc-res.p0{background:#e3e6f5}
+.sc-verdict{font-family:var(--display);font-weight:900;font-size:clamp(24px,4vw,42px);line-height:1.05}
+.sc-pts{font-weight:800;font-size:clamp(16px,2.2vw,24px)}
+.sc-who{font-size:clamp(13px,1.6vw,17px);opacity:.8}
+@keyframes sc-pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@media (max-height:700px){.sc-hint{font-size:14px}.sc-dial{max-width:min(420px,calc(46vh * 1.7))}}
+@media(prefers-reduced-motion:reduce){.sc-needle{transition:none}.sc-reveal .sc-zone,.sc-res{animation:none}}
+
+/* Телепатия */
+.tp-wrap{display:flex;flex-direction:column;gap:14px;width:100%;max-width:900px;margin:0 auto}
+.tp-card{text-align:center}
+.tp-card .big{font-size:clamp(26px,4.5vw,52px);line-height:1.1}
+.tp-hint{margin-top:.4rem;opacity:.85}
+.tp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tp-opt{min-height:56px;padding:.6em .8em;font:inherit;font-weight:800;font-size:clamp(17px,2.2vw,26px);color:var(--ink);background:#fff;border:4px solid var(--ink);border-radius:16px;box-shadow:0 5px 0 var(--ink);cursor:pointer;touch-action:manipulation;transition:transform .08s,box-shadow .08s,background .15s;overflow-wrap:anywhere}
+.tp-opt:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink);background:#ffe3f1}
+.tp-opt:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.tp-own{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tp-inp{flex:1 1 200px;min-height:48px}
+.tp-reveal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px;perspective:900px}
+.tp-rc{position:relative;text-align:center;padding:14px 10px;min-height:96px;background:#fff;color:var(--ink);border:4px solid var(--c,#999);border-radius:18px;box-shadow:0 5px 0 var(--ink);animation:tp-flip .6s cubic-bezier(.2,1.2,.4,1) both;animation-delay:calc(var(--i) * .35s)}
+.tp-rn{font-weight:800;font-size:.85em;opacity:.8}
+.tp-ra{font-family:var(--display);font-weight:900;font-size:clamp(20px,3vw,34px);line-height:1.1;margin-top:.2em;overflow-wrap:anywhere}
+.tp-hit{background:color-mix(in srgb,var(--c) 28%,#fff);box-shadow:0 5px 0 var(--ink),0 0 0 5px color-mix(in srgb,#ffc233 70%,transparent)}
+.tp-g{position:absolute;top:-14px;right:-8px;background:#ffc233;color:var(--ink);border:3px solid var(--ink);border-radius:999px;padding:.05em .55em;font-weight:900}
+.tp-verdict{text-align:center;font-family:var(--display);font-weight:900;font-size:clamp(22px,3.4vw,40px);animation:tp-rise .5s ease-out both;animation-delay:var(--d,1s)}
+.tp-verdict{align-self:center;padding:.15em .8em;background:#fff;color:var(--ink);border:4px solid var(--ink);border-radius:999px;box-shadow:0 4px 0 var(--ink)}
+.tp-verdict.ok{background:#ffc233}
+.tp-streak{text-align:center;font-weight:800;opacity:.9}
+@keyframes tp-flip{from{transform:rotateY(90deg) scale(.8);opacity:0}to{transform:none;opacity:1}}
+@keyframes tp-rise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+@media (max-width:480px){.tp-opt{font-size:16px}}
+@media (max-height:520px){.tp-wrap{gap:8px}.tp-card .big{font-size:24px}.tp-opt{min-height:48px}}
+@media (prefers-reduced-motion:reduce){.tp-rc,.tp-verdict{animation:none}.tp-opt{transition:none}}
+
+/* Кнопки внутри экрана передачи устройства: «.cover .big» красил текст в цвет фона кнопки (жёлтый на жёлтом) */
+.cover .btn,.cover .btn.big{color:var(--ink)}
+.cover .btn.ghost,.cover .btn.paper{color:var(--ink)}
 
 /* Главная: поиск, значок «Новое», компактная шапка */
 .gsearch{display:block;width:100%;max-width:420px;margin:0 0 clamp(14px,2vw,22px);padding:.7em 1em;border-radius:14px;border:3px solid var(--ink);background:var(--paper,#fff);color:var(--ink);font:inherit;font-weight:700;box-shadow:0 4px 0 var(--ink)}
@@ -1307,7 +1457,7 @@ function Home() {
   const packHas = (g, p) => (g.decks || []).some(n => DATA.themed && DATA.themed[n] && DATA.themed[n][p] && DATA.themed[n][p].length);
   const packOk = g => pack !== 'kids' || !(g.decks || []).length || packHas(g, 'kids');
   let q = '';
-  const NEW_IDS = ['connect', 'reversi', 'hex', 'nonogram', 'sapper', 'flood', 'dots'];
+  const NEW_IDS = ['scale', 'telepathy', 'knowme', 'connect', 'reversi', 'hex', 'nonogram', 'sapper', 'flood'];
   const found = g => !q || (g.title + ' ' + g.tagline).toLowerCase().includes(q);
   const visible = () => G.games.filter(g => (cat === 'Все' || (cat === '★ Любимые' ? isFav(g.id) : g.cats.includes(cat))) && fits(g) && packOk(g) && found(g)).sort((a, b) => cat === 'Все' && !q ? isFav(b.id) - isFav(a.id) : 0);
   const search = h('input', { class: 'gsearch', type: 'search', placeholder: 'Найти игру…', 'aria-label': 'Найти игру по названию', autocomplete: 'off', oninput: e => { q = e.target.value.trim().toLowerCase(); paint(); } });
@@ -7723,6 +7873,60 @@ DATA.taboo.push(...[{"w":"Радиация","f":["излучение","Черн�
 }
 
 /* ---- src/games/g15_charades.js ---- */
+/* Дуэт — общий каркас режима для двоих (Крокодил, Табу, Рисуй и угадывай): роли чередуются, счёт «Вместе» (рекорд пары) или «Друг против друга» */
+const DUET_OPTS = () => [
+  { key: 'mode', label: 'Режим', values: [['team', 'Командная'], ['duet', 'Дуэт (вдвоём)']], def: 'team' },
+  { key: 'score', label: 'Дуэт: счёт', values: [['together', 'Вместе (рекорд пары)'], ['versus', 'Друг против друга']], def: 'together' },
+  { key: 'drounds', label: 'Дуэт: раундов', values: [4, 6, 10], def: 6 }
+];
+const duetOn = api => api.opts.mode === 'duet';
+function duetRun(api, id, playRound) {
+  if (api.n !== 2) { startSession(api.game, api.teams.slice(0, 2).map(t => ({ name: t.name, color: t.color })), api.opts); return; }
+  const total = [4, 6, 10].includes(api.opts.drounds) ? api.opts.drounds : 6, together = api.opts.score !== 'versus';
+  const key = 'duet.' + id + '.' + total, record = +store.get(key, 0) || 0, names = [api.teams[0].name, api.teams[1].name];
+  let shared = 0, k = 0; const strips = [];
+  const sync = () => strips.forEach(el => { el.replaceChildren('Мы: ', h('b', null, shared), record ? ' · Рекорд пары: ' + record : ' · рекорда пока нет'); });
+  const D = {
+    api, total, together, names, record,
+    get shared() { return shared; },
+    /* очки за угаданное слово; fast — угадали быстро (+1 угадавшему) */
+    award(gu, ex, fast) {
+      const p = 1 + (fast ? 1 : 0);
+      if (together) { shared += p; api.score(0, p); api.score(1, p); sync(); return { g: p, e: p, text: 'Общий счёт: +' + p }; }
+      api.score(gu, p); api.score(ex, 1); return { g: p, e: 1, text: names[gu] + ': +' + p + ', ' + names[ex] + ': +1' };
+    },
+    penalty(ex) {
+      if (together) { if (shared <= 0) return false; shared--; api.score(0, -1); api.score(1, -1); sync(); return true; }
+      if (api.teams[ex].score <= 0) return false; api.score(ex, -1); return true;
+    },
+    strip() { if (!together) return null; const el = h('div', { class: 'du-strip' }); strips.push(el); sync(); return el; },
+    intro(r, exVerb, guVerb, text, label, go) {
+      api.show(h('div', { class: 'cover du-intro' }, h('div', { class: 'kicker' }, 'Раунд ' + r.k + ' из ' + total),
+        h('div', { class: 'du-roles' },
+          h('div', { class: 'du-role', style: { '--c': api.teams[r.ex].color } }, h('small', null, exVerb), h('b', null, names[r.ex])),
+          h('div', { class: 'du-role', style: { '--c': api.teams[r.gu].color } }, h('small', null, guVerb), h('b', null, names[r.gu]))),
+        h('p', { class: 'mid-t' }, text), D.strip(), btn(label, go, 'big', { 'data-primary': true })), { turn: r.ex, mid: true, role: exVerb });
+    },
+    finish() {
+      if (together) {
+        const nr = shared > record; if (nr) store.set(key, shared);
+        api.end({ custom: true, win: shared > 0, title: nr ? 'Новый рекорд!' : shared === record && shared > 0 ? 'Повторили рекорд!' : 'Хорошая игра!',
+          sub: 'Раундов: ' + total, lines: [h('p', { class: 'mid-t du-result', 'data-record': nr ? 1 : 0, 'data-shared': shared }, 'Мы: ' + pts(shared)), h('p', { class: 'mid-t muted' }, nr ? (record ? 'Прошлый рекорд пары: ' + record + '.' : 'Это первый рекорд пары.') : 'Рекорд пары: ' + record + '.')] });
+      } else {
+        const a = api.teams[0].score, b = api.teams[1].score, tie = a === b, w = a > b ? 0 : 1;
+        api.end({ custom: true, title: tie ? 'Ничья!' : names[w] + ' побеждает!', sub: 'Раундов: ' + total,
+          lines: [h('p', { class: 'mid-t du-result', 'data-score': a + ':' + b }, names[0] + ' ' + a + ' : ' + b + ' ' + names[1])] });
+      }
+    }
+  };
+  const step = () => {
+    if (k >= total) return D.finish();
+    const ex = k % 2, gu = 1 - ex; k++;
+    playRound(D, { k, ex, gu, last: k === total, next: step });
+  };
+  step();
+}
+
 /* 15. Крокодил — покажи слово без слов */
 {
   const items = [];
@@ -7732,16 +7936,41 @@ DATA.taboo.push(...[{"w":"Радиация","f":["излучение","Черн�
     id: 'charades', title: 'Крокодил', icon: '🐊', color: '#22c58b',
     cats: ['Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 6 }, mins: 20,
     tagline: 'Покажите слово жестами и мимикой, не произнося ни звука. Команда угадывает, пока не вышло время.',
-    rules: '<ul><li>В свой ход один из команды становится актёром. Остальные в команде — угадывающие, соперники следят за честностью.</li><li>Актёр видит слово на экране, пока остальные отвернулись. Затем включается таймер.</li><li>Показывать можно жестами, мимикой и движениями. Говорить, издавать звуки и показывать на предметы с буквами нельзя.</li><li>Чем быстрее угадали, тем больше очков: от 1 до 3. Слово можно сменить два раза за ход.</li></ul>',
+    rules: '<ul><li>В свой ход один из команды становится актёром. Остальные в команде — угадывающие, соперники следят за честностью.</li><li>Актёр видит слово на экране, пока остальные отвернулись. Затем включается таймер.</li><li>Показывать можно жестами, мимикой и движениями. Говорить, издавать звуки и показывать на предметы с буквами нельзя.</li><li>Чем быстрее угадали, тем больше очков: от 1 до 3. Слово можно сменить два раза за ход.</li></ul><p><b>Дуэт (вдвоём):</b> роли чередуются, один показывает, второй угадывает. «Вместе» — общий счёт, цель побить рекорд пары. «Друг против друга» — угадавший получает 1 очко (+1, если угадал быстрее половины времени), показывавший 1 очко за угаданное слово. Играют первые две команды из списка.</p>',
     opts: [
       { key: 'cats', label: 'Категории слов', multi: true, values: () => [...new Set(items.map(x => x.c))], def: [] },
       { key: 'rounds', label: 'Ходов у каждой команды', values: [2, 3, 5], def: 3 },
       { key: 'time', label: 'Время на показ', values: [[45, '45 секунд'], [60, '60 секунд'], [90, '90 секунд']], def: 60 },
-      { key: 'level', label: 'Сложность слов', values: [[1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные'], [0, 'Все вперемешку']], def: 2 }
+      { key: 'level', label: 'Сложность слов', values: [[1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные'], [0, 'Все вперемешку']], def: 2 },
+      ...DUET_OPTS()
     ],
     cards: () => items.length,
     start(api) {
       const lvl = api.opts.level, cs = api.opts.cats || [], filt = x => (!lvl || x.l === lvl) && (!cs.length || cs.includes(x.c));
+      if (duetOn(api)) return duetRun(api, 'charades', (D, r) => {
+        const ex = r.ex, gu = r.gu; let skips = 2, card = deck.draw(filt);
+        D.intro(r, 'Показывает', 'Угадывает', 'Угадывающий отворачивается от экрана: слово увидит только показывающий. Затем включится таймер, показывать нужно без звуков.', 'Показать слово', reveal);
+        function reveal() {
+          api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Только для ' + D.names[ex] + ' · ' + card.c), Pics.of(card.w, { size: 'l', fallback: '🎭' }), h('div', { class: 'big' }, card.w),
+            h('p', { class: 'hint' }, 'Запомните слово. Говорить и издавать звуки нельзя.')),
+          h('div', { class: 'row' }, btn('Запомнил — поехали!', play, 'big', { 'data-primary': true }), skips > 0 ? btn('Другое слово (' + skips + ')', () => { skips--; card = deck.draw(filt); reveal(); }, 'paper') : null)], { turn: ex, role: D.names[ex] + ' запоминает слово' });
+        }
+        function play() {
+          const t0 = api.opts.time; let done = false; const timer = Timer(t0, { onEnd: timeUp });
+          const hold = peek(h('div', { class: 'card' }, h('div', { class: 'big' }, card.w)), 'Подсмотреть слово');
+          api.show([
+            h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, card.c), h('div', { class: 'mid-t' }, D.names[ex] + ' показывает без звуков, ' + D.names[gu] + ' угадывает вслух.'), timer.el), D.strip(), hold,
+            h('div', { class: 'row' }, btn('Угадал(а)!', guessed, 'big good', { 'data-primary': true }), skips > 0 ? btn('Пропустить (' + skips + ')', () => { skips--; timer.stop(); card = deck.draw(filt); reveal(); }, 'paper') : null)
+          ], { turn: ex, role: 'Показывает слово без звуков' });
+          timer.start();
+          function guessed() { if (done) return; done = true; const fast = timer.left >= t0 / 2; timer.stop(); const res = D.award(gu, ex, fast); sfx.ok(); finish('Угадали! ' + res.text + '.'); }
+          function timeUp() { if (done) return; done = true; sfx.buzz(); finish('Время вышло. Очков нет.'); }
+        }
+        function finish(msg) {
+          api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Слово было'), Pics.of(card.w, { size: 'l', fallback: '🎭' }), h('div', { class: 'big' }, card.w), h('div', { class: 'mid-t' }, msg)), D.strip(),
+            btn(r.last ? 'Итоги' : 'Дальше', r.next, 'big', { 'data-primary': true })], { turn: ex, role: 'Итог раунда' });
+        }
+      });
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name; let skips = 2, card = deck.draw(filt);
         intro();
@@ -7787,13 +8016,37 @@ DATA.taboo.push(...[{"w":"Радиация","f":["излучение","Черн�
     id: 'taboo', title: 'Табу', icon: '🚫', color: '#ef4f6c',
     cats: ['Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 6 }, mins: 20,
     tagline: 'Объясните слово команде, но не произносите пять запретных слов. Соперники следят и жмут «Табу!».',
-    rules: '<ul><li>В свой ход один игрок объясняет слово, остальные в команде угадывают.</li><li>Под словом на карточке — пять запретных. Их, однокоренные слова и жесты, заменяющие слова, использовать нельзя.</li><li>Соперники смотрят в экран и жмут «Табу!», если запретное слово прозвучало: минус очко.</li><li>Угадали — плюс очко. Слово можно пропустить (ограниченное число раз). Играйте, пока идёт время.</li></ul>',
+    rules: '<ul><li>В свой ход один игрок объясняет слово, остальные в команде угадывают.</li><li>Под словом на карточке — пять запретных. Их, однокоренные слова и жесты, заменяющие слова, использовать нельзя.</li><li>Соперники смотрят в экран и жмут «Табу!», если запретное слово прозвучало: минус очко.</li><li>Угадали — плюс очко. Слово можно пропустить (ограниченное число раз). Играйте, пока идёт время.</li></ul><p><b>Дуэт (вдвоём):</b> роли чередуются, один объясняет, второй угадывает и сам судит «Табу!». «Вместе» — общий счёт, цель побить рекорд пары. «Друг против друга» — угадавший получает 1 очко (+1, если угадал быстрее 15 секунд), объясняющий 1 очко за каждое слово; за «Табу!» объясняющий теряет очко. Играют первые две команды из списка.</p>',
     opts: [
       { key: 'rounds', label: 'Ходов у каждой команды', values: [2, 3, 5], def: 3 },
-      { key: 'time', label: 'Время хода', values: [[60, '60 секунд'], [90, '90 секунд'], [120, '2 минуты']], def: 90 }
+      { key: 'time', label: 'Время хода', values: [[60, '60 секунд'], [90, '90 секунд'], [120, '2 минуты']], def: 90 },
+      ...DUET_OPTS()
     ],
     cards: () => DATA.taboo.length,
     start(api) {
+      if (duetOn(api)) return duetRun(api, 'taboo', (D, r) => {
+        const ex = r.ex, gu = r.gu, en = D.names[ex], gn = D.names[gu];
+        D.intro(r, 'Объясняет слова', 'Угадывает и судит', 'Объясняющий смотрит в карточку, не называя запретные слова. Угадывающий не смотрит на карточку, угадывает вслух и жмёт «Табу!», если услышал запретное слово.', 'Начать раунд', play);
+        function play() {
+          let guessed = 0, fouls = 0, skipsLeft = 3, card = deck.draw(), over = false, t0 = performance.now();
+          const timer = Timer(api.opts.time, { onEnd: end });
+          const stat = h('div', { class: 'ans' }), word = h('div', { class: 'big' }), chips = h('div', { class: 'chips' });
+          const next = () => { card = deck.draw(); t0 = performance.now(); paint(); };
+          const paint = () => { word.textContent = card.w; chips.replaceChildren(...card.f.map(f => h('span', { class: 'chip bad' }, f))); stat.textContent = 'Угадано: ' + guessed + ' · Табу: ' + fouls; skipB.textContent = 'Пропустить (' + skipsLeft + ')'; skipB.disabled = skipsLeft <= 0; };
+          const skipB = btn('Пропустить', () => { if (!over && skipsLeft > 0) { skipsLeft--; next(); } }, 'paper');
+          const okB = btn('Угадали', () => { if (over) return; guessed++; D.award(gu, ex, performance.now() - t0 < 15000); sfx.ok(); next(); }, 'big good', { 'data-primary': true });
+          const badB = btn('Табу!', () => { if (over) return; fouls++; D.penalty(ex); sfx.bad(); next(); }, 'big bad du-taboo');
+          api.show(h('div', { class: 'du-play' },
+            h('div', { class: 'du-zone du-ex' }, h('div', { class: 'du-zl' }, en + ' объясняет'), h('div', { class: 'card accent' }, h('div', { class: 'kicker' }, 'Объясните слово'), word, h('div', { class: 'mid-t' }, 'Нельзя говорить:'), chips, timer.el), h('div', { class: 'row du-btns' }, okB, badB, skipB), h('div', { class: 'du-zl' }, gn + ' угадывает и судит: жмите «Табу!», если услышали запретное слово')), stat, D.strip()),
+          { turn: ex, role: en + ' объясняет, ' + gn + ' следит за «Табу!»', compact: true });
+          paint(); timer.start();
+          function end() {
+            if (over) return; over = true; timer.stop(); sfx.buzz();
+            api.show([h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Время вышло'), h('div', { class: 'big' }, 'Угадано ' + guessed), h('p', { class: 'mid-t' }, 'Нарушений ' + fouls + '.'), D.strip(),
+              btn(r.last ? 'Итоги' : 'Дальше', r.next, 'big', { 'data-primary': true }))], { turn: ex, mid: true, role: 'Итог раунда' });
+          }
+        }
+      });
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name;
         api.show(h('div', { class: 'cover' }, h('div', { class: 'kicker' }, 'Ход ' + k + ' из ' + total),
@@ -8219,14 +8472,101 @@ DATA.taboo.push(...[{"w":"Радиация","f":["излучение","Черн�
       + p(3, '<circle cx="135" cy="75" r="20" fill="#ffd9a8"/>') + p(4, '<path d="M135 95V150"/>') + p(5, '<path d="M135 108L110 135M135 108L160 135"/>') + p(6, '<path d="M135 150L112 188M135 150L158 188"/>')
       + p(7, '<path d="M126 70l6 6M132 70l-6 6M138 70l6 6M144 70l-6 6" stroke-width="3"/>') + '</g></svg>' });
   };
+  const hdNorm = w => String(w || '').toLowerCase().replace(/ё/g, 'е');
+  const hdBonus = len => len >= 11 ? 2 : len >= 8 ? 1 : 0;
+  /* очки раунда: [угадавшему, загадавшему] */
+  const hdPoints = (solved, miss, len) => solved ? [MAX - miss + 1, miss >= 4 ? hdBonus(len) : 0] : [0, 1 + hdBonus(len)];
+  function duel(api) {
+    const R = [4, 6, 10].includes(+api.opts.drounds) ? +api.opts.drounds : 6, together = api.opts.score === 'team';
+    const REC = 'rec.hang.duo';
+    let r = 0;
+    function nextRound() {
+      if (r >= R) return finish();
+      const si = r % api.n, gi = (si + 1) % api.n; r++;
+      const sn = api.teams[si].name, gn = api.teams[gi].name;
+      handover(api, sn, 'Загадайте слово втайне. ' + gn + ', отвернитесь.', () => entry(si, gi, r, '', ''), 'Я готов', si);
+    }
+    function entry(si, gi, k, w0, hint0) {
+      const err = h('div', { class: 'mid-t hd-err', role: 'alert' });
+      const wi = h('input', { class: 'input hd-in', type: 'text', value: w0, maxlength: 24, placeholder: 'Слово: 3–16 букв', autocomplete: 'off', autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false', 'aria-label': 'Загаданное слово', enterkeyhint: 'next' });
+      const hi = h('input', { class: 'input hd-in', type: 'text', value: hint0, maxlength: 30, placeholder: 'Подсказка-категория (необязательно)', autocomplete: 'off', 'aria-label': 'Подсказка-категория', enterkeyhint: 'done' });
+      const go = () => {
+        const w = hdNorm(wi.value).trim();
+        if (/[^а-я]/.test(w)) err.textContent = 'Только русские буквы, без дефиса, пробелов и цифр.';
+        else if (w.length < 3 || w.length > 16) err.textContent = 'Нужно от 3 до 16 букв (сейчас ' + w.length + ').';
+        else return confirm(si, gi, k, w, hi.value.trim().slice(0, 30));
+        sfx.bad();
+      };
+      wi.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); hi.focus(); } });
+      hi.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(); } });
+      api.show(h('div', { class: 'stack hd-form' }, h('div', { class: 'kicker' }, 'Раунд ' + k + ' из ' + R), h('div', { class: 'mid-t' }, 'Введите слово. Ё считается как Е.'), wi, hi, err, btn('Далее', go, 'big', { 'data-primary': true })), { turn: si, role: 'Загадывает слово' });
+      wi.focus();
+    }
+    function confirm(si, gi, k, w, hint) {
+      api.show(h('div', { class: 'stack center hd-form' }, h('div', { class: 'kicker' }, 'Проверьте слово'), h('div', { class: 'big hd-conf' }, w.toUpperCase()), hint ? h('div', { class: 'mid-t' }, 'Подсказка: ' + hint) : null, h('div', { class: 'mid-t' }, 'Слово верно? Не опечатка?'),
+        h('div', { class: 'row' }, btn('Да, прячу', () => handover(api, api.teams[gi].name, api.teams[si].name + ' загадал(а) слово. Ваша очередь угадывать.', () => play(si, gi, k, w, hint), 'Я готов', gi), 'big good', { 'data-primary': true }), btn('Исправить', () => entry(si, gi, k, w, hint), 'big paper'))), { turn: si, role: 'Проверяет слово' });
+    }
+    function play(si, gi, k, word, hint) {
+      const used = new Set(); let miss = 0, over = false;
+      const sn = api.teams[si].name, gn = api.teams[gi].name;
+      const wordEl = h('div', { class: 'hang-word' }), gal = h('div'), msg = h('div', { class: 'mid-t' }, 'Называйте буквы.'), kb = h('div', { class: 'keys' }), actions = h('div', { class: 'row' });
+      const complete = () => [...word].every(ch => used.has(ch));
+      function paint() {
+        wordEl.replaceChildren(...[...word].map(ch => h('span', { class: 'hl' + (over && !used.has(ch) ? ' lost' : '') }, used.has(ch) || over ? ch.toUpperCase() : '')));
+        gal.replaceChildren(gallows(miss));
+        kb.replaceChildren(...ABC.map(ch => h('button', { class: 'key' + (used.has(ch) ? (word.includes(ch) ? ' hit' : ' miss') : ''), type: 'button', disabled: used.has(ch) || over, onclick: () => pick(ch) }, ch.toUpperCase())));
+      }
+      function pick(ch) {
+        if (over || used.has(ch)) return; used.add(ch);
+        if (word.includes(ch)) { sfx.ok(); msg.textContent = 'Есть «' + ch.toUpperCase() + '»!'; if (complete()) return end(true); }
+        else { sfx.bad(); miss++; msg.textContent = 'Буквы «' + ch.toUpperCase() + '» нет.'; if (miss >= MAX) return end(false); }
+        paint();
+      }
+      function end(solved) {
+        over = true; if (solved) { [...word].forEach(ch => used.add(ch)); sfx.ok(); } else sfx.buzz(); paint();
+        const [g, s] = hdPoints(solved, miss, word.length);
+        if (together) { if (g + s) api.teams.forEach((_, i) => api.score(i, g + s)); } else { if (g) api.score(gi, g); if (s) api.score(si, s); }
+        msg.textContent = (solved ? 'Слово «' + word.toUpperCase() + '» отгадано, ошибок: ' + miss + '.' : 'Не отгадано. Слово: «' + word.toUpperCase() + '».')
+          + (together ? ' Общий счёт +' + (g + s) + '.' : ' ' + gn + ': +' + g + (s ? ', ' + sn + ': +' + s : '') + '.');
+        actions.replaceChildren(btn(r >= R ? 'Итоги' : 'Дальше', nextRound, 'big', { 'data-primary': true }));
+      }
+      function wholeRow() {
+        const wi = h('input', { class: 'input hd-in', type: 'text', maxlength: 24, placeholder: 'Слово целиком', autocomplete: 'off', autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false', 'aria-label': 'Слово целиком' });
+        const chk = () => {
+          if (over) return; const g = hdNorm(wi.value).trim(); if (!g) return;
+          if (g === word) return end(true);
+          sfx.bad(); miss++; if (miss >= MAX) return end(false);
+          msg.textContent = 'Слово «' + g.toUpperCase() + '» неверное.'; actions.replaceChildren(whole); paint();
+        };
+        wi.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); chk(); } });
+        actions.replaceChildren(wi, btn('Проверить', chk, 'small', { 'data-primary': true })); wi.focus();
+      }
+      const whole = btn('Назвать слово целиком', wholeRow, 'paper small');
+      actions.replaceChildren(whole);
+      api.show([h('div', { class: 'hang-top' }, gal, h('div', { class: 'hang-side' }, h('div', { class: 'kicker' }, 'Раунд ' + k + ' из ' + R + (hint ? ' · ' + hint : '') + ' · ' + word.length + ' букв'), wordEl, msg)), kb, actions], { turn: gi, role: 'Угадывает слово' });
+      paint();
+    }
+    function finish() {
+      if (!together) return api.end();
+      const total = api.teams[0].score, rec = store.get(REC, 0), best = total > rec; if (best) store.set(REC, total);
+      api.end({ custom: true, title: 'Общий счёт: ' + total, lines: [best ? 'Новый рекорд пары!' : 'Рекорд пары: ' + rec] });
+    }
+    nextRound();
+  }
   registerGame({
     id: 'hang', title: 'Виселица', icon: '🔤', color: '#22b8c9',
     cats: ['Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 6 }, mins: 20,
     tagline: 'Угадывайте слово по буквам, пока виселица не достроена. Каждая верная буква — очко, отгаданное слово — три.',
-    rules: '<ul><li>На экране слово из чёрточек и подсказка — тема. Команды по очереди называют по одной букве, нажимая её на экране.</li><li>Верная буква открывается во всех местах и приносит очко за каждое. Команда с верной буквой называет следующую.</li><li>Ошибка достраивает виселицу и передаёт ход. После семи ошибок слово не отгадано.</li><li>Кто открыл последнюю букву или назвал слово целиком, получает бонус три очка.</li></ul>',
-    opts: [{ key: 'rounds', label: 'Слов у каждой команды', values: [1, 2, 3], def: 2 }],
+    rules: '<ul><li>На экране слово из чёрточек и подсказка — тема. Команды по очереди называют по одной букве, нажимая её на экране.</li><li>Верная буква открывается во всех местах и приносит очко за каждое. Команда с верной буквой называет следующую.</li><li>Ошибка достраивает виселицу и передаёт ход. После семи ошибок слово не отгадано.</li><li>Кто открыл последнюю букву или назвал слово целиком, получает бонус три очка.</li></ul><p><b>Режим «Загадывают игроки».</b> Перед раундом один игрок тайно вводит слово (3–16 русских букв, без дефиса и пробелов; «ё» считается как «е»), по желанию добавляет подсказку-категорию. Следующий по кругу угадывает по буквам или называет слово целиком; роли чередуются.</p><ul><li>Угадавший получает очко за каждую оставшуюся ошибку и ещё одно очко за сам успех (от 1 до 8).</li><li>Загадавший получает очко, если слово не угадали. Длинное слово (8+ букв) даёт ещё +1, 11+ букв ещё +2; тот же бонус он получает, если слово всё же угадали, но не меньше чем с четырьмя ошибками.</li><li>«Вместе»: очки обоих идут в общий счёт, и вы бьёте рекорд пары. «Друг против друга»: у каждого свой счёт.</li></ul>',
+    opts: [
+      { key: 'mode', label: 'Режим', values: [['deck', 'Слова из колоды'], ['duel', 'Загадывают игроки']], def: 'deck' },
+      { key: 'rounds', label: 'Слов у каждой команды (режим «из колоды»)', values: [1, 2, 3], def: 2 },
+      { key: 'drounds', label: 'Раундов (режим «загадывают игроки»)', values: [4, 6, 10], def: 6 },
+      { key: 'score', label: 'Счёт (режим «загадывают игроки»)', values: [['team', 'Вместе'], ['vs', 'Друг против друга']], def: 'vs' }
+    ],
     cards: () => items.length,
     start(api) {
+      if (api.opts.mode === 'duel') return duel(api);
       rotate(api, api.opts.rounds, (ti0, k, total, next, last) => {
         const card = deck.draw(), word = card.w.toLowerCase();
         const n = ch => ch === 'ё' ? 'е' : ch, nw = word.replace(/ё/g, 'е');
@@ -8295,15 +8635,37 @@ DATA.taboo.push(...[{"w":"Радиация","f":["излучение","Черн�
     id: 'draw', title: 'Рисуем и угадываем', icon: '🖍️', color: '#ff7a45',
     cats: ['Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 6 }, mins: 25,
     tagline: 'Один рисует секретное слово прямо на общем экране — команда угадывает, пока не вышло время.',
-    rules: '<ul><li>В свой ход команда выбирает художника. Он смотрит слово (остальные отворачиваются) и рисует его на экране мышкой, пальцем или стилусом.</li><li>Рисовать буквы и цифры, говорить и показывать жестами нельзя.</li><li>Команда угадывает вслух. Чем быстрее ответ, тем больше очков: до трёх.</li><li>Если время вышло, слово показывают всем, а очков никто не получает.</li></ul>',
+    rules: '<ul><li>В свой ход команда выбирает художника. Он смотрит слово (остальные отворачиваются) и рисует его на экране мышкой, пальцем или стилусом.</li><li>Рисовать буквы и цифры, говорить и показывать жестами нельзя.</li><li>Команда угадывает вслух. Чем быстрее ответ, тем больше очков: до трёх.</li><li>Если время вышло, слово показывают всем, а очков никто не получает.</li></ul><p><b>Дуэт (вдвоём):</b> роли чередуются, один рисует, второй угадывает. «Вместе» — общий счёт, цель побить рекорд пары. «Друг против друга» — угадавший получает 1 очко (+1, если угадал быстрее половины времени), художник 1 очко за угаданный рисунок. Играют первые две команды из списка.</p>',
     opts: [
       { key: 'rounds', label: 'Рисунков у каждой команды', values: [2, 3, 5], def: 3 },
       { key: 'time', label: 'Время на рисунок', values: [[60, '60 секунд'], [90, '90 секунд'], [120, '2 минуты']], def: 90 },
-      { key: 'level', label: 'Сложность слов', values: [[0, 'Все вперемешку'], [1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные']], def: 0 }
+      { key: 'level', label: 'Сложность слов', values: [[0, 'Все вперемешку'], [1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные']], def: 0 },
+      ...DUET_OPTS()
     ],
     cards: () => DATA.draw.length,
     start(api) {
       const lvl = api.opts.level, filt = x => !lvl || x.l === lvl;
+      if (duetOn(api)) return duetRun(api, 'draw', (D, r) => {
+        const ex = r.ex, gu = r.gu; let card = deck.draw(filt), skip = 1;
+        D.intro(r, 'Рисует', 'Угадывает', 'Угадывающий отворачивается от экрана: слово увидит только художник. Рисовать буквы и цифры, говорить и показывать жестами нельзя.', 'Показать слово художнику', reveal);
+        function reveal() {
+          api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Только для ' + D.names[ex] + ' · ' + card.c), h('div', { class: 'big' }, card.w), h('p', { class: 'hint' }, 'Запомните слово. Буквы и цифры рисовать нельзя.')),
+            h('div', { class: 'row' }, btn('Запомнил — рисую!', play, 'big', { 'data-primary': true }), skip > 0 ? btn('Другое слово', () => { skip--; card = deck.draw(filt); reveal(); }, 'paper') : null)], { turn: ex, mid: true, role: D.names[ex] + ' запоминает слово' });
+        }
+        function play() {
+          let over = false; const P = pad(), timer = Timer(api.opts.time, { onEnd: () => end(false) });
+          const hold = peek(h('div', { class: 'big' }, card.w), 'Напомнить слово художнику');
+          api.show(h('div', { class: 'drawlay' }, P.el, h('div', { class: 'drawside' }, timer.el, D.strip(), P.tools, h('div', { class: 'stack' }, btn('Угадал(а)!', () => end(true), 'big good', { 'data-primary': true }), btn('Не угадал(а)', () => end(false), 'big bad')), hold)), { turn: ex, role: D.names[ex] + ' рисует, ' + D.names[gu] + ' угадывает', compact: true });
+          timer.start();
+          function end(ok) {
+            if (over) return; over = true; const fast = timer.left >= api.opts.time / 2; timer.stop();
+            const res = ok ? D.award(gu, ex, fast) : null; if (ok) sfx.ok(); else sfx.buzz();
+            const pic = P.el.querySelector('canvas');
+            api.show([h('div', { class: 'cover' }, h('div', { class: 'kicker' }, ok ? 'Угадали!' : 'Не угадали'), h('div', { class: 'big' }, 'Слово: ' + card.w), h('p', { class: 'mid-t' }, ok ? res.text + '.' : 'В этот раз без очков.'), D.strip()),
+              h('div', { class: 'padwrap done' }, pic), h('div', { class: 'row center' }, btn(r.last ? 'Итоги' : 'Дальше', r.next, 'big', { 'data-primary': true }))], { turn: ex, mid: true, role: 'Итог рисунка' });
+          }
+        }
+      });
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name; let card = deck.draw(filt), skip = 1;
         intro();
@@ -8538,19 +8900,108 @@ function cnLayout(size, startTeam) {
   kinds.push('x'); while (kinds.length < size) kinds.push('n');
   return shuffle(kinds);
 }
+/* «Дуэт»: два игрока, ключи (a — первого, b — второго): 'g' агент, 'n' прохожий, 'x' убийца.
+   Пересечения как в Codenames Duet: ГГ×3, Г/Н×5, Н/Г×5, Г/У×1, У/Г×1, У/У×1, У/Н×1, Н/У×1, Н/Н×7 */
+function cnDuetKeys() {
+  const P = [];
+  const add = (a, b, c) => { for (let i = 0; i < c; i++) P.push([a, b]); };
+  add('g', 'g', 3); add('g', 'n', 5); add('n', 'g', 5); add('g', 'x', 1); add('x', 'g', 1); add('x', 'x', 1); add('x', 'n', 1); add('n', 'x', 1); add('n', 'n', 7);
+  const q = shuffle(P); return { a: q.map(x => x[0]), b: q.map(x => x[1]) };
+}
 {
   const deck = makeDeck('codenames', DATA.codenames);
   const SYM = { a: '●', b: '■', n: '○', x: '☠' };
+  function cnDuet(api) {
+    const N = 25, T0 = [9, 11, 13].includes(+api.opts.turns) ? +api.opts.turns : 9;
+    const words = deck.drawN(N), keys = cnDuetKeys(), K = [keys.a, keys.b];
+    const found = Array(N).fill(false), seen = [Array(N).fill(false), Array(N).fill(false)];
+    const NAMES = { g: 'агент', n: 'нейтральное слово', x: 'убийца' };
+    let tokens = T0, giver = rnd(2), sel = -1, guesses = 0, over = false, note = '';
+    const nm = i => api.teams[i].name;
+    const remain = p => range(N).filter(i => K[p][i] === 'g' && !found[i]).length;
+    const nFound = () => found.filter(Boolean).length;
+    const hud = () => h('div', { class: 'cd-hud', role: 'status', 'aria-label': 'Жетонов времени осталось ' + tokens + ' из ' + T0 + ', найдено агентов ' + nFound() + ' из 15' },
+      h('span', { class: 'cd-tok' }, range(T0).map(i => h('i', { class: i < tokens ? 'on' : '' }))), h('b', null, 'Жетонов: ' + tokens), h('span', { class: 'cd-agents' }, 'Агентов: ' + nFound() + ' / 15'));
+    const guesser = () => 1 - giver;
+    /* 1. передача подсказчику */
+    function round() {
+      sel = -1; guesses = 0;
+      if (remain(giver) === 0) giver = 1 - giver;
+      handover(api, nm(giver), 'Вы даёте подсказку. ' + nm(guesser()) + ', отвернитесь и не смотрите на экран. Жетонов осталось: ' + tokens + '.' + (note ? ' ' + note : ''), showKey, 'Показать мой ключ', giver);
+    }
+    /* 2. ключ подсказчика */
+    function showKey() {
+      const cells = range(N).map(i => {
+        const k = K[giver][i], f = found[i];
+        return h('div', { class: 'cn-cell cd-key-cell cd-k-' + k + (f ? ' cd-was' : ''), 'aria-label': words[i] + ', ' + NAMES[k] + (f ? ', уже найден' : '') },
+          h('span', null, words[i]), h('i', { class: 'cn-sym cd-sym' }, k === 'g' ? '●' : k === 'x' ? '☠' : '○'), f ? h('i', { class: 'cd-ok' }, '✓') : null);
+      });
+      api.show([h('div', { class: 'cd-keywrap' }, h('div', { class: 'mid-t' }, 'Ваш ключ, ' + nm(giver) + '. Придумайте слово и число, затем нажмите «Скрыть».'),
+        h('div', { class: 'cd-legend' }, h('span', { class: 'cd-lg g' }, '● агент (' + remain(giver) + ' осталось)'), h('span', { class: 'cd-lg n' }, '○ нейтральное'), h('span', { class: 'cd-lg x' }, '☠ убийца')),
+        h('div', { class: 'cn-grid cd-grid cd-key' }, cells), btn('Скрыть', hideKey, 'big', { 'data-primary': true }))], { turn: giver, role: 'Смотрит свой ключ', compact: true });
+    }
+    function hideKey() {
+      handover(api, nm(guesser()), 'Ключ скрыт. ' + nm(giver) + ' говорит вслух подсказку: слово и число. Затем ' + nm(guesser()) + ' выбирает слова.', guessScreen, 'Я готов', guesser());
+    }
+    /* 3. угадывание */
+    const gridEl = h('div', { class: 'cn-grid cd-grid' }), bar = h('div', { class: 'row center' }), infoEl = h('div', { class: 'mid-t cd-info' }), hudEl = h('div');
+    const clickable = i => !found[i] && !seen[giver][i];
+    function paint() {
+      hudEl.replaceChildren(hud());
+      gridEl.replaceChildren(...range(N).map(i => {
+        const f = found[i], m = !f && (seen[0][i] || seen[1][i]);
+        const e = h('button', { type: 'button', class: 'cn-cell cd-cell' + (f ? ' cd-found' : '') + (m ? ' cd-miss' : '') + (sel === i ? ' sel' : ''), disabled: !clickable(i) || over ? true : null, 'aria-label': words[i] + (f ? ', агент найден' : m ? ', нейтральное слово' : '') },
+          h('span', null, words[i]), f ? h('i', { class: 'cn-sym cd-sym' }, '●') : m ? h('i', { class: 'cn-sym cd-sym' }, '○') : null);
+        e.onclick = () => { if (over) return; sfx.click(); sel = sel === i ? -1 : i; paint(); };
+        return e;
+      }));
+      const canStop = guesses > 0 || !range(N).some(clickable);
+      bar.replaceChildren(...(over ? [] : sel >= 0
+        ? [btn('Открыть «' + words[sel] + '»', () => reveal(sel), 'big', { 'data-primary': true }), btn('Отмена', () => { sel = -1; paint(); }, 'paper')]
+        : [canStop ? btn('Закончить ход', () => endRound('Остановились.'), 'paper') : h('span', { class: 'muted cd-hint' }, 'Нужно выбрать хотя бы одно слово')]));
+    }
+    function guessScreen() {
+      infoEl.textContent = nm(guesser()) + ', выберите слово, связанное с подсказкой.';
+      api.show([hudEl, infoEl, gridEl, bar], { turn: guesser(), role: 'Угадывает', compact: true }); paint();
+    }
+    function reveal(i) {
+      if (over || !clickable(i)) return; const k = K[giver][i]; sel = -1; guesses++;
+      if (k === 'x') { sfx.buzz(); return finish(false, '«' + words[i] + '» — убийца на ключе игрока ' + nm(giver) + '.'); }
+      if (k === 'g') {
+        found[i] = true; api.score(guesser(), 1); sfx.ok();
+        if (nFound() === 15) return finish(true, 'Все 15 агентов найдены. Жетонов осталось: ' + tokens + '.');
+        infoEl.textContent = 'Верно: «' + words[i] + '» — агент. Продолжайте или закончите ход.'; return paint();
+      }
+      seen[giver][i] = true; sfx.bad(); endRound('«' + words[i] + '» — нейтральное слово.');
+    }
+    function endRound(msg) {
+      tokens--; sel = -1;
+      if (tokens <= 0) return finish(false, 'Жетоны времени кончились. Найдено агентов: ' + nFound() + ' из 15.');
+      const nxt = 1 - giver; giver = remain(nxt) > 0 ? nxt : giver;
+      note = msg; round();
+    }
+    function finish(win, why) {
+      over = true;
+      const left = range(N).filter(i => !found[i] && (K[0][i] === 'g' || K[1][i] === 'g'));
+      api.end({ custom: true, win, title: win ? 'Победа! Все агенты найдены' : 'Задание провалено', sub: why,
+        lines: [h('div', { class: 'cn-grid cd-grid cd-final' }, range(N).map(i => h('div', { class: 'cn-cell cd-key-cell' + (found[i] ? ' cd-found' : ''), style: { minHeight: '40px', fontSize: '.8rem' } }, h('span', null, words[i])))),
+          left.length ? h('p', { class: 'muted' }, 'Не найдены: ' + left.map(i => words[i]).join(', ')) : null] });
+    }
+    round();
+  }
   registerGame({
     id: 'codenames', title: 'Кодовые имена', icon: '🗝️', color: '#e07a5f',
     cats: ['Командные', 'Для компании', 'Загадки и истории'], teams: { min: 2, max: 2 }, mins: 30,
     tagline: 'Два капитана знают, какие слова чьи. Они подсказывают одним словом, а команды ищут свои слова на поле и обходят слово-убийцу.',
-    rules: '<ul><li>На поле 25 слов. Каждая команда выбирает капитана. Капитаны вместе смотрят «Карту капитанов» — там видно, какие слова принадлежат какой команде, какие нейтральные и какое — <b>убийца</b>. Остальные в это время отворачиваются.</li><li>В свой ход капитан даёт подсказку: <b>одно слово и число</b> — сколько слов поля с ним связано. Подсказка не может быть словом с поля. Говорит вслух, а не показывает на экран.</li><li>Команда обсуждает и выбирает слова на экране. Слово своей команды — можно продолжать (до числа плюс одно). Нейтральное слово — ход переходит. Слово соперников — оно засчитывается им, ход переходит. <b>Убийца — мгновенное поражение.</b></li><li>Побеждает команда, первой открывшая все свои слова.</li></ul>',
+    rules: '<ul><li>На поле 25 слов. Каждая команда выбирает капитана. Капитаны вместе смотрят «Карту капитанов» — там видно, какие слова принадлежат какой команде, какие нейтральные и какое — <b>убийца</b>. Остальные в это время отворачиваются.</li><li>В свой ход капитан даёт подсказку: <b>одно слово и число</b> — сколько слов поля с ним связано. Подсказка не может быть словом с поля. Говорит вслух, а не показывает на экран.</li><li>Команда обсуждает и выбирает слова на экране. Слово своей команды — можно продолжать (до числа плюс одно). Нейтральное слово — ход переходит. Слово соперников — оно засчитывается им, ход переходит. <b>Убийца — мгновенное поражение.</b></li><li>Побеждает команда, первой открывшая все свои слова.</li></ul><h3>Режим «Дуэт» (для двоих)</h3><ul><li>Двое играют <b>вместе</b> против времени. У каждого своя тайная карта-ключ: 9 агентов, 3 убийцы, остальные слова нейтральные. Три агента общие.</li><li>Ход: один подсказывает — берёт устройство, смотрит свой ключ (партнёр отвернулся), нажимает «Скрыть» и вслух говорит слово и число. Второй угадывает на экране: слова открываются по ключу <b>подсказчика</b>.</li><li>Агент — слово открыто, можно продолжать. Нейтральное слово — ход кончается. <b>Убийца — общее поражение.</b> Остановиться можно после первой попытки.</li><li>Каждый закончившийся ход (остановка или промах) тратит один жетон. Нужно найти все 15 агентов (9 + 9 − 3) до конца жетонов. Затем роли меняются.</li></ul>',
     opts: [
-      { key: 'time', label: 'Время на ход', values: [[0, 'Без таймера'], [90, '90 секунд'], [150, '150 секунд']], def: 0 }
+      { key: 'mode', label: 'Режим', values: [['teams', 'Две команды'], ['duet', 'Дуэт: вдвоём вместе']], def: 'teams' },
+      { key: 'turns', label: 'Дуэт: жетонов времени (ходов)', values: [[9, '9 — сложно'], [11, '11'], [13, '13 — проще']], def: 9 },
+      { key: 'time', label: 'Две команды: время на ход', values: [[0, 'Без таймера'], [90, '90 секунд'], [150, '150 секунд']], def: 0 }
     ],
     cards: () => DATA.codenames.length,
     start(api) {
+      if (api.opts.mode === 'duet') return cnDuet(api);
       const first = rnd(2), N = 25;
       const words = deck.drawN(N), kinds = cnLayout(N, first), open = Array(N).fill(false);
       const left = k => kinds.filter((x, i) => x === k && !open[i]).length;
@@ -10319,6 +10770,791 @@ function mfPickVictim(votes) {
       if (!gains(0).length) { const q = nextPlayer(); if (q < 0) { finish(); return; } cur = q; }
       paintBar(); paintPal(); banner(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
       if (solo && cur === 1) { locked = true; setTimeout(ai, 600); }
+    }
+  });
+}
+
+/* ---- src/games/g45_scale.js ---- */
+/* 45. Шкала — по мотивам Wavelength: один видит цель на шкале и даёт подсказку, остальные ставят стрелку туда же */
+{
+  const SC_NS = 'http://www.w3.org/2000/svg';
+  const scSvg = (tag, attrs, ...kids) => { const e = document.createElementNS(SC_NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); kids.forEach(x => e.append(x)); return e; };
+  /* зоны вокруг центра цели (шкала 0..100): [полуширина, очки] */
+  const SC_ZONES = [[3, 4], [8, 3], [14, 2]];
+  const scPts = (target, guess) => { const d = Math.abs(target - guess); for (const [w, p] of SC_ZONES) if (d <= w) return p; return 0; };
+  window.__scalePts = scPts;
+  const SC_PAIRS = [
+    ['горячо', 'холодно'], ['просто', 'сложно'], ['полезно', 'вредно'], ['скучно', 'захватывающе'], ['дёшево', 'дорого'], ['быстро', 'медленно'],
+    ['безопасно', 'опасно'], ['романтично', 'неромантично'], ['взрослое занятие', 'детское занятие'], ['переоценено', 'недооценено'], ['тихо', 'громко'], ['сладкое', 'солёное'],
+    ['здоровая еда', 'вредная еда'], ['завтрак', 'ужин'], ['редкость', 'обыденность'], ['модно', 'старомодно'], ['уютно', 'неуютно'], ['честно', 'нечестно'],
+    ['смешно', 'грустно'], ['страшно', 'не страшно'], ['лёгкая работа', 'тяжёлая работа'], ['хороший фильм', 'плохой фильм'], ['умно', 'глупо'], ['для сна', 'для бодрости'],
+    ['утро', 'ночь'], ['необходимость', 'роскошь'], ['мягкое', 'твёрдое'], ['острое', 'пресное'], ['горькое', 'сладкое'], ['свежее', 'залежавшееся'],
+    ['хороший совет', 'плохой совет'], ['хорошая привычка', 'плохая привычка'], ['успех', 'провал'], ['скромность', 'тщеславие'], ['доверие', 'подозрение'], ['спонтанно', 'запланировано'],
+    ['свидание', 'встреча по делам'], ['подарок для неё', 'подарок для него'], ['уместно на первом свидании', 'неуместно на первом свидании'], ['флирт', 'дружба'], ['ревность', 'равнодушие'], ['семейный ужин', 'ужин при свечах'],
+    ['мелочь', 'катастрофа'], ['обычный день', 'особенный день'], ['маленький город', 'мегаполис'], ['жить на даче', 'жить в центре'], ['дом', 'работа'], ['отпуск', 'будни'],
+    ['пляж', 'горы'], ['активный отдых', 'ленивый отдых'], ['бюджетная поездка', 'роскошная поездка'], ['безопасный район', 'опасный район'], ['туристическое место', 'место для своих'], ['лето', 'зима'],
+    ['важный навык', 'бесполезный навык'], ['офисная работа', 'работа руками'], ['работа мечты', 'работа-кошмар'], ['начальник-тиран', 'начальник-друг'], ['совещание нужно', 'хватило бы письма'], ['дедлайн далеко', 'дедлайн горит'],
+    ['богатство', 'бедность'], ['разумная трата', 'глупая трата'], ['инвестиция', 'расход'], ['копить', 'тратить'], ['скидка', 'наценка'], ['надёжная вещь', 'хлипкая вещь'],
+    ['есть руками', 'есть вилкой'], ['сытное блюдо', 'лёгкая закуска'], ['домашняя еда', 'ресторанная еда'], ['пицца', 'салат'], ['кофе', 'чай'], ['вкусно', 'невкусно'],
+    ['жирное', 'постное'], ['деликатес', 'простая еда'], ['сыр', 'колбаса'], ['хлеб', 'пирожное'], ['холодное блюдо', 'горячее блюдо'], ['повседневная еда', 'праздничная еда'],
+    ['комедия', 'драма'], ['блокбастер', 'артхаус'], ['сериал', 'полнометражный фильм'], ['предсказуемый сюжет', 'неожиданный сюжет'], ['хэппи-энд', 'трагичный финал'], ['фильм для раздумий', 'фильм для отдыха'],
+    ['герой', 'злодей'], ['книга лучше фильма', 'фильм лучше книги'], ['культовое кино', 'забытое кино'], ['смотреть одному', 'смотреть вместе'], ['громкая музыка', 'тихая музыка'], ['песня для вечеринки', 'песня для грусти'],
+    ['рано вставать', 'поздно ложиться'], ['жаворонок', 'сова'], ['спорт', 'диван'], ['дисциплина', 'лень'], ['откладывать на потом', 'сделать сразу'], ['порядок', 'хаос'],
+    ['экстраверт', 'интроверт'], ['оптимист', 'пессимист'], ['осторожность', 'риск'], ['импульсивность', 'расчётливость'], ['смелость', 'трусость'],
+    ['разговорчивый', 'молчаливый'], ['гибкость', 'упрямство'], ['правда', 'ложь'], ['прощать', 'помнить обиду'], ['откровенность', 'тайна'], ['невинная ложь', 'серьёзная ложь'],
+    ['время летит', 'время тянется'], ['прошлое', 'будущее'], ['свобода', 'порядок'], ['реальность', 'фантазия'], ['случайность', 'закономерность'], ['счастье', 'печаль'],
+    ['простое решение', 'сложное решение'], ['маленькая победа', 'большая победа'], ['вдохновляет', 'раздражает'], ['одиночество', 'толпа'], ['мудрость', 'наивность'], ['смысл', 'бессмыслица'],
+    ['технологии', 'природа'], ['телефон полезен', 'телефон мешает'], ['соцсети объединяют', 'соцсети разобщают'], ['онлайн', 'офлайн'], ['старый телефон', 'новый телефон'], ['умный дом', 'простой дом'],
+    ['собака', 'кошка'], ['дикое животное', 'домашнее животное'], ['милое', 'страшное'], ['пушистое', 'колючее'], ['крупное', 'мелкое'], ['хищник', 'травоядное'],
+    ['красиво', 'уродливо'], ['дорогой подарок', 'подарок от сердца'], ['праздник шумный', 'праздник тихий'], ['вечеринка до утра', 'вечер дома'], ['модный бренд', 'вещь без бренда'], ['удобно', 'красиво'],
+    ['море', 'река'], ['дождь', 'солнце'], ['жара', 'мороз'], ['весна', 'осень'], ['рассвет', 'закат'], ['тёплое', 'прохладное']
+  ];
+  const SC_LCOL = '#2f9bff', SC_MCOL = '#9b6bff', SC_RCOL = '#ff5c7a';
+  const scAng = p => Math.PI * (1 - p / 100); /* 0 -> слева, 100 -> справа */
+  const scPt = (cx, cy, r, p) => [cx + r * Math.cos(scAng(p)), cy - r * Math.sin(scAng(p))];
+  const scSector = (cx, cy, r1, r2, a, b) => { /* кольцевой сектор от p=a до p=b */
+    const f = v => v.toFixed(2), [x1, y1] = scPt(cx, cy, r2, a), [x2, y2] = scPt(cx, cy, r2, b), [x3, y3] = scPt(cx, cy, r1, b), [x4, y4] = scPt(cx, cy, r1, a);
+    return `M${f(x1)} ${f(y1)}A${r2} ${r2} 0 0 1 ${f(x2)} ${f(y2)}L${f(x3)} ${f(y3)}A${r1} ${r1} 0 0 0 ${f(x4)} ${f(y4)}Z`;
+  };
+  const SC_ZCOL = { 4: '#2fd6a0', 3: '#ffc233', 2: '#ff9a4a' };
+  /* циферблат: target — число 0..100 (рисуем сектор-цель) или null; interactive — стрелку можно двигать */
+  function scDial(target, interactive, onChange) {
+    const cx = 100, cy = 104, R2 = 92, R1 = 52;
+    const gid = 'scg' + Math.random().toString(36).slice(2, 7);
+    const defs = scSvg('defs', {}, scSvg('linearGradient', { id: gid, x1: 0, y1: 0, x2: 1, y2: 0 },
+      scSvg('stop', { offset: '0', 'stop-color': SC_LCOL }), scSvg('stop', { offset: '.5', 'stop-color': SC_MCOL }), scSvg('stop', { offset: '1', 'stop-color': SC_RCOL })));
+    const band = scSvg('path', { d: scSector(cx, cy, R1, R2, 0, 100), fill: `url(#${gid})`, class: 'sc-band' });
+    const zones = scSvg('g', { class: 'sc-zones' });
+    if (target != null) {
+      SC_ZONES.slice().reverse().forEach(([w, p]) => {
+        zones.append(scSvg('path', { d: scSector(cx, cy, R1 - 2, R2 + 3, Math.max(0, target - w), Math.min(100, target + w)), fill: SC_ZCOL[p], class: 'sc-zone z' + p, stroke: '#0e1233', 'stroke-width': 1.2 }));
+      });
+    }
+    const ticks = scSvg('g', { class: 'sc-ticks' });
+    for (let i = 0; i <= 10; i++) { const [a, b] = scPt(cx, cy, R2 + 3, i * 10), [c, d] = scPt(cx, cy, R2 + (i % 5 ? 6 : 9), i * 10); ticks.append(scSvg('line', { x1: a, y1: b, x2: c, y2: d, stroke: '#0e1233', 'stroke-width': i % 5 ? 1 : 1.8, 'stroke-linecap': 'round', opacity: '.55' })); }
+    const needle = scSvg('g', { class: 'sc-needle' }, scSvg('line', { x1: cx, y1: cy, x2: cx - (R2 + 4), y2: cy, class: 'sc-nl' }), scSvg('circle', { cx: cx - (R2 + 4), cy, r: 4.2, class: 'sc-nt' }));
+    const hub = scSvg('g', {}, scSvg('circle', { cx, cy, r: 12, class: 'sc-hub' }), scSvg('circle', { cx, cy, r: 4, fill: '#fff' }));
+    const svg = scSvg('svg', { viewBox: '0 0 200 116', class: 'sc-svg', 'aria-hidden': 'true', focusable: 'false' }, defs, band, zones, ticks, needle, hub);
+    const wrap = h('div', { class: 'sc-dial' + (interactive ? ' sc-live' : ''), tabindex: interactive ? '0' : null, role: interactive ? 'slider' : 'img', 'aria-valuemin': interactive ? '0' : null, 'aria-valuemax': interactive ? '100' : null, 'aria-label': interactive ? 'Стрелка шкалы' : 'Шкала' }, svg);
+    let guess = 50;
+    const setGuess = (v, anim = true) => {
+      guess = clamp(Math.round(v), 0, 100);
+      needle.style.transition = anim ? '' : 'none';
+      needle.style.transformOrigin = `${cx}px ${cy}px`;
+      needle.style.transform = `rotate(${(guess * 1.8).toFixed(2)}deg)`; /* линия смотрит влево (0) и по часовой стрелке к правому краю (100) */
+      if (interactive) wrap.setAttribute('aria-valuenow', guess);
+      if (onChange) onChange(guess);
+    };
+    if (interactive) {
+      const fromEvent = e => {
+        const r = svg.getBoundingClientRect(), k = r.width / 200;
+        const x = (e.clientX - r.left) / k - cx, y = (e.clientY - r.top) / k - cy;
+        let a = Math.atan2(-y, x);
+        if (a < 0) a = x < 0 ? Math.PI : 0; /* ниже горизонта прижимаем к ближайшему краю */
+        return clamp(100 * (1 - a / Math.PI), 0, 100);
+      };
+      let drag = false;
+      wrap.addEventListener('pointerdown', e => { drag = true; try { wrap.setPointerCapture(e.pointerId); } catch (x) { } wrap.classList.add('sc-drag'); setGuess(fromEvent(e), false); e.preventDefault(); });
+      wrap.addEventListener('pointermove', e => { if (drag) setGuess(fromEvent(e), false); });
+      const up = () => { drag = false; wrap.classList.remove('sc-drag'); };
+      wrap.addEventListener('pointerup', up); wrap.addEventListener('pointercancel', up);
+      wrap.addEventListener('keydown', e => { const k = e.key, d = k === 'ArrowLeft' || k === 'ArrowDown' ? -1 : k === 'ArrowRight' || k === 'ArrowUp' ? 1 : 0; if (d) { setGuess(guess + d * (e.shiftKey ? 5 : 1)); e.preventDefault(); } });
+    }
+    setGuess(50, false);
+    return { el: wrap, setGuess, getGuess: () => guess };
+  }
+
+  const scDeck = makeDeck('scale', SC_PAIRS);
+  registerGame({
+    id: 'scale', title: 'Шкала', icon: '🎚️', color: '#8f7cf5',
+    cats: ['Для двоих', 'Для компании', 'Командные'], teams: { min: 2, max: 6 }, mins: 15,
+    tagline: 'Один тайно видит цель на шкале между двумя крайностями и даёт одну подсказку. Остальные должны поставить стрелку точно в цель.',
+    rules: '<ul><li>Под циферблатом написаны две крайности, например «горячо — холодно». На шкале спрятан цветной сектор-цель.</li><li><b>Подсказчик</b> берёт устройство, тайно смотрит на цель и говорит вслух <b>одно слово или короткую фразу</b>, которая указывает на положение цели между крайностями. Числа и позиции на шкале называть нельзя.</li><li>Затем устройство получает <b>угадывающий</b> (в режиме «Вместе» — все остальные вместе). Он поворачивает стрелку пальцем, мышью или кнопками ←/→ и жмёт «Зафиксировать».</li><li>Цель раскрывается: центр даёт <b>4 очка</b>, средняя зона <b>3</b>, внешняя <b>2</b>, мимо — 0.</li><li><b>Вместе:</b> очки копятся в общий счёт, в конце оценка вашей телепатии и рекорд. <b>Друг против друга:</b> очки получают и подсказчик, и угадавший; побеждает набравший больше.</li><li>Роли подсказчика чередуются от раунда к раунду. Вдвоём играйте без команд: просто поменяйтесь местами.</li></ul>',
+    opts: [
+      { key: 'mode', label: 'Режим', values: [['coop', 'Вместе'], ['vs', 'Друг против друга']], def: 'coop' },
+      { key: 'rounds', label: 'Раундов', values: [[5, '5'], [8, '8'], [12, '12']], def: 8 }
+    ],
+    cards: () => SC_PAIRS.length,
+    start(api) {
+      const coop = api.opts.mode !== 'vs', N = [5, 8, 12].includes(+api.opts.rounds) ? +api.opts.rounds : 8, n = api.n;
+      api.game.noScore = coop; /* в «Вместе» счёт общий и показывается на экране игры */
+      let round = 0, total = 0;
+      const nm = i => api.teams[i].name;
+      const giverOf = r => r % n;
+      const guesserOf = r => n === 2 ? 1 - giverOf(r) : (giverOf(r) + 1 + (Math.floor(r / n) % (n - 1))) % n;
+      const hud = () => h('div', { class: 'sc-hud' }, h('span', null, 'Раунд ', h('b', null, round + 1), ' из ', N), coop ? h('span', { class: 'sc-total' }, 'Общий счёт: ', h('b', null, total)) : null);
+      const ends = pair => h('div', { class: 'sc-ends' }, h('span', { class: 'sc-l' }, pair[0]), h('span', { class: 'sc-r' }, pair[1]));
+
+      function next() {
+        if (round >= N) return finish();
+        const pair = scDeck.draw(), P = Math.random() < .5 ? [pair[1], pair[0]] : pair;
+        const tg = 14 + rnd(73); /* 14..86: сектор целиком на шкале */
+        const g = giverOf(round), gs = guesserOf(round);
+        const gsLabel = coop ? (n === 2 ? nm(gs) : 'Все, кроме ' + nm(g)) : nm(gs);
+        handover(api, nm(g), 'Подсказчик, возьмите устройство: остальные отворачиваются. Сейчас вы увидите цель на шкале.', () => giverScreen(P, tg, g, gs, gsLabel), 'Показать цель', g);
+      }
+      function giverScreen(P, tg, g, gs, gsLabel) {
+        const d = scDial(tg, false);
+        api.show(h('div', { class: 'sc-stage' }, hud(),
+          h('div', { class: 'sc-card' }, d.el, ends(P)),
+          h('p', { class: 'mid-t sc-hint' }, 'Цель — цветной сектор. Придумайте ОДНО слово или короткую фразу, которая укажет на неё между крайностями, и скажите вслух. Числа называть нельзя.'),
+          h('div', { class: 'row center' }, btn('Подсказка сказана', () => handover(api, gsLabel, 'Угадывающие, возьмите устройство. Подсказчик ничего не показывает и не говорит.', () => guessScreen(P, tg, g, gs, gsLabel), 'Поставить стрелку', coop ? undefined : gs), 'big', { 'data-primary': true }))),
+          { turn: g, role: 'Подсказчик: смотрит цель' });
+      }
+      function guessScreen(P, tg, g, gs, gsLabel) {
+        let fixed = false;
+        const d = scDial(null, true);
+        const mk = (label, k, aria) => h('button', { class: 'btn sc-step', type: 'button', 'aria-label': aria, onclick: () => { if (!fixed) d.setGuess(d.getGuess() + k); } }, label);
+        const fix = btn('Зафиксировать', () => { if (fixed) return; fixed = true; sfx.click(); revealScreen(P, tg, d.getGuess(), g, gs); }, 'big', { 'data-primary': true });
+        api.show(h('div', { class: 'sc-stage' }, hud(),
+          h('div', { class: 'sc-card' }, d.el, ends(P)),
+          h('p', { class: 'mid-t sc-hint' }, 'Тяните стрелку по циферблату или подстройте кнопками.'),
+          h('div', { class: 'sc-steps' }, mk('«', -5, 'Сильно влево'), mk('←', -1, 'Чуть влево'), mk('→', 1, 'Чуть вправо'), mk('»', 5, 'Сильно вправо')),
+          h('div', { class: 'row center' }, fix)),
+          coop ? { turn: n === 2 ? gs : -1, role: 'Угадывают', who: gsLabel } : { turn: gs, role: 'Угадывает' });
+      }
+      function revealScreen(P, tg, guess, g, gs) {
+        const pts = scPts(tg, guess);
+        const d = scDial(tg, false); d.setGuess(guess, false);
+        d.el.classList.add('sc-reveal');
+        const verdict = pts === 4 ? 'В яблочко!' : pts === 3 ? 'Очень близко!' : pts === 2 ? 'Рядом' : 'Мимо';
+        if (coop) total += pts; else { api.score(g, pts); api.score(gs, pts); }
+        if (pts === 4) sfx.win(); else if (pts) sfx.ok(); else sfx.bad();
+        const last = round + 1 >= N;
+        const msg = h('div', { class: 'sc-res p' + pts }, h('div', { class: 'sc-verdict' }, verdict), h('div', { class: 'sc-pts' }, pts ? '+' + pts : '0', ' ', plural(pts, 'очко', 'очка', 'очков')),
+          !coop && pts ? h('div', { class: 'sc-who' }, nm(g) + ' и ' + nm(gs) + ' получают по ' + pts) : null);
+        api.show(h('div', { class: 'sc-stage' }, hud(),
+          h('div', { class: 'sc-card' }, d.el, ends(P)), msg,
+          h('div', { class: 'row center' }, btn(last ? 'Итоги' : 'Дальше', () => { round++; next(); }, 'big', { 'data-primary': true }))),
+          coop ? { turn: -1, role: 'Результат', who: 'Все вместе' } : { turn: gs, role: 'Результат' });
+        if (pts >= 3) { try { fx.burst(d.el, pts === 4 ? 14 : 8); } catch (x) { } }
+      }
+      function finish() {
+        if (!coop) return api.end({ win: true });
+        const max = 4 * N, ratio = total / max, key = 'scale.best.' + N;
+        const prev = store.get(key, 0), rec = total > prev; if (rec) store.set(key, total);
+        const title = ratio >= .7 ? 'Телепаты!' : ratio >= .5 ? 'Отлично!' : ratio >= .3 ? 'Хорошо!' : 'Ещё потренируйтесь';
+        const lines = ['Счёт: ' + total + ' из ' + max + '.', rec ? (prev ? 'Новый рекорд! Прошлый: ' + prev + '.' : 'Рекорд установлен!') : 'Рекорд при ' + N + ' раундах: ' + prev + '.'];
+        api.end({ custom: true, title, sub: '', lines, win: ratio >= .3 });
+      }
+      next();
+    }
+  });
+}
+
+/* ---- src/games/g46_telepathy.js ---- */
+/* 46. Телепатия — все тайно выбирают один из 6 вариантов; задача: выбрать то, что выберут остальные */
+{
+  const TP_TOPICS = [
+    'Назови фрукт|Яблоко|Банан|Апельсин|Груша|Виноград|Манго',
+    'Город на букву М|Москва|Мадрид|Милан|Мюнхен|Мельбурн|Минск',
+    'Что берут в отпуск в первую очередь|Паспорт|Солнцезащитные очки|Зарядку|Книгу|Купальник|Фотоаппарат',
+    'Назови цвет|Красный|Синий|Зелёный|Жёлтый|Чёрный|Белый',
+    'Назови животное|Собака|Кошка|Лев|Слон|Лошадь|Дельфин',
+    'Профессия|Врач|Учитель|Повар|Пилот|Программист|Архитектор',
+    'Овощ|Помидор|Огурец|Морковь|Картофель|Капуста|Лук',
+    'Страна для отпуска|Италия|Турция|Греция|Таиланд|Испания|Япония',
+    'Что подарить на день рождения|Цветы|Книгу|Духи|Сертификат|Часы|Шоколад',
+    'Любимая пицца|Маргарита|Пепперони|Четыре сыра|Гавайская|Диавола|Грибная',
+    'Что едят на завтрак|Яичницу|Кашу|Бутерброд|Сырники|Блины|Йогурт',
+    'Напиток вечером|Чай|Кофе|Вино|Сок|Пиво|Воду',
+    'Время года|Весна|Лето|Осень|Зима|Бабье лето|Межсезонье',
+    'День недели|Понедельник|Пятница|Суббота|Воскресенье|Среда|Четверг',
+    'Месяц года|Январь|Май|Июль|Сентябрь|Декабрь|Март',
+    'Столица Европы|Париж|Рим|Берлин|Лондон|Прага|Вена',
+    'Музыкальный инструмент|Гитара|Пианино|Скрипка|Барабаны|Саксофон|Флейта',
+    'Вид спорта|Футбол|Теннис|Плавание|Баскетбол|Бег|Хоккей',
+    'Жанр кино|Комедия|Триллер|Драма|Фантастика|Ужасы|Мелодрама',
+    'Что стоит на столе в день рождения|Торт|Шампанское|Салат оливье|Фрукты|Нарезка|Пицца',
+    'Предмет мебели|Диван|Стол|Кровать|Шкаф|Кресло|Табурет',
+    'Что всегда лежит в холодильнике|Молоко|Яйца|Сыр|Масло|Кетчуп|Колбаса',
+    'Чем заняться в выходной|Поспать|Погулять|Посмотреть сериал|Приготовить что-нибудь|Встретиться с друзьями|Поехать за город',
+    'Сладость|Шоколад|Мороженое|Торт|Конфеты|Печенье|Зефир',
+    'Транспорт|Автомобиль|Поезд|Самолёт|Велосипед|Метро|Автобус',
+    'Имя на букву А|Анна|Александр|Андрей|Алиса|Артём|Анастасия',
+    'Цветок|Роза|Тюльпан|Ромашка|Орхидея|Подсолнух|Лилия',
+    'Что слушают в дороге|Радио|Плейлист|Подкаст|Аудиокнигу|Тишину|Рок',
+    'Дерево|Берёза|Дуб|Ель|Сосна|Клён|Яблоня',
+    'Приправа|Соль|Перец|Паприка|Чеснок|Укроп|Корица',
+    'Мясное блюдо|Стейк|Шашлык|Котлеты|Курица|Пельмени|Бургер',
+    'Что взять на пикник|Плед|Мангал|Корзину|Колонку|Мячик|Арбуз',
+    'Игра на вечер|Мафия|Монополия|Карты|Шахматы|Покер|Дженга',
+    'Гаджет, без которого никуда|Телефон|Ноутбук|Наушники|Часы|Планшет|Повербанк',
+    'Слово, связанное с морем|Волна|Пляж|Чайка|Корабль|Песок|Ракушка',
+    'Слово, связанное с зимой|Снег|Ёлка|Мороз|Коньки|Варежки|Глинтвейн',
+    'Слово, связанное с кухней|Плита|Сковорода|Нож|Чайник|Холодильник|Фартук',
+    'Слово, связанное с офисом|Совещание|Принтер|Дедлайн|Кофемашина|Отчёт|Начальник',
+    'Первая мысль о слове «ночь»|Сон|Звёзды|Луна|Темнота|Тишина|Клуб',
+    'Первая мысль о слове «дом»|Семья|Уют|Диван|Ужин|Ключи|Ремонт',
+    'Первая мысль о слове «лето»|Море|Жара|Отпуск|Мороженое|Дача|Шашлыки',
+    'Первая мысль о слове «деньги»|Зарплата|Кошелёк|Банк|Карта|Налоги|Копилка',
+    'Первая мысль о слове «любовь»|Сердце|Свидание|Цветы|Семья|Поцелуй|Кольцо',
+    'Первая мысль о слове «кофе»|Утро|Бодрость|Латте|Кофейня|Капучино|Зёрна',
+    'Первая мысль о слове «дорога»|Машина|Путешествие|Пробки|Асфальт|Навигатор|Заправка',
+    'Первая мысль о слове «праздник»|Подарки|Гости|Стол|Салют|Музыка|Шампанское',
+    'Первая мысль о слове «город»|Дома|Метро|Улица|Шум|Огни|Парк',
+    'Первая мысль о слове «космос»|Звёзды|Ракета|Луна|Марс|Невесомость|Тишина',
+    'Фильм, который можно пересматривать|Один дома|Матрица|Титаник|Ирония судьбы|Крёстный отец|Властелин колец',
+    'Супергерой|Бэтмен|Человек-паук|Супермен|Железный человек|Тор|Чудо-женщина',
+    'Сказочный персонаж|Золушка|Баба-яга|Колобок|Кощей|Змей Горыныч|Золотая рыбка',
+    'Чем заняться на свидании|Поужинать|Погулять|Сходить в кино|Выпить кофе|Потанцевать|Покататься на лодке',
+    'Что приятно получить в конверте|Открытку|Приглашение|Фотографию|Признание|Подарок|Хорошую новость',
+    'Что чаще всего теряют|Ключи|Телефон|Зонт|Перчатки|Очки|Носок',
+    'Что забывают дома|Зарядку|Кошелёк|Ключи|Зонт|Паспорт|Обед',
+    'Любимое время суток|Утро|День|Вечер|Ночь|Рассвет|Закат',
+    'Идеальный вечер|Кино дома|Ужин в ресторане|Прогулка|Настолки|Баня|Концерт',
+    'Что надеть на вечеринку|Платье|Костюм|Джинсы|Рубашку|Каблуки|Кроссовки',
+    'Предмет одежды|Куртка|Свитер|Джинсы|Платье|Кепка|Шарф',
+    'Обувь|Кроссовки|Ботинки|Сапоги|Туфли|Сандалии|Тапочки',
+    'Аксессуар|Часы|Очки|Ремень|Сумка|Серьги|Шапка',
+    'Что хочется съесть ночью|Бутерброд|Пиццу|Мороженое|Шоколад|Чипсы|Лапшу',
+    'Блюдо итальянской кухни|Паста|Лазанья|Ризотто|Тирамису|Брускетта|Карбонара',
+    'Блюдо японской кухни|Суши|Роллы|Рамен|Темпура|Мисо-суп|Удон',
+    'Русское блюдо|Борщ|Пельмени|Блины|Окрошка|Холодец|Оливье',
+    'Суп|Борщ|Щи|Солянка|Куриный|Грибной|Харчо',
+    'Сыр|Моцарелла|Пармезан|Чеддер|Брынза|Камамбер|Голландский',
+    'Десерт|Тирамису|Чизкейк|Эклер|Панна-котта|Штрудель|Брауни',
+    'Гарнир|Картофель|Рис|Гречка|Макароны|Пюре|Овощи',
+    'Фастфуд|Бургер|Картошка фри|Шаурма|Хот-дог|Наггетсы|Пицца',
+    'Орех|Грецкий|Миндаль|Фундук|Арахис|Кешью|Фисташка',
+    'Ягода|Клубника|Малина|Черника|Вишня|Смородина|Земляника',
+    'Алкогольный напиток|Вино|Пиво|Виски|Водка|Коньяк|Шампанское',
+    'Коктейль|Мохито|Маргарита|Апероль-шприц|Космополитен|Пина колада|Джин-тоник',
+    'Вид чая|Чёрный|Зелёный|С молоком|С лимоном|Травяной|Масала',
+    'Вид кофе|Эспрессо|Капучино|Латте|Американо|Раф|Флэт уайт',
+    'Вкус мороженого|Пломбир|Шоколадное|Ванильное|Клубничное|Фисташковое|Эскимо',
+    'Чем заняться в бассейне|Плавать|Нырять|Загорать|Играть в мяч|Сидеть в джакузи|Прыгать с бортика',
+    'Домашнее животное|Кошка|Собака|Хомяк|Попугай|Рыбки|Кролик',
+    'Дикое животное|Волк|Медведь|Лиса|Тигр|Олень|Заяц',
+    'Птица|Орёл|Попугай|Воробей|Сова|Лебедь|Пингвин',
+    'Морское животное|Дельфин|Акула|Кит|Осьминог|Медуза|Краб',
+    'Насекомое|Бабочка|Пчела|Муравей|Комар|Божья коровка|Жук',
+    'Животное, которое хотелось бы завести|Кот|Пёс|Лошадь|Панда|Единорог|Дракон',
+    'Страна на букву И|Италия|Испания|Индия|Ирландия|Исландия|Израиль',
+    'Страна на букву Г|Германия|Греция|Грузия|Голландия|Гана|Гватемала',
+    'Город на букву С|Санкт-Петербург|Сочи|Самара|Сидней|Стамбул|Сингапур',
+    'Город на букву П|Париж|Прага|Пекин|Пермь|Пхукет|Порту',
+    'Город на букву Б|Берлин|Барселона|Бангкок|Брюссель|Будапешт|Бостон',
+    'Город на букву Л|Лондон|Лиссабон|Лос-Анджелес|Лион|Любляна|Ливерпуль',
+    'Город на букву В|Вена|Венеция|Варшава|Ванкувер|Владивосток|Валенсия',
+    'Город на букву К|Казань|Копенгаген|Кёльн|Каир|Краков|Калининград',
+    'Город на букву Т|Токио|Тбилиси|Турин|Тюмень|Тель-Авив|Тегеран',
+    'Остров для отпуска|Бали|Мальдивы|Крит|Сицилия|Мальорка|Таити',
+    'Курорт|Сочи|Анталья|Дубай|Тенерифе|Хургада|Кипр',
+    'Чем заняться на пляже|Загорать|Купаться|Читать|Играть в волейбол|Спать|Гулять по кромке воды',
+    'Идеальный пейзаж для отдыха|Горы|Море|Озеро|Лес|Старый город|Деревня',
+    'Что положить в чемодан|Одежду|Косметичку|Зарядки|Лекарства|Обувь|Подарки',
+    'Достопримечательность|Эйфелева башня|Колизей|Биг-Бен|Красная площадь|Статуя Свободы|Пирамиды',
+    'Чудо света|Великая Китайская стена|Тадж-Махал|Мачу-Пикчу|Петра|Колизей|Чичен-Ица',
+    'Река|Волга|Нил|Амазонка|Сена|Дунай|Темза',
+    'Океан или море|Тихий океан|Атлантический океан|Чёрное море|Средиземное море|Красное море|Балтийское море',
+    'Язык, который хочется выучить|Английский|Итальянский|Французский|Испанский|Японский|Китайский',
+    'Планета|Марс|Венера|Юпитер|Сатурн|Земля|Нептун',
+    'Школьный предмет|Математика|Литература|История|Физика|Химия|Физкультура',
+    'Что помнят из школы|Звонок|Столовую|Перемену|Контрольную|Первую учительницу|Выпускной',
+    'Праздник|Новый год|День рождения|Рождество|Пасха|8 Марта|День Победы',
+    'Новогодний атрибут|Ёлка|Мандарины|Шампанское|Гирлянда|Оливье|Бенгальские огни',
+    'Подарок на Новый год|Носки|Парфюм|Книга|Сладости|Плед|Свеча',
+    'Что делают в отпуске|Спят|Путешествуют|Ничего не делают|Едят|Гуляют|Читают',
+    'Что приятно делать в дождь|Пить чай|Смотреть кино|Читать|Спать|Гулять под зонтом|Слушать музыку',
+    'Как провести воскресенье|Спать до обеда|Приготовить завтрак|Посмотреть фильм|Погулять|Убраться|Съездить в гости',
+    'Что раздражает в соседях|Шум|Ремонт|Громкую музыку|Запахи|Лифт|Топот за стеной',
+    'Что раздражает в дороге|Пробки|Ямы|Навигатор|Парковка|Светофоры|Попутчики',
+    'Что раздражает в кино|Телефоны|Хруст попкорна|Разговоры|Спойлеры|Реклама|Опоздавшие',
+    'Что раздражает на работе|Совещания|Почта|Срочные задачи|Шум|Переработки|Лишние чаты',
+    'Что делает день хорошим|Солнце|Кофе|Хорошие новости|Вкусный обед|Выходной|Звонок друга',
+    'Что поднимает настроение|Музыка|Шоколад|Прогулка|Друзья|Покупки|Кино',
+    'Что лежит в сумке|Телефон|Ключи|Кошелёк|Помада|Салфетки|Наушники',
+    'Соцсеть или мессенджер|Telegram|WhatsApp|Instagram|YouTube|ВКонтакте|TikTok',
+    'Что смотрят вечером|Сериал|Фильм|YouTube|Новости|Стендап|Спорт',
+    'Любимый тип сериалов|Детективы|Комедии|Драмы|Фантастика|Исторические|Документальные',
+    'Хобби|Чтение|Рисование|Фотография|Рыбалка|Вязание|Садоводство',
+    'Тип отдыха|Пляж|Экскурсии|Горы|Спа|Дача|Круиз',
+    'Спорт для души|Йога|Бег|Плавание|Велосипед|Лыжи|Танцы',
+    'Где заниматься спортом|В зале|Дома|На улице|В бассейне|В студии йоги|Нигде',
+    'Что стоит в ванной|Зубная щётка|Полотенце|Шампунь|Мыло|Зеркало|Фен',
+    'Что на рабочем столе|Ноутбук|Кружка|Блокнот|Ручка|Растение|Телефон',
+    'Что в сумке у мамы|Платок|Леденцы|Влажные салфетки|Таблетки|Ключи|Крем для рук',
+    'Что в кармане куртки|Ключи|Перчатки|Телефон|Наушники|Мелочь|Чек',
+    'Что есть в каждой квартире|Чайник|Диван|Телевизор|Зеркало|Ковёр|Холодильник',
+    'Что хранят в гараже|Машину|Инструменты|Колёса|Велосипед|Банки|Лыжи',
+    'Что делать в пробке|Слушать музыку|Звонить|Ругаться|Слушать подкасты|Смотреть по сторонам|Подпевать',
+    'Что продают на рынке|Овощи|Фрукты|Мёд|Мясо|Сыр|Цветы',
+    'Что покупают в магазине первым делом|Хлеб|Молоко|Воду|Яйца|Овощи|Сладкое',
+    'Что покупают в аптеке|Пластырь|Витамины|Градусник|Таблетки от головы|Крем|Маску',
+    'Что покупают в книжном|Роман|Детектив|Ежедневник|Открытку|Комиксы|Учебник',
+    'Что встретишь в парке|Скамейки|Собак|Белок|Мороженщика|Детей|Бегунов',
+    'Что найдёшь в лесу|Грибы|Ягоды|Белок|Ёлки|Муравейники|Ручей',
+    'Кого увидишь в зоопарке|Слонов|Обезьян|Жирафов|Львов|Попугаев|Пингвинов',
+    'Кого увидишь в цирке|Клоунов|Фокусников|Акробатов|Дрессировщиков|Воздушных гимнастов|Силачей',
+    'Что бывает на свадьбе|Тосты|Торт|Букет невесты|Танцы|Конкурсы|Кольца',
+    'Что нужно на рыбалке|Удочка|Наживка|Палатка|Уха|Костёр|Терпение',
+    'Что нужно для пикника|Одеяло|Корзина|Еда|Лимонад|Салфетки|Хорошая погода',
+    'Герой мультфильма|Шрек|Симба|Микки Маус|Винни-Пух|Нала|Эльза',
+    'Волшебный предмет|Волшебная палочка|Ковёр-самолёт|Скатерть-самобранка|Лампа Аладдина|Меч-кладенец|Шапка-невидимка',
+    'Главная мечта|Путешествие|Дом|Деньги|Здоровье|Семья|Успех',
+    'Что нужно для счастья|Любовь|Здоровье|Деньги|Свобода|Друзья|Дело по душе',
+    'Что сделать с выигранным миллионом|Купить квартиру|Купить машину|Поехать путешествовать|Открыть бизнес|Подарить близким|Отложить',
+    'Куда поехать на выходные|На море|В горы|В соседний город|На дачу|За границу|В спа',
+    'Что съесть в кино|Попкорн|Начос|Чипсы|Конфеты|Колу|Ничего',
+    'Что почитать в самолёте|Роман|Детектив|Журнал|Ленту новостей|Путеводитель|Научпоп',
+    'Чем заняться в самолёте|Поспать|Посмотреть кино|Почитать|Послушать музыку|Поесть|Смотреть в иллюминатор',
+    'Что вспоминают из детства|Двор|Мультики|Бабушкин дом|Сладости|Игрушки|Лето в деревне',
+    'Подарок ребёнку на день рождения|Игрушку|Конструктор|Куклу|Книжки|Одежду|Деньги',
+    'Игра детства|Прятки|Салки|Классики|Футбол во дворе|Резиночка|Казаки-разбойники',
+    'Любимый запах|Кофе|Свежая выпечка|Дождь|Море|Хвоя|Ваниль',
+    'Любимый звук|Шум моря|Дождь|Смех|Пение птиц|Музыка|Тишина',
+    'Любимая погода|Солнце|Лёгкий дождь|Снегопад|Тёплый ветер|Облачно|Туман',
+    'Праздничное блюдо|Шашлык|Оливье|Утка|Холодец|Селёдка под шубой|Запечённая курица',
+    'Подарок на 8 Марта|Цветы|Духи|Конфеты|Украшения|Открытка|Сертификат в спа',
+    'Формат отпуска у моря|Всё включено|Апартаменты|Отель с завтраками|Кемпинг|Яхта|Вилла',
+    'Время для прогулки|Утро|День|Закат|Вечер|Ночь|Рассвет',
+    'Любимый день года|Новый год|День рождения|Первый день отпуска|Пятница|Выходной|Рождество',
+    'Что делать, когда скучно|Листать ленту|Смотреть сериал|Гулять|Готовить|Звонить друзьям|Спать',
+    'Что делает человека интересным|Юмор|Ум|Опыт|Путешествия|Увлечения|Доброта',
+    'Главное в друге|Верность|Юмор|Честность|Поддержка|Общие интересы|Надёжность',
+    'Главное в партнёре|Доверие|Юмор|Забота|Честность|Верность|Общие цели',
+    'Чем занимаются пары по вечерам|Смотрят кино|Ужинают|Гуляют|Разговаривают|Играют|Листают телефоны',
+    'Что чаще всего заказывают в кафе|Кофе|Чай|Воду|Счёт|Десерт|Меню',
+    'Что напоминает об осени|Листопад|Дождь|Плед|Тыква|Зонт|Школа',
+    'Что напоминает о весне|Подснежники|Капель|Солнце|Лужи|Птицы|Мимоза',
+    'Первая ассоциация с Парижем|Эйфелева башня|Круассан|Любовь|Лувр|Мода|Багет',
+    'Первая ассоциация с Москвой|Кремль|Метро|Пробки|Красная площадь|Дождь|Суета',
+    'Первая ассоциация с Италией|Паста|Пицца|Колизей|Венеция|Вино|Мода',
+    'Первая ассоциация с Японией|Суши|Сакура|Аниме|Самураи|Технологии|Токио',
+    'Первая ассоциация с Америкой|Нью-Йорк|Голливуд|Бургер|Статуя Свободы|Небоскрёбы|Кино'
+  ];
+  /* чистая логика: picks — массив ответов игроков; mode: 'together' (очко, если совпали все) | 'compete' (очко за совпадение с наибольшей группой) */
+  const tpNorm = s => String(s == null ? '' : s).toLowerCase().replace(/ё/g, 'е').replace(/\s+/g, ' ').trim();
+  const tpMult = k => k >= 5 ? 3 : k >= 3 ? 2 : 1;
+  function tpRound(picks, mode) {
+    const n = picks.length, g = new Map();
+    picks.forEach((p, i) => { const k = tpNorm(p); if (!g.has(k)) g.set(k, []); g.get(k).push(i); });
+    const top = Math.max(...[...g.values()].map(a => a.length));
+    const full = top === n;
+    const hit = picks.map(p => mode === 'together' ? full : (top >= 2 && g.get(tpNorm(p)).length === top));
+    return { top, full, hit, agree: n > 1 ? (top - 1) / (n - 1) : 0 };
+  }
+  window.TP = { norm: tpNorm, mult: tpMult, round: tpRound, topics: TP_TOPICS };
+
+  registerGame({
+    id: 'telepathy', title: 'Телепатия', icon: '🔮', color: '#e86aa8',
+    cats: ['Для двоих', 'Для компании'], teams: { min: 2, max: 4 }, mins: 15, unit: 'Игрок', unitOne: 'игрок', unitFew: 'игрока', unitMany: 'игроков',
+    tagline: 'Угадайте мысли друг друга: каждый тайно выбирает ответ, который, по его мнению, выберут остальные. Совпали — очко, серия совпадений растит множитель.',
+    rules: '<ul><li>В каждом раунде показывается тема («назови фрукт», «город на букву М») и 6 вариантов ответа.</li><li>Игроки <b>по очереди и тайно</b> выбирают то, что, по их мнению, выберут остальные. Между игроками устройство передаётся через экран-заставку: чужой выбор не виден.</li><li>Когда выбрали все, ответы раскрываются одновременно.</li><li>Режим <b>«Вместе»</b>: очко и серия за раунд, только если совпали ВСЕ. В конце вы узнаете свою «степень телепатии» в процентах, а рекорд для такой же партии запомнится.</li><li>Режим <b>«Каждый за себя»</b>: очко получают те, кто совпал с самой большой группой (минимум двое). Серия у каждого своя.</li><li>Серия: 3 совпадения подряд дают ×2, 5 подряд ×3.</li><li>С опцией «Можно свой» вместо вариантов можно вписать своё слово: оно совпадёт, если у другого игрока будет то же слово.</li></ul>',
+    opts: [
+      { key: 'mode', label: 'Режим', values: [['together', 'Вместе (общий счёт)'], ['compete', 'Каждый за себя']], def: 'together' },
+      { key: 'rounds', label: 'Раундов', values: [[8, '8'], [12, '12'], [16, '16']], def: 12 },
+      { key: 'custom', label: 'Свой ответ', values: [[0, 'Только варианты'], [1, 'Можно свой']], def: 0 }
+    ],
+    cards: () => TP_TOPICS.length,
+    start(api) {
+      const deck = makeDeck('telepathy', TP_TOPICS);
+      const n = api.n, names = api.teams.map(t => t.name);
+      const mode = api.opts.mode === 'compete' ? 'compete' : 'together';
+      const R = [8, 12, 16].includes(+api.opts.rounds) ? +api.opts.rounds : 12;
+      const custom = +api.opts.custom === 1;
+      const recKey = 'tp.rec.' + n + '.' + R + '.' + (custom ? 'c' : 'f');
+      let r = 0, topic = '', opts = [], picks = [], locked = false;
+      let streak = mode === 'together' ? 0 : names.map(() => 0), best = 0, matched = 0, agreeSum = 0;
+
+      function nextRound() {
+        if (r >= R) return finish();
+        const a = String(deck.draw() || TP_TOPICS[rnd(TP_TOPICS.length)]).split('|');
+        topic = a[0]; opts = shuffle(a.slice(1)); picks = []; r++; ask(0);
+      }
+      function ask(i) {
+        const text = n === 2 ? 'Выбери то, что, по-твоему, выберет ' + names[1 - i] + '. Остальные в экран не смотрят.' : 'Выбери то, что выберут остальные. Остальные в экран не смотрят.';
+        handover(api, names[i], text, () => choose(i), 'Я готов', i);
+      }
+      function pickRow(i, val) {
+        if (locked) return; locked = true; picks[i] = String(val); sfx.click();
+        setTimeout(() => { locked = false; if (i + 1 < n) ask(i + 1); else reveal(); }, 120);
+      }
+      function choose(i) {
+        locked = false;
+        const hint = n === 2 ? 'Подумай, что выберет ' + names[1 - i] : 'Выбери то, что выберут остальные';
+        const grid = h('div', { class: 'tp-grid' }, opts.map(o => h('button', { class: 'tp-opt', type: 'button', onclick: () => pickRow(i, o) }, o)));
+        let own = null;
+        if (custom) {
+          const inp = h('input', { class: 'input tp-inp', type: 'text', maxlength: 24, placeholder: 'или впишите своё слово', 'aria-label': 'Свой ответ', autocomplete: 'off' });
+          const go = () => { const v = inp.value.trim(); if (v) pickRow(i, v); else inp.focus(); };
+          inp.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+          own = h('div', { class: 'tp-own' }, inp, btn('Ответить', go, 'paper tp-go'));
+        }
+        api.show(h('div', { class: 'tp-wrap' },
+          h('div', { class: 'card accent tp-card' }, h('div', { class: 'kicker' }, 'Раунд ' + r + ' из ' + R), h('div', { class: 'big', 'data-tts': topic }, topic), h('p', { class: 'mid-t tp-hint' }, hint)),
+          grid, own), { turn: i, role: 'Тайный выбор' });
+      }
+      function reveal() {
+        const res = tpRound(picks, mode);
+        const gains = picks.map(() => 0);
+        let msg;
+        if (mode === 'together') {
+          agreeSum += res.agree;
+          if (res.full) { streak++; best = Math.max(best, streak); matched++; const m = tpMult(streak); gains.fill(m); msg = 'Телепатия! +' + m + (m > 1 ? ' (серия ×' + m + ')' : ''); }
+          else { streak = 0; msg = res.top > 1 ? 'Почти: совпали не все' : 'Мимо: все выбрали разное'; }
+        } else {
+          res.hit.forEach((hh, i) => { if (hh) { streak[i]++; best = Math.max(best, streak[i]); gains[i] = tpMult(streak[i]); } else streak[i] = 0; });
+          if (res.hit.some(Boolean)) matched++;
+          msg = res.top > 1 ? 'Большинство: ' + res.top + ' из ' + n : 'Мимо: все выбрали разное';
+        }
+        const anyHit = res.hit.some(Boolean);
+        const cur = mode === 'together' ? streak : Math.max(...streak);
+        const cards = picks.map((p, i) => h('div', { class: 'tp-rc' + (res.hit[i] ? ' tp-hit' : ' tp-miss'), style: { '--c': api.teams[i].color, '--i': i } },
+          h('div', { class: 'tp-rn' }, names[i]), h('div', { class: 'tp-ra' }, p), gains[i] ? h('div', { class: 'tp-g' }, '+' + gains[i]) : null));
+        api.show(h('div', { class: 'tp-wrap' },
+          h('div', { class: 'card accent tp-card' }, h('div', { class: 'kicker' }, 'Раунд ' + r + ' из ' + R), h('div', { class: 'big' }, topic)),
+          h('div', { class: 'tp-reveal' }, cards),
+          h('div', { class: 'tp-verdict ' + (anyHit ? 'ok' : 'no'), style: { '--d': (n * 0.35 + 0.3) + 's' } }, msg),
+          cur >= 2 ? h('div', { class: 'tp-streak' }, 'Серия: ' + cur + ' · множитель ×' + tpMult(cur)) : null,
+          h('div', { class: 'row center' }, btn(r >= R ? 'К итогам' : 'Дальше', nextRound, 'big', { 'data-primary': true }))), { turn: -1, role: 'Ответы раскрыты' });
+        gains.forEach((g, i) => { if (g) api.score(i, g); });
+        if (anyHit) { sfx.ok(); try { fx.burst(api.stage, 10); } catch (e) { } }
+      }
+      function finish() {
+        const lines = ['Совпало раундов: ' + matched + ' из ' + R + ' · лучшая серия: ' + best];
+        if (mode === 'together') {
+          const pct = Math.round(agreeSum / R * 100);
+          const old = store.get(recKey, 0), rec = pct > old;
+          if (rec) store.set(recKey, pct);
+          lines.push(rec && old ? 'Новый рекорд! Прошлый: ' + old + '%' : rec ? 'Первый рекорд записан' : 'Рекорд для такой партии: ' + old + '%');
+          const verdict = pct >= 90 ? 'Один разум в нескольких телах' : pct >= 70 ? 'Вы на одной волне' : pct >= 50 ? 'Хорошая связь: вы чувствуете друг друга' : pct >= 30 ? 'Есть что обсудить: думаете по-разному' : 'Вы загадка друг для друга, и это интересно';
+          return api.end({ custom: true, title: 'Телепатия: ' + pct + '%', sub: verdict, lines, win: pct >= 30 });
+        }
+        api.end({ sub: lines[0] });
+      }
+      nextRound();
+    }
+  });
+}
+
+/* ---- src/games/g47_knowme.js ---- */
+/* 47. Кто кого знает — один тайно отвечает про себя, остальные угадывают, как он ответил */
+{
+  /* формат: «вопрос|вариант|вариант|вариант|вариант» */
+  const KM_RAW = `Что бы вы заказали на идеальный ужин?|Пасту и бокал вина|Огромную пиццу|Суши-сет|Стейк с овощами
+Какой завтрак вам ближе всего?|Яичница или омлет|Каша|Бутерброд и кофе|Сырники или блины
+Какой напиток вы выберете вечером?|Чай|Вино|Просто воду|Какао или горячий шоколад
+Какая кухня вам роднее всего?|Итальянская|Японская|Грузинская|Домашняя русская
+Что вы чаще всего берёте на десерт?|Мороженое|Торт или пирожное|Шоколад|Обойдусь без десерта
+Что вам сложнее всего вычеркнуть из рациона навсегда?|Сыр|Сладкое|Мясо|Хлеб и выпечку
+Как вы относитесь к острой еде?|Чем острее, тем лучше|Немного остренького можно|Только не острое|Зависит от блюда
+Что вы приготовите, если надо удивить гостей?|Запечённое мясо|Что-нибудь итальянское|Много закусок|Красивый торт
+Кофе вам нужен...|Каждое утро, без него никак|Иногда, для бодрости|Только ради вкуса|Не пью кофе
+Какой перекус вы выберете среди ночи?|Бутерброд|Остатки ужина|Печенье или конфеты|Фрукты, чтобы совесть была чиста
+Где вам приятнее поужинать?|Дома при свечах|В уютном ресторане|На кухне в пижаме|На пикнике на природе
+Какое блюдо из детства вы бы съели прямо сейчас?|Бабушкины пирожки|Макароны с сосиской|Манную кашу с вареньем|Борщ со сметаной
+Какая начинка в пицце вам нужнее всего?|Пепперони|Четыре сыра|Грибы и ветчина|С ананасами, да
+Как вы обычно выбираете, что съесть?|Знаю, чего хочу, сразу|Долго листаю меню|Беру то же, что всегда|Прошу выбрать за меня
+Какое время года вам лучше всего подходит?|Лето|Осень|Зима|Весна
+Что вы любите готовить сами?|Супы|Выпечку|Мясо на огне|Почти ничего не люблю
+Какой вариант выходного завтрака вам по душе?|Приготовить вместе|Заказать доставку|Сходить в кафе|Спать допоздна и пропустить завтрак
+Что из этого вы не станете есть ни при каких условиях?|Печень|Устрицы|Холодец|Кинзу
+Какой отпуск вы выберете?|Пляж и ничегонеделание|Города и музеи|Горы и походы|Автопутешествие без плана
+Куда бы вы поехали завтра, будь у вас билеты?|На море|В Италию|В Японию|В тихую деревню
+Как вы собираете чемодан?|За неделю по списку|За час до выезда|Беру слишком много|Беру только рюкзак
+Какой транспорт для дальней поездки вам милее?|Самолёт|Поезд|Машина|Корабль
+Что вам важнее всего в отеле?|Хороший завтрак|Вид из окна|Чистота и тишина|Близость к центру
+Как вы ведёте себя в новом городе?|Иду бродить без карты|Составляю маршрут заранее|Сижу в кафе и смотрю на людей|Иду по музеям
+Что вы сделаете первым делом, приехав на море?|Побегу купаться|Найду тень и книгу|Пойду искать еду|Сделаю фото для друзей
+Какое место вам хотелось бы увидеть своими глазами?|Северное сияние|Египетские пирамиды|Токио|Остров с белым песком
+Что вы привезёте из поездки?|Магнит на холодильник|Местную еду|Кучу фотографий|Только воспоминания
+В отпуске вы скорее...|Встанете на рассвете|Встанете к обеду|Будете жить по настроению|Будете следовать расписанию
+Кто в поездке обычно отвечает за навигацию?|Я, у меня нюх на дороги|Мы вместе смотрим карту|Телефон, и мы слепо ему верим|Спрашиваем у местных
+Где вам комфортнее ночевать в поездке?|В отеле с завтраком|В уютной квартире|В палатке|У друзей на диване
+Какую страну вы бы выбрали для переезда на год?|Португалию|Грецию|Японию|Новую Зеландию
+Как вы реагируете на задержку рейса?|Спокойно жду с книгой|Нервничаю и ищу варианты|Иду есть и пить кофе|Пишу всем, кто готов посочувствовать
+Какой вид экскурсии вам по вкусу?|С гидом и историями|Самостоятельная|Гастрономическая|Не люблю экскурсии
+Какой жанр фильма вы выберете сегодня вечером?|Комедия|Триллер|Мелодрама|Фантастика
+Как вы смотрите кино?|С попкорном и без разговоров|Комментируя каждую сцену|Параллельно листая телефон|Засыпаю на середине
+Что вы сделаете, если фильм оказался скучным?|Досмотрю из упрямства|Выключу сразу|Включу что-то другое|Усну
+Какой сериал вам ближе по духу?|Детектив|Комедийный ситком|Историческая драма|Фэнтези
+Что вы выберете для вечера?|Любимый старый фильм|Новинку|Сериал на несколько серий|Документальное кино
+Какую музыку вы включите в дороге?|Поп-хиты|Рок|Что-то спокойное|Старые добрые песни
+Как вы относитесь к концертам?|Обожаю, поеду ради них в другой город|Иногда выбираюсь|Лучше слушать дома|Предпочитаю небольшие клубы
+Что вы делаете, когда звучит любимая песня?|Подпеваю вслух|Танцую|Слушаю молча|Делаю громче
+Какая музыка помогает вам сосредоточиться?|Без слов, инструментальная|Классика|Любимые песни|Тишина
+Какой фильм вы смотрели больше всех раз?|Комедию из детства|Любимую классику|Какой-нибудь боевик|Фильм про любовь
+Что вы чаще включаете фоном?|Сериал|Музыку|Видео в интернете|Подкаст
+Какая книга вам ближе?|Детектив|Фантастика|Роман о любви|Нон-фикшн
+Как вы читаете?|Бумажные книги|Электронные|Слушаю аудиокниги|Читаю редко
+Что вам приятнее всего получить в подарок?|Впечатление, например поездку|Вещь, о которой мечтал(а)|Что-то сделанное руками|Просто тёплые слова
+Какой у вас идеальный вечер дома?|Диван, плед и фильм|Настольные игры|Готовка и музыка|Каждый занят своим, но рядом
+Как вы наводите порядок?|По графику|Когда уже терпеть нельзя|Мне это даже нравится|Лучше уж заплачу клинингу
+Как вы относитесь к будильнику?|Встаю с первого звонка|Откладываю пять раз|Просыпаюсь до звонка|Ставлю несколько
+Когда вы лучше всего соображаете?|Утром|Днём|Вечером|Глубокой ночью
+Какой домашний звук раздражает вас больше всего?|Хлопанье дверей|Чавканье|Храп|Шум от соседей
+Сколько подушек вам нужно для сна?|Одна небольшая|Две|Много, как в гнезде|Без подушки
+Какой у вас порядок на столе?|Всё на своих местах|Творческий беспорядок|Порядок только на виду|Ничего не найду, но всё моё
+Какой температуры должна быть комната?|Прохладной|Тёплой|Как на пляже|Мне всё равно
+Что вы цените в доме больше всего?|Простор|Уют|Свет|Тишину
+Как вы относитесь к домашним растениям?|Обожаю, их у меня много|Одно-два, и то для порядка|Выживают только кактусы|Не мой формат
+Какое домашнее дело вы терпеть не можете?|Мыть посуду|Гладить|Выносить мусор|Протирать пыль
+Что вы делаете в первую очередь, придя домой?|Переодеваюсь|Ставлю чайник|Падаю на диван|Включаю музыку
+Что вы никогда не забываете взять из дома?|Телефон|Ключи|Зарядку|Наушники
+Какой вы пассажир в машине?|Спокойный, смотрю в окно|Подсказываю водителю|Слушаю музыку|Сплю
+Что вы чаще всего теряете?|Ключи|Очки или наушники|Время|Носки и перчатки
+Где вам лучше всего работается?|Дома|В офисе|В кафе|Где угодно, лишь бы без шума
+Как вы решаете рабочие задачи?|Начинаю с самых трудных|Начинаю с лёгких|Делаю всё в последний момент|Составляю подробный план
+Что вас больше всего мотивирует в работе?|Деньги|Интерес|Команда|Свобода
+Какую профессию вы бы выбрали, начав всё заново?|Творческую|Ту же самую|Что-то с руками, ремесло|Путешествовать за деньги
+Что вы делаете в конце тяжёлого рабочего дня?|Иду гулять|Ем|Смотрю сериал|Молчу полчаса
+Сколько часов сна вам нужно?|Шесть|Семь-восемь|Девять и больше|Столько, сколько получится
+Что вы делаете, когда устали от людей?|Ухожу в тишину|Включаю фильм|Пишу близким|Иду гулять в одиночку
+Как вы проводите обеденный перерыв?|Иду обедать с коллегами|Ем за компьютером|Гуляю|Отдыхаю или сплю
+Какой вы коллега?|Душа компании|Тихий профессионал|Организатор|Ворчун с золотым сердцем
+Что вы ответите на вопрос «Как дела?»|Нормально|Хорошо, спасибо|Расскажу подробно|Как получится
+Как вы относитесь к дедлайнам?|Сдаю заранее|Сдаю точно в срок|Сдаю в последние минуты|Дедлайн для меня условен
+Что для вас успех?|Спокойная жизнь|Любимое дело|Деньги и стабильность|Свобода выбирать
+Что вы сделаете, если застряли с задачей?|Прогуляюсь|Спрошу друга|Выпью кофе|Пересплю с проблемой
+Как вы воспринимаете критику?|Спокойно, принимаю к сведению|Обижаюсь, но потом думаю|Спорю до конца|Делаю вид, что не слышу
+Что радует вас больше всего на работе?|Похвала|Сделанный проект|Зарплата|Пятничный вечер
+Какой ваш самый частый ответ на приглашение?|Да, конечно!|Подумаю|Лучше останусь дома|Зависит от настроения
+Что вы цените в любимом человеке больше всего?|Чувство юмора|Надёжность|Доброту|Умение слушать
+Как вы мирились бы после ссоры?|Сказал(а) бы первым|Ждал(а) бы, пока скажут мне|Пошутил(а)|Приготовил(а) что-нибудь вкусное
+Что вас больше всего трогает?|Неожиданное сообщение|Цветы|Совместный ужин|Объятие без слов
+Какой знак внимания вы любите?|Тёплые слова|Подарок|Время вместе|Помощь в делах
+Как вы чаще всего говорите «я тебя люблю»?|Словами|Поступками|Заботой|Шуткой
+Как бы вы провели годовщину?|Ужин в ресторане|Поездка|Дома, вдвоём|Как получится, но с подарком
+Как вы отнесётесь к вечеринке-сюрпризу в вашу честь?|Обрадуюсь|Растеряюсь, но потом втянусь|Не люблю сюрпризы|Зависит от гостей
+Как вы относитесь к публичным проявлениям чувств?|Спокойно|Немного стесняюсь|Люблю держаться за руки|Лучше наедине
+Что вы сделаете, если близкий человек грустит?|Обниму и помолчу|Постараюсь рассмешить|Предложу пойти погулять|Спрошу, что случилось
+Что вам нужнее всего в трудный день?|Тишина|Разговор|Что-то вкусное|Объятия
+Что вы выберете для свидания?|Прогулку|Кино|Ресторан|Домашний вечер
+Какой фразы вам хочется слышать чаще?|«Ты молодец»|«Я рядом»|«Я скучал(а)»|«Давай что-нибудь придумаем»
+Что вы заметите в человеке первым?|Глаза|Улыбку|Голос|Одежду
+Что для вас настоящая близость?|Спокойно молчать вдвоём|Делиться секретами|Смеяться над одним и тем же|Поддерживать в мелочах
+Как вы обычно извиняетесь?|Словами|Делом|Подарком|Шуткой
+Что вы делаете, когда злитесь?|Молчу|Говорю прямо|Иду гулять|Ем что-нибудь вкусное
+Какой вы человек в споре?|Спокойный|Горячий|Уступаю|Пытаюсь шутить
+Что вы спросите у близкого человека после работы?|Как прошёл день|Что на ужин|Что нового|Ничего, просто обниму
+Что вы сделаете, выиграв миллион в лотерею?|Куплю дом|Поеду путешествовать|Вложу в дело|Раздам часть близким
+В какую эпоху вы бы хотели жить?|В прошлую|В будущую|В нашу|В эпоху Возрождения
+Какой язык вы бы выучили мгновенно?|Итальянский|Японский|Французский|Язык животных
+Какую суперсилу вы бы выбрали?|Полёт|Чтение мыслей|Невидимость|Остановку времени
+Что вы взяли бы на необитаемый остров?|Книгу|Гитару|Любимого человека|Запас еды
+С кем бы вы поужинали, будь это возможно?|С писателем|С учёным|С музыкантом|С любимым актёром
+Что бы вы сделали, став невидимым на день?|Подслушал(а) разговоры друзей|Проник(ла) в закрытый музей|Подшутил(а) над близкими|Просто побродил(а) по городу
+Куда бы вы вернулись на один день?|В детство|В студенческие годы|На самое счастливое событие|Никуда, смотрю вперёд
+Что бы вы сделали со свободным месяцем и деньгами?|Уехал(а) в путешествие|Выучил(а) новое|Отдыхал(а) дома|Занялся(лась) домом
+Какую черту характера вы бы изменили?|Стеснительность|Лень|Вспыльчивость|Нерешительность
+Какой музей вы бы создали?|Музей еды|Музей кино|Музей путешествий|Музей игрушек
+Какое у вас было бы своё кафе?|Уютное с книгами|Шумное и весёлое|Домашнее со своей выпечкой|Под открытым небом
+О чём была бы ваша книга?|Мемуары|Детектив|Фантастика|Рецепты
+С каким животным вы бы подружились?|С кошкой|С собакой|С совой|С дельфином
+Какую роль вы бы сыграли в кино?|Героя|Злодея|Комика|Мудреца
+Кем бы вы стали на день?|Знаменитостью|Путешественником|Спортсменом|Любимым героем
+Где вы хотели бы жить?|В тёплой стране у моря|В горах|В большом городе|В тихой деревне
+Вам предложили полёт в космос. Ваш ответ?|Соглашусь сразу|Подумаю и соглашусь|Откажусь|Соглашусь, но только вернуться
+Куда бы вы поехали на бесплатные выходные?|В город с историей|На море|В горы|Туда, где ещё не был(а)
+Какой навык вы бы хотели получить мгновенно?|Играть на пианино|Свободно говорить на иностранном языке|Готовить как шеф-повар|Рисовать
+Какую еду вы выбрали бы на всю жизнь?|Пиццу|Пасту|Суши|Борщ
+Какую игрушку вы любили в детстве больше всего?|Мягкую|Конструктор|Куклу или машинки|Настольную игру
+Кем вы мечтали стать в детстве?|Врачом|Космонавтом|Артистом|Строителем или водителем
+Каким вы были в школе?|Отличником|Хулиганом|Тихоней|Душой класса
+Чем вы любили заниматься летом в детстве?|Играть во дворе|Ездить на велосипеде|Читать|Плавать
+Какие мультфильмы вы любили больше всего?|Советские|Диснеевские|Японские|Приключенческие
+Какое школьное воспоминание самое тёплое?|Последний звонок|Поездка с классом|Любимый учитель|Перемены
+Чего вы боялись в детстве?|Темноты|Собак|Школьных оценок|Потеряться
+Каким ребёнком вы были?|Тихим|Шумным|Любознательным|Упрямым
+Что вы любили есть в детстве, но не едите сейчас?|Сладости|Каши|Школьные булочки|Консервы
+Какой подарок из детства был дороже всего сердцу?|Велосипед|Игровая приставка|Книга|Домашний питомец
+Какая дворовая игра была вашей любимой?|Прятки|Футбол|Классики|Догонялки
+Что вы делали на каникулах у бабушки?|Помогал(а) в огороде|Бегал(а) на речку|Смотрел(а) телевизор|Лакомился(лась) пирогами
+Каким школьным предметом вы увлекались?|Литературой|Математикой|Физкультурой|Рисованием
+Какой запах напоминает вам детство?|Выпечка|Свежескошенная трава|Новогодняя ёлка|Бабушкины духи
+Как вы встречали Новый год в детстве?|Ждал(а) подарков|Смотрел(а) телевизор до утра|Играл(а) с гостями|Засыпал(а) задолго до полуночи
+Какой праздник вам нравится больше всего?|Новый год|День рождения|Лето без повода|Тихие выходные
+Как вы отмечаете день рождения?|Шумно с друзьями|Тихо дома|В путешествии|Стараюсь не отмечать
+Как вы хотите провести выходной?|Выспаться|Выйти в город|Выбраться на природу|Заняться хобби
+Что вы выберете, если на улице дождь?|Зонт|Капюшон|Побегу домой|Пойду гулять без зонта
+Какая стихия вам ближе всего?|Огонь|Вода|Ветер|Земля
+Какой цвет нравится вам больше всего?|Синий|Зелёный|Красный|Жёлтый
+Какого питомца вы бы завели?|Кошку|Собаку|Рыбок|Никого не хочу
+Что вы чаще всего делаете в свободное время?|Читаю|Смотрю сериалы|Гуляю|Играю
+Какое хобби вам бы подошло?|Готовка|Рисование|Фотография|Рукоделие
+Какой вы по характеру?|Тихий домосед|Любитель вечеринок|Путешественник|Мечтатель
+Как вы относитесь к спорту?|Занимаюсь регулярно|Иногда, от случая к случаю|Предпочитаю болеть|Не моё
+Какой отдых вы выберете?|Активный|Пассивный|Культурный|Гастрономический
+Чем вы занимаетесь, когда не спится?|Листаю телефон|Читаю|Смотрю в потолок|Иду на кухню
+Какое слово лучше всего описывает ваше утро?|Бодрое|Ленивое|Тихое|Суматошное
+Как вы реагируете на неожиданные новости?|Спокойно|Эмоционально|Задумываюсь|Сразу звоню близким
+Как вы выбираете одежду?|По погоде|По настроению|Чтобы было удобно|Чтобы было красиво
+Как вы относитесь к шопингу?|Люблю, особенно с компанией|Нужен, но не люблю|Закажу онлайн|Только по необходимости
+Какую роль вы чаще всего играете в компании?|Организатор|Шутник|Слушатель|Тот, кто всех мирит
+Как вы относитесь ко всему новому?|Обожаю пробовать|Присматриваюсь и пробую|Предпочитаю знакомое|Принимаю, если нужно
+Что вы делаете, когда всё идёт не по плану?|Подстраиваюсь|Расстраиваюсь|Придумываю другой план|Смеюсь над ситуацией
+Что вам важнее всего в друге?|Верность|Юмор|Общие интересы|Умение выслушать
+Как вы обычно знакомитесь с людьми?|Сам(а) подхожу|Жду, пока подойдут|Через общих друзей|Онлайн
+Что вы сделаете, найдя на улице кошелёк?|Отнесу в полицию|Поищу владельца|Пройду мимо|Попробую связаться по документам
+Какой вы гость?|Прихожу с подарком|Прихожу с хорошим настроением|Прихожу голодным(ой)|Помогаю хозяевам
+Что вы сделаете, если опаздываете на встречу?|Сразу напишу|Побегу|Сделаю вид, что всё нормально|Придумаю оправдание
+Что вы сделаете в неожиданный выходной?|Лягу спать|Позову друзей|Поеду на природу|Займусь делами
+Как вы поведёте себя, потеряв ключи?|Спокойно поищу|Позвоню близким|Запаникую|Вызову мастера
+Какой вы покупатель?|Беру по списку|Беру всё, что понравится|Сравниваю цены|Беру самое необычное
+Что вы сделаете на скучной вечеринке?|Уйду пораньше|Заведу новые знакомства|Найду собеседника|Развеселю всех
+Что вы сделаете, получив повышение?|Устрою праздник|Тихо порадуюсь|Расскажу близким|Возьмусь за работу
+Что вы делаете, когда вам скучно?|Включаю фильм|Пишу кому-нибудь|Гуляю|Придумываю занятие
+Как вы реагируете на комплимент?|Благодарю|Смущаюсь|Отшучиваюсь|Отвечаю тем же
+Что вы делаете, когда что-то сломалось?|Чиню сам(а)|Зову мастера|Откладываю|Ищу инструкцию в интернете
+Что вам больше по душе?|Рассвет|Закат|Звёздное небо|Дождливый день
+Какой вы фотограф?|Снимаю всё подряд|Снимаю только самое красивое|Люблю селфи|Почти не снимаю
+Что вы делаете с подарками, которые не пригодились?|Дарю дальше|Храню из вежливости|Отдаю|Использую по-своему
+Как вы относитесь к переездам?|Люблю перемены|Если нужно, то ладно|Лучше не надо|Всегда мечтаю переехать
+Как вы относитесь к сюрпризам?|Люблю|Нервничаю|Люблю устраивать сам(а)|Предпочитаю знать заранее
+Как вы празднуете успех?|Ужин в ресторане|Покупка чего-нибудь|Тихо радуюсь|Звоню всем
+Как вы любите проводить вечер пятницы?|Дома с фильмом|В компании друзей|На прогулке|Лёжа в ванне
+Как вы относитесь к долгим разговорам по телефону?|Обожаю|Короткие лучше|Лучше написать|Не люблю звонки
+Какую песню вы бы включили на свадьбу?|Классику|Современный хит|Любимую с юности|Что-нибудь весёлое
+Что вам даётся сложнее всего?|Рано вставать|Начинать новое|Отказывать|Ждать
+Какой вы человек в очереди?|Терпеливый|Нервный|Достаю телефон|Завожу разговор
+Чего вы больше всего ждёте от жизни?|Спокойствия|Приключений|Любви|Новых открытий
+Как вы относитесь к тишине вдвоём?|Люблю|Иногда неловко|Хочется заполнить|Люблю, когда кто-то рядом
+Какой вы в поездках на машине?|Штурман|Водитель|Тот, кто спит|Тот, кто ставит музыку
+Какой отдых с друзьями вам по душе?|Шашлыки|Поход|Настольные игры|Квартирник
+Как вы ведёте себя в магазине?|Знаю, что нужно|Брожу без цели|Тороплюсь|Подолгу выбираю
+Как вы справляетесь со стрессом?|Спорт|Разговор|Сон|Еда
+Что вы сделаете, получив неожиданный подарок?|Обрадуюсь|Смущусь|Буду гадать, от кого|Сразу открою
+Какой формат вечеринки вам ближе?|Большой и шумный|Маленький и уютный|Тематический|Без вечеринок
+Что вы цените в погоде?|Солнце|Дождь|Снег|Ветер
+Что вас больше всего радует утром?|Кофе|Тишина|Хорошая погода|Планы на день
+Как вы выбираете, что смотреть?|Долго листаю|Сразу включаю знакомое|Спрашиваю у других|Смотрю то, что в тренде
+Что вы сделаете, если обидели близкого?|Попрошу прощения|Исправлю делом|Подарю что-нибудь|Подожду, пока забудется
+Какая из этих привычек ваша?|Опаздывать|Забывать|Откладывать|Перфекционизм
+Что вы возьмёте на романтическую прогулку?|Плед|Термос с чаем|Музыку|Фотоаппарат
+Какой вы любите отдых на природе?|С палаткой|С пикником|С велосипедом|Лучше с видом из окна
+Что вы выберете на выходных?|Выставку|Концерт|Просто прогулку|Домашние дела
+Как вы обычно планируете день?|В голове|В списке|Не планирую|Пользуюсь календарём
+Как вы выбираете подарок другу?|Долго ищу идеальный|Беру что-то практичное|Спрашиваю, что нужно|Дарю впечатления
+Какой вы водитель или пешеход?|Спокойный|Торопливый|Осторожный|Рассеянный
+Что вы любите больше всего в праздники?|Застолье|Подарки|Встречи с близкими|Атмосферу
+Какая погода нравится вам для прогулки?|Тёплая и солнечная|Прохладная|Морозная|С мелким дождём
+Что вы возьмёте в дорогу почитать или послушать?|Книгу|Подкаст|Любимый плейлист|Ничего, буду смотреть в окно
+Как вы относитесь к ранним подъёмам ради красивого рассвета?|Готов(а) хоть завтра|Один раз можно|Ни за что|Только если рядом кофе
+Какой десерт вы выберете в кафе?|Чизкейк|Тирамису|Яблочный пирог|Просто чай
+Какой вы любите кофе?|Эспрессо|Капучино|Латте|С сиропом и сливками
+Что вы делаете в воскресенье вечером?|Готовлюсь к неделе|Смотрю кино|Стараюсь не думать о завтра|Звоню родным
+Какое утро идеально для вас?|Долго валяться|Прогулка и завтрак|Спорт|Спокойный кофе с книгой
+Что вы возьмёте с собой в театр?|Хорошее настроение|Программку на память|Конфеты в карман|Сменную обувь и букет
+Как вы отнесётесь к предложению завтра улететь в другую страну?|Соберусь за час|Спрошу, на сколько|Посмотрю билеты и подумаю|Скажу, что это безумие
+Какая сказка вам ближе?|Про принцесс и рыцарей|Про зверей|Про волшебные приключения|Про умных героев
+Какую игру вы выберете на вечер?|Настольную|Карточную|Видеоигру|Загадки и головоломки
+Как вы собираете подарок на праздник?|Упаковываю сам(а) с бантом|Прошу упаковать в магазине|Дарю в пакете|Кладу в красивую коробку
+Как вы реагируете на спойлер?|Огорчаюсь|Смеюсь|Всё равно смотрю|Обижаюсь на рассказчика
+Что вы цените в утреннем кофе?|Запах|Крепость|Тишину рядом|Возможность проснуться
+Какое слово вам чаще всего хочется сказать после трудного дня?|«Устал(а)»|«Хочу домой»|«Хочу обниматься»|«Хочу есть»
+Какой вы человек в дороге домой?|Слушаю музыку|Думаю о делах|Звоню близким|Смотрю в окно
+Что вы сделаете, если закончился любимый продукт?|Побегу в магазин|Закажу доставку|Обойдусь другим|Попрошу кого-нибудь купить
+Какая кухня вам совсем не подходит?|Слишком острая|Слишком жирная|Слишком сладкая|Не люблю экзотику
+Что вы чаще всего берёте с собой в поездку?|Тёплую кофту|Книгу|Зарядку|Лишнюю пару обуви
+Какую награду вы бы хотели получить за хорошо выполненную работу?|Выходной|Деньги|Благодарность|Подарок
+Что вы возьмёте на пикник?|Бутерброды|Фрукты|Мясо для гриля|Только напитки
+Что вам нравится в зиме?|Снег|Праздники|Тёплый плед и чай|Лыжи или коньки
+Какой звук вам нравится больше всего?|Шум дождя|Шум моря|Пение птиц|Тишина
+Что вы сделаете, если вам не отвечают на сообщение?|Подожду|Напишу ещё раз|Позвоню|Сделаю вид, что мне всё равно
+Что вы делаете, если в компании неловкая пауза?|Шучу|Меняю тему|Молчу вместе со всеми|Достаю телефон
+Какой вы человек в играх?|Азартный|Спокойный|Хитрый|Тот, кто просто пришёл повеселиться
+Как вы относитесь к проигрышу?|Спокойно|Хочу реванш|Обижаюсь, но молчу|Смеюсь над собой`;
+  const KM_ITEMS = [...new Set(KM_RAW.split('\n').map(s => s.trim()).filter(Boolean))].filter(s => s.split('|').length === 5);
+  const KM_COL = ['#ff7a8a', '#ffb03a', '#46c9b8', '#7a8cff'];
+  const KM_LET = ['А', 'Б', 'В', 'Г'];
+  const kmDeck = makeDeck('knowme', KM_ITEMS);
+  const KM_VERDICTS = [
+    [90, '🔮', 'Читаете мысли', 'Вы знаете друг друга лучше, чем самих себя. Тайн почти не осталось.'],
+    [70, '💞', 'Одна волна', 'Отличный результат: вы замечаете мелочи и помните важное.'],
+    [50, '😊', 'Хорошая основа', 'Половину вы угадываете, а остальное станет поводом для новых разговоров.'],
+    [30, '🧩', 'Есть что узнать', 'Самое интересное впереди: расспросите друг друга о «неправильных» ответах.'],
+    [0, '🌱', 'Знакомство продолжается', 'Это не провал, а повод узнать друг друга заново. Сыграйте ещё раз!']
+  ];
+
+  registerGame({
+    id: 'knowme', title: 'Кто кого знает', icon: '💞', color: '#ff7a8a',
+    cats: ['Для двоих', 'Для компании'], teams: { min: 2, max: 6 }, mins: 20,
+    tagline: 'Один тайно отвечает про себя, другой угадывает его ответ. Насколько хорошо вы знаете друг друга?',
+    rules: '<ul><li>Раунд за раундом один из вас <b>тайно</b> отвечает про себя на вопрос с четырьмя вариантами, пока остальные не смотрят в экран.</li><li>Затем остальные по очереди тоже тайно выбирают вариант, который, по их мнению, выбрал отвечающий. Роли чередуются.</li><li>В режиме <b>«Вместе»</b> за каждое угадывание очко получает угадавший и столько же очков — отвечавший. В режиме <b>«Друг против друга»</b> очко получает только угадавший.</li><li>В конце считается <b>«Индекс знания»</b> — доля угаданных ответов, и вы узнаёте вердикт. Рекорд сохраняется для вашей компании.</li><li>Выбирайте честно: цель не обмануть, а узнать друг друга лучше.</li></ul>',
+    opts: [
+      { key: 'rounds', label: 'Раундов', values: [[6, '6'], [10, '10'], [16, '16']], def: 10 },
+      { key: 'score', label: 'Очки', values: [['together', 'Вместе'], ['versus', 'Друг против друга']], def: 'together' }
+    ],
+    cards: () => KM_ITEMS.length,
+    start(api) {
+      const N = api.n, total = [6, 10, 16].includes(+api.opts.rounds) ? +api.opts.rounds : 10, together = api.opts.score !== 'versus';
+      let round = 0, hits = 0, tries = 0, over = false;
+      const nm = i => api.teams[i].name;
+
+      function nextRound() {
+        if (round >= total) return finish();
+        const raw = kmDeck.draw();
+        if (!raw) return finish();
+        const p = raw.split('|'), q = p[0], opts = shuffle(p.slice(1).map((t, k) => ({ t, k })));
+        const A = round % N, guessers = []; for (let i = 1; i < N; i++) guessers.push((A + i) % N);
+        round++;
+        const R = { q, opts, A, guessers, ans: -1, picks: {}, n: round };
+        handover(api, nm(A), 'Раунд ' + round + ' из ' + total + '. Возьмите устройство, остальным не смотреть на экран: сейчас вы отвечаете про себя.', () => ask(R, A, true), 'Я готов(а)', A);
+      }
+
+      /* экран выбора: тайный ответ отвечающего или догадка угадывающего */
+      function ask(R, who, self) {
+        let sel = -1;
+        const cards = R.opts.map((o, i) => h('button', {
+          class: 'km-opt', type: 'button', 'aria-pressed': 'false', style: { '--c': KM_COL[i] }, onclick: () => {
+            sel = i; sfx.click(); cards.forEach((b, j) => b.setAttribute('aria-pressed', j === i ? 'true' : 'false')); go.disabled = false;
+          }
+        }, h('span', { class: 'km-let' }, KM_LET[i]), h('span', { class: 'km-t' }, o.t)));
+        const go = btn(self ? 'Ответ выбран' : 'Это мой выбор', () => {
+          if (sel < 0) return;
+          if (self) R.ans = sel; else R.picks[who] = sel;
+          sfx.ok();
+          const idx = R.guessers.indexOf(who), nxt = self ? R.guessers[0] : R.guessers[idx + 1];
+          if (nxt === undefined) return reveal(R);
+          handover(api, nm(nxt), 'Теперь ваша очередь угадать, как ответил(а) ' + nm(R.A) + '. Остальным не смотреть на экран.', () => ask(R, nxt, false), 'Я готов(а)', nxt);
+        }, 'big', { 'data-primary': true });
+        go.disabled = true;
+        api.show(h('div', { class: 'km-wrap' },
+          h('div', { class: 'km-kick' }, 'Раунд ' + R.n + ' из ' + total + (self ? ' · ответ про себя' : ' · угадайте ответ ' + nm(R.A))),
+          h('div', { class: 'km-q', 'data-tts': R.q }, self ? R.q : R.q + ' — как ответил(а) ' + nm(R.A) + '?'),
+          h('div', { class: 'km-grid' }, cards), h('div', { class: 'km-act' }, go)), { turn: who, role: self ? 'Отвечает про себя' : 'Угадывает ответ' });
+      }
+
+      function reveal(R) {
+        const right = R.guessers.filter(g => R.picks[g] === R.ans);
+        tries += R.guessers.length; hits += right.length;
+        right.forEach(g => {
+          if (together) { api.score(g, 1); api.score(R.A, 1); } else api.score(g, 1);
+        });
+        right.length ? sfx.win() : sfx.bad && sfx.bad();
+        const cards = R.opts.map((o, i) => h('div', { class: 'km-opt km-rev' + (i === R.ans ? ' km-right' : ' km-dim'), style: { '--c': KM_COL[i], '--d': (i * 90) + 'ms' } },
+          h('span', { class: 'km-let' }, KM_LET[i]), h('span', { class: 'km-t' }, o.t),
+          i === R.ans ? h('span', { class: 'km-tag' }, 'Ответ ' + nm(R.A)) : null,
+          h('span', { class: 'km-chips' }, R.guessers.filter(g => R.picks[g] === i).map(g => h('span', { class: 'km-chip', style: { '--c': api.teams[g].color } }, nm(g))))));
+        const msg = right.length === R.guessers.length ? (N === 2 ? 'Угадал(а)! Вы на одной волне' : 'Все угадали!') : right.length ? 'Угадали: ' + right.map(nm).join(', ') : 'Никто не угадал. Удивительно!';
+        api.show(h('div', { class: 'km-wrap' },
+          h('div', { class: 'km-kick' }, 'Раунд ' + R.n + ' из ' + total),
+          h('div', { class: 'km-q' }, R.q), h('div', { class: 'km-grid' }, cards),
+          h('div', { class: 'km-msg' + (right.length ? ' good' : '') }, msg),
+          h('div', { class: 'km-act' }, btn(round >= total ? 'К итогам' : 'Дальше', () => nextRound(), 'big', { 'data-primary': true }))), { turn: -1, role: 'Раскрытие' });
+        if (right.length) { try { fx.burst(stageEl(), 10); } catch (e) { } }
+      }
+      const stageEl = () => document.querySelector('.km-grid') || document.body;
+
+      function finish() {
+        if (over) return; over = true;
+        const pct = tries ? Math.round(hits * 100 / tries) : 0;
+        const v = KM_VERDICTS.find(x => pct >= x[0]);
+        const rk = 'knowme.rec', key = api.teams.map(t => t.name).sort().join('+') + '#' + total, all = store.get(rk, {}) || {};
+        const prev = all[key]; const rec = prev == null || pct > prev; if (rec) { all[key] = pct; store.set(rk, all); }
+        const lines = [
+          h('div', { class: 'km-index' }, h('div', { class: 'km-pct' }, pct + '%'), h('div', { class: 'km-cap' }, 'Индекс знания'), h('div', { class: 'km-bar' }, h('i', { style: { width: pct + '%' } }))),
+          h('p', { class: 'mid-t' }, v[2] + '. ' + v[3]),
+          h('p', { class: 'mid-t muted' }, 'Угадано ' + hits + ' из ' + tries + (prev == null ? '. Первый результат записан как рекорд.' : rec ? '. Новый рекорд! Прошлый: ' + prev + '%.' : '. Рекорд вашей компании: ' + prev + '%.'))
+        ];
+        const T = api.sorted(), best = T[0].score, lead = T.filter(t => t.score === best);
+        const title = v[1] + ' ' + (together ? 'Индекс знания: ' + pct + '%' : (lead.length > 1 ? 'Ничья!' : lead[0].name + ' знает лучше!'));
+        const sub = together ? T.map(t => t.name + ': ' + t.score).join(' · ') : 'Очки: ' + T.map(t => t.name + ' ' + t.score).join(' · ');
+        api.end({ custom: true, title, sub, lines, win: true });
+      }
+      nextRound();
     }
   });
 }

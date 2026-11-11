@@ -1,0 +1,18 @@
+/* Дуэт: Табу, Рисуй и угадывай, Крокодил */
+.du-roles{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;width:100%}
+.du-role{--c:#888;display:flex;flex-direction:column;align-items:center;gap:.15rem;min-width:9em;padding:.6rem 1.1rem;border-radius:18px;border:3px solid var(--c);background:color-mix(in srgb,var(--c) 22%,var(--ink));color:var(--paper)}
+.du-role small{font-weight:700;opacity:.85}
+.du-role b{font-family:var(--display);font-size:1.3em}
+.du-strip{display:inline-block;padding:.3rem .9rem;border-radius:999px;background:rgba(127,127,127,.18);border:2px solid currentColor;font-weight:700;align-self:center}
+.du-strip b{font-family:var(--display);font-size:1.2em}
+.du-play{display:flex;flex-direction:column;gap:.8rem;width:100%}
+.du-zone{display:flex;flex-direction:column;gap:.6rem;border-radius:20px}
+.du-zl{font-weight:800;opacity:.85;text-align:center}
+.du-gu{padding:.7rem;border:3px dashed currentColor;background:rgba(127,127,127,.08)}
+.du-taboo{width:100%;min-height:72px;font-size:1.6em}
+.du-ex .row{justify-content:center}
+@media (prefers-reduced-motion:reduce){.du-role,.du-taboo{transition:none;animation:none}}
+.du-btns{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.du-btns .btn{flex:1 1 30%;min-width:96px;min-height:56px}
+.du-btns .du-taboo{width:auto;min-height:56px;font-size:1.25em}
+@media (max-width:480px){.du-btns{gap:.4rem}.du-btns .btn{min-width:0;padding-inline:.3em;font-size:1em}.du-btns .btn.big{font-size:1.05em}}

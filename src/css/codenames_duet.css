@@ -1,0 +1,23 @@
+/* Кодовые имена: режим «Дуэт» */
+.cd-hud{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 16px;width:100%;font-weight:800;margin-bottom:6px}
+.cd-tok{display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.cd-tok i{width:16px;height:16px;border-radius:50%;border:3px solid var(--ink);background:transparent;display:block}
+.cd-tok i.on{background:var(--sun)}
+.cd-info{text-align:center;margin-bottom:6px}
+.cd-hint{padding:.6rem 1rem;font-weight:700}
+.cn-grid.cd-grid .cn-cell{min-height:clamp(44px,8.5vh,80px)}
+.cn-cell.cd-found{background:#5fcf86;box-shadow:none;cursor:default;color:#10281a}
+.cn-cell.cd-miss{background:#d9d2bd;box-shadow:none;cursor:default;color:#3a3628}
+.cn-cell.cd-key-cell{cursor:default}
+.cd-keywrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%}
+.cd-legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-weight:800}
+.cd-lg{padding:.15rem .6rem;border-radius:999px;border:2px solid var(--ink)}
+.cd-lg.g{background:#5fcf86;color:#10281a}.cd-lg.n{background:#e8e0c8;color:#3a3628}.cd-lg.x{background:#1a1a1f;color:#fff}
+.cn-cell.cd-k-g{background:#5fcf86;color:#10281a;box-shadow:none}
+.cn-cell.cd-k-n{background:#e8e0c8;color:#3a3628;box-shadow:none}
+.cn-cell.cd-k-x{background:#1a1a1f;color:#fff;box-shadow:none}
+.cn-cell.cd-was{opacity:.5}
+.cd-ok{position:absolute;left:6px;bottom:2px;font-style:normal;font-weight:900}
+.cn-grid.cd-key.cd-grid .cn-cell{font-size:clamp(.7rem,1.5vw,1.05rem)}
+.cn-grid.cd-final{max-width:640px}
+@media(max-width:560px){.cn-grid.cd-grid .cn-cell{font-size:clamp(.66rem,3vw,.9rem);min-height:46px}}

@@ -32,15 +32,37 @@
     id: 'draw', title: 'Рисуем и угадываем', icon: '🖍️', color: '#ff7a45',
     cats: ['Для компании', 'Командные', 'Для двоих'], teams: { min: 2, max: 6 }, mins: 25,
     tagline: 'Один рисует секретное слово прямо на общем экране — команда угадывает, пока не вышло время.',
-    rules: '<ul><li>В свой ход команда выбирает художника. Он смотрит слово (остальные отворачиваются) и рисует его на экране мышкой, пальцем или стилусом.</li><li>Рисовать буквы и цифры, говорить и показывать жестами нельзя.</li><li>Команда угадывает вслух. Чем быстрее ответ, тем больше очков: до трёх.</li><li>Если время вышло, слово показывают всем, а очков никто не получает.</li></ul>',
+    rules: '<ul><li>В свой ход команда выбирает художника. Он смотрит слово (остальные отворачиваются) и рисует его на экране мышкой, пальцем или стилусом.</li><li>Рисовать буквы и цифры, говорить и показывать жестами нельзя.</li><li>Команда угадывает вслух. Чем быстрее ответ, тем больше очков: до трёх.</li><li>Если время вышло, слово показывают всем, а очков никто не получает.</li></ul><p><b>Дуэт (вдвоём):</b> роли чередуются, один рисует, второй угадывает. «Вместе» — общий счёт, цель побить рекорд пары. «Друг против друга» — угадавший получает 1 очко (+1, если угадал быстрее половины времени), художник 1 очко за угаданный рисунок. Играют первые две команды из списка.</p>',
     opts: [
       { key: 'rounds', label: 'Рисунков у каждой команды', values: [2, 3, 5], def: 3 },
       { key: 'time', label: 'Время на рисунок', values: [[60, '60 секунд'], [90, '90 секунд'], [120, '2 минуты']], def: 90 },
-      { key: 'level', label: 'Сложность слов', values: [[0, 'Все вперемешку'], [1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные']], def: 0 }
+      { key: 'level', label: 'Сложность слов', values: [[0, 'Все вперемешку'], [1, 'Лёгкие'], [2, 'Средние'], [3, 'Сложные']], def: 0 },
+      ...DUET_OPTS()
     ],
     cards: () => DATA.draw.length,
     start(api) {
       const lvl = api.opts.level, filt = x => !lvl || x.l === lvl;
+      if (duetOn(api)) return duetRun(api, 'draw', (D, r) => {
+        const ex = r.ex, gu = r.gu; let card = deck.draw(filt), skip = 1;
+        D.intro(r, 'Рисует', 'Угадывает', 'Угадывающий отворачивается от экрана: слово увидит только художник. Рисовать буквы и цифры, говорить и показывать жестами нельзя.', 'Показать слово художнику', reveal);
+        function reveal() {
+          api.show([h('div', { class: 'card center' }, h('div', { class: 'kicker' }, 'Только для ' + D.names[ex] + ' · ' + card.c), h('div', { class: 'big' }, card.w), h('p', { class: 'hint' }, 'Запомните слово. Буквы и цифры рисовать нельзя.')),
+            h('div', { class: 'row' }, btn('Запомнил — рисую!', play, 'big', { 'data-primary': true }), skip > 0 ? btn('Другое слово', () => { skip--; card = deck.draw(filt); reveal(); }, 'paper') : null)], { turn: ex, mid: true, role: D.names[ex] + ' запоминает слово' });
+        }
+        function play() {
+          let over = false; const P = pad(), timer = Timer(api.opts.time, { onEnd: () => end(false) });
+          const hold = peek(h('div', { class: 'big' }, card.w), 'Напомнить слово художнику');
+          api.show(h('div', { class: 'drawlay' }, P.el, h('div', { class: 'drawside' }, timer.el, D.strip(), P.tools, h('div', { class: 'stack' }, btn('Угадал(а)!', () => end(true), 'big good', { 'data-primary': true }), btn('Не угадал(а)', () => end(false), 'big bad')), hold)), { turn: ex, role: D.names[ex] + ' рисует, ' + D.names[gu] + ' угадывает', compact: true });
+          timer.start();
+          function end(ok) {
+            if (over) return; over = true; const fast = timer.left >= api.opts.time / 2; timer.stop();
+            const res = ok ? D.award(gu, ex, fast) : null; if (ok) sfx.ok(); else sfx.buzz();
+            const pic = P.el.querySelector('canvas');
+            api.show([h('div', { class: 'cover' }, h('div', { class: 'kicker' }, ok ? 'Угадали!' : 'Не угадали'), h('div', { class: 'big' }, 'Слово: ' + card.w), h('p', { class: 'mid-t' }, ok ? res.text + '.' : 'В этот раз без очков.'), D.strip()),
+              h('div', { class: 'padwrap done' }, pic), h('div', { class: 'row center' }, btn(r.last ? 'Итоги' : 'Дальше', r.next, 'big', { 'data-primary': true }))], { turn: ex, mid: true, role: 'Итог рисунка' });
+          }
+        }
+      });
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const name = api.teams[ti].name; let card = deck.draw(filt), skip = 1;
         intro();

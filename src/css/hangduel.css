@@ -1,0 +1,6 @@
+/* Виселица: режим «Загадывают игроки» */
+.hd-form{max-width:520px;width:100%;margin:0 auto}
+.hd-in{font-size:1.2rem;min-height:48px;width:100%}
+.hd-err{color:#d6334f;min-height:1.4em}
+.hd-conf{letter-spacing:.12em;word-break:break-all}
+.row .hd-in{flex:1;min-width:140px}
