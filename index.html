@@ -1072,7 +1072,7 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 'use strict';
 /* ===================== Игротека: движок ===================== */
 const DATA = {};
-const G = { games: [] };
+const G = { games: [], sessionSeen: new Set() };
 
 /* ---------- утилиты ---------- */
 const rnd = n => Math.floor(Math.random() * n);
@@ -1116,8 +1116,12 @@ function describeItem(it) { if (it && typeof it === 'object' && !Array.isArray(i
 function makeDeck(name, base) {
   const key = 'seen.' + name, bkey = 'bad.' + name; pendingDecks.push(name);
   const themed = (DATA.themed && DATA.themed[name]) || {};
-  const items = base.slice(), tags = base.map(() => null);
-  for (const p in themed) themed[p].forEach(it => { items.push(it); tags.push(p); });
+  const items = [], tags = [], dupKey = new Set();
+  /* одинаковые слова (без учёта регистра и ё) в колоде не держим: иначе одно слово выпадет дважды за вечер */
+  const wkey = it => { const w = typeof it === 'string' ? it : (it && typeof it.w === 'string' ? it.w : null); return w == null ? null : String(w).toLowerCase().replace(/ё/g, 'е').trim(); };
+  const add = (it, tag) => { const k = wkey(it); if (k != null) { if (dupKey.has(k)) return; dupKey.add(k); } items.push(it); tags.push(tag); };
+  base.forEach(it => add(it, null));
+  for (const p in themed) themed[p].forEach(it => add(it, p));
   const ok = (i, flt, P, bad) => (!flt || flt(items[i])) && (P === 'all' ? !tags[i] : P === 'kids' ? tags[i] === 'kids' : (!tags[i] || tags[i] === P)) && !bad.has(itemKey(items[i]));
   const pool = (flt, P) => { const bad = new Set(store.get(bkey, [])), r = []; items.forEach((it, i) => { if (ok(i, flt, P, bad)) r.push(i); }); return r; };
   const deck = {
@@ -1125,11 +1129,13 @@ function makeDeck(name, base) {
     draw(filter) {
       let p = pool(filter, curPack()); if (!p.length) p = pool(filter, 'all'); if (!p.length) p = items.map((_, i) => i).filter(i => !filter || filter(items[i]));
       if (!p.length) return null;
-      const seen = new Set(store.get(key, []));
-      let fresh = p.filter(i => !seen.has(i));
-      if (!fresh.length) { p.forEach(i => seen.delete(i)); fresh = p; }
+      const seen = new Set(store.get(key, [])), ss = G.sessionSeen, sk = i => name + '|' + itemKey(items[i]);
+      /* «свежее» = не выпадало ни раньше, ни в этой игровой сессии; когда кончилось — сначала сбрасываем старую историю, но не сессионную */
+      let fresh = p.filter(i => !seen.has(i) && !ss.has(sk(i)));
+      if (!fresh.length) { p.forEach(i => seen.delete(i)); fresh = p.filter(i => !ss.has(sk(i))); }
+      if (!fresh.length) { p.forEach(i => ss.delete(sk(i))); fresh = p; }
       const P = curPack(); if (P !== 'all' && P !== 'kids') { const th = fresh.filter(j => tags[j] === P); if (th.length && Math.random() < .7) fresh = th; }
-      const i = fresh[rnd(fresh.length)]; seen.add(i); store.set(key, [...seen]); LAST = { deck: name, item: items[i] };
+      const i = fresh[rnd(fresh.length)]; seen.add(i); ss.add(sk(i)); store.set(key, [...seen]); LAST = { deck: name, item: items[i] };
       return items[i];
     },
     drawN(n, filter) { const r = []; for (let i = 0; i < n; i++) { const x = this.draw(filter); if (x != null) r.push(x); } return r; },
@@ -1389,7 +1395,7 @@ function startSession(game, teamList, opts) {
   const T = teamList.map(t => ({ name: t.name, color: t.color, score: 0 }));
   const board = h('div', { class: 'board' }), stage = h('main', { class: 'stage' }), turnbar = h('div', { class: 'turnbar', 'aria-live': 'polite' });
   let turn = -1, lastBar = '', streakN = 0, lastScorer = -1, ttsEl = null;
-  G.inSession = true; G.mood = game.mood || MOOD_BY_GAME[game.id] || 'fun'; Voice.stop(); Music.start(G.mood); sfx.start();
+  G.sessionSeen = new Set(); G.inSession = true; G.mood = game.mood || MOOD_BY_GAME[game.id] || 'fun'; Voice.stop(); Music.start(G.mood); sfx.start();
   /* крупный баннер «кто сейчас действует»: o.turn — индекс команды, o.role — что делает, o.all — действуют все */
   function paintTurn(o) {
     const role = o.role || '';
