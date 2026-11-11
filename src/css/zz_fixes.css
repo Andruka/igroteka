@@ -1,3 +1,5 @@
 /* Кнопки внутри экрана передачи устройства: «.cover .big» красил текст в цвет фона кнопки (жёлтый на жёлтом) */
 .cover .btn,.cover .btn.big{color:var(--ink)}
 .cover .btn.ghost,.cover .btn.paper{color:var(--ink)}
+/* Рисовалка на телефоне: таймер и кнопки «Угадал(а)!» сразу под полем, инструменты — ниже (иначе кнопка уезжает за экран) */
+@media(max-width:900px){.drawlay .drawside .timer{order:-2}.drawlay .drawside .stack{order:-1}.drawlay .drawside{gap:.5rem}}

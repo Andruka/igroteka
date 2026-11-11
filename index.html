@@ -1186,6 +1186,8 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 /* Кнопки внутри экрана передачи устройства: «.cover .big» красил текст в цвет фона кнопки (жёлтый на жёлтом) */
 .cover .btn,.cover .btn.big{color:var(--ink)}
 .cover .btn.ghost,.cover .btn.paper{color:var(--ink)}
+/* Рисовалка на телефоне: таймер и кнопки «Угадал(а)!» сразу под полем, инструменты — ниже (иначе кнопка уезжает за экран) */
+@media(max-width:900px){.drawlay .drawside .timer{order:-2}.drawlay .drawside .stack{order:-1}.drawlay .drawside{gap:.5rem}}
 
 /* Главная: поиск, значок «Новое», компактная шапка */
 .gsearch{display:block;width:100%;max-width:420px;margin:0 0 clamp(14px,2vw,22px);padding:.7em 1em;border-radius:14px;border:3px solid var(--ink);background:var(--paper,#fff);color:var(--ink);font:inherit;font-weight:700;box-shadow:0 4px 0 var(--ink)}
