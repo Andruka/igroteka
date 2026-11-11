@@ -15,13 +15,13 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
       const out = { themes: 0, short: [], dup: [], empty: [] };
       for (const t in DATA.memory) {
         out.themes++; const L = new Set(), R = new Set(), P = DATA.memory[t];
-        if (P.length < 24) out.short.push(t + ':' + P.length);
+        if (P.length < 18) out.short.push(t + ':' + P.length);
         P.forEach(([l, r]) => { if (!l || !r) out.empty.push(t); if (L.has(l)) out.dup.push(t + '/' + l); if (R.has(r)) out.dup.push(t + '/' + r); L.add(l); R.add(r); });
       }
       return out;
     });
     ok(r.themes >= 6, 'тем не меньше 6: ' + r.themes);
-    ok(!r.short.length, 'в каждой теме 24+ пар' + (r.short.length ? ': ' + r.short : ''));
+    ok(!r.short.length, 'в каждой теме 18+ (на поле 6×6 нужно 18) пар' + (r.short.length ? ': ' + r.short : ''));
     ok(!r.dup.length, 'нет дублей внутри тем' + (r.dup.length ? ': ' + r.dup : ''));
     ok(!r.empty.length, 'нет пустых значений');
     await p.close();
