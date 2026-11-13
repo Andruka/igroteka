@@ -15,7 +15,7 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     await p.goto(file);
     const first = await p.locator('.gcard').first().boundingBox();
     assert.ok(first.y + 80 < 667, 'часть первой игры видна без прокрутки');
-    assert.equal(await p.locator('.gcard').count(), 47);
+    assert.equal(await p.locator('.gcard').count(), 49);
     await p.getByRole('button', { name: 'Игроков: 1', exact: true }).click();
     assert.equal(await p.getByRole('heading', { name: 'Пары', exact: true }).count(), 1);
     assert.equal(await p.getByRole('heading', { name: 'Крокодил', exact: true }).count(), 0);
@@ -42,19 +42,19 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     assert.equal(await p.locator('.gcard').count(), 0);
     assert.equal(await p.getByRole('button', { name: 'Случайная игра', exact: true }).isDisabled(), true);
     await p.getByRole('button', { name: 'Показать все игры', exact: true }).click();
-    assert.equal(await p.locator('.gcard').count(), 47);
+    assert.equal(await p.locator('.gcard').count(), 49);
     assert.equal(await p.getByRole('searchbox').inputValue(), '');
     console.log('ok   каталог: первый экран, один игрок, люди и команды, дуэт, пустой поиск и сброс');
 
     // Новая сессия: в каждой игре кнопка запуска видна до подробных настроек.
-    const ids = await p.evaluate(() => G.games.map(g => g.id));
+    const ids = await p.evaluate(() => G.games.filter(g => !g.hidden).map(g => g.id));
     for (const id of ids) {
       await p.goto(file); await intro(p, id);
       const r = await p.getByRole('button', { name: 'Играть', exact: true }).boundingBox();
       assert.ok(r.y >= 0 && r.y + r.height <= 667, id + ': запуск на первом экране');
       assert.ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth), id + ': ширина настроек');
     }
-    console.log('ok   все 47 игр: запуск на первом экране телефона');
+    console.log('ok   все 49 игр: запуск на первом экране телефона');
     await p.goto(file); await intro(p, 'memory');
     const theme = p.getByRole('combobox', { name: 'Тема для режима «Термины»', exact: true });
     assert.equal(await theme.locator('option').count(), 50);

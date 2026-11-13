@@ -1,12 +1,14 @@
 /* Программа из нескольких игр; очки этапов зависят от мест, а не шкалы игры. */
 const Evening = {
   live: null, storageOK: true, invalid: false,
-  pool: ['dilemma', 'emoji', 'memory', 'quiz', 'anagram', 'fake', 'odd', 'before', 'hl', 'codebreaker', 'estimate', 'timeline', 'charades', 'taboo', 'draw'],
+  title(id) { const game = G.games.find(game => game.id === id); return game ? game.title + (game.hidden ? ' · архив' : '') : (id === 'crop' ? 'Что за кадром? · архив' : 'Игра'); },
+  pool: ['dilemma', 'emoji', 'memory', 'quiz', 'anagram', 'fake', 'odd', 'before', 'hl', 'codebreaker', 'estimate', 'timeline', 'charades', 'taboo', 'draw', 'changes', 'snapshot'],
   collections: [
     { id: 'mix', title: 'Разнообразный вечер', description: 'Чередуем вопросы, слова и задачи на логику.' },
     { id: 'quiz', title: 'Викторины', description: 'Кино, факты, числа и события.', games: ['emoji', 'quiz', 'fake', 'odd', 'before', 'hl', 'estimate', 'timeline'] },
     { id: 'words', title: 'Слова и общение', description: 'Собираем слова, объясняем и обсуждаем.', games: ['anagram', 'charades', 'taboo', 'draw', 'emoji', 'dilemma'] },
-    { id: 'logic', title: 'На логику', description: 'Ищем закономерности, запоминаем и сравниваем.', games: ['memory', 'codebreaker', 'odd', 'before', 'hl', 'estimate', 'timeline'] }
+    { id: 'logic', title: 'На логику', description: 'Ищем закономерности, запоминаем и сравниваем.', games: ['memory', 'codebreaker', 'odd', 'before', 'hl', 'estimate', 'timeline', 'changes', 'snapshot'] },
+    { id: 'media', title: 'Музыка и картинки', description: 'Узнаём рисунки и мелодии, ищем изменения и запоминаем детали.', games: ['changes', 'snapshot', 'memory', 'emoji', 'odd'] }
   ],
   formatPoints(value) { return Records.format(value, Number.isInteger(value) ? plural(value, 'балл', 'балла', 'баллов') : 'балла'); },
   points(scores) { return scores.map(score => scores.filter(other => other < score).length + (scores.filter(other => other === score).length - 1) / 2); },
@@ -28,9 +30,9 @@ const Evening = {
   },
   eligible(n, pack) {
     return this.pool.map(id => G.games.find(g => g.id === id)).filter(game => {
-      if (!game || game.coop || n < game.teams.min || n > game.teams.max || (game.id === 'codebreaker' && n > 2)) return false;
+      if (!game || game.hidden || game.coop || n < game.teams.min || n > game.teams.max || (game.id === 'codebreaker' && n > 2)) return false;
       if (['charades', 'taboo', 'draw'].includes(game.id) && n !== 2) return false;
-      return pack !== 'kids' || (game.decks || []).some(deck => DATA.themed && DATA.themed[deck] && DATA.themed[deck].kids && DATA.themed[deck].kids.length);
+      return pack !== 'kids' || game.familySafe || (game.decks || []).some(deck => DATA.themed && DATA.themed[deck] && DATA.themed[deck].kids && DATA.themed[deck].kids.length);
     });
   },
   generate(n, minutes, pack, collection = 'mix') {
@@ -42,7 +44,7 @@ const Evening = {
       const groups = shuffle([
         ['dilemma', 'anagram', 'charades', 'taboo', 'draw'],
         ['emoji', 'quiz', 'fake', 'before', 'hl'],
-        ['memory', 'codebreaker', 'odd', 'estimate', 'timeline']
+        ['memory', 'codebreaker', 'odd', 'estimate', 'timeline', 'changes', 'snapshot']
       ]).map(ids => shuffle(available.filter(g => ids.includes(g.id))));
       games = [];
       while (groups.some(group => group.length)) for (const group of groups) if (group.length) games.push(group.pop());
@@ -52,7 +54,8 @@ const Evening = {
   editor(stages, n, minutes, pack, change) {
     const available = this.eligible(n, pack), list = h('ol', { class: 'evening-preview evening-editor' });
     list.replaceChildren(...stages.map((stage, index) => {
-      const editable = stage.status === 'pending', title = G.games.find(g => g.id === stage.game).title;
+      const editable = stage.status === 'pending', title = this.title(stage.game);
+      if (stage.game === 'crop' || G.games.find(game => game.id === stage.game)?.hidden) return h('li', null, h('b', null, title), h('small', null, 'Результат сохранён; игра сейчас недоступна.'));
       const select = h('select', { class: 'input', 'aria-label': 'Игра этапа ' + (index + 1), disabled: !editable, onchange: e => {
         const game = available.find(g => g.id === e.target.value);
         if (!game) return;
@@ -81,8 +84,9 @@ const Evening = {
     if (!Array.isArray(run.stages) || run.stages.length !== { 20: 3, 40: 4, 60: 5 }[run.minutes] || new Set(run.stages.map(s => s && s.game)).size !== run.stages.length) return false;
     const allowed = this.eligible(run.people.length, run.pack).map(g => g.id); let open = false, playing = false;
     for (const stage of run.stages) {
-      if (!stage || !allowed.includes(stage.game) || !['pending', 'playing', 'done', 'skipped'].includes(stage.status)) return false;
-      const game = G.games.find(g => g.id === stage.game);
+      const archived = stage && (stage.game === 'crop' || G.games.find(game => game.id === stage.game)?.hidden) && ['done','skipped'].includes(stage.status);
+      if (!stage || (!archived && !allowed.includes(stage.game)) || !['pending', 'playing', 'done', 'skipped'].includes(stage.status)) return false;
+      const game = G.games.find(g => g.id === stage.game) || { opts: [] };
       if (!stage.opts || typeof stage.opts !== 'object' || Array.isArray(stage.opts)) return false;
       for (const option of game.opts || []) {
         const values = (typeof option.values === 'function' ? option.values() : option.values).map(value => Array.isArray(value) ? value[0] : value);
@@ -102,7 +106,18 @@ const Evening = {
   read() {
     if (this.live && this.valid(this.live)) return this.live;
     let raw;
-    try { raw = localStorage.getItem('igroteka.evening.v1'); if (raw == null) return null; if (raw.length > 50000) throw new Error('size'); const run = JSON.parse(raw); if (!this.valid(run)) throw new Error('invalid'); this.live = run; return run; }
+    try { raw = localStorage.getItem('igroteka.evening.v1'); if (raw == null) return null; if (raw.length > 50000) throw new Error('size'); const run = JSON.parse(raw);
+      // В прежних программах ещё не было выбора репертуара и ввода фотоответа.
+      if (run && Array.isArray(run.stages)) for (const stage of run.stages) {
+        if (stage && (stage.game === 'crop' || G.games.find(game => game.id === stage.game)?.hidden) && ['pending','playing'].includes(stage.status)) {
+          const replacement = this.eligible(run.people?.length, run.pack).find(game => !run.stages.some(other => other.game === game.id));
+          if (replacement) Object.assign(stage, { game: replacement.id, opts: this.options(replacement, run.minutes, run.people.length, run.pack), status: 'pending', result: null });
+        }
+        if (!stage || !['changes','snapshot','melody'].includes(stage.game) || !stage.opts || typeof stage.opts !== 'object') continue;
+        const game = G.games.find(g => g.id === stage.game);
+        for (const option of game?.opts || []) if (!Object.hasOwn(stage.opts, option.key)) stage.opts[option.key] = option.def;
+      }
+      if (!this.valid(run)) throw new Error('invalid'); this.live = run; return run; }
     catch (e) { this.invalid = raw != null; return null; }
   },
   write(run) {
@@ -176,7 +191,7 @@ const Evening = {
     mount(h('div', { class: 'wrap progress-page evening-page' }, btn('Каталог', Home, 'ghost small'), h('h1', null, finished ? 'Итоги вечера' : 'Игровой вечер'),
       h('p', null, run.people.length === 1 ? 'Завершено игр: ' + done + ' из ' + run.stages.length : finished && done ? (winners.length === 1 ? winners[0] + ' побеждает!' : 'Ничья: ' + winners.join(', ')) : 'Завершено этапов: ' + done + ' из ' + run.stages.length),
       this.storageOK ? null : h('p', { class: 'panel' }, 'Не удалось сохранить программу на устройстве. До закрытия страницы итоги доступны здесь.'),
-      h('ol', { class: 'evening-stages' }, ...run.stages.map((s, i) => h('li', { class: 'panel', 'data-stage': i }, h('b', null, G.games.find(g => g.id === s.game).title), h('p', null, s.status === 'done' ? 'Завершено' : s.status === 'skipped' ? 'Пропущено' : i === index ? 'Следующая игра' : 'Впереди'),
+      h('ol', { class: 'evening-stages' }, ...run.stages.map((s, i) => h('li', { class: 'panel', 'data-stage': i }, h('b', null, this.title(s.game)), h('p', null, s.status === 'done' ? 'Завершено' : s.status === 'skipped' ? 'Пропущено' : i === index ? 'Следующая игра' : 'Впереди'),
         s.result ? h('p', { class: 'stage-scores' }, run.people.map((p, k) => p.name + ': ' + s.result.raw[k] + (run.people.length > 1 ? ' → ' + this.formatPoints(s.result.points[k]) : '')).join(' · ')) : null))),
       run.people.length > 1 ? h('section', { class: 'panel' }, h('h2', null, 'Общий счёт'), ...totals.map(person => h('p', { class: 'evening-total' }, h('b', null, person.name), this.formatPoints(person.points))), h('p', null, 'За каждого участника ниже вас — 1 балл. При равенстве — по половине балла за соперника с тем же результатом.')) : null,
       stage ? h('section', { class: 'panel dark' }, h('h2', null, 'Этап ' + (index + 1) + ' из ' + run.stages.length + ' · ' + game.title),

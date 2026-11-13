@@ -11,7 +11,7 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(file);
-    const ids = await page.evaluate(() => G.games.map(g => g.id));
+    const ids = await page.evaluate(() => G.games.filter(g => !g.hidden).map(g => g.id));
     for (const id of ids) {
       await page.goto(file);
       const title = await page.evaluate(id => {

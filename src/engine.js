@@ -42,8 +42,8 @@ const itemKey = it => typeof it === 'string' ? it : it && typeof it.id === 'stri
 const legacyItemKey = it => it && typeof it.id === 'string' && Array.isArray(it.a) ? JSON.stringify({ c: it.c, l: it.l, q: it.q, a: it.a }) : itemKey(it);
 function describeItem(it) { if (it && typeof it === 'object' && !Array.isArray(it) && typeof it.q === 'string') return it.q + (Array.isArray(it.a) ? ' → ' + it.a[0] : typeof it.a === 'string' ? ' → ' + it.a : ''); if (it && it.fake) return it.topic + ': ' + it.fake; if (it && it.w) return it.w + (it.m ? ' = ' + it.m : '');
   const o = []; (function w(v) { if (v == null) return; if (Array.isArray(v)) v.forEach(w); else if (typeof v === 'object') Object.values(v).forEach(w); else o.push(String(v)); })(it); return o.join(' · '); }
-function makeDeck(name, base) {
-  const key = 'seen.' + name, bkey = 'bad.' + name; pendingDecks.push(name);
+function makeDeck(name, base, track = true) {
+  const key = 'seen.' + name, bkey = 'bad.' + name; if (track) pendingDecks.push(name);
   const themed = (DATA.themed && DATA.themed[name]) || {};
   const items = [], tags = [], dupKey = new Set();
   /* одинаковые слова (без учёта регистра и ё) в колоде не держим: иначе одно слово выпадет дважды за вечер */
@@ -100,7 +100,7 @@ const sfx = (() => {
     const s = a.createBufferSource(), g = a.createGain(); s.buffer = buf; g.gain.value = vol; s.connect(g); g.connect(a.destination); s.start();
   }
   return {
-    get muted() { return mute; }, ctx, toggle() { mute = !mute; store.set('mute', mute); Music.sync(); if (mute) Music.stop(); else if (G.inSession) Music.start(G.mood); return mute; },
+    get muted() { return mute; }, ctx, toggle() { mute = !mute; store.set('mute', mute); Music.sync(); if (mute) Music.stop(); else if (G.inSession && !G.api?.game.noMusic) Music.start(G.mood); return mute; },
     click() { tone(520, .05, 'square', .04); }, ok() { tone(660, .1, 'triangle', .14); tone(880, .18, 'triangle', .14, .1); },
     bad() { tone(220, .3, 'sawtooth', .1, 0, 110); }, tick() { if (Settings.get('tick')) tone(900, .04, 'square', .05); },
     boom() { noise(1, .4); tone(90, .7, 'sawtooth', .25, 0, 35); }, buzz() { tone(140, .5, 'sawtooth', .12); },
@@ -253,7 +253,7 @@ function fullBtn() {
 }
 
 /* ---------- каталог ---------- */
-const CATS = ['Все', '★ Любимые', 'Викторины', 'Для компании', 'Командные', 'Для двоих', 'Загадки и истории'];
+const CATS = ['Все', '★ Любимые', 'Викторины', 'Музыка и картинки', 'Для компании', 'Командные', 'Для двоих', 'Загадки и истории'];
 const favs = () => { const a = store.get('fav', []); return Array.isArray(a) ? a : []; };
 const isFav = id => favs().includes(id);
 function favStar(g, onChange) {
@@ -273,9 +273,9 @@ function Home() {
   const grid = h('div', { class: 'grid' }), state = h('div', { class: 'filter-state', 'aria-live': 'polite' });
   const fits = g => { const p = g.players; return !np || (np === 6 ? p.max == null || p.max >= 6 : np >= p.min && (p.max == null || np <= p.max)); };
   const packHas = (g, p) => (g.decks || []).some(n => DATA.themed && DATA.themed[n] && DATA.themed[n][p] && DATA.themed[n][p].length);
-  const packOk = g => pack !== 'kids' || !(g.decks || []).length || packHas(g, 'kids');
+  const packOk = g => pack !== 'kids' || g.familySafe || !(g.decks || []).length || packHas(g, 'kids');
   const found = g => !q || (g.title + ' ' + g.tagline).toLowerCase().includes(q);
-  const visible = () => G.games.filter(g => (cat === 'Все' || (cat === '★ Любимые' ? isFav(g.id) : g.cats.includes(cat))) && fits(g) && packOk(g) && found(g)).sort((a, b) => cat === 'Все' && !q ? isFav(b.id) - isFav(a.id) : 0);
+  const visible = () => G.games.filter(g => !g.hidden && (cat === 'Все' || (cat === '★ Любимые' ? isFav(g.id) : g.cats.includes(cat))) && fits(g) && packOk(g) && found(g)).sort((a, b) => cat === 'Все' && !q ? isFav(b.id) - isFav(a.id) : 0);
   const open = g => Intro(g, { players: np });
   const search = h('input', { class: 'gsearch', type: 'search', placeholder: 'Найти игру…', 'aria-label': 'Найти игру по названию', autocomplete: 'off', oninput: e => { q = e.target.value.trim().toLowerCase(); paint(); } });
   const randomBtn = btn('Случайная игра', () => { const list = visible(); if (list.length) open(pick(list)); }, 'small paper');
@@ -304,8 +304,8 @@ function Home() {
   mount(h('div', { class: 'wrap catalog-page' },
     h('div', { class: 'hero' }, h('div', { class: 'hero-main' }, h('div', null, h('h1', null, 'Игротека'), h('p', null, 'На одном экране — одному, вдвоём и компанией.'))), h('div', { class: 'top' }, setBtn(), muteBtn(), fullBtn())),
     search, people, quick, h('div', { class: 'catalog-features' }, btn('Игровой вечер', () => Evening.open(), 'paper small'), btn('Результаты', () => Records.show(), 'paper small')), filters, state,
-    h('div', { class: 'continue-list' }, G.games.filter(game => Saves.read(game).status === 'ok').map(game => btn('Продолжить: ' + game.title, () => Saves.resume(game), 'paper small'))), grid,
-    h('div', { class: 'foot' }, h('span', null, G.games.length + ' игр. В выбранной колоде карточки идут без повторов, пока не закончатся.'), btn('Сбросить историю карточек', () => confirmBox('Все карточки снова станут «новыми». Сбросить?', () => { store.clearSeen(); Home(); }, 'Сбросить'), 'ghost small'))));
+    h('div', { class: 'continue-list' }, G.games.filter(game => !game.hidden && Saves.read(game).status === 'ok').map(game => btn('Продолжить: ' + game.title, () => Saves.resume(game), 'paper small'))), grid,
+    h('div', { class: 'foot' }, h('span', null, G.games.filter(game => !game.hidden).length + ' игр. В выбранной колоде карточки идут без повторов, пока не закончатся.'), btn('Сбросить историю карточек', () => confirmBox('Все карточки снова станут «новыми». Сбросить?', () => { store.clearSeen(); Home(); }, 'Сбросить'), 'ghost small'))));
 }
 function playersLabel(g) {
   const p = g.players;
@@ -396,7 +396,7 @@ function Intro(g, setup = {}) {
       h('div', { class: 'panel dark setup-panel' }, h('div', { class: 'quick-start' },
         g.coop ? h('p', null, 'Решайте вместе или играйте самостоятельно.') : countBox,
         btn('Играть', start, 'huge', { 'data-primary': true })),
-        Saves.control(g, () => Intro(g)), optBox, teamDetails),
+        Saves.control(g, () => Intro(g)), g.setupExtra ? g.setupExtra() : null, optBox, teamDetails),
       h('details', { class: 'panel rules-panel' }, h('summary', null, 'Как играть'), h('div', { class: 'rules', html: g.rules })))));
 }
 
@@ -409,7 +409,7 @@ function startSession(game, teamList, opts, restored = null, context = {}) {
   const board = h('div', { class: 'board' }), stage = h('main', { class: 'stage' }), turnbar = h('div', { class: 'turnbar', 'aria-live': 'polite' });
   let turn = -1, lastBar = '', streakN = 0, lastScorer = -1, ttsEl = null, flagEl = null, flagCards = [], getSave = null, saveTick = null;
   const setFlagCards = cards => { flagCards = cards.slice(); if (flagEl) flagEl.disabled = !flagCards.length; };
-  G.sessionSeen = new Set(); G.inSession = true; G.mood = game.mood || MOOD_BY_GAME[game.id] || 'fun'; Voice.stop(); Music.start(G.mood); sfx.start();
+  G.sessionSeen = new Set(); G.inSession = true; G.mood = game.mood || MOOD_BY_GAME[game.id] || 'fun'; Voice.stop(); if (game.noMusic) Music.stop(true); else Music.start(G.mood); sfx.start();
   /* крупный баннер «кто сейчас действует»: o.turn — индекс команды, o.role — что делает, o.all — действуют все */
   function paintTurn(o) {
     const role = o.role || '';

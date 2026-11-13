@@ -62,7 +62,7 @@ const Records = {
   },
   show() {
     leaveSession(); Music.stop(); Voice.stop();
-    const all = Object.values(this.read()).sort((a, b) => b.at - a.at), list = h('div', { class: 'results-grid' });
+    const all = Object.values(this.read()).filter(row => !G.games.find(game => game.id === row.game)?.hidden).sort((a, b) => b.at - a.at), list = h('div', { class: 'results-grid' });
     let limit = 20;
     const more = btn('Показать ещё', () => { limit += 20; paint(); }, 'paper');
     const select = h('select', { class: 'input', 'aria-label': 'Игра в результатах', onchange: () => { limit = 20; paint(); } }, h('option', { value: '' }, 'Все игры'), ...G.games.filter(game => all.some(row => row.game === game.id)).map(game => h('option', { value: game.id }, game.title)));
