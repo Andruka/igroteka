@@ -4,7 +4,7 @@ const path = require('path');
 const file = 'file://' + path.resolve(__dirname, '../index.html');
 const only = process.argv[2] && process.argv[2] !== 'all' ? process.argv[2] : null;
 const maxSteps = +(process.argv[3] || 400);
-const SKIP = /^(Выход|Каталог|Правила|Сбросить историю карточек|В каталог)$/;
+const SKIP = /^(Выход|Каталог|Правила|Сбросить историю карточек|В каталог|В меню игры)$/;
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
