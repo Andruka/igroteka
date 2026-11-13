@@ -9,7 +9,7 @@ const path = require('path');
   const errs = []; p.on('pageerror', e => errs.push(e.message));
   await p.goto('file://' + path.resolve(__dirname, '../index.html'));
   const ids = await p.evaluate(() => G.games.map(g => g.id));
-  const SKIP = /^(Выход|Каталог|Правила|Сбросить историю карточек|В каталог)$/;
+  const SKIP = /^(Выход|Каталог|Правила|Сбросить историю карточек|В каталог|В меню игры|Пауза)$/;
   let bad = 0;
   const check = async (id, tag) => {
     const r = await p.evaluate(() => {

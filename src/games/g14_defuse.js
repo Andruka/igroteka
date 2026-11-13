@@ -136,7 +136,7 @@
         function strike(msg) {
           strikes++; sfx.bad();
           if (strikes >= 2) return explode('Второй промах');
-          stage.classList.add('shake'); setTimeout(() => stage.classList.remove('shake'), 500);
+          stage.classList.add('shake'); api.delay(() => stage.classList.remove('shake'), 500);
           info.textContent = 'Промах! ' + msg + ' Остался один шанс.'; hearts();
         }
         function pull(i) {

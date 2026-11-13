@@ -24,12 +24,12 @@
         api.show([
           turnHead(api, ti, 'Вопрос ' + k + ' из ' + total + '. Выберите тему и очки.'),
           h('div', { class: 'grid', style: { gridTemplateColumns: 'repeat(auto-fill,minmax(min(100%,230px),1fr))' } }, tiles)
-        ], { turn: ti, role: 'Выбирает тему и очки' });
+        ], { turn: ti, role: 'Выбирает тему и очки', flagCards: [] });
         function ask(cat, lvl) {
           const q = deck.draw(x => x.c === cat.id && x.l === lvl);
           choiceRound(api, {
             pic: Pics.of(q.q, { size: 'xl', fallback: cat.icon }), ti, kicker: cat.icon + ' ' + cat.name + ' · ' + LV[lvl] + ' · ' + pts(lvl * 100), title: q.q,
-            items: shuffle(q.a.map((t, i) => ({ t, ok: i === 0 }))), pts: lvl * 100, time: api.opts.time, last, next
+            items: shuffle(q.a.map((t, i) => ({ t, ok: i === 0 }))), pts: lvl * 100, time: api.opts.time, explain: q.explain, last, next
           });
         }
       });

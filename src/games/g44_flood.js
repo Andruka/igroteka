@@ -120,7 +120,7 @@
         got.forEach(([i]) => { cells[i].classList.remove('fl-pop'); void cells[i].offsetWidth; cells[i].classList.add('fl-pop'); });
         sfx.click(); wave = true; paintPal();
         const wait = Math.min(900, md * 40 + 280);
-        setTimeout(() => {
+        api.delay(() => {
           wave = false; got.forEach(([i]) => { cells[i].style.transitionDelay = ''; cells[i].style.animationDelay = ''; cells[i].classList.remove('fl-pop'); });
           if (!root.isConnected) return;
           if (cnt[p] * 2 > T) { try { fx.burst(board, 8); } catch (x) { } return finish(); }
@@ -128,7 +128,7 @@
           if (q < 0) return finish();
           const skipped = q !== (p + 1) % S;
           cur = q; paintBar(); paintPal(); banner(skipped ? 'Соперники без хода, ходит вне очереди' : null);
-          if (solo && cur === 1) { locked = true; setTimeout(ai, 400 + rnd(300)); }
+          if (solo && cur === 1) { locked = true; api.delay(ai, 400 + rnd(300)); }
         }, wait);
       }
       function ai() {
@@ -154,7 +154,7 @@
       function finish() {
         over = true; locked = true; paintBar(); paintPal(); board.classList.add('fl-over'); sfx.win();
         const best = Math.max(...cnt), win = cnt.indexOf(best), tie = cnt.filter(x => x === best).length > 1;
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           removeEventListener('resize', onResize);
           if (!solo) return api.end();
@@ -171,8 +171,8 @@
       cnt.forEach((v, p) => { if (p < api.n) api.score(p, v); });
       paintCells(); paintEdges(); paintBar();
       if (!gains(0).length) { const q = nextPlayer(); if (q < 0) { finish(); return; } cur = q; }
-      paintBar(); paintPal(); banner(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
-      if (solo && cur === 1) { locked = true; setTimeout(ai, 600); }
+      paintBar(); paintPal(); banner(); fit(); requestAnimationFrame(fit); api.delay(fit, 400);
+      if (solo && cur === 1) { locked = true; api.delay(ai, 600); }
     }
   });
 }

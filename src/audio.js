@@ -126,7 +126,7 @@ function openSettings() {
     h('h3', null, 'Карточки'),
     row('Замечания к карточкам', btn('Открыть список', () => { m.close(); openReports(); }, 'small paper'), 'Скрытые карточки и экспорт для проверки')
   );
-  const m = modal(body, [btn('Готово', () => { Voice.stop(); m.close(); if (!G.inSession) Music.stop(); }, '', { 'data-primary': true })]);
+  const m = modal(body, [btn('Готово', () => m.close(), '', { 'data-primary': true })], { onClose: () => { Voice.stop(); if (!G.inSession) Music.stop(); } });
   return m;
 }
 function setBtn() { const b = h('button', { class: 'btn ghost icon', type: 'button', title: 'Настройки', 'aria-label': 'Настройки звука и озвучки' }, ico('gear')); b.onclick = () => { sfx.click(); openSettings(); }; return b; }
@@ -141,14 +141,27 @@ function ttsBtn(api) {
   if (!Voice.ok() || !Settings.get('tts')) b.style.display = 'none';
   return b;
 }
-function flagBtn(api) { const b = h('button', { class: 'btn ghost icon', type: 'button', title: 'Сообщить об ошибке в карточке', 'aria-label': 'Сообщить об ошибке в карточке' }, ico('flag')); b.onclick = () => { sfx.click(); openFlag(); }; return b; }
+function flagBtn(api) { const b = h('button', { class: 'btn ghost icon', type: 'button', title: 'Сообщить об ошибке в карточке', 'aria-label': 'Сообщить об ошибке в карточке', disabled: true }, ico('flag')); b.onclick = () => { sfx.click(); api.flagCard(); }; return b; }
 
 /* ---------- ошибки в карточках ---------- */
-function openFlag() {
-  if (!LAST) { modal(h('p', { class: 'mid-t' }, 'Пока нет карточки, на которую можно пожаловаться. Откройте вопрос или задание.'), []); return; }
-  const m = modal(h('div', null, h('h2', null, 'Ошибка в карточке?'), h('p', { class: 'mid-t', style: { margin: '.6rem 0' } }, describeItem(LAST.item)),
-    h('p', { class: 'muted' }, 'Карточка скроется и больше не выпадет. Её можно найти в настройках и отправить на проверку.')),
-    [btn('Скрыть и пожаловаться', () => { const bk = 'bad.' + LAST.deck, l = store.get(bk, []); l.push(itemKey(LAST.item)); store.set(bk, l); const r = store.get('reports', []); r.push({ deck: LAST.deck, text: describeItem(LAST.item), at: new Date().toISOString().slice(0, 10) }); store.set('reports', r); m.close(); }, 'bad'), btn('Отмена', () => m.close(), 'paper')]);
+function openFlag(cards = []) {
+  if (!cards.length) { return modal(h('p', { class: 'mid-t' }, 'На этом экране нет карточки для проверки.'), []); }
+  // Снимок выбранной карточки: таймер или следующий ход не изменят адрес жалобы.
+  const snapshot = cards.slice(); let selected = snapshot.length === 1 ? snapshot[0] : null;
+  const preview = h('p', { class: 'mid-t', style: { margin: '.6rem 0' } });
+  const submit = btn('Скрыть и пожаловаться', () => {
+    if (!selected) return;
+    const card = selected, bk = 'bad.' + card.deck, list = store.get(bk, []), key = itemKey(card.item);
+    if (!list.includes(key)) list.push(key);
+    store.set(bk, list);
+    const reports = store.get('reports', []);
+    reports.push({ deck: card.deck, text: describeItem(card.item), at: new Date().toISOString().slice(0, 10) }); store.set('reports', reports); m.close();
+  }, 'bad');
+  const paint = () => { preview.textContent = selected ? (selected.label || describeItem(selected.item)) : 'Выберите карточку, в которой заметили ошибку.'; submit.disabled = !selected; };
+  const select = snapshot.length > 1 ? h('select', { class: 'input', 'aria-label': 'Карточка с ошибкой', onchange: e => { selected = e.target.value === '' ? null : snapshot[+e.target.value]; paint(); } }, h('option', { value: '' }, 'Выберите карточку'), ...snapshot.map((card, i) => h('option', { value: i }, card.label || describeItem(card.item)))) : null;
+  paint();
+  const m = modal(h('div', null, h('h2', null, 'Ошибка в карточке?'), select, preview, h('p', { class: 'muted' }, 'Карточка скроется в следующих партиях. Список замечаний доступен в настройках.')), [submit, btn('Отмена', () => m.close(), 'paper')]);
+  return m;
 }
 function openReports() {
   const list = store.get('reports', []);

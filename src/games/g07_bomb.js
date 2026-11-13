@@ -30,19 +30,19 @@
       function play(card, start) {
         let holder = start, over = false, passes = 0;
         const fuse = (range0[0] + Math.random() * (range0[1] - range0[0])) * 1000;
-        const t0 = Date.now();
+        const t0 = api.now();
         let tickTimer = null, boomTimer = null;
         const bomb = h('div', { class: 'bomb' }, '💣');
         const who = h('div', { class: 'big' });
         const sub = h('div', { class: 'kicker' });
-        const stop = () => { clearTimeout(tickTimer); clearTimeout(boomTimer); };
+        const stop = () => { api.cancelDelay(tickTimer); api.cancelDelay(boomTimer); };
         onLeave(stop);
         const tick = () => {
           if (over) return;
-          const frac = Math.min(1, (Date.now() - t0) / fuse);
+          const frac = Math.min(1, (api.now() - t0) / fuse);
           sfx.tick();
           bomb.classList.remove('pulse'); void bomb.offsetWidth; bomb.classList.add('pulse');
-          tickTimer = setTimeout(tick, Math.max(160, 800 - frac * 640));
+          tickTimer = api.delay(tick, Math.max(160, 800 - frac * 640));
         };
         const paint = () => {
           who.textContent = api.teams[holder].name;
@@ -71,7 +71,7 @@
         ], { turn: holder, role: 'Держит бомбу' });
         paint();
         tick();
-        boomTimer = setTimeout(() => explode('time'), fuse);
+        boomTimer = api.delay(() => explode('time'), fuse);
       }
     }
   });

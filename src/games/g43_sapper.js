@@ -95,7 +95,7 @@
         paintInfo();
         if (resolved >= CELLS) return finish();
         cur = (cur + 1) % S; mode = 'open'; paintMode(); paintTurnUI(); banner();
-        if (solo && cur === 1) { locked = true; setTimeout(ai, 400 + rnd(300)); }
+        if (solo && cur === 1) { locked = true; api.delay(ai, 400 + rnd(300)); }
       }
 
       /* компьютер: логика «сапёра» по видимым числам, иначе минимальный риск; иногда ошибается */
@@ -128,7 +128,7 @@
         over = true; locked = true; paintTurnUI(); board.classList.add('sp-over'); cells.forEach(b => { b.disabled = true; });
         const best = Math.max(...pts), win = pts.indexOf(best), tie = pts.filter(x => x === best).length > 1;
         sfx.win();
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           window.removeEventListener('resize', onResize);
           if (!solo) return api.end();
@@ -142,7 +142,7 @@
       for (let i = 0; i < CELLS; i++) paintCell(i);
       window.__sapper = { N, MINES, mine, num, st, pts, wrong }; /* для тестов */
       api.show(root, { turn: 0, role: 'Открывает или ставит флажок', compact: true });
-      paintMode(); paintTurnUI(); paintVs(); paintInfo(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+      paintMode(); paintTurnUI(); paintVs(); paintInfo(); fit(); requestAnimationFrame(fit); api.delay(fit, 400);
     }
   });
 }

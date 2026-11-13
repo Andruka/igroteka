@@ -1,0 +1,4015 @@
+{
+  "date": "2026-11-13",
+  "commit": "6346eab5dd6f4fe274dd69a942c02fa06e14cede",
+  "scope": {
+    "browser": "Chromium via Playwright",
+    "viewports": [
+      [
+        375,
+        667
+      ],
+      [
+        1440,
+        900
+      ]
+    ],
+    "gameCount": 47,
+    "screenCount": 190,
+    "mobileFollowup": {
+      "hasTouch": true,
+      "isMobile": true
+    }
+  },
+  "inventory": [
+    {
+      "id": "quiz",
+      "title": "Выбери тему",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 30,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 8445,
+      "illustration": true,
+      "decks": [
+        "quiz"
+      ],
+      "options": [
+        {
+          "key": "cats",
+          "label": "Темы",
+          "default": [],
+          "count": 13
+        },
+        {
+          "key": "diff",
+          "label": "Сложность",
+          "default": "all",
+          "count": 4
+        },
+        {
+          "key": "rounds",
+          "label": "Вопросов у каждой команды",
+          "default": 5,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на ответ",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 397
+    },
+    {
+      "id": "emoji",
+      "title": "Эмодзи-кино",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 220,
+      "illustration": true,
+      "decks": [
+        "emoji"
+      ],
+      "options": [
+        {
+          "key": "types",
+          "label": "Что загадываем",
+          "default": [],
+          "count": 5
+        },
+        {
+          "key": "rounds",
+          "label": "Загадок у каждой команды",
+          "default": 5,
+          "count": 3
+        },
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": 0,
+          "count": 4
+        },
+        {
+          "key": "time",
+          "label": "Время на загадку",
+          "default": 45,
+          "count": 3
+        }
+      ],
+      "rulesChars": 414
+    },
+    {
+      "id": "fake",
+      "title": "Найди фейк",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 91,
+      "illustration": true,
+      "decks": [
+        "fakes"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Раундов у каждой команды",
+          "default": 5,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на ответ",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 294
+    },
+    {
+      "id": "dilemma",
+      "title": "Дилеммы",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для двоих",
+        "Для компании"
+      ],
+      "cards": 224,
+      "illustration": true,
+      "decks": [
+        "dilemma"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Раз в центре у каждого",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "kind",
+          "label": "Какие дилеммы",
+          "default": "",
+          "count": 3
+        }
+      ],
+      "rulesChars": 404
+    },
+    {
+      "id": "nofinish",
+      "title": "Без концовки",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 194,
+      "illustration": true,
+      "decks": [
+        "prompts"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Заданий",
+          "default": 5,
+          "count": 3
+        },
+        {
+          "key": "prep",
+          "label": "Время на придумывание",
+          "default": 20,
+          "count": 3
+        },
+        {
+          "key": "twist",
+          "label": "Усложнения",
+          "default": 1,
+          "count": 3
+        }
+      ],
+      "rulesChars": 439
+    },
+    {
+      "id": "cinema",
+      "title": "Кино с подвохом",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 436,
+      "illustration": true,
+      "decks": [
+        "films",
+        "styles"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Ходов у каждой команды",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на рассказ",
+          "default": 60,
+          "count": 3
+        },
+        {
+          "key": "style",
+          "label": "Стиль рассказа",
+          "default": 1,
+          "count": 2
+        }
+      ],
+      "rulesChars": 466
+    },
+    {
+      "id": "bomb",
+      "title": "Горячая бомба",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 282,
+      "illustration": true,
+      "decks": [
+        "bomb"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Бомб",
+          "default": 5,
+          "count": 3
+        },
+        {
+          "key": "fuse",
+          "label": "Длина запала",
+          "default": 2,
+          "count": 3
+        }
+      ],
+      "rulesChars": 488
+    },
+    {
+      "id": "detective",
+      "title": "Ночное дело",
+      "teams": {
+        "min": 1,
+        "max": 1
+      },
+      "unit": "Игрок",
+      "coop": true,
+      "mins": 20,
+      "cats": [
+        "Загадки и истории",
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": null,
+      "illustration": true,
+      "decks": [],
+      "options": [
+        {
+          "key": "nights",
+          "label": "Сложность (ночей на расследование)",
+          "default": 7,
+          "count": 3
+        },
+        {
+          "key": "sus",
+          "label": "Подозреваемых",
+          "default": 6,
+          "count": 3
+        }
+      ],
+      "rulesChars": 531
+    },
+    {
+      "id": "radio",
+      "title": "Эфир до рассвета",
+      "teams": {
+        "min": 1,
+        "max": 1
+      },
+      "unit": "Игрок",
+      "coop": true,
+      "mins": 10,
+      "cats": [
+        "Загадки и истории",
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 34,
+      "illustration": true,
+      "decks": [],
+      "options": [
+        {
+          "key": "story",
+          "label": "История",
+          "default": "",
+          "count": 4
+        }
+      ],
+      "rulesChars": 302
+    },
+    {
+      "id": "escape",
+      "title": "Комната на время",
+      "teams": {
+        "min": 1,
+        "max": 1
+      },
+      "unit": "Игрок",
+      "coop": true,
+      "mins": 15,
+      "cats": [
+        "Загадки и истории",
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 150,
+      "illustration": true,
+      "decks": [
+        "escwords",
+        "riddles"
+      ],
+      "options": [
+        {
+          "key": "mins",
+          "label": "Время",
+          "default": 15,
+          "count": 3
+        },
+        {
+          "key": "locks",
+          "label": "Замков",
+          "default": 7,
+          "count": 3
+        }
+      ],
+      "rulesChars": 369
+    },
+    {
+      "id": "missions",
+      "title": "Секретные задания",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 150,
+      "illustration": true,
+      "decks": [
+        "missions",
+        "secrets"
+      ],
+      "options": [
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "open",
+          "count": 2
+        },
+        {
+          "key": "rounds",
+          "label": "Испытаний у каждого (открытые)",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "mins",
+          "label": "Время вечера (тайные)",
+          "default": 10,
+          "count": 3
+        }
+      ],
+      "rulesChars": 436
+    },
+    {
+      "id": "bluff",
+      "title": "Верю — не верю",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Для двоих",
+        "Командные"
+      ],
+      "cards": 115,
+      "illustration": true,
+      "decks": [
+        "bluff"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Ходов у каждого",
+          "default": 2,
+          "count": 3
+        },
+        {
+          "key": "ask",
+          "label": "Время на вопросы",
+          "default": 60,
+          "count": 3
+        }
+      ],
+      "rulesChars": 481
+    },
+    {
+      "id": "literal",
+      "title": "Дословно",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 406,
+      "illustration": true,
+      "decks": [
+        "idioms"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Ходов у каждой команды",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на описание",
+          "default": 45,
+          "count": 3
+        }
+      ],
+      "rulesChars": 450
+    },
+    {
+      "id": "defuse",
+      "title": "Обезвредить",
+      "teams": {
+        "min": 1,
+        "max": 1
+      },
+      "unit": "Игрок",
+      "coop": true,
+      "mins": 15,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих",
+        "Загадки и истории"
+      ],
+      "cards": 0,
+      "illustration": true,
+      "decks": [],
+      "options": [
+        {
+          "key": "bombs",
+          "label": "Бомб",
+          "default": 5,
+          "count": 3
+        },
+        {
+          "key": "mods",
+          "label": "Модули",
+          "default": 2,
+          "count": 2
+        },
+        {
+          "key": "time",
+          "label": "Время на бомбу",
+          "default": 120,
+          "count": 3
+        }
+      ],
+      "rulesChars": 476
+    },
+    {
+      "id": "charades",
+      "title": "Крокодил",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 827,
+      "illustration": false,
+      "decks": [
+        "charades"
+      ],
+      "options": [
+        {
+          "key": "cats",
+          "label": "Категории слов",
+          "default": [],
+          "count": 10
+        },
+        {
+          "key": "rounds",
+          "label": "Ходов у каждой команды",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на показ",
+          "default": 60,
+          "count": 3
+        },
+        {
+          "key": "level",
+          "label": "Сложность слов",
+          "default": 2,
+          "count": 4
+        },
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "team",
+          "count": 2
+        },
+        {
+          "key": "score",
+          "label": "Дуэт: счёт",
+          "default": "together",
+          "count": 2
+        },
+        {
+          "key": "drounds",
+          "label": "Дуэт: раундов",
+          "default": 6,
+          "count": 3
+        }
+      ],
+      "rulesChars": 678
+    },
+    {
+      "id": "taboo",
+      "title": "Табу",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 2206,
+      "illustration": true,
+      "decks": [
+        "taboo"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Ходов у каждой команды",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время хода",
+          "default": 90,
+          "count": 3
+        },
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "team",
+          "count": 2
+        },
+        {
+          "key": "score",
+          "label": "Дуэт: счёт",
+          "default": "together",
+          "count": 2
+        },
+        {
+          "key": "drounds",
+          "label": "Дуэт: раундов",
+          "default": 6,
+          "count": 3
+        }
+      ],
+      "rulesChars": 688
+    },
+    {
+      "id": "spy",
+      "title": "Шпион",
+      "teams": {
+        "min": 3,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Загадки и истории"
+      ],
+      "cards": 45,
+      "illustration": false,
+      "decks": [
+        "spy"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Раундов",
+          "default": 2,
+          "count": 4
+        },
+        {
+          "key": "time",
+          "label": "Время на допрос",
+          "default": 360,
+          "count": 3
+        }
+      ],
+      "rulesChars": 442
+    },
+    {
+      "id": "tod",
+      "title": "Правда или действие",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 189,
+      "illustration": true,
+      "decks": [
+        "truth",
+        "dare"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Ходов у каждого",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "level",
+          "label": "Острота",
+          "default": 2,
+          "count": 4
+        }
+      ],
+      "rulesChars": 312
+    },
+    {
+      "id": "likely",
+      "title": "Кто скорее всего…",
+      "teams": {
+        "min": 3,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для компании"
+      ],
+      "cards": 133,
+      "illustration": true,
+      "decks": [
+        "likely"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Фраз",
+          "default": 12,
+          "count": 3
+        }
+      ],
+      "rulesChars": 331
+    },
+    {
+      "id": "never",
+      "title": "Я никогда не…",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 130,
+      "illustration": false,
+      "decks": [
+        "never"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Фраз",
+          "default": 12,
+          "count": 3
+        }
+      ],
+      "rulesChars": 246
+    },
+    {
+      "id": "clues",
+      "title": "Пять подсказок",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 111,
+      "illustration": true,
+      "decks": [
+        "clues",
+        "clueshard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": "norm",
+          "count": 3
+        },
+        {
+          "key": "rounds",
+          "label": "Загадок у каждой команды",
+          "default": 2,
+          "count": 3
+        }
+      ],
+      "rulesChars": 321
+    },
+    {
+      "id": "odd",
+      "title": "Найди лишнее",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 136,
+      "illustration": false,
+      "decks": [
+        "odd",
+        "oddhard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": "norm",
+          "count": 3
+        },
+        {
+          "key": "rounds",
+          "label": "Вопросов у каждой команды",
+          "default": 6,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на ответ",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 179
+    },
+    {
+      "id": "before",
+      "title": "Что раньше?",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 90,
+      "illustration": true,
+      "decks": [
+        "before",
+        "beforehard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": "norm",
+          "count": 3
+        },
+        {
+          "key": "rounds",
+          "label": "Вопросов у каждой команды",
+          "default": 6,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на ответ",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 174
+    },
+    {
+      "id": "hl",
+      "title": "Больше или меньше",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 88,
+      "illustration": true,
+      "decks": [
+        "hl",
+        "hlhard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": "norm",
+          "count": 3
+        },
+        {
+          "key": "rounds",
+          "label": "Вопросов у каждой команды",
+          "default": 6,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на ответ",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 190
+    },
+    {
+      "id": "whoami",
+      "title": "Кто я?",
+      "teams": {
+        "min": 2,
+        "max": 8
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 641,
+      "illustration": true,
+      "decks": [
+        "whoami",
+        "whoamihard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": "norm",
+          "count": 3
+        },
+        {
+          "key": "cats",
+          "label": "Категории",
+          "default": [],
+          "count": 10
+        },
+        {
+          "key": "rounds",
+          "label": "Ходов у каждого",
+          "default": 2,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на вопросы",
+          "default": 90,
+          "count": 3
+        }
+      ],
+      "rulesChars": 322
+    },
+    {
+      "id": "jeopardy",
+      "title": "Своя игра",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 30,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 130,
+      "illustration": true,
+      "decks": [
+        "jeopardy",
+        "jeopardyhard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Сложность",
+          "default": "norm",
+          "count": 3
+        },
+        {
+          "key": "themes",
+          "label": "Тем на табло",
+          "default": 4,
+          "count": 3
+        }
+      ],
+      "rulesChars": 396
+    },
+    {
+      "id": "hang",
+      "title": "Виселица",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 512,
+      "illustration": true,
+      "decks": [
+        "hang"
+      ],
+      "options": [
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "deck",
+          "count": 2
+        },
+        {
+          "key": "rounds",
+          "label": "Слов у каждой команды (режим «из колоды»)",
+          "default": 2,
+          "count": 3
+        },
+        {
+          "key": "drounds",
+          "label": "Раундов (режим «загадывают игроки»)",
+          "default": 6,
+          "count": 3
+        },
+        {
+          "key": "score",
+          "label": "Счёт (режим «загадывают игроки»)",
+          "default": "vs",
+          "count": 2
+        }
+      ],
+      "rulesChars": 1034
+    },
+    {
+      "id": "draw",
+      "title": "Рисуем и угадываем",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 2535,
+      "illustration": true,
+      "decks": [
+        "draw"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Рисунков у каждой команды",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на рисунок",
+          "default": 90,
+          "count": 3
+        },
+        {
+          "key": "level",
+          "label": "Сложность слов",
+          "default": 0,
+          "count": 4
+        },
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "team",
+          "count": 2
+        },
+        {
+          "key": "score",
+          "label": "Дуэт: счёт",
+          "default": "together",
+          "count": 2
+        },
+        {
+          "key": "drounds",
+          "label": "Дуэт: раундов",
+          "default": 6,
+          "count": 3
+        }
+      ],
+      "rulesChars": 610
+    },
+    {
+      "id": "codebreaker",
+      "title": "Взлом кода",
+      "teams": {
+        "min": 1,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Командные",
+        "Для компании",
+        "Для двоих",
+        "Загадки и истории"
+      ],
+      "cards": 0,
+      "illustration": true,
+      "decks": [],
+      "options": [
+        {
+          "key": "lvl",
+          "label": "Сложность",
+          "default": "classic",
+          "count": 3
+        },
+        {
+          "key": "rounds",
+          "label": "Кодов у каждой команды",
+          "default": 1,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на код",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 477
+    },
+    {
+      "id": "estimate",
+      "title": "Оценщик",
+      "teams": {
+        "min": 1,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 64,
+      "illustration": true,
+      "decks": [
+        "estimate"
+      ],
+      "options": [
+        {
+          "key": "lvl",
+          "label": "Сложность",
+          "default": "all",
+          "count": 4
+        },
+        {
+          "key": "rounds",
+          "label": "Вопросов",
+          "default": 6,
+          "count": 3
+        }
+      ],
+      "rulesChars": 483
+    },
+    {
+      "id": "timeline",
+      "title": "Хронолента",
+      "teams": {
+        "min": 1,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 219,
+      "illustration": true,
+      "decks": [
+        "timeline"
+      ],
+      "options": [
+        {
+          "key": "hard",
+          "label": "Сложность",
+          "default": 0,
+          "count": 2
+        },
+        {
+          "key": "rounds",
+          "label": "Событий у каждой команды",
+          "default": 5,
+          "count": 3
+        }
+      ],
+      "rulesChars": 435
+    },
+    {
+      "id": "codenames",
+      "title": "Кодовые имена",
+      "teams": {
+        "min": 2,
+        "max": 2
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 30,
+      "cats": [
+        "Командные",
+        "Для компании",
+        "Загадки и истории"
+      ],
+      "cards": 297,
+      "illustration": true,
+      "decks": [
+        "codenames"
+      ],
+      "options": [
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "teams",
+          "count": 2
+        },
+        {
+          "key": "turns",
+          "label": "Дуэт: жетонов времени (ходов)",
+          "default": 9,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Две команды: время на ход",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 1310
+    },
+    {
+      "id": "mafia",
+      "title": "Мафия",
+      "teams": {
+        "min": 5,
+        "max": 12
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 45,
+      "cats": [
+        "Для компании",
+        "Загадки и истории"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "special",
+          "label": "Особые роли",
+          "default": 2,
+          "count": 3
+        },
+        {
+          "key": "reveal",
+          "label": "Роль выбывшего",
+          "default": 1,
+          "count": 2
+        },
+        {
+          "key": "time",
+          "label": "Обсуждение днём",
+          "default": 180,
+          "count": 4
+        }
+      ],
+      "rulesChars": 610
+    },
+    {
+      "id": "millionaire",
+      "title": "Миллионер",
+      "teams": {
+        "min": 1,
+        "max": 8
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 8445,
+      "illustration": true,
+      "decks": [
+        "millionaire"
+      ],
+      "options": [
+        {
+          "key": "cats",
+          "label": "Темы",
+          "default": [],
+          "count": 13
+        },
+        {
+          "key": "time",
+          "label": "Время на ответ",
+          "default": 0,
+          "count": 3
+        }
+      ],
+      "rulesChars": 576
+    },
+    {
+      "id": "allin",
+      "title": "Ва-банк",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 25,
+      "cats": [
+        "Викторины",
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 8445,
+      "illustration": true,
+      "decks": [
+        "quiz"
+      ],
+      "options": [
+        {
+          "key": "cats",
+          "label": "Темы",
+          "default": [],
+          "count": 13
+        },
+        {
+          "key": "rounds",
+          "label": "Раундов",
+          "default": 8,
+          "count": 3
+        },
+        {
+          "key": "diff",
+          "label": "Сложность",
+          "default": "ramp",
+          "count": 4
+        }
+      ],
+      "rulesChars": 504
+    },
+    {
+      "id": "anagram",
+      "title": "Анаграммы",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 1635,
+      "illustration": false,
+      "decks": [
+        "anagram_easy",
+        "anagram_mid",
+        "anagram_hard"
+      ],
+      "options": [
+        {
+          "key": "level",
+          "label": "Длина слов",
+          "default": "mid",
+          "count": 3
+        },
+        {
+          "key": "rounds",
+          "label": "Слов у каждой команды",
+          "default": 3,
+          "count": 3
+        },
+        {
+          "key": "time",
+          "label": "Время на слово",
+          "default": 45,
+          "count": 3
+        }
+      ],
+      "rulesChars": 356
+    },
+    {
+      "id": "memory",
+      "title": "Пары",
+      "teams": {
+        "min": 1,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для компании",
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 2553,
+      "illustration": false,
+      "decks": [
+        "memory"
+      ],
+      "options": [
+        {
+          "key": "grid",
+          "label": "Поле",
+          "default": "4x4",
+          "count": 3
+        },
+        {
+          "key": "mode",
+          "label": "Карточки",
+          "default": "terms",
+          "count": 2
+        },
+        {
+          "key": "theme",
+          "label": "Тема для режима «Термины»",
+          "default": "rand",
+          "count": 50
+        }
+      ],
+      "rulesChars": 517
+    },
+    {
+      "id": "dots",
+      "title": "Точки и квадраты",
+      "teams": {
+        "min": 1,
+        "max": 4
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 0,
+      "illustration": true,
+      "decks": [],
+      "options": [
+        {
+          "key": "size",
+          "label": "Размер поля",
+          "default": 5,
+          "count": 3
+        }
+      ],
+      "rulesChars": 458
+    },
+    {
+      "id": "connect",
+      "title": "Четыре в ряд",
+      "teams": {
+        "min": 1,
+        "max": 4
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 10,
+      "cats": [
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "size",
+          "label": "Поле",
+          "default": 0,
+          "count": 2
+        },
+        {
+          "key": "level",
+          "label": "Компьютер (при одном участнике)",
+          "default": 1,
+          "count": 3
+        }
+      ],
+      "rulesChars": 487
+    },
+    {
+      "id": "reversi",
+      "title": "Реверси",
+      "teams": {
+        "min": 1,
+        "max": 2
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "size",
+          "label": "Размер поля",
+          "default": 8,
+          "count": 2
+        },
+        {
+          "key": "level",
+          "label": "Сила компьютера (при одном игроке)",
+          "default": 2,
+          "count": 3
+        }
+      ],
+      "rulesChars": 597
+    },
+    {
+      "id": "hex",
+      "title": "Гекс",
+      "teams": {
+        "min": 1,
+        "max": 2
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "size",
+          "label": "Размер поля",
+          "default": 9,
+          "count": 3
+        },
+        {
+          "key": "pie",
+          "label": "Правило обмена (pie rule)",
+          "default": 0,
+          "count": 2
+        },
+        {
+          "key": "ai",
+          "label": "Компьютер (если играет один)",
+          "default": "mid",
+          "count": 3
+        }
+      ],
+      "rulesChars": 674
+    },
+    {
+      "id": "nonogram",
+      "title": "Японские кроссворды",
+      "teams": {
+        "min": 1,
+        "max": 1
+      },
+      "unit": "Команда",
+      "coop": true,
+      "mins": 10,
+      "cats": [
+        "Загадки и истории",
+        "Для компании",
+        "Для двоих"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "size",
+          "label": "Размер поля",
+          "default": 8,
+          "count": 3
+        },
+        {
+          "key": "err",
+          "label": "Подсказывать ошибки",
+          "default": 1,
+          "count": 2
+        }
+      ],
+      "rulesChars": 681
+    },
+    {
+      "id": "sapper",
+      "title": "Сапёры",
+      "teams": {
+        "min": 1,
+        "max": 4
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Командные",
+        "Логика"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "level",
+          "label": "Поле",
+          "default": "easy",
+          "count": 3
+        }
+      ],
+      "rulesChars": 650
+    },
+    {
+      "id": "flood",
+      "title": "Захват территории",
+      "teams": {
+        "min": 1,
+        "max": 4
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Командные",
+        "Для двоих"
+      ],
+      "cards": 0,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "size",
+          "label": "Размер поля",
+          "default": 14,
+          "count": 3
+        },
+        {
+          "key": "ai",
+          "label": "Компьютер (если играет один)",
+          "default": 2,
+          "count": 3
+        }
+      ],
+      "rulesChars": 611
+    },
+    {
+      "id": "scale",
+      "title": "Шкала",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для двоих",
+        "Для компании",
+        "Командные"
+      ],
+      "cards": 143,
+      "illustration": false,
+      "decks": [
+        "scale"
+      ],
+      "options": [
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "coop",
+          "count": 2
+        },
+        {
+          "key": "rounds",
+          "label": "Раундов",
+          "default": 8,
+          "count": 3
+        }
+      ],
+      "rulesChars": 800
+    },
+    {
+      "id": "telepathy",
+      "title": "Телепатия",
+      "teams": {
+        "min": 2,
+        "max": 4
+      },
+      "unit": "Игрок",
+      "coop": false,
+      "mins": 15,
+      "cats": [
+        "Для двоих",
+        "Для компании"
+      ],
+      "cards": 177,
+      "illustration": false,
+      "decks": [],
+      "options": [
+        {
+          "key": "mode",
+          "label": "Режим",
+          "default": "together",
+          "count": 2
+        },
+        {
+          "key": "rounds",
+          "label": "Раундов",
+          "default": 12,
+          "count": 3
+        },
+        {
+          "key": "custom",
+          "label": "Свой ответ",
+          "default": 0,
+          "count": 2
+        }
+      ],
+      "rulesChars": 743
+    },
+    {
+      "id": "knowme",
+      "title": "Кто кого знает",
+      "teams": {
+        "min": 2,
+        "max": 6
+      },
+      "unit": "Команда",
+      "coop": false,
+      "mins": 20,
+      "cats": [
+        "Для двоих",
+        "Для компании"
+      ],
+      "cards": 223,
+      "illustration": false,
+      "decks": [
+        "knowme"
+      ],
+      "options": [
+        {
+          "key": "rounds",
+          "label": "Раундов",
+          "default": 10,
+          "count": 3
+        },
+        {
+          "key": "score",
+          "label": "Очки",
+          "default": "together",
+          "count": 2
+        }
+      ],
+      "rulesChars": 572
+    }
+  ],
+  "layouts": [
+    {
+      "screen": "home",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 15810,
+      "unnamedButtons": 0,
+      "firstCard": {
+        "top": 845.7112426757812,
+        "height": 318.87445068359375
+      },
+      "filterCount": 19
+    },
+    {
+      "screen": "quiz-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 2171,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "quiz-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1781,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "emoji-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1622,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "emoji-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 711,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "fake-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1295,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "fake-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 960,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dilemma-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1348,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dilemma-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 952,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nofinish-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1502,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nofinish-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 811,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "cinema-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1453,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "cinema-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bomb-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1443,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bomb-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "detective-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1471,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "detective-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 2801,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "radio-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1099,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "radio-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 812,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "escape-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1268,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "escape-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "missions-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1369,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "missions-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 752,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bluff-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1467,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bluff-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "literal-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1420,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "literal-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "defuse-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1270,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "defuse-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "charades-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 2284,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "charades-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "taboo-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1923,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "taboo-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "spy-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1544,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "spy-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "tod-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1282,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "tod-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "likely-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1248,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "likely-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 959,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "never-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1127,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "never-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 729,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "clues-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1274,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "clues-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "odd-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1310,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "odd-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 822,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "before-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1277,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "before-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 711,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hl-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1331,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hl-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "whoami-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1928,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "whoami-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "jeopardy-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1367,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "jeopardy-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hang-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 2050,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hang-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "draw-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1794,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "draw-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codebreaker-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1658,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codebreaker-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "estimate-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1390,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "estimate-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "timeline-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1344,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "timeline-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codenames-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 2275,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codenames-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 877,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "mafia-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1924,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "mafia-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 670,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "millionaire-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1731,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "millionaire-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "allin-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 2044,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "allin-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "anagram-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1388,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "anagram-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "memory-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 3952,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "memory-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dots-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1385,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dots-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "connect-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1555,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "connect-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "reversi-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1671,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "reversi-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hex-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1753,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hex-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nonogram-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1392,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nonogram-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "sapper-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1620,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "sapper-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "flood-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1436,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "flood-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "scale-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1717,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "scale-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "telepathy-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1737,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "telepathy-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "knowme-intro",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 1543,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "knowme-start",
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "home",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 7254,
+      "unnamedButtons": 0,
+      "firstCard": {
+        "top": 545.63232421875,
+        "height": 534.3916015625
+      },
+      "filterCount": 19
+    },
+    {
+      "screen": "quiz-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1625,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "quiz-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1208,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "emoji-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1221,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "emoji-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 986,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "fake-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 904,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "fake-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 933,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dilemma-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 950,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dilemma-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 984,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nofinish-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1034,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nofinish-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 983,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "cinema-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1026,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "cinema-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bomb-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1096,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bomb-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "detective-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1119,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "detective-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1576,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "radio-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "radio-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "escape-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1003,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "escape-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "missions-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1005,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "missions-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bluff-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1019,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "bluff-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "literal-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1020,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "literal-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "defuse-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1051,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "defuse-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "charades-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1754,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "charades-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "taboo-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1264,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "taboo-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "spy-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 999,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "spy-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "tod-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 974,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "tod-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "likely-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 974,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "likely-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 953,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "never-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 912,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "never-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 939,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "clues-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 934,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "clues-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "odd-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1062,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "odd-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 912,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "before-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1062,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "before-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hl-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1062,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hl-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "whoami-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1568,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "whoami-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "jeopardy-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 996,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "jeopardy-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 962,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hang-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1510,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hang-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "draw-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1422,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "draw-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codebreaker-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1120,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codebreaker-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "estimate-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1044,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "estimate-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "timeline-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1013,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "timeline-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codenames-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1835,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "codenames-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1084,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "mafia-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1314,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "mafia-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "millionaire-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1251,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "millionaire-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "allin-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1351,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "allin-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "anagram-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1120,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "anagram-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "memory-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 3490,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "memory-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dots-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1065,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "dots-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "connect-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1103,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "connect-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "reversi-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1168,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "reversi-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hex-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1268,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "hex-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nonogram-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1258,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "nonogram-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "sapper-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1237,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "sapper-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "flood-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1165,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "flood-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "scale-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1261,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "scale-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "telepathy-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1307,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "telepathy-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "knowme-intro",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 1096,
+      "unnamedButtons": 0
+    },
+    {
+      "screen": "knowme-start",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "unnamedButtons": 0
+    }
+  ],
+  "smallTargetWarnings": [
+    {
+      "screen": "home",
+      "width": 375,
+      "height": 667,
+      "smallTargets": [
+        {
+          "text": "Сбросить историю карточек",
+          "w": 193.40625,
+          "h": 29.9375
+        }
+      ]
+    },
+    {
+      "screen": "hex-start",
+      "width": 375,
+      "height": 667,
+      "smallTargets": [
+        {
+          "text": "Клетка: строка 1, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 1, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 2, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 3, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 4, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 5, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 6, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 7, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 8, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 1",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 2",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 3",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 4",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 5",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 6",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 7",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 8",
+          "w": 24.4375,
+          "h": 27.734375
+        },
+        {
+          "text": "Клетка: строка 9, столбец 9",
+          "w": 24.4375,
+          "h": 27.734375
+        }
+      ]
+    }
+  ],
+  "javascriptErrors": [],
+  "reproductions": {
+    "flagEmpty": {
+      "text": "Пока нет карточки, на которую можно пожаловаться. Откройте вопрос или задание.",
+      "buttons": 0,
+      "remainsAfterEscape": 1
+    },
+    "staleFlag": {
+      "previous": {
+        "deck": "quiz",
+        "text": "Какой город является столицей Грузии? → Тбилиси"
+      },
+      "currentGame": "connect",
+      "dialog": "Ошибка в карточке?\n\nКакой город является столицей Грузии? → Тбилиси\n\nКарточка скроется и больше не выпадет. Её можно найти в настройках и отправить на проверку.\n\nСкрыть и пожаловаться\nОтмена"
+    },
+    "timerUnderRules": {
+      "before": "30",
+      "after": "Слово 1 из 6 · Животные · 8 букв\nСледит: Команда 2\nЕ\nО\nА\nК\nР\nТ\nЗ\nС\nС\nТ\nР\nЕ\nК\nО\nЗ\nА\n0\nВремя вышло! Слово: СТРЕКОЗА.\nДальше",
+      "dialogStillOpen": 1
+    }
+  },
+  "verifiedData": {
+    "exactBad": [],
+    "duplicateQuestions": [
+      [
+        {
+          "c": "food",
+          "l": 2,
+          "q": "Какая специя самая дорогая в мире по весу?",
+          "a": [
+            "Шафран",
+            "Корица",
+            "Куркума",
+            "Паприка"
+          ]
+        },
+        {
+          "c": "food",
+          "l": 4,
+          "q": "Какая специя — самая дорогая в мире по весу?",
+          "a": [
+            "Шафран",
+            "Ваниль",
+            "Кардамон",
+            "Корица"
+          ]
+        }
+      ],
+      [
+        {
+          "c": "lang",
+          "l": 3,
+          "q": "Что такое оксюморон?",
+          "a": [
+            "Сочетание противоположных по смыслу слов («живой труп»)",
+            "Сравнение с помощью «как»",
+            "Преувеличение",
+            "Повтор одного звука"
+          ]
+        },
+        {
+          "c": "lang",
+          "l": 4,
+          "q": "Что такое «оксюморон»?",
+          "a": [
+            "Сочетание противоположных по смыслу слов",
+            "Повтор одинаковых звуков",
+            "Преувеличение",
+            "Сравнение без союза"
+          ]
+        }
+      ]
+    ],
+    "nhl": [
+      {
+        "c": "sport",
+        "l": 3,
+        "q": "Какой хоккеист известен рекордным числом голов в НХЛ?",
+        "a": [
+          "Уэйн Гретцки",
+          "Александр Овечкин",
+          "Марио Лемье",
+          "Сидни Кросби"
+        ]
+      }
+    ],
+    "puzzles": {
+      "5": 13,
+      "8": 16,
+      "10": 16
+    },
+    "sourceFields": [
+      "c",
+      "l",
+      "q",
+      "a"
+    ],
+    "quizConsumers": [
+      {
+        "id": "quiz",
+        "cards": 8445,
+        "decks": [
+          "quiz"
+        ]
+      },
+      {
+        "id": "millionaire",
+        "cards": 8445,
+        "decks": [
+          "millionaire"
+        ]
+      },
+      {
+        "id": "allin",
+        "cards": 8445,
+        "decks": [
+          "quiz"
+        ]
+      }
+    ],
+    "homeText": "В коробке 40721 карточка. Они не повторяются, пока не кончатся все.\nСбросить историю карточек",
+    "recordsAlreadyPresent": [
+      "duet",
+      "scale",
+      "telepathy",
+      "knowme"
+    ],
+    "stories": [
+      {
+        "title": "Звонок в 3:14",
+        "nodes": 11,
+        "endings": 5
+      },
+      {
+        "title": "Блэкаут",
+        "nodes": 12,
+        "endings": 6
+      },
+      {
+        "title": "Сигнал из космоса",
+        "nodes": 11,
+        "endings": 5
+      }
+    ],
+    "mobileHome": {
+      "firstCardTop": 909.5862426757812,
+      "documentHeight": 15890
+    },
+    "filterFour": {
+      "hasCodenames": 0
+    },
+    "charadesIntro": {
+      "start": {
+        "top": 2180.875,
+        "bottom": 2254.671875
+      },
+      "scrollHeight": 2292
+    },
+    "memoryIntro": {
+      "start": {
+        "top": 3848.640625,
+        "bottom": 3922.4375
+      },
+      "scrollHeight": 3959
+    },
+    "soloMemory": {
+      "turn": "Открывает две карточки\nКоманда 1",
+      "board": "Команда 1\n0",
+      "info": "Откройте карточку. Пар: 0 из 8 · Попыток: 0"
+    },
+    "afterReload": {
+      "hasSearch": 1,
+      "hasContinue": 0
+    }
+  },
+  "buildBytes": 3978929,
+  "contrastHomeTestOutput": "home checked 0 low 0",
+  "notes": [
+    "Initial aggressive answer normalization produced false positives for stress marks, letter case and signed numbers; those results are excluded. Exact NFC and whitespace validation found no malformed quiz option sets.",
+    "Duplicate question normalization preserves Unicode letters and removes punctuation and spacing; two pairs require editorial review.",
+    "Viewport checks cover intro and initial gameplay, not complete playthroughs or every option combination.",
+    "Small-target warnings from viewport pass are observations, not a formal accessibility compliance assessment."
+  ]
+}

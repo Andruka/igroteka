@@ -60,21 +60,33 @@
       { key: 'err', label: 'Подсказывать ошибки', values: [[1, 'Да'], [0, 'Нет']], def: 1 }
     ],
     cards: () => 0,
+    saveVersion: 1,
+    validateSave(s, opts) {
+      const n = +opts.size, count = n * n, check = SaveChecks;
+      if (!s || !check.text(s.puzzle, 200) || !NG_PUZ.some(p => p[0] === n && p[2].join('/') === s.puzzle)) return false;
+      if (!check.array(s.st, count, v => check.int(v, 0, 2)) || !check.array(s.locked, count, v => typeof v === 'boolean')) return false;
+      if (!['fill', 'cross'].includes(s.mode) || !check.int(s.hints, 0, count) || s.pen !== s.hints * 30 || !check.number(s.elapsed, 0, 1e7)) return false;
+      const sol = [...s.puzzle.replaceAll('/', '')].map(c => c !== '.');
+      if (s.locked.filter(Boolean).length !== s.hints || s.locked.some((v, i) => v && (!sol[i] || s.st[i] !== 1))) return false;
+      return Array.isArray(s.undo) && s.undo.length <= 5000 && s.undo.every(stroke => Array.isArray(stroke) && stroke.length <= count && stroke.every(move => check.array(move, 2, Number.isInteger) && check.int(move[0], 0, count - 1) && check.int(move[1], 0, 2) && !s.locked[move[0]]));
+    },
     start(api) {
+      const saved = api.saved;
       const N = [5, 8, 10].includes(+api.opts.size) ? +api.opts.size : 8, showErr = +api.opts.err !== 0;
       const pool = NG_PUZ.filter(p => p[0] === N);
       const seenKey = 'ng.seen.' + N; let seen = store.get(seenKey, []);
       let fresh = pool.map((p, i) => i).filter(i => !seen.includes(i)); if (!fresh.length) { seen = []; fresh = pool.map((p, i) => i); }
-      const pi = fresh[rnd(fresh.length)]; store.set(seenKey, seen.concat(pi));
+      const pi = saved ? pool.findIndex(p => p[2].join('/') === saved.puzzle) : fresh[rnd(fresh.length)];
+      if (!saved) store.set(seenKey, seen.concat(pi));
       const pz = pool[pi], rows = pz[2], name = pz[1];
       const sol = []; rows.forEach(r => [...r].forEach(c => sol.push(c !== '.' ? 1 : 0)));
       const runs = a => { const o = []; let k = 0; a.forEach(v => { if (v === 1) k++; else if (k) { o.push(k); k = 0; } }); if (k) o.push(k); return o.length ? o : [0]; };
       const rowOf = (arr, r) => arr.slice(r * N, r * N + N), colOf = (arr, c) => Array.from({ length: N }, (_, r) => arr[r * N + c]);
       const rowClue = Array.from({ length: N }, (_, r) => runs(rowOf(sol, r))), colClue = Array.from({ length: N }, (_, c) => runs(colOf(sol, c)));
       const rc = Math.max(...rowClue.map(x => x.length)), cc = Math.max(...colClue.map(x => x.length));
-      const st = Array(N * N).fill(0), locked = Array(N * N).fill(false), undo = [];
-      let mode = 'fill', over = false, pen = 0, hints = 0, stroke = null, strokeAct = null, curR = -1, curC = -1;
-      const t0 = performance.now();
+      const st = saved ? saved.st.slice() : Array(N * N).fill(0), locked = saved ? saved.locked.slice() : Array(N * N).fill(false), undo = saved ? saved.undo : [];
+      let mode = saved ? saved.mode : 'fill', over = false, pen = saved ? saved.pen : 0, hints = saved ? saved.hints : 0, stroke = null, strokeAct = null, curR = -1, curC = -1;
+      const t0 = api.now();
       const same = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
 
       /* ---- разметка ---- */
@@ -90,12 +102,12 @@
       const mFill = h('button', { type: 'button', class: 'ng-m on', 'aria-pressed': 'true', onclick: () => setMode('fill') }, h('i', { class: 'ng-ico f' }), 'Закрасить');
       const mCross = h('button', { type: 'button', class: 'ng-m', 'aria-pressed': 'false', onclick: () => setMode('cross') }, h('i', { class: 'ng-ico x' }), 'Крестик');
       const bUndo = h('button', { type: 'button', class: 'ng-b', onclick: doUndo, disabled: true, 'aria-label': 'Отмена хода', title: 'Отмена хода' }, '↶');
-      const bHint = h('button', { type: 'button', class: 'ng-b', onclick: doHint, 'aria-label': 'Подсказка: открыть клетку, штраф 30 секунд', title: 'Подсказка (+30 с к времени)' }, '💡 −30 с');
+      const bHint = h('button', { type: 'button', class: 'ng-b', onclick: doHint, 'aria-label': 'Подсказка: открыть клетку, штраф 30 секунд', title: 'Подсказка (+30 с к времени)' }, '💡 +30 с');
       const ctl = h('div', { class: 'ng-ctl' }, h('div', { class: 'ng-seg', role: 'group', 'aria-label': 'Режим' }, mFill, mCross), h('div', { class: 'ng-acts' }, bUndo, bHint));
       const root = h('div', { class: 'ng-wrap' }, top, board, ctl);
 
-      function setMode(m) { mode = m; mFill.classList.toggle('on', m === 'fill'); mCross.classList.toggle('on', m === 'cross'); mFill.setAttribute('aria-pressed', String(m === 'fill')); mCross.setAttribute('aria-pressed', String(m === 'cross')); sfx.click(); }
-      const elapsed = () => (performance.now() - t0) / 1000 + pen;
+      function setMode(m) { mode = m; mFill.classList.toggle('on', m === 'fill'); mCross.classList.toggle('on', m === 'cross'); mFill.setAttribute('aria-pressed', String(m === 'fill')); mCross.setAttribute('aria-pressed', String(m === 'cross')); sfx.click(); api.save(); }
+      const elapsed = () => (saved ? saved.elapsed : 0) + (api.now() - t0) / 1000 + pen;
       const fmt = s => { s = Math.floor(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
       const tick = setInterval(() => { if (!root.isConnected) return clearInterval(tick); if (!over) clock.textContent = fmt(elapsed()); }, 250);
       function fit() {
@@ -149,10 +161,10 @@
         apply(i);
       });
       grid.addEventListener('pointermove', e => { if (!stroke) return; const i = cellAt(e.clientX, e.clientY); if (i >= 0) apply(i); });
-      const endStroke = () => { if (!stroke) return; if (stroke.length) { undo.push(stroke); sfx.click(); } stroke = null; strokeAct = null; paint(); };
+      const endStroke = () => { if (!stroke) return; if (stroke.length) { undo.push(stroke); sfx.click(); } stroke = null; strokeAct = null; paint(); api.save(); };
       grid.addEventListener('pointerup', endStroke); grid.addEventListener('pointercancel', endStroke);
       grid.addEventListener('contextmenu', e => e.preventDefault());
-      function doUndo() { if (!undo.length || over) return; undo.pop().reverse().forEach(([i, v]) => { st[i] = v; }); sfx.click(); paint(); }
+      function doUndo() { if (!undo.length || over) return; undo.pop().reverse().forEach(([i, v]) => { st[i] = v; }); sfx.click(); paint(); api.save(); }
       function doHint() {
         if (over) return;
         const miss = st.map((v, i) => (sol[i] && v !== 1) ? i : -1).filter(i => i >= 0);
@@ -160,7 +172,7 @@
         const i = miss[rnd(miss.length)]; st[i] = 1; locked[i] = true; hints++; pen += 30;
         undo.forEach(s => { for (let k = s.length - 1; k >= 0; k--) if (s[k][0] === i) s.splice(k, 1); });
         for (let k = undo.length - 1; k >= 0; k--) if (!undo[k].length) undo.splice(k, 1);
-        sfx.ok(); clock.textContent = fmt(elapsed()); paint();
+        sfx.ok(); clock.textContent = fmt(elapsed()); paint(); api.save();
         try { fx.burst(cells[i], 5); } catch (x) { }
       }
 
@@ -170,12 +182,12 @@
         return s;
       }
       function win() {
-        over = true; clearInterval(tick); sfx.win();
+        over = true; clearInterval(tick); sfx.win(); api.save();
         const total = Math.round(elapsed()); clock.textContent = fmt(total);
         cells.forEach((c, i) => { c.classList.remove('ng-x'); if (sol[i]) { const ch = rows[Math.floor(i / N)][i % N]; c.style.setProperty('--fc', NG_PAL[ch] || '#333'); c.classList.add('ng-rev'); c.style.animationDelay = (Math.floor(i / N) * 60 + (i % N) * 25) + 'ms'; } });
         board.classList.add('ng-done'); cnt.textContent = 'Готово!'; bUndo.disabled = true; bHint.disabled = true; mFill.disabled = mCross.disabled = true;
         try { fx.burst(board, 12); } catch (x) { }
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           window.removeEventListener('resize', onResize);
           api.end({ win: true, custom: true, title: 'Это — ' + name.toLowerCase() + '!', sub: 'Кроссворд ' + N + '×' + N + ' решён за ' + fmt(total) + '.',
@@ -185,7 +197,11 @@
       }
 
       api.show(root, { turn: -1, role: 'Решаем вместе', compact: true });
-      paint(); fit(); requestAnimationFrame(fit); setTimeout(fit, 300);
+      onLeave(() => { clearInterval(tick); window.removeEventListener('resize', onResize); });
+      if (mode === 'cross') setMode(mode);
+      api.enableSave(() => over ? null : ({ puzzle: rows.join('/'), st: st.slice(), locked: locked.slice(), undo: stroke && stroke.length ? undo.concat([stroke]) : undo, mode, pen, hints, elapsed: elapsed() - pen }));
+      clock.textContent = fmt(elapsed());
+      paint(); fit(); requestAnimationFrame(fit); api.delay(fit, 300);
     }
   });
 }

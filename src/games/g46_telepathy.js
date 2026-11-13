@@ -224,7 +224,7 @@
       }
       function pickRow(i, val) {
         if (locked) return; locked = true; picks[i] = String(val); sfx.click();
-        setTimeout(() => { locked = false; if (i + 1 < n) ask(i + 1); else reveal(); }, 120);
+        api.delay(() => { locked = false; if (i + 1 < n) ask(i + 1); else reveal(); }, 120);
       }
       function choose(i) {
         locked = false;

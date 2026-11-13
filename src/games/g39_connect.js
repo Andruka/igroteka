@@ -18,7 +18,7 @@
     rules: '<ul><li>Команды по очереди выбирают столбец: касанием по нему. Фишка падает на самое нижнее свободное место.</li><li>Побеждает тот, кто первым выстроил <b>четыре своих фишки в линию</b>: по горизонтали, вертикали или по диагонали.</li><li>Фишки игроков различаются цветом и значком: кольцо, треугольник, квадрат, ромб.</li><li>Если поле заполнено, а линии нет, партия заканчивается <b>ничьей</b>.</li><li>Если играет один участник, соперником станет компьютер: уровень выбирается в настройках.</li><li>Три и четыре команды играют на увеличенном поле 9×7.</li></ul>',
     opts: [
       { key: 'size', label: 'Поле', values: [[0, 'Классика 7×6'], [1, 'Побольше 9×7 (3–4 команды: всегда)']], def: 0 },
-      { key: 'level', label: 'Компьютер (при одном участнике)', values: [[0, 'Лёгкий'], [1, 'Средний'], [2, 'Сильный']], def: 1 }
+      { key: 'level', label: 'Компьютер (при одном участнике)', values: [[0, 'Лёгкий'], [1, 'Средний'], [2, 'Сильный']], def: 1, when: (opts, n) => n === 1 }
     ],
     cards: () => 0,
     start(api) {
@@ -95,13 +95,13 @@
         gDisc.append(d);
         locked = true;
         const line = lineAt(g, r, c, who), full = placed >= R * C;
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           sfx.click();
           if (line) return win(who, line);
           if (full) return finish(-1);
           cur = (cur + 1) % S; locked = false; paintTurn(); banner();
-          if (solo && cur === 1) { locked = true; setTimeout(ai, 400 + rnd(300)); }
+          if (solo && cur === 1) { locked = true; api.delay(ai, 400 + rnd(300)); }
         }, 300 + 40 * r);
       }
 
@@ -159,7 +159,7 @@
         line.forEach(([r, c]) => gHi.append(cnSvg('circle', { cx: c * 100 + 50, cy: r * 100 + 50, r: 46, class: 'cn-win', fill: 'none' })));
         sfx.win(); try { fx.burst(board, 10); } catch (x) { }
         board.classList.add('cn-over');
-        setTimeout(() => finish(who), 1700);
+        api.delay(() => finish(who), 1700);
       }
       function finish(who) {
         over = true; locked = true; paintTurn();
@@ -172,7 +172,7 @@
       }
 
       api.show(root, { turn: 0, role: 'Бросает фишку', compact: true });
-      paintTurn(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+      paintTurn(); fit(); requestAnimationFrame(fit); api.delay(fit, 400);
     }
   });
 }

@@ -87,7 +87,7 @@
         const check = () => {
           const v = norm(input.value); if (!v) return;
           if (p.ans.some(a => norm(a) === v)) { sfx.ok(); solved++; order.shift(); msg.textContent = 'Замок открыт.'; show(); }
-          else { sfx.bad(); input.classList.add('shake'); setTimeout(() => input.classList.remove('shake'), 500); msg.textContent = 'Не подходит. Подумайте ещё.'; input.select(); }
+          else { sfx.bad(); input.classList.add('shake'); api.delay(() => input.classList.remove('shake'), 500); msg.textContent = 'Не подходит. Подумайте ещё.'; input.select(); }
         };
         input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
         const hintBtn = btn(pz.hinted ? 'Подсказка уже открыта' : 'Подсказка (−30 с)', () => { if (pz.hinted) return; pz.hinted = true; hints++; timer.add(-30); hintBox.classList.remove('hidden'); hintBox.textContent = 'Подсказка: ' + p.hint; hintBtn.textContent = 'Подсказка уже открыта'; hintBtn.disabled = true; if (timer.left <= 0) finish(false); }, 'paper small');
@@ -100,7 +100,7 @@
           msg,
           h('div', { class: 'row' }, hintBtn, btn('Пропустить', () => { order.push(order.shift()); show(); }, 'paper small', { disabled: order.length < 2 }))
         ], { turn: -1 });
-        setTimeout(() => input.focus(), 30);
+        api.delay(() => input.focus(), 30);
       }
       function finish(win) {
         if (over) return; over = true; timer.stop();

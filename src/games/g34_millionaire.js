@@ -75,7 +75,7 @@
           if (i !== okI) return lose(i, 'wrong');
           done = true; if (timer) timer.stop(); bs.forEach(b => b.disabled = true);
           sfx.ok(); bs[i].classList.add('right', 'flash-good'); try { fx.burst(bs[i]); } catch (e) {}
-          if (k === 14) return void setTimeout(() => finish(15, 'win'), 700);
+          if (k === 14) return void api.delay(() => finish(15, 'win'), 700);
           info.textContent = 'Верно! Вы выиграли ' + pc(PRIZE[k]);
           const nb = btn('Дальше', () => ask(k + 1), 'big', { 'data-primary': true }); acts.replaceChildren(nb); nb.focus();
         }

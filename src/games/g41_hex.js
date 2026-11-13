@@ -120,7 +120,7 @@
         board.style.setProperty('--c', col(turn));
         board.classList.toggle('hx-cpu', solo && own[turn] === cpu && !over);
       }
-      function banner() { setTimeout(fit, 60);
+      function banner() { api.delay(fit, 60);
         const t = own[turn];
         if (t === cpu) api.setTurn(-1, 'Ход компьютера', 'Компьютер');
         else api.setTurn(t, turn === 0 ? 'Ставит камень ●' : 'Ставит камень ◆');
@@ -144,7 +144,7 @@
         swapped = true; own = [own[1], own[0]]; sfx.ok();
         /* камень остаётся на месте и по-прежнему принадлежит стороне ●, но теперь её хозяин — вторая команда; ход стороны ◆ */
         turn = 1; refresh(); banner();
-        if (own[1] === cpu) { locked = true; setTimeout(ai, 600); }
+        if (own[1] === cpu) { locked = true; api.delay(ai, 600); }
       }
       function move(i, byAi) {
         if (locked || over || cells[i] >= 0) return;
@@ -155,7 +155,7 @@
         turn = 1 - turn; refresh(); banner();
         if (own[turn] === cpu) {
           locked = true;
-          if (pie && moves === 1 && aiShouldSwap()) setTimeout(() => { locked = false; doSwap(); }, 650); else setTimeout(ai, 450);
+          if (pie && moves === 1 && aiShouldSwap()) api.delay(() => { locked = false; doSwap(); }, 650); else api.delay(ai, 450);
         }
       }
       function aiShouldSwap() {
@@ -180,7 +180,7 @@
         /* Монте-Карло с лимитом ~550 мс, кусками по ~14 мс, чтобы не вешать интерфейс */
         const cand = res.slice(0, Math.min(12, res.length)).map(o => ({ i: o.i, w: 0, n: 0 }));
         const empties = []; cells.forEach((v, i) => { if (v < 0) empties.push(i); });
-        const t0 = performance.now(); locked = true;
+        const t0 = api.now(); locked = true;
         const play = cd => {
           const e = empties.filter(x => x !== cd.i); for (let k = e.length - 1; k > 0; k--) { const j = (Math.random() * (k + 1)) | 0; [e[k], e[j]] = [e[j], e[k]]; }
           const t = cells.slice(); t[cd.i] = side; let who = 1 - side;
@@ -191,10 +191,10 @@
           if (!root.isConnected || over) return;
           const s = performance.now();
           while (performance.now() - s < 14) for (const cd of cand) play(cd);
-          if (performance.now() - t0 < 550) return void setTimeout(step, 0);
+          if (api.now() - t0 < 550) return void api.delay(step, 0);
           locked = false; cand.sort((a, b) => b.w / b.n - a.w / a.n); move(cand[0].i, true);
         };
-        setTimeout(step, 0);
+        api.delay(step, 0);
       }
       function finish(side, path) {
         over = true; locked = true; refresh();
@@ -206,7 +206,7 @@
         vs.replaceChildren(h('span', { class: 'hx-chip on', style: { '--c': col(side) } }, '🏆 ', h('b', null, tm[t].name + ': ' + (side === 0 ? 'лево и право соединены' : 'верх и низ соединены'))));
         if (swapBtn) swapBtn.hidden = true;
         if (t === cpu) api.setTurn(-1, 'Победа!', 'Компьютер'); else api.setTurn(t, 'Победа!');
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           window.removeEventListener('resize', onResize);
           if (!solo) { api.score(t, 1); return api.end(); }
@@ -217,7 +217,7 @@
       }
 
       api.show(root, { turn: 0, role: 'Ставит камень ●', compact: true });
-      refresh(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+      refresh(); fit(); requestAnimationFrame(fit); api.delay(fit, 400);
     }
   });
 }

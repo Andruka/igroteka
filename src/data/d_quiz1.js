@@ -1,4 +1,4 @@
-/* Викторина: вопросы. Q(категория, сложность 1-3, вопрос, верный, неверный×3) */
+/* Викторина: Q(категория, сложность 1–5, вопрос, верный, неверный×3, метаданные). */
 DATA.quizCats = [
   { id: 'geo', name: 'География', icon: '🌍' }, { id: 'sci', name: 'Наука', icon: '🧪' },
   { id: 'his', name: 'История', icon: '📜' }, { id: 'film', name: 'Кино', icon: '🎬' },
@@ -8,7 +8,13 @@ DATA.quizCats = [
   { id: 'rus', name: 'Россия и СССР', icon: '🪆' }, { id: 'tech', name: 'Техника и сеть', icon: '💻' }, { id: 'med', name: 'Медицина', icon: '🩺' }
 ];
 DATA.quiz = [];
-const Q = (c, l, q, a, x, y, z) => DATA.quiz.push({ c, l, q, a: [a, x, y, z] });
+const quizQuestionKey = text => text.normalize('NFC').toLowerCase().replace(/ё/g, 'е').replace(/[\p{P}\p{Z}]/gu, '');
+const quizCardId = (category, question) => {
+  let hash = 2166136261;
+  for (const char of category + '|' + quizQuestionKey(question)) hash = Math.imul(hash ^ char.codePointAt(0), 16777619) >>> 0;
+  return 'quiz-' + hash.toString(16).padStart(8, '0');
+};
+const Q = (c, l, q, a, x, y, z, meta = {}) => DATA.quiz.push({ ...meta, id: quizCardId(c, q), c, l, q, a: [a, x, y, z] });
 
 /* ---------- География ---------- */
 Q('geo', 1, 'Какая страна по форме напоминает сапог?', 'Италия', 'Испания', 'Греция', 'Португалия');

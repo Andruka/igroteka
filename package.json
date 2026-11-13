@@ -1,5 +1,18 @@
 {
   "dependencies": {
     "playwright": "^1.64.1"
+  },
+  "scripts": {
+    "build": "python3 build.py",
+    "test:release": "node test/release.js",
+    "test:menu": "node test/menu.js",
+    "test:memory": "node test/memory.js",
+    "check:data": "node tools/check_cards.js",
+    "test:cards": "node test/cards.js",
+    "test:session": "node test/session.js",
+    "test:nonogram": "node test/nonogram.js",
+    "test:codebreaker": "node test/codebreaker.js",
+    "test:norepeat": "node test/norepeat.js",
+    "check": "npm run check:data && npm run test:cards && npm run build && npm run test:release && npm run test:session && npm run test:menu && npm run test:memory && npm run test:nonogram && npm run test:codebreaker && npm run test:norepeat"
   }
 }

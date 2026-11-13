@@ -41,6 +41,7 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
       store.set('o.memory.mode', 'emoji');
       Intro(G.games.find(g => g.id === 'memory'));
     });
+    await page.getByText('Имена и порядок ходов', { exact: true }).click();
     await page.locator('.teamrow input').fill('Андрей');
     await page.getByRole('button', { name: 'Играть', exact: true }).click();
     await page.locator('.mem-card').first().click();

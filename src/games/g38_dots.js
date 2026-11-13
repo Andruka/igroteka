@@ -86,7 +86,7 @@
         } else { sfx.click(); cur = (cur + 1) % S; }
         if (drawn >= total) return finish();
         paintTurnUI(); banner(!!k);
-        if (solo && cur === 1) { locked = true; setTimeout(ai, k ? 750 : 650); }
+        if (solo && cur === 1) { locked = true; api.delay(ai, k ? 750 : 650); }
       }
       function ai() {
         locked = false; if (!root.isConnected || over) return;
@@ -107,7 +107,7 @@
         over = true; locked = true; paintTurnUI(); board.classList.add('dt-over');
         const best = Math.max(...got), win = got.indexOf(best), tie = got.filter(x => x === best).length > 1;
         sfx.win();
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           window.removeEventListener('resize', onResize);
           if (!solo) return api.end();
@@ -119,7 +119,7 @@
       }
 
       api.show(root, { turn: 0, role: 'Проводит линию', compact: true });
-      paintTurnUI(); paintVs(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+      paintTurnUI(); paintVs(); fit(); requestAnimationFrame(fit); api.delay(fit, 400);
     }
   });
 }

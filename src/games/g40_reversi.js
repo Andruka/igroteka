@@ -7,7 +7,7 @@
     rules: '<ul><li>Играют две стороны: <b>чёрные</b> (с точкой в центре) и <b>белые</b> (с кольцом). Первыми ходят чёрные.</li><li>Ход: поставьте фишку на пустую клетку, подсвеченную точкой. Ход допустим, если по прямой (по горизонтали, вертикали или диагонали) между новой фишкой и вашей старой окажется ряд фишек соперника. Все они <b>переворачиваются</b>.</li><li>Если допустимых ходов нет, ход автоматически переходит к сопернику.</li><li>Партия кончается, когда поле заполнено или никто не может сходить. Побеждает тот, у кого больше фишек.</li><li>Углы забрать выгодно: их нельзя перевернуть.</li><li>Если играет один участник, соперником станет компьютер: вы играете чёрными.</li></ul>',
     opts: [
       { key: 'size', label: 'Размер поля', values: [[6, '6×6 · быстрая партия'], [8, '8×8 · классика']], def: 8 },
-      { key: 'level', label: 'Сила компьютера (при одном игроке)', values: [[1, 'Лёгкий'], [2, 'Средний'], [3, 'Сильный']], def: 2 }
+      { key: 'level', label: 'Сила компьютера (при одном игроке)', values: [[1, 'Лёгкий'], [2, 'Средний'], [3, 'Сильный']], def: 2, when: (opts, n) => n === 1 }
     ],
     cards: () => 0,
     start(api) {
@@ -132,7 +132,7 @@
         say(''); paint(delays); paintChips(); sfx.click();
         const wait = 400 + Math.max(0, ...delays.values());
         try { if (mv.f.length > 3) fx.burst(cells[mv.i], 6); } catch (x) { }
-        setTimeout(() => { if (root.isConnected) next(who); }, wait);
+        api.delay(() => { if (root.isConnected) next(who); }, wait);
       }
       function next(who) {
         const p = 1 - who;
@@ -140,14 +140,14 @@
           if (!movesOf(board, who).length) return finish();
           say(sides[p].name + ' (' + MARK[p].toLowerCase() + ') пропускает ход: нет допустимых ходов');
           paintChips(); sfx.bad && sfx.bad();
-          setTimeout(() => { if (!root.isConnected) return; cur = who; say(''); turn(); }, 1700);
+          api.delay(() => { if (!root.isConnected) return; cur = who; say(''); turn(); }, 1700);
           return;
         }
         cur = p; turn();
       }
       function turn() {
         locked = false; banner(); paintHints();
-        if (solo && cur === 1) { locked = true; paintHints(); setTimeout(ai, 450 + rnd(250)); }
+        if (solo && cur === 1) { locked = true; paintHints(); api.delay(ai, 450 + rnd(250)); }
       }
       function ai() {
         if (!root.isConnected || over) return;
@@ -159,7 +159,7 @@
         const [a, w] = count(board), win = a > w ? 0 : w > a ? 1 : -1;
         say(win < 0 ? 'Ничья: ' + a + ':' + w : sides[win].name + ' побеждает: ' + Math.max(a, w) + ':' + Math.min(a, w));
         sfx.win();
-        setTimeout(() => {
+        api.delay(() => {
           if (!root.isConnected) return;
           window.removeEventListener('resize', onResize);
           const sub = sides[0].name + ': ' + a + ' · ' + sides[1].name + ': ' + w;
@@ -173,11 +173,11 @@
       /* отладочный доступ для тестов */
       root.__rv = {
         N, flipsAt: (b, i, p) => flipsAt(b, i, p), movesOf: (b, p) => movesOf(b, p).map(m => m.i), get board() { return board.slice(); }, get cur() { return cur; },
-        load(b, p) { board = b.slice(); cur = p; locked = false; over = false; last = -1; paint(); banner(); if (solo && cur === 1) { locked = true; paintHints(); setTimeout(ai, 500); } },
+        load(b, p) { board = b.slice(); cur = p; locked = false; over = false; last = -1; paint(); banner(); if (solo && cur === 1) { locked = true; paintHints(); api.delay(ai, 500); } },
         settle() { next(1 - cur); }
       };
       api.show(root, { turn: 0, role: MARK[0], compact: true });
-      paint(); banner(); fit(); requestAnimationFrame(fit); setTimeout(fit, 400);
+      paint(); banner(); fit(); requestAnimationFrame(fit); api.delay(fit, 400);
     }
   });
 }

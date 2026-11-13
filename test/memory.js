@@ -84,7 +84,7 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     const p = await b.newPage({ viewport: { width: 375, height: 667 } }); watch(p);
     await setup(p, '4x4', mode, 'Автор — произведение');
     await p.evaluate(() => Intro(G.games.find(g => g.id === 'memory')));
-    await p.getByRole('button', { name: '−', exact: true }).click();
+    await p.getByRole('button', { name: 'Уменьшить число участников', exact: true }).click();
     ok(await p.locator('.stepper b').innerText() === '1', mode + ': можно выбрать одного участника');
     await p.getByRole('button', { name: 'Играть', exact: true }).click();
     const pairs = await p.evaluate(mode => {
