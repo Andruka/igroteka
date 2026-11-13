@@ -29,9 +29,9 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
 
   // 2. геймплей и вместимость сетки
   const sizes = [[375, 667], [768, 1024], [1280, 720], [1920, 1080]];
-  const setup = async (p, grid, mode, theme) => {
+  const setup = async (p, grid, mode, theme, n = 2) => {
     await p.goto(file);
-    await p.evaluate(([g, m, t]) => { store.set('o.memory.grid', g); store.set('o.memory.mode', m); store.set('o.memory.theme', t); Intro(G.games.find(x => x.id === 'memory')); }, [grid, mode, theme]);
+    await p.evaluate(([g, m, t, n]) => { store.set('n.memory', n); store.set('o.memory.grid', g); store.set('o.memory.mode', m); store.set('o.memory.theme', t); Intro(G.games.find(x => x.id === 'memory')); }, [grid, mode, theme, n]);
     await p.getByRole('button', { name: 'Играть', exact: true }).click(); await p.waitForTimeout(300);
   };
   for (const [w, h] of sizes) {
@@ -76,6 +76,47 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     for (const e of seen) { const [a, c] = pos(e); await cards.nth(a).click(); await cards.nth(c).click(); await p.waitForTimeout(600); }
     await p.waitForSelector('text=Сыграть ещё раз', { timeout: 5000 }).catch(() => { });
     ok(await p.locator('text=Сыграть ещё раз').count() > 0, 'партия завершилась итогами');
+    await p.close();
+  }
+
+  // Одиночная партия: выбор участника, промах, счётчик попыток, итоги и повтор.
+  for (const mode of ['emoji', 'terms']) {
+    const p = await b.newPage({ viewport: { width: 375, height: 667 } }); watch(p);
+    await setup(p, '4x4', mode, 'Автор — произведение');
+    await p.evaluate(() => Intro(G.games.find(g => g.id === 'memory')));
+    await p.getByRole('button', { name: '−', exact: true }).click();
+    ok(await p.locator('.stepper b').innerText() === '1', mode + ': можно выбрать одного участника');
+    await p.getByRole('button', { name: 'Играть', exact: true }).click();
+    const pairs = await p.evaluate(mode => {
+      const texts = [...document.querySelectorAll('.mem-t')].map(e => e.textContent);
+      return mode === 'emoji'
+        ? [...new Set(texts)].map(t => texts.flatMap((v, i) => v === t ? [i] : []))
+        : DATA.memory['Автор — произведение'].map(([a, b]) => [texts.indexOf(a), texts.indexOf(b)]).filter(p => p.every(i => i >= 0));
+    }, mode);
+    const cards = p.locator('.mem-card'), info = p.locator('.mem-info');
+    ok(await p.locator('.tchip').count() === 1, mode + ': один участник в партии');
+    await cards.nth(pairs[0][0]).click();
+    await cards.nth(pairs[0][0]).click();
+    ok(/Попыток: 0/.test(await info.innerText()), mode + ': одна карточка и повторный клик не считаются попыткой');
+    await cards.nth(pairs[1][0]).click();
+    await cards.nth(pairs[2][0]).click({ force: true });
+    ok(await p.locator('.mem-card.open').count() === 2, mode + ': третья карточка заблокирована');
+    ok(!/Ход переходит/.test(await info.innerText()), mode + ': промах без передачи хода');
+    await p.waitForTimeout(1900);
+    ok(await p.locator('.mem-card.open').count() === 0 && /Попыток: 1/.test(await info.innerText()), mode + ': промах закрылся и учтён');
+    const fits = await p.evaluate(() => {
+      const r = document.querySelector('.mem-grid').getBoundingClientRect();
+      return r.bottom <= innerHeight && r.left >= 0 && r.right <= innerWidth;
+    });
+    ok(fits, mode + ': одиночное поле помещается на телефоне');
+    for (const [a, c] of pairs) {
+      await cards.nth(a).click(); await cards.nth(c).click(); await p.waitForTimeout(500);
+    }
+    await p.getByRole('button', { name: 'Сыграть ещё раз', exact: true }).waitFor();
+    ok(await p.getByRole('heading', { name: 'Все пары найдены!', exact: true }).count() === 1, mode + ': одиночные итоги');
+    ok(/Пар: 8 из 8 · Попыток: 9/.test(await p.locator('.stage').innerText()), mode + ': результат учитывает пары и промах');
+    await p.getByRole('button', { name: 'Сыграть ещё раз', exact: true }).click();
+    ok(await p.locator('.tchip').count() === 1 && /Пар: 0 из 8 · Попыток: 0/.test(await info.innerText()), mode + ': повтор сохраняет одиночный режим и сбрасывает счёт');
     await p.close();
   }
 
