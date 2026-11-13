@@ -87,7 +87,10 @@
           timer = api.delay(() => {
             [a, b].forEach(k => { const e = cards[k]; e.done = true; e.owner = ti; e.el.classList.remove('open'); e.el.classList.add('done'); e.el.disabled = true; e.el.style.setProperty('--tc', api.teams[ti].color); label(k, 'done'); });
             found++; open = []; updateReports(); sfx.ok(); api.score(ti, 1);
-            if (found >= pairs) { api.save(); say('Все пары найдены!'); timer = api.delay(() => api.end(solo ? { custom: true, win: true, title: 'Все пары найдены!', sub: 'Пар: ' + found + ' из ' + pairs + ' · Попыток: ' + attempts, lines: [] } : {}), 1100); return; }
+            if (found >= pairs) {
+              if (solo) api.record({ metric: 'attempts', label: 'Попытки', value: attempts, direction: 'min', unit: '', settings: { grid: o.grid, mode: o.mode, theme: o.mode === 'emoji' ? null : theme }, description: o.grid.replace('x', '×') + ' · ' + (o.mode === 'emoji' ? 'Эмодзи' : theme) });
+              Evening.finish(api); api.save(); say('Все пары найдены!'); timer = api.delay(() => api.end(solo ? { custom: true, win: true, title: 'Все пары найдены!', sub: 'Пар: ' + found + ' из ' + pairs + ' · Попыток: ' + attempts, lines: [] } : {}), 1100); return;
+            }
             say((solo ? 'Пара! ' : 'Пара! ' + api.teams[ti].name + ' ходит ещё. ') + status()); locked = false; api.save();
           }, wait ?? 450);
         } else {

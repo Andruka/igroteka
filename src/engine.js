@@ -36,7 +36,7 @@ const store = {
 
 /* ---------- колоды без повторов, темы вечера, скрытые карточки ---------- */
 const PACKS = [['all', 'Обычный вечер', '🎲'], ['ny', 'Новый год', '🎄'], ['bday', 'День рождения', '🎂'], ['kids', 'Для детей', '🧸'], ['corp', 'Корпоратив', '💼'], ['friends', 'Для друзей', '🍻']];
-const curPack = () => store.get('pack', 'all');
+const curPack = () => G.api && G.api.evening ? G.api.evening.pack : store.get('pack', 'all');
 let LAST = null, pendingDecks = [];
 const itemKey = it => typeof it === 'string' ? it : it && typeof it.id === 'string' ? 'id:' + it.id : JSON.stringify(it);
 const legacyItemKey = it => it && typeof it.id === 'string' && Array.isArray(it.a) ? JSON.stringify({ c: it.c, l: it.l, q: it.q, a: it.a }) : itemKey(it);
@@ -303,7 +303,7 @@ function Home() {
   paint();
   mount(h('div', { class: 'wrap catalog-page' },
     h('div', { class: 'hero' }, h('div', { class: 'hero-main' }, h('div', null, h('h1', null, 'Игротека'), h('p', null, 'На одном экране — одному, вдвоём и компанией.'))), h('div', { class: 'top' }, setBtn(), muteBtn(), fullBtn())),
-    search, people, quick, filters, state,
+    search, people, quick, h('div', { class: 'catalog-features' }, btn('Игровой вечер', () => Evening.open(), 'paper small'), btn('Результаты', () => Records.show(), 'paper small')), filters, state,
     h('div', { class: 'continue-list' }, G.games.filter(game => Saves.read(game).status === 'ok').map(game => btn('Продолжить: ' + game.title, () => Saves.resume(game), 'paper small'))), grid,
     h('div', { class: 'foot' }, h('span', null, G.games.length + ' игр. В выбранной колоде карточки идут без повторов, пока не закончатся.'), btn('Сбросить историю карточек', () => confirmBox('Все карточки снова станут «новыми». Сбросить?', () => { store.clearSeen(); Home(); }, 'Сбросить'), 'ghost small'))));
 }
@@ -401,10 +401,10 @@ function Intro(g, setup = {}) {
 }
 
 /* ---------- сессия ---------- */
-function startSession(game, teamList, opts, restored = null) {
+function startSession(game, teamList, opts, restored = null, context = {}) {
   leaveSession(); GameClock.start();
   LAST = null;
-  if (!restored && game.saveVersion) Saves.remove(game.id);
+  if (!restored && game.saveVersion) Saves.remove(game.id, context.evening);
   const T = teamList.map(t => ({ name: t.name, color: t.color, score: restored ? t.score : 0 }));
   const board = h('div', { class: 'board' }), stage = h('main', { class: 'stage' }), turnbar = h('div', { class: 'turnbar', 'aria-live': 'polite' });
   let turn = -1, lastBar = '', streakN = 0, lastScorer = -1, ttsEl = null, flagEl = null, flagCards = [], getSave = null, saveTick = null;
@@ -426,7 +426,10 @@ function startSession(game, teamList, opts, restored = null) {
     board.style.display = (game.coop && game.noBoard) ? 'none' : '';
   }
   const api = {
-    game, teams: T, opts, n: T.length, stage, saved: restored, finished: false,
+    game, teams: T, opts, n: T.length, stage, saved: restored, finished: false, evening: context.evening || null,
+    sessionId: typeof context.sessionId === 'string' && /^[a-z0-9-]{1,64}$/.test(context.sessionId) ? context.sessionId : newRunId(),
+    recorded: new Map(), recordResults: [],
+    record(spec) { return Records.submit(api, spec); },
     now: () => GameClock.now(),
     delay(fn, ms) { if (G.api !== api || api.finished) return null; return GameClock.delay(() => { if (G.api === api && !api.finished) fn(); }, ms); },
     cancelDelay: job => GameClock.cancel(job),
@@ -435,7 +438,7 @@ function startSession(game, teamList, opts, restored = null) {
     save() {
       if (!getSave || api.finished) return false;
       const state = getSave();
-      const ok = state == null ? Saves.remove(game.id) : Saves.write(game, T, opts, state);
+      const ok = state == null ? Saves.remove(game.id, api.evening) : Saves.write(game, T, opts, state, { evening: api.evening, sessionId: api.sessionId });
       saveStatus.classList.toggle('failed', !ok);
       const message = ok ? 'Партия сохраняется на этом устройстве' : 'Не удалось сохранить партию на устройстве';
       if (saveStatus.textContent !== message) saveStatus.textContent = message;
@@ -444,7 +447,7 @@ function startSession(game, teamList, opts, restored = null) {
     pause() {
       if (api.finished || document.querySelector('.pause-dialog')) return;
       Voice.stop();
-      const m = modal(h('div', { class: 'pause-dialog' }, h('h2', null, 'Пауза'), h('p', { class: 'mid-t' }, 'Время и ходы компьютера остановлены.')), [btn('Продолжить игру', () => m.close(), '', { 'data-primary': true }), btn('В меню игры', () => { m.close(); Intro(game); }, 'paper')]);
+      const m = modal(h('div', { class: 'pause-dialog' }, h('h2', null, 'Пауза'), h('p', { class: 'mid-t' }, 'Время и ходы компьютера остановлены.')), [btn('Продолжить игру', () => m.close(), '', { 'data-primary': true }), btn(api.evening ? 'Программа вечера' : 'В меню игры', () => { m.close(); if (api.evening) Evening.show(); else Intro(game); }, 'paper')]);
     },
     show(content, o = {}) {
       runLeave(); stage.className = 'stage' + (o.mid ? ' mid' : ''); stage.replaceChildren(...[].concat(content).flat(Infinity).filter(Boolean));
@@ -474,8 +477,8 @@ function startSession(game, teamList, opts, restored = null) {
     rules() { const m = modal(h('div', null, h('h2', { style: { marginBottom: '.6rem' } }, game.title), h('div', { class: 'rules', html: game.rules })), [btn('Понятно', () => m.close(), '')]); },
     exit() {
       const saved = api.save();
-      const m = modal(h('div', null, h('h2', null, 'Выйти из игры?'), h('p', { class: 'mid-t' }, saved ? 'Партию можно будет продолжить на этом устройстве.' : 'Текущая партия завершится. Очки не сохранятся.')), [
-        btn('В меню игры', () => { m.close(); Intro(game); }),
+      const m = modal(h('div', null, h('h2', null, 'Выйти из игры?'), h('p', { class: 'mid-t' }, saved ? 'Партию можно будет продолжить на этом устройстве.' : api.evening ? (Evening.storageOK ? 'Итоги предыдущих этапов сохранены. Незавершённая игра начнётся заново.' : 'Итоги доступны до закрытия страницы. Незавершённая игра начнётся заново.') : 'Текущая партия завершится. Очки не сохранятся.')), [
+        btn(api.evening ? 'К программе вечера' : 'В меню игры', () => { m.close(); if (api.evening) Evening.show(); else Intro(game); }),
         btn('В каталог', () => { m.close(); Home(); }, 'paper'),
         btn('Остаться', () => { m.close(); frame.querySelector('[aria-label="Выход"]').focus(); }, 'paper')
       ]);
@@ -496,7 +499,7 @@ function startSession(game, teamList, opts, restored = null) {
       withIco(btn(h('span', { class: 'lbl' }, 'Выход'), () => api.exit(), 'ghost small', { 'aria-label': 'Выход' }), 'back'),
       h('div', { class: 'bar-title' }, h('i', null, game.icon), game.title),
       withIco(btn(h('span', { class: 'lbl' }, 'Правила'), () => api.rules(), 'ghost small', { 'aria-label': 'Правила' }), 'help'), (ttsEl = ttsBtn(api)), (flagEl = flagBtn(api)), setBtn(), muteBtn(), fullBtn()),
-    board, turnbar, stage, saveStatus);
+    api.evening ? h('div', { class: 'evening-banner' }, 'Игровой вечер · Этап ' + (api.evening.index + 1) + ' из ' + (Evening.read()?.stages.length || '') + (Evening.storageOK ? '' : ' · Не удалось сохранить программу'), btn('Программа', () => api.exit(), 'ghost small')) : null, board, turnbar, stage, saveStatus);
   G.api = api;
   if (document.hidden) hiddenPause = GameClock.hold();
   // Сохранение живёт всю сессию, а onLeave очищается при смене игрового экрана.
@@ -505,7 +508,9 @@ function startSession(game, teamList, opts, restored = null) {
 }
 
 function Results(api, o) {
-  api.finished = true; api.stopSave(); Saves.remove(api.game.id); GameClock.stop();
+  if (api.finished) return;
+  api.finished = true; const eveningResult = Evening.finish(api);
+  api.stopSave(); Saves.remove(api.game.id, api.evening); GameClock.stop();
   LAST = null;
   const g = api.game, T = api.sorted();
   const best = T[0] ? T[0].score : 0;
@@ -518,9 +523,14 @@ function Results(api, o) {
   }
   const title = o.title || (g.coop ? (win ? 'Победа!' : 'Не вышло') : (T.filter(t => t.score === best).length > 1 ? 'Ничья!' : T[0].name + ' побеждает!'));
   if (win !== false) { Music.stop(); sfx.fanfare(); confetti(); setTimeout(() => confetti(40), 1200); }
+  const nextStage = eveningResult ? Evening.read().stages.findIndex(stage => stage.status === 'pending' || stage.status === 'playing') : -1;
+  const actions = eveningResult ? [btn(nextStage < 0 ? 'Итоги вечера' : 'Следующая игра', () => nextStage < 0 ? Evening.show() : Evening.start(nextStage), 'big', { 'data-primary': true }), btn('Программа вечера', () => Evening.show(), 'big paper'), btn('В каталог', Home, 'big paper')]
+    : [btn('Сыграть ещё раз', () => startSession(g, api.teams.map(t => ({ name: t.name, color: t.color })), api.opts), 'big', { 'data-primary': true }), btn('В меню игры', () => Intro(g), 'big paper'), btn('В каталог', Home, 'big paper')];
   api.show(h('div', { class: 'stack center', style: { alignItems: 'center', textAlign: 'center', paddingTop: '2vh' } },
     o.art || null, h('h1', { class: 'big', style: { fontSize: 'clamp(40px,8vw,96px)' } }, title), o.sub ? h('p', { class: 'mid-t muted' }, o.sub) : null, body,
-    h('div', { class: 'row center', style: { marginTop: '1rem' } }, btn('Сыграть ещё раз', () => startSession(g, api.teams.map(t => ({ name: t.name, color: t.color })), api.opts), 'big', { 'data-primary': true }), btn('В меню игры', () => Intro(g), 'big paper'), btn('В каталог', Home, 'big paper'))), { turn: -1 });
+    api.recordResults.map(result => Records.resultNode(result)),
+    eveningResult && api.n > 1 ? h('div', { class: 'record-result' }, 'Баллы этапа: ' + Evening.read().stages[api.evening.index].result.points.map((value, i) => api.teams[i].name + ' ' + Records.format(value, '')).join(' · ')) : null,
+    h('div', { class: 'row center', style: { marginTop: '1rem' } }, actions)), { turn: -1 });
 }
 
 

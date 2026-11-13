@@ -4,7 +4,7 @@ root = os.path.dirname(os.path.abspath(__file__))
 def rd(p): return open(os.path.join(root, p), encoding='utf-8').read()
 css = rd('src/fonts.css') + '\n' + rd('src/base.css') + '\n' + rd('src/games.css') + '\n' + rd('src/polish.css')
 css += ''.join('\n' + open(f, encoding='utf-8').read() for f in sorted(glob.glob(os.path.join(root, 'src/css/*.css'))))
-js = [rd('src/engine.js'), rd('src/session.js'), rd('src/audio.js'), rd('src/kit.js'), rd('src/pics.js')]
+js = [rd('src/engine.js'), rd('src/session.js'), rd('src/records.js'), rd('src/evening.js'), rd('src/audio.js'), rd('src/kit.js'), rd('src/pics.js')]
 for pat in ('src/data/*.js', 'src/games/*.js'):
     for f in sorted(glob.glob(os.path.join(root, pat))):
         js.append('/* ---- %s ---- */\n' % os.path.relpath(f, root) + open(f, encoding='utf-8').read())

@@ -184,6 +184,7 @@
       function win() {
         over = true; clearInterval(tick); sfx.win(); api.save();
         const total = Math.round(elapsed()); clock.textContent = fmt(total);
+        api.record({ metric: 'time', label: 'Время', value: total, direction: 'min', unit: 'seconds', settings: { size: N, puzzle: rows.join('/'), errors: showErr }, description: N + '×' + N + ' · ' + name + ' · ' + (showErr ? 'С подсветкой ошибок' : 'Без подсветки ошибок') + ' · Штрафы включены' });
         cells.forEach((c, i) => { c.classList.remove('ng-x'); if (sol[i]) { const ch = rows[Math.floor(i / N)][i % N]; c.style.setProperty('--fc', NG_PAL[ch] || '#333'); c.classList.add('ng-rev'); c.style.animationDelay = (Math.floor(i / N) * 60 + (i % N) * 25) + 'ms'; } });
         board.classList.add('ng-done'); cnt.textContent = 'Готово!'; bUndo.disabled = true; bHint.disabled = true; mFill.disabled = mCross.disabled = true;
         try { fx.burst(board, 12); } catch (x) { }

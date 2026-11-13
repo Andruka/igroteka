@@ -13,6 +13,8 @@
     "test:nonogram": "node test/nonogram.js",
     "test:codebreaker": "node test/codebreaker.js",
     "test:norepeat": "node test/norepeat.js",
-    "check": "npm run check:data && npm run test:cards && npm run build && npm run test:release && npm run test:session && npm run test:menu && npm run test:memory && npm run test:nonogram && npm run test:codebreaker && npm run test:norepeat"
+    "check": "npm run check:data && npm run test:cards && npm run build && npm run test:release && npm run test:session && npm run test:menu && npm run test:memory && npm run test:nonogram && npm run test:codebreaker && npm run test:norepeat && npm run test:progress && npm run test:anagram",
+    "test:progress": "node test/progress.js",
+    "test:anagram": "node test/anagram.js"
   }
 }

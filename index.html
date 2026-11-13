@@ -752,6 +752,11 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .an-msg{text-align:center}.an-msg:empty{display:none}.an-judge{font-weight:800;opacity:.85}
 .an-head .kicker{flex:1 1 100%}.an-head{gap:.1rem 1rem}
 .an-actions{margin-top:.2rem}
+.an-answer{display:flex;gap:8px;width:100%;max-width:600px;margin:0 auto}
+.an-answer .input{flex:1;min-width:0;width:0;font-size:18px}
+.an-answer .btn{flex-shrink:0}
+.an-solo-stat{text-align:center;font-size:.85em}
+@media(max-width:600px){.an-answer .btn{font-size:14px;padding:.5em .7em}.an-answer .input{padding:.5em}.an-box:has(.an-answer){gap:.3rem}.an-box:has(.an-answer) .an-tiles{--w:clamp(24px,min(calc((100vw - 48px) / var(--n,8) - 6px),5.8vh),80px)}}
 @media (max-height:700px){.an-tile{box-shadow:0 3px 0 #141a46}}
 .an-box{display:flex;flex-direction:column;gap:.45rem;width:100%}
 .an-head{flex-wrap:wrap}
@@ -1183,6 +1188,38 @@ button.cn-cell:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 @media (max-height:520px){.tp-wrap{gap:8px}.tp-card .big{font-size:24px}.tp-opt{min-height:48px}}
 @media (prefers-reduced-motion:reduce){.tp-rc,.tp-verdict{animation:none}.tp-opt{transition:none}}
 
+.catalog-features{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.catalog-features .btn{min-height:44px;flex:1;max-width:250px}
+.progress-page{display:flex;flex-direction:column;gap:18px}
+.progress-page>h1{font-size:clamp(32px,5vw,64px);margin-top:12px}
+.progress-page>.btn{align-self:flex-start}
+.progress-page [hidden]{display:none!important}
+.progress-page .panel{display:flex;flex-direction:column;gap:14px;min-width:0}
+.progress-page .input{box-sizing:border-box;max-width:100%}
+.evening-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.evening-columns .teamrow{margin-bottom:8px}
+.evening-columns h2{font-size:1.35em}
+.evening-preview{display:flex;flex-direction:column;gap:14px;padding-left:1.5em}
+.evening-editor li{padding-left:4px;min-width:0}
+.evening-editor .input{width:100%;min-height:44px;font-size:16px}
+.evening-order{margin-top:6px;gap:8px}
+.evening-order .btn{min-width:44px;min-height:44px}
+.evening-message{font-size:.9em;line-height:1.45}
+.evening-stages{padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.evening-stages li{font-size:.9em}
+.evening-total{display:flex;justify-content:space-between;gap:16px}
+.evening-banner{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 16px;background:rgba(14,18,51,.5);font-size:.85em}
+.evening-banner .btn{min-height:40px}
+.stage-scores{font-size:.9em}
+.results-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.results-grid h2{font-size:1.3em}
+.result-best{font-weight:800;font-size:1.1em}
+.legacy-results p{font-size:.85em;overflow-wrap:anywhere}
+.record-result{border:2px solid var(--mint);border-radius:14px;padding:14px;max-width:680px;box-sizing:border-box;font-size:.9em}
+.record-result small{display:block;opacity:.85;margin:6px 0}
+.record-result[data-new-record=true]{background:rgba(47,214,160,.12)}
+@media(max-width:700px){.evening-columns{grid-template-columns:minmax(0,1fr)}.evening-columns .huge{font-size:1.1em;width:100%;padding:.7em}.progress-page{gap:14px}.catalog-features .btn{font-size:13px}.evening-banner{font-size:12px}}
+
 /* Кнопки внутри экрана передачи устройства: «.cover .big» красил текст в цвет фона кнопки (жёлтый на жёлтом) */
 .cover .btn,.cover .btn.big{color:var(--ink)}
 .cover .btn.ghost,.cover .btn.paper{color:var(--ink)}
@@ -1333,7 +1370,7 @@ const store = {
 
 /* ---------- колоды без повторов, темы вечера, скрытые карточки ---------- */
 const PACKS = [['all', 'Обычный вечер', '🎲'], ['ny', 'Новый год', '🎄'], ['bday', 'День рождения', '🎂'], ['kids', 'Для детей', '🧸'], ['corp', 'Корпоратив', '💼'], ['friends', 'Для друзей', '🍻']];
-const curPack = () => store.get('pack', 'all');
+const curPack = () => G.api && G.api.evening ? G.api.evening.pack : store.get('pack', 'all');
 let LAST = null, pendingDecks = [];
 const itemKey = it => typeof it === 'string' ? it : it && typeof it.id === 'string' ? 'id:' + it.id : JSON.stringify(it);
 const legacyItemKey = it => it && typeof it.id === 'string' && Array.isArray(it.a) ? JSON.stringify({ c: it.c, l: it.l, q: it.q, a: it.a }) : itemKey(it);
@@ -1600,7 +1637,7 @@ function Home() {
   paint();
   mount(h('div', { class: 'wrap catalog-page' },
     h('div', { class: 'hero' }, h('div', { class: 'hero-main' }, h('div', null, h('h1', null, 'Игротека'), h('p', null, 'На одном экране — одному, вдвоём и компанией.'))), h('div', { class: 'top' }, setBtn(), muteBtn(), fullBtn())),
-    search, people, quick, filters, state,
+    search, people, quick, h('div', { class: 'catalog-features' }, btn('Игровой вечер', () => Evening.open(), 'paper small'), btn('Результаты', () => Records.show(), 'paper small')), filters, state,
     h('div', { class: 'continue-list' }, G.games.filter(game => Saves.read(game).status === 'ok').map(game => btn('Продолжить: ' + game.title, () => Saves.resume(game), 'paper small'))), grid,
     h('div', { class: 'foot' }, h('span', null, G.games.length + ' игр. В выбранной колоде карточки идут без повторов, пока не закончатся.'), btn('Сбросить историю карточек', () => confirmBox('Все карточки снова станут «новыми». Сбросить?', () => { store.clearSeen(); Home(); }, 'Сбросить'), 'ghost small'))));
 }
@@ -1698,10 +1735,10 @@ function Intro(g, setup = {}) {
 }
 
 /* ---------- сессия ---------- */
-function startSession(game, teamList, opts, restored = null) {
+function startSession(game, teamList, opts, restored = null, context = {}) {
   leaveSession(); GameClock.start();
   LAST = null;
-  if (!restored && game.saveVersion) Saves.remove(game.id);
+  if (!restored && game.saveVersion) Saves.remove(game.id, context.evening);
   const T = teamList.map(t => ({ name: t.name, color: t.color, score: restored ? t.score : 0 }));
   const board = h('div', { class: 'board' }), stage = h('main', { class: 'stage' }), turnbar = h('div', { class: 'turnbar', 'aria-live': 'polite' });
   let turn = -1, lastBar = '', streakN = 0, lastScorer = -1, ttsEl = null, flagEl = null, flagCards = [], getSave = null, saveTick = null;
@@ -1723,7 +1760,10 @@ function startSession(game, teamList, opts, restored = null) {
     board.style.display = (game.coop && game.noBoard) ? 'none' : '';
   }
   const api = {
-    game, teams: T, opts, n: T.length, stage, saved: restored, finished: false,
+    game, teams: T, opts, n: T.length, stage, saved: restored, finished: false, evening: context.evening || null,
+    sessionId: typeof context.sessionId === 'string' && /^[a-z0-9-]{1,64}$/.test(context.sessionId) ? context.sessionId : newRunId(),
+    recorded: new Map(), recordResults: [],
+    record(spec) { return Records.submit(api, spec); },
     now: () => GameClock.now(),
     delay(fn, ms) { if (G.api !== api || api.finished) return null; return GameClock.delay(() => { if (G.api === api && !api.finished) fn(); }, ms); },
     cancelDelay: job => GameClock.cancel(job),
@@ -1732,7 +1772,7 @@ function startSession(game, teamList, opts, restored = null) {
     save() {
       if (!getSave || api.finished) return false;
       const state = getSave();
-      const ok = state == null ? Saves.remove(game.id) : Saves.write(game, T, opts, state);
+      const ok = state == null ? Saves.remove(game.id, api.evening) : Saves.write(game, T, opts, state, { evening: api.evening, sessionId: api.sessionId });
       saveStatus.classList.toggle('failed', !ok);
       const message = ok ? 'Партия сохраняется на этом устройстве' : 'Не удалось сохранить партию на устройстве';
       if (saveStatus.textContent !== message) saveStatus.textContent = message;
@@ -1741,7 +1781,7 @@ function startSession(game, teamList, opts, restored = null) {
     pause() {
       if (api.finished || document.querySelector('.pause-dialog')) return;
       Voice.stop();
-      const m = modal(h('div', { class: 'pause-dialog' }, h('h2', null, 'Пауза'), h('p', { class: 'mid-t' }, 'Время и ходы компьютера остановлены.')), [btn('Продолжить игру', () => m.close(), '', { 'data-primary': true }), btn('В меню игры', () => { m.close(); Intro(game); }, 'paper')]);
+      const m = modal(h('div', { class: 'pause-dialog' }, h('h2', null, 'Пауза'), h('p', { class: 'mid-t' }, 'Время и ходы компьютера остановлены.')), [btn('Продолжить игру', () => m.close(), '', { 'data-primary': true }), btn(api.evening ? 'Программа вечера' : 'В меню игры', () => { m.close(); if (api.evening) Evening.show(); else Intro(game); }, 'paper')]);
     },
     show(content, o = {}) {
       runLeave(); stage.className = 'stage' + (o.mid ? ' mid' : ''); stage.replaceChildren(...[].concat(content).flat(Infinity).filter(Boolean));
@@ -1771,8 +1811,8 @@ function startSession(game, teamList, opts, restored = null) {
     rules() { const m = modal(h('div', null, h('h2', { style: { marginBottom: '.6rem' } }, game.title), h('div', { class: 'rules', html: game.rules })), [btn('Понятно', () => m.close(), '')]); },
     exit() {
       const saved = api.save();
-      const m = modal(h('div', null, h('h2', null, 'Выйти из игры?'), h('p', { class: 'mid-t' }, saved ? 'Партию можно будет продолжить на этом устройстве.' : 'Текущая партия завершится. Очки не сохранятся.')), [
-        btn('В меню игры', () => { m.close(); Intro(game); }),
+      const m = modal(h('div', null, h('h2', null, 'Выйти из игры?'), h('p', { class: 'mid-t' }, saved ? 'Партию можно будет продолжить на этом устройстве.' : api.evening ? (Evening.storageOK ? 'Итоги предыдущих этапов сохранены. Незавершённая игра начнётся заново.' : 'Итоги доступны до закрытия страницы. Незавершённая игра начнётся заново.') : 'Текущая партия завершится. Очки не сохранятся.')), [
+        btn(api.evening ? 'К программе вечера' : 'В меню игры', () => { m.close(); if (api.evening) Evening.show(); else Intro(game); }),
         btn('В каталог', () => { m.close(); Home(); }, 'paper'),
         btn('Остаться', () => { m.close(); frame.querySelector('[aria-label="Выход"]').focus(); }, 'paper')
       ]);
@@ -1793,7 +1833,7 @@ function startSession(game, teamList, opts, restored = null) {
       withIco(btn(h('span', { class: 'lbl' }, 'Выход'), () => api.exit(), 'ghost small', { 'aria-label': 'Выход' }), 'back'),
       h('div', { class: 'bar-title' }, h('i', null, game.icon), game.title),
       withIco(btn(h('span', { class: 'lbl' }, 'Правила'), () => api.rules(), 'ghost small', { 'aria-label': 'Правила' }), 'help'), (ttsEl = ttsBtn(api)), (flagEl = flagBtn(api)), setBtn(), muteBtn(), fullBtn()),
-    board, turnbar, stage, saveStatus);
+    api.evening ? h('div', { class: 'evening-banner' }, 'Игровой вечер · Этап ' + (api.evening.index + 1) + ' из ' + (Evening.read()?.stages.length || '') + (Evening.storageOK ? '' : ' · Не удалось сохранить программу'), btn('Программа', () => api.exit(), 'ghost small')) : null, board, turnbar, stage, saveStatus);
   G.api = api;
   if (document.hidden) hiddenPause = GameClock.hold();
   // Сохранение живёт всю сессию, а onLeave очищается при смене игрового экрана.
@@ -1802,7 +1842,9 @@ function startSession(game, teamList, opts, restored = null) {
 }
 
 function Results(api, o) {
-  api.finished = true; api.stopSave(); Saves.remove(api.game.id); GameClock.stop();
+  if (api.finished) return;
+  api.finished = true; const eveningResult = Evening.finish(api);
+  api.stopSave(); Saves.remove(api.game.id, api.evening); GameClock.stop();
   LAST = null;
   const g = api.game, T = api.sorted();
   const best = T[0] ? T[0].score : 0;
@@ -1815,9 +1857,14 @@ function Results(api, o) {
   }
   const title = o.title || (g.coop ? (win ? 'Победа!' : 'Не вышло') : (T.filter(t => t.score === best).length > 1 ? 'Ничья!' : T[0].name + ' побеждает!'));
   if (win !== false) { Music.stop(); sfx.fanfare(); confetti(); setTimeout(() => confetti(40), 1200); }
+  const nextStage = eveningResult ? Evening.read().stages.findIndex(stage => stage.status === 'pending' || stage.status === 'playing') : -1;
+  const actions = eveningResult ? [btn(nextStage < 0 ? 'Итоги вечера' : 'Следующая игра', () => nextStage < 0 ? Evening.show() : Evening.start(nextStage), 'big', { 'data-primary': true }), btn('Программа вечера', () => Evening.show(), 'big paper'), btn('В каталог', Home, 'big paper')]
+    : [btn('Сыграть ещё раз', () => startSession(g, api.teams.map(t => ({ name: t.name, color: t.color })), api.opts), 'big', { 'data-primary': true }), btn('В меню игры', () => Intro(g), 'big paper'), btn('В каталог', Home, 'big paper')];
   api.show(h('div', { class: 'stack center', style: { alignItems: 'center', textAlign: 'center', paddingTop: '2vh' } },
     o.art || null, h('h1', { class: 'big', style: { fontSize: 'clamp(40px,8vw,96px)' } }, title), o.sub ? h('p', { class: 'mid-t muted' }, o.sub) : null, body,
-    h('div', { class: 'row center', style: { marginTop: '1rem' } }, btn('Сыграть ещё раз', () => startSession(g, api.teams.map(t => ({ name: t.name, color: t.color })), api.opts), 'big', { 'data-primary': true }), btn('В меню игры', () => Intro(g), 'big paper'), btn('В каталог', Home, 'big paper'))), { turn: -1 });
+    api.recordResults.map(result => Records.resultNode(result)),
+    eveningResult && api.n > 1 ? h('div', { class: 'record-result' }, 'Баллы этапа: ' + Evening.read().stages[api.evening.index].result.points.map((value, i) => api.teams[i].name + ' ' + Records.format(value, '')).join(' · ')) : null,
+    h('div', { class: 'row center', style: { marginTop: '1rem' } }, actions)), { turn: -1 });
 }
 
 
@@ -1828,6 +1875,7 @@ document.addEventListener('dragstart', e => { if (!e.target.closest || !e.target
 /* ---------- запуск ---------- */
 function boot() { Home(); }
 
+const newRunId = () => Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
 /* Время партии: пауза останавливает отсчёт и отложенные игровые действия. */
 const GameClock = (() => {
   let active = false, origin = 0, pausedAt = 0, epoch = 0;
@@ -1868,12 +1916,12 @@ const SaveChecks = {
   text: (value, max = 1000) => typeof value === 'string' && value.length > 0 && value.length <= max
 };
 const Saves = {
-  key: id => 'igroteka.save.' + id,
-  read(game) {
+  key: (id, evening = null) => evening ? 'igroteka.evening.save.' + evening.runId + '.' + evening.index : 'igroteka.save.' + id,
+  read(game, evening = null) {
     if (!game.saveVersion) return { status: 'none' };
     let raw;
     try {
-      raw = localStorage.getItem(this.key(game.id));
+      raw = localStorage.getItem(this.key(game.id, evening));
       if (raw == null) return { status: 'none' };
       if (raw.length > 500000) return { status: 'invalid' };
       const save = JSON.parse(raw), t = game.teams || { min: 2, max: 8 };
@@ -1889,16 +1937,16 @@ const Saves = {
       return { status: 'ok', data: save };
     } catch (e) { return { status: raw == null ? 'none' : 'invalid' }; }
   },
-  write(game, teams, opts, state) {
+  write(game, teams, opts, state, context = {}) {
     try {
-      localStorage.setItem(this.key(game.id), JSON.stringify({ version: 1, game: game.id, gameVersion: game.saveVersion, at: Date.now(), teams, opts, state }));
+      localStorage.setItem(this.key(game.id, context.evening), JSON.stringify({ version: 1, game: game.id, gameVersion: game.saveVersion, at: Date.now(), runId: context.sessionId, teams, opts, state }));
       return true;
     } catch (e) { return false; }
   },
-  remove(id) { try { localStorage.removeItem(this.key(id)); return true; } catch (e) { return false; } },
-  resume(game) {
-    const saved = this.read(game);
-    if (saved.status === 'ok') { keepAwake(); startSession(game, saved.data.teams, saved.data.opts, saved.data.state); }
+  remove(id, evening = null) { try { localStorage.removeItem(this.key(id, evening)); return true; } catch (e) { return false; } },
+  resume(game, evening = null) {
+    const saved = this.read(game, evening);
+    if (saved.status === 'ok') { keepAwake(); startSession(game, saved.data.teams, saved.data.opts, saved.data.state, { evening, sessionId: saved.data.runId }); }
     else { const m = modal(h('p', { class: 'mid-t' }, 'Не удалось прочитать сохранение. Начните новую партию в меню игры.'), [btn('В меню игры', () => { m.close(); Intro(game); })]); }
   },
   control(game, onDelete) {
@@ -1922,6 +1970,275 @@ document.addEventListener('visibilitychange', () => {
   else if (hiddenPause) { if (G.inSession && G.api && !G.api.finished) G.api.pause(); hiddenPause(); hiddenPause = null; }
 });
 window.addEventListener('pagehide', () => { if (G.api) G.api.save(); });
+
+/* Результаты на устройстве. В одном рекорде сравниваются одинаковые условия. */
+const Records = {
+  canonical(value) {
+    if (Array.isArray(value)) return value.map(v => this.canonical(v));
+    if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, this.canonical(value[key])]));
+    return value;
+  },
+  key(game, spec) { return JSON.stringify([game, spec.metric, spec.direction || 'max', curPack(), this.canonical(spec.settings || {})]); },
+  read() {
+    const raw = store.get('records.v1', {}), out = {};
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
+    for (const [key, row] of Object.entries(raw).slice(0, 1000)) {
+      if (key.length > 1600 || !row || !G.games.some(game => game.id === row.game) || !['min', 'max'].includes(row.direction)) continue;
+      if (![row.best, row.last].every(v => SaveChecks.number(v, 0, 1e9)) || !SaveChecks.int(row.plays, 1, 1000000) || !SaveChecks.text(row.label, 160) || !SaveChecks.text(row.description, 300)) continue;
+      if (typeof row.unit !== 'string' || row.unit.length > 40 || !SaveChecks.number(row.at, 0, 1e15)) continue;
+      out[key] = row;
+    }
+    return out;
+  },
+  format(value, unit) { return unit === 'seconds' ? Math.floor(Math.round(value) / 60) + ':' + String(Math.round(value) % 60).padStart(2, '0') : new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 1 }).format(value) + (unit ? ' ' + unit : ''); },
+  submit(api, spec) {
+    if (api.finished || !spec || !SaveChecks.number(spec.value, 0, 1e9) || !SaveChecks.text(spec.metric, 80) || !SaveChecks.text(spec.label, 160) || !SaveChecks.text(spec.description, 300) || !['min', 'max'].includes(spec.direction || 'max')) return null;
+    const key = this.key(api.game.id, spec);
+    if (key.length > 1600) return null;
+    if (api.recorded.has(key)) return api.recorded.get(key);
+    const all = this.read(), previous = all[key], direction = spec.direction || 'max';
+    const sameRun = previous && previous.lastRun === api.sessionId;
+    const improved = !previous || (direction === 'min' ? spec.value < previous.best : spec.value > previous.best);
+    const packLabel = (PACKS.find(p => p[0] === curPack()) || PACKS[0])[1];
+    const row = { game: api.game.id, label: spec.label, description: (spec.description + ' · ' + packLabel).slice(0, 300), direction, unit: spec.unit || '', best: improved ? spec.value : previous.best, last: spec.value, plays: sameRun ? previous.plays : Math.min(1000000, (previous ? previous.plays : 0) + 1), at: Date.now(), lastRun: api.sessionId };
+    all[key] = row;
+    const limited = Object.fromEntries(Object.entries(all).sort((a, b) => b[1].at - a[1].at).slice(0, 1000));
+    let stored = true;
+    try { localStorage.setItem('igroteka.records.v1', JSON.stringify(limited)); } catch (e) { stored = false; }
+    const result = { row, value: spec.value, first: !previous, improved: !!previous && improved, previous: previous ? previous.last : null, previousBest: previous ? previous.best : null, stored };
+    api.recorded.set(key, result); api.recordResults.push(result); return result;
+  },
+  resultNode(result) {
+    const { row, value } = result;
+    const delta = result.previous == null ? 0 : (row.direction === 'min' ? result.previous - value : value - result.previous);
+    return h('div', { class: 'record-result', 'data-new-record': result.improved ? 'true' : 'false' },
+      h('b', null, result.first ? 'Первый результат' : result.improved ? 'Новый рекорд!' : 'Результат партии'),
+      h('p', null, row.label + ': ' + this.format(value, row.unit) + ' · Лучший: ' + this.format(row.best, row.unit)),
+      h('small', null, row.description),
+      result.previous == null ? null : h('p', null, 'Прошлая партия: ' + this.format(result.previous, row.unit) + (delta > 0 ? ' · Лучше на ' + this.format(delta, row.unit) : delta === 0 ? ' · Тот же результат' : '')),
+      result.stored ? null : h('p', null, 'Не удалось записать результат на устройстве.'));
+  },
+  legacy() {
+    const list = [];
+    try {
+      for (const key of Object.keys(localStorage)) {
+        const short = key.replace(/^igroteka\./, ''), match = short.match(/^(duet\.([a-z]+)\.\d+|scale\.best\.\d+|tp\.rec\.\d+\.\d+\.[cf])$/);
+        if (!match) continue;
+        const value = JSON.parse(localStorage.getItem(key)); if (!SaveChecks.number(value, 0, 1e9)) continue;
+        const game = G.games.find(game => game.id === (match[2] || (short.startsWith('scale') ? 'scale' : 'telepathy')));
+        if (game) { const parts = short.split('.'); list.push(game.title + ': ' + value + (short.startsWith('tp.') ? '% · Игроков: ' + parts[2] + ' · Раундов: ' + parts[3] : ' · Раундов: ' + parts.at(-1))); }
+      }
+      const knowme = store.get('knowme.rec', {});
+      if (knowme && typeof knowme === 'object') for (const [party, value] of Object.entries(knowme).slice(0, 50)) if (SaveChecks.number(value, 0, 100)) list.push('Кто кого знает: ' + value + '% · ' + party.slice(0, 160).replace('#', ' · Раундов: ').replaceAll('+', ', '));
+    } catch (e) { }
+    return list.slice(0, 100);
+  },
+  show() {
+    leaveSession(); Music.stop(); Voice.stop();
+    const all = Object.values(this.read()).sort((a, b) => b.at - a.at), list = h('div', { class: 'results-grid' });
+    let limit = 20;
+    const more = btn('Показать ещё', () => { limit += 20; paint(); }, 'paper');
+    const select = h('select', { class: 'input', 'aria-label': 'Игра в результатах', onchange: () => { limit = 20; paint(); } }, h('option', { value: '' }, 'Все игры'), ...G.games.filter(game => all.some(row => row.game === game.id)).map(game => h('option', { value: game.id }, game.title)));
+    const paint = () => {
+      const rows = all.filter(row => !select.value || row.game === select.value);
+      more.hidden = rows.length <= limit;
+      list.replaceChildren(...(rows.length ? rows.slice(0, limit).map(row => h('article', { class: 'panel' }, h('h2', null, G.games.find(game => game.id === row.game).title), h('p', { class: 'result-best' }, row.label + ': ' + this.format(row.best, row.unit)), h('p', null, row.description), h('small', null, 'Последний: ' + this.format(row.last, row.unit) + ' · Партий: ' + row.plays))) : [h('div', { class: 'panel' }, 'Здесь появятся результаты одиночных головоломок и совместных режимов. Завершите партию, чтобы записать первый результат.')]));
+    };
+    const legacy = this.legacy(); paint();
+    mount(h('div', { class: 'wrap progress-page' }, btn('Каталог', Home, 'ghost small'), h('h1', null, 'Результаты'), h('p', null, 'Лучшие и последние партии на этом устройстве. Рекорды сравниваются при одинаковых условиях.'), select, list, more,
+      legacy.length ? h('details', { class: 'panel legacy-results' }, h('summary', null, 'Прежние результаты'), h('p', null, 'Они сохранены отдельно: часть условий в старой версии не записывалась.'), ...legacy.map(text => h('p', null, text))) : null));
+  }
+};
+
+/* Программа из нескольких игр; очки этапов зависят от мест, а не шкалы игры. */
+const Evening = {
+  live: null, storageOK: true, invalid: false,
+  pool: ['dilemma', 'emoji', 'memory', 'quiz', 'anagram', 'fake', 'odd', 'before', 'hl', 'codebreaker', 'estimate', 'timeline', 'charades', 'taboo', 'draw'],
+  collections: [
+    { id: 'mix', title: 'Разнообразный вечер', description: 'Чередуем вопросы, слова и задачи на логику.' },
+    { id: 'quiz', title: 'Викторины', description: 'Кино, факты, числа и события.', games: ['emoji', 'quiz', 'fake', 'odd', 'before', 'hl', 'estimate', 'timeline'] },
+    { id: 'words', title: 'Слова и общение', description: 'Собираем слова, объясняем и обсуждаем.', games: ['anagram', 'charades', 'taboo', 'draw', 'emoji', 'dilemma'] },
+    { id: 'logic', title: 'На логику', description: 'Ищем закономерности, запоминаем и сравниваем.', games: ['memory', 'codebreaker', 'odd', 'before', 'hl', 'estimate', 'timeline'] }
+  ],
+  formatPoints(value) { return Records.format(value, Number.isInteger(value) ? plural(value, 'балл', 'балла', 'баллов') : 'балла'); },
+  points(scores) { return scores.map(score => scores.filter(other => other < score).length + (scores.filter(other => other === score).length - 1) / 2); },
+  options(game, minutes, n, pack) {
+    const opts = {};
+    for (const option of game.opts || []) {
+      const values = typeof option.values === 'function' ? option.values() : option.values;
+      opts[option.key] = Array.isArray(option.def) ? option.def.slice() : option.def;
+      const choices = values.map(v => Array.isArray(v) ? v[0] : v);
+      if (option.key === 'rounds') opts.rounds = minutes === 20 || n > 4 ? choices[0] : minutes === 60 ? choices.filter(v => +v <= 5).at(-1) || choices[0] : choices.includes(option.def) ? option.def : choices[0];
+      if (option.key === 'time') opts.time = choices.find(v => +v > 0) || 0;
+    }
+    if (game.id === 'memory') Object.assign(opts, { mode: 'emoji', grid: minutes === 60 ? '5x4' : '4x4', theme: 'rand' });
+    if (game.id === 'codebreaker') Object.assign(opts, { lvl: 'classic', rounds: 1, time: 240 });
+    if (game.id === 'anagram') opts.level = 'easy';
+    if (['charades', 'taboo', 'draw'].includes(game.id)) Object.assign(opts, { mode: 'duet', score: 'versus', drounds: minutes === 20 ? 4 : minutes === 40 ? 6 : 10 });
+    if (pack === 'kids' && game.id === 'quiz') opts.diff = 'easy';
+    return opts;
+  },
+  eligible(n, pack) {
+    return this.pool.map(id => G.games.find(g => g.id === id)).filter(game => {
+      if (!game || game.coop || n < game.teams.min || n > game.teams.max || (game.id === 'codebreaker' && n > 2)) return false;
+      if (['charades', 'taboo', 'draw'].includes(game.id) && n !== 2) return false;
+      return pack !== 'kids' || (game.decks || []).some(deck => DATA.themed && DATA.themed[deck] && DATA.themed[deck].kids && DATA.themed[deck].kids.length);
+    });
+  },
+  generate(n, minutes, pack, collection = 'mix') {
+    const recipe = this.collections.find(c => c.id === collection) || this.collections[0];
+    const count = { 20: 3, 40: 4, 60: 5 }[minutes], available = this.eligible(n, pack).filter(g => !recipe.games || recipe.games.includes(g.id));
+    if (available.length < count) return [];
+    let games = shuffle(available);
+    if (recipe.id === 'mix') {
+      const groups = shuffle([
+        ['dilemma', 'anagram', 'charades', 'taboo', 'draw'],
+        ['emoji', 'quiz', 'fake', 'before', 'hl'],
+        ['memory', 'codebreaker', 'odd', 'estimate', 'timeline']
+      ]).map(ids => shuffle(available.filter(g => ids.includes(g.id))));
+      games = [];
+      while (groups.some(group => group.length)) for (const group of groups) if (group.length) games.push(group.pop());
+    }
+    return games.slice(0, count).map(game => ({ game: game.id, opts: this.options(game, minutes, n, pack), status: 'pending', result: null }));
+  },
+  editor(stages, n, minutes, pack, change) {
+    const available = this.eligible(n, pack), list = h('ol', { class: 'evening-preview evening-editor' });
+    list.replaceChildren(...stages.map((stage, index) => {
+      const editable = stage.status === 'pending', title = G.games.find(g => g.id === stage.game).title;
+      const select = h('select', { class: 'input', 'aria-label': 'Игра этапа ' + (index + 1), disabled: !editable, onchange: e => {
+        const game = available.find(g => g.id === e.target.value);
+        if (!game) return;
+        change(stages.map((s, i) => i === index ? { game: game.id, opts: this.options(game, minutes, n, pack), status: 'pending', result: null } : s));
+      } }, ...available.filter(g => g.id === stage.game || !stages.some(s => s.game === g.id)).map(g => h('option', { value: g.id, selected: g.id === stage.game }, g.title)));
+      const move = offset => { const next = stages.slice(); [next[index], next[index + offset]] = [next[index + offset], next[index]]; change(next); };
+      return h('li', null, select, h('div', { class: 'row evening-order' },
+        btn('↑', () => move(-1), 'paper icon small', { disabled: !editable || index === 0 || stages[index - 1].status !== 'pending', 'aria-label': 'Выше: ' + title }),
+        btn('↓', () => move(1), 'paper icon small', { disabled: !editable || index === stages.length - 1 || stages[index + 1].status !== 'pending', 'aria-label': 'Ниже: ' + title })));
+    }));
+    return list;
+  },
+  editRemaining() {
+    const run = this.read(); if (!run) return;
+    let draft = run.stages.slice();
+    const body = h('div', null, h('h2', null, 'Оставшиеся игры'), h('p', null, 'Меняйте игры и порядок этапов, которые ещё не начались.'));
+    const container = h('div'); body.append(container);
+    const paint = () => container.replaceChildren(this.editor(draft, run.people.length, run.minutes, run.pack, next => { draft = next; paint(); }));
+    paint();
+    const dialog = modal(body, [btn('Сохранить программу', () => { run.stages = draft; this.write(run); dialog.close(); this.show(); }), btn('Отмена', () => dialog.close(), 'paper')]);
+  },
+  valid(run) {
+    if (!run || run.version !== 1 || !/^[a-z0-9-]{1,64}$/.test(run.id) || ![20, 40, 60].includes(run.minutes) || !PACKS.some(p => p[0] === run.pack)) return false;
+    const c = SaveChecks;
+    if (!Array.isArray(run.people) || run.people.length < 1 || run.people.length > 8 || !run.people.every(p => p && c.text(p.name, 22) && TEAM_COLORS.includes(p.color))) return false;
+    if (!Array.isArray(run.stages) || run.stages.length !== { 20: 3, 40: 4, 60: 5 }[run.minutes] || new Set(run.stages.map(s => s && s.game)).size !== run.stages.length) return false;
+    const allowed = this.eligible(run.people.length, run.pack).map(g => g.id); let open = false, playing = false;
+    for (const stage of run.stages) {
+      if (!stage || !allowed.includes(stage.game) || !['pending', 'playing', 'done', 'skipped'].includes(stage.status)) return false;
+      const game = G.games.find(g => g.id === stage.game);
+      if (!stage.opts || typeof stage.opts !== 'object' || Array.isArray(stage.opts)) return false;
+      for (const option of game.opts || []) {
+        const values = (typeof option.values === 'function' ? option.values() : option.values).map(value => Array.isArray(value) ? value[0] : value);
+        const value = stage.opts[option.key];
+        if (option.multi ? !Array.isArray(value) || !value.every(v => values.includes(v)) : !values.includes(value)) return false;
+      }
+      if (stage.status === 'done' || stage.status === 'skipped') { if (open) return false; }
+      else { if (stage.status === 'playing' && (open || playing)) return false; playing = stage.status === 'playing'; open = true; }
+      if (stage.status === 'done') {
+        if (!stage.result || !c.array(stage.result.raw, run.people.length, v => c.number(v, -1e9, 1e9))) return false;
+        const points = this.points(stage.result.raw);
+        if (!c.array(stage.result.points, points.length, (v, i) => v === points[i])) return false;
+      } else if (stage.result !== null) return false;
+    }
+    return true;
+  },
+  read() {
+    if (this.live && this.valid(this.live)) return this.live;
+    let raw;
+    try { raw = localStorage.getItem('igroteka.evening.v1'); if (raw == null) return null; if (raw.length > 50000) throw new Error('size'); const run = JSON.parse(raw); if (!this.valid(run)) throw new Error('invalid'); this.live = run; return run; }
+    catch (e) { this.invalid = raw != null; return null; }
+  },
+  write(run) {
+    this.live = run; this.invalid = false;
+    try { localStorage.setItem('igroteka.evening.v1', JSON.stringify(run)); this.storageOK = true; } catch (e) { this.storageOK = false; }
+  },
+  context(run, index) { return { runId: run.id, index, pack: run.pack }; },
+  open() { if (this.read()) this.show(); else this.setup(); },
+  setup() {
+    leaveSession(); Music.stop(); Voice.stop();
+    let n = clamp(Math.round(+store.get('evening.people', 2)) || 2, 1, 8), minutes = 20, pack = PACKS.some(p => p[0] === curPack()) ? curPack() : 'all', collection = 'mix', plan = [];
+    const names = range(8).map(i => 'Игрок ' + (i + 1)), roster = h('div'), preview = h('div'), message = h('p', { class: 'evening-message', 'aria-live': 'polite' }), recipeNote = h('p', { class: 'evening-message' });
+    const launch = btn('Начать вечер', () => {
+      const people = range(n).map(i => ({ name: names[i].trim() || 'Игрок ' + (i + 1), color: TEAM_COLORS[i] }));
+      if (new Set(people.map(p => p.name.toLowerCase())).size !== n) { message.textContent = 'Укажите разные имена, чтобы различать участников в итогах.'; return; }
+      if (!plan.length) return;
+      const run = { version: 1, id: newRunId(), minutes, pack, people, stages: plan };
+      const previous = this.read();
+      store.set('evening.people', n); this.write(run);
+      if (previous && this.storageOK) previous.stages.forEach((stage, i) => Saves.remove(stage.game, this.context(previous, i)));
+      this.start(0);
+    }, 'huge', { 'data-primary': true });
+    const count = h('div', { class: 'stepper' });
+    const length = h('div', { class: 'seg' });
+    const paintPreview = () => preview.replaceChildren(this.editor(plan, n, minutes, pack, next => { plan = next; paintPreview(); }));
+    const paint = () => {
+      count.replaceChildren(btn('−', () => { if (n > 1) { n--; paint(); } }, 'paper icon', { disabled: n === 1, 'aria-label': 'Меньше игроков' }), h('b', null, n), btn('+', () => { if (n < 8) { n++; paint(); } }, 'paper icon', { disabled: n === 8, 'aria-label': 'Больше игроков' }), h('span', null, plural(n, 'человек', 'человека', 'человек')));
+      length.replaceChildren(...[20, 40, 60].map(value => h('button', { type: 'button', 'aria-pressed': value === minutes, onclick: () => { minutes = value; paint(); } }, '≈' + value + ' мин · ' + ({ 20: 3, 40: 4, 60: 5 }[value]) + ' ' + plural(({ 20: 3, 40: 4, 60: 5 }[value]), 'игра', 'игры', 'игр'))));
+      roster.replaceChildren(...range(n).map(i => h('label', { class: 'teamrow', style: { '--c': TEAM_COLORS[i] } }, h('span', { class: 'dot' }), h('input', { class: 'input', value: names[i], maxlength: 22, 'aria-label': 'Игрок ' + (i + 1), oninput: e => { names[i] = e.target.value; } }))));
+      plan = this.generate(n, minutes, pack, collection);
+      paintPreview();
+      recipeNote.textContent = this.collections.find(c => c.id === collection).description;
+      message.textContent = plan.length ? 'Замените любую игру или поменяйте порядок стрелками. Длительность ориентировочная.' : 'В этой подборке не хватает игр для выбранных условий. Выберите другую подборку, тему или более короткий вечер.';
+      launch.disabled = !plan.length;
+    };
+    const theme = h('select', { class: 'input', 'aria-label': 'Тема игрового вечера', onchange: e => { pack = e.target.value; paint(); } }, ...PACKS.map(([id, label]) => h('option', { value: id, selected: id === pack }, label)));
+    const recipes = h('select', { class: 'input', 'aria-label': 'Подборка игр', onchange: e => { collection = e.target.value; paint(); } }, ...this.collections.map(c => h('option', { value: c.id }, c.title)));
+    paint();
+    mount(h('div', { class: 'wrap progress-page evening-page' }, btn('Каталог', Home, 'ghost small'), h('h1', null, 'Игровой вечер'), h('p', null, 'От одного до восьми игроков. Одна программа, общие участники и итог нескольких игр.'),
+      this.invalid ? h('p', { class: 'panel' }, 'Предыдущую программу не удалось прочитать. Можно составить новую.') : null,
+      h('div', { class: 'evening-columns' }, h('section', { class: 'panel dark' }, h('h2', null, 'Кто играет'), count, roster, h('h2', null, 'Сколько времени'), length, h('label', null, 'Тема вечера', theme)),
+        h('section', { class: 'panel' }, h('h2', null, 'Программа'), h('label', null, 'Подборка игр', recipes), recipeNote, preview, btn('Другая программа', paint, 'paper small'), message, launch))));
+  },
+  start(index) {
+    const run = this.read(); if (!run || index !== run.stages.findIndex(s => s.status === 'pending' || s.status === 'playing')) return this.show();
+    const stage = run.stages[index], game = G.games.find(g => g.id === stage.game), context = this.context(run, index);
+    stage.status = 'playing'; this.write(run); keepAwake();
+    if (Saves.read(game, context).status === 'ok') Saves.resume(game, context);
+    else startSession(game, run.people, { ...stage.opts }, null, { evening: context });
+  },
+  finish(api) {
+    if (!api.evening) return false;
+    const run = this.read(), { runId, index } = api.evening;
+    if (!run || run.id !== runId || !run.stages[index] || run.stages[index].game !== api.game.id || run.stages[index].status !== 'playing' || api.n !== run.people.length) return !!(run && run.id === runId && run.stages[index] && run.stages[index].result && run.stages[index].result.session === api.sessionId);
+    const raw = api.teams.map(t => t.score);
+    run.stages[index].result = { raw, points: this.points(raw), session: api.sessionId }; run.stages[index].status = 'done'; this.write(run); return true;
+  },
+  newEvening() {
+    const run = this.read();
+    if (run && run.stages.some(s => s.status === 'pending' || s.status === 'playing')) confirmBox('Начать новый вечер? Итоги текущей программы будут заменены.', () => this.setup(), 'Новый вечер');
+    else this.setup();
+  },
+  show() {
+    leaveSession(); Music.stop(); Voice.stop(); const run = this.read(); if (!run) return this.setup();
+    const index = run.stages.findIndex(s => s.status === 'pending' || s.status === 'playing'), finished = index < 0;
+    const totals = run.people.map((person, i) => ({ ...person, points: run.stages.reduce((sum, stage) => sum + (stage.result ? stage.result.points[i] : 0), 0), i })).sort((a, b) => b.points - a.points);
+    const done = run.stages.filter(s => s.status === 'done').length;
+    const best = totals[0].points, winners = totals.filter(p => p.points === best).map(p => p.name);
+    const stage = finished ? null : run.stages[index], game = stage ? G.games.find(g => g.id === stage.game) : null;
+    const saved = stage ? Saves.read(game, this.context(run, index)).status === 'ok' : false;
+    mount(h('div', { class: 'wrap progress-page evening-page' }, btn('Каталог', Home, 'ghost small'), h('h1', null, finished ? 'Итоги вечера' : 'Игровой вечер'),
+      h('p', null, run.people.length === 1 ? 'Завершено игр: ' + done + ' из ' + run.stages.length : finished && done ? (winners.length === 1 ? winners[0] + ' побеждает!' : 'Ничья: ' + winners.join(', ')) : 'Завершено этапов: ' + done + ' из ' + run.stages.length),
+      this.storageOK ? null : h('p', { class: 'panel' }, 'Не удалось сохранить программу на устройстве. До закрытия страницы итоги доступны здесь.'),
+      h('ol', { class: 'evening-stages' }, ...run.stages.map((s, i) => h('li', { class: 'panel', 'data-stage': i }, h('b', null, G.games.find(g => g.id === s.game).title), h('p', null, s.status === 'done' ? 'Завершено' : s.status === 'skipped' ? 'Пропущено' : i === index ? 'Следующая игра' : 'Впереди'),
+        s.result ? h('p', { class: 'stage-scores' }, run.people.map((p, k) => p.name + ': ' + s.result.raw[k] + (run.people.length > 1 ? ' → ' + this.formatPoints(s.result.points[k]) : '')).join(' · ')) : null))),
+      run.people.length > 1 ? h('section', { class: 'panel' }, h('h2', null, 'Общий счёт'), ...totals.map(person => h('p', { class: 'evening-total' }, h('b', null, person.name), this.formatPoints(person.points))), h('p', null, 'За каждого участника ниже вас — 1 балл. При равенстве — по половине балла за соперника с тем же результатом.')) : null,
+      stage ? h('section', { class: 'panel dark' }, h('h2', null, 'Этап ' + (index + 1) + ' из ' + run.stages.length + ' · ' + game.title),
+        h('p', null, saved ? 'Сохранённую партию можно продолжить.' : stage.status === 'playing' ? 'Этот этап начнётся заново. Итоги предыдущих игр сохранены.' : 'Участники и настройки уже подготовлены.'),
+        h('div', { class: 'row' }, btn(saved ? 'Продолжить этап' : stage.status === 'playing' ? 'Начать этап заново' : 'Начать этап', () => this.start(index), 'big', { 'data-primary': true }),
+          btn('Пропустить этап', () => confirmBox('Пропустить эту игру без турнирных баллов?', () => { Saves.remove(game.id, this.context(run, index)); stage.status = 'skipped'; stage.result = null; this.write(run); this.show(); }, 'Пропустить'), 'paper'))) : null,
+      run.stages.some(s => s.status === 'pending') ? btn('Изменить оставшиеся игры', () => this.editRemaining(), 'paper') : null,
+      btn('Новый вечер', () => this.newEvening(), 'paper')));
+  }
+};
 
 /* ===================== Настройки, музыка, озвучка, эффекты ===================== */
 const SET_DEF = { vol: .8, sfx: true, tick: true, music: true, musicVol: .5, mood: 'auto', tts: true, ttsAuto: false, ttsRate: 1, ttsVoice: '', fx: 'full' };
@@ -8204,11 +8521,12 @@ const DUET_OPTS = () => [
   { key: 'score', label: 'Дуэт: счёт', values: [['together', 'Вместе (рекорд пары)'], ['versus', 'Друг против друга']], def: 'together', when: opts => opts.mode === 'duet' },
   { key: 'drounds', label: 'Дуэт: раундов', values: [4, 6, 10], def: 6, when: opts => opts.mode === 'duet' }
 ];
+const duetRecordSpec = (api, total, value) => ({ metric: 'duet-shared', label: 'Общий счёт', value, settings: { rounds: total, time: api.opts.time, level: api.opts.level ?? null, cats: (api.opts.cats || []).slice().sort() }, description: 'Дуэт · Раундов: ' + total + ' · ' + api.opts.time + ' с · Уровень: ' + (api.opts.level ?? 'общий') + ((api.opts.cats || []).length ? ' · ' + api.opts.cats.join(', ') : '') });
 const duetOn = api => api.opts.mode === 'duet';
 function duetRun(api, id, playRound) {
   if (api.n !== 2) { startSession(api.game, api.teams.slice(0, 2).map(t => ({ name: t.name, color: t.color })), api.opts); return; }
   const total = [4, 6, 10].includes(api.opts.drounds) ? api.opts.drounds : 6, together = api.opts.score !== 'versus';
-  const key = 'duet.' + id + '.' + total, record = +store.get(key, 0) || 0, names = [api.teams[0].name, api.teams[1].name];
+  const spec = duetRecordSpec(api, total, 0), record = (Records.read()[Records.key(id, spec)] || {}).best || 0, names = [api.teams[0].name, api.teams[1].name];
   let shared = 0, k = 0; const strips = [];
   const sync = () => strips.forEach(el => { el.replaceChildren('Мы: ', h('b', null, shared), record ? ' · Рекорд пары: ' + record : ' · рекорда пока нет'); });
   const D = {
@@ -8234,7 +8552,8 @@ function duetRun(api, id, playRound) {
     },
     finish() {
       if (together) {
-        const nr = shared > record; if (nr) store.set(key, shared);
+        const result = api.record(duetRecordSpec(api, total, shared));
+        const nr = result ? result.first || result.improved : shared > record;
         api.end({ custom: true, win: shared > 0, title: nr ? 'Новый рекорд!' : shared === record && shared > 0 ? 'Повторили рекорд!' : 'Хорошая игра!',
           sub: 'Раундов: ' + total, lines: [h('p', { class: 'mid-t du-result', 'data-record': nr ? 1 : 0, 'data-shared': shared }, 'Мы: ' + pts(shared)), h('p', { class: 'mid-t muted' }, nr ? (record ? 'Прошлый рекорд пары: ' + record + '.' : 'Это первый рекорд пары.') : 'Рекорд пары: ' + record + '.')] });
       } else {
@@ -9067,7 +9386,10 @@ function mmFeedback(secret, guess) {
       let initial = api.saved, k = initial ? initial.round : 1;
       play();
       function play() {
-        if (k > total) return api.end();
+        if (k > total) {
+          if (api.n === 1) api.record({ metric: 'solo-score', label: 'Очки', value: api.teams[0].score, settings: { lvl: api.opts.lvl, rounds: api.opts.rounds, time: api.opts.time }, description: ({ classic: 'Классика', hard: 'Сложнее', expert: 'Эксперт' }[api.opts.lvl]) + ' · Кодов: ' + api.opts.rounds + ' · ' + (api.opts.time ? api.opts.time + ' с на код' : 'Без таймера') });
+          return api.end();
+        }
         const saved = initial; initial = null;
         const ti = (k - 1) % api.n, last = k === total, next = () => { k++; play(); };
         const secret = saved ? saved.secret : range(L.len).map(() => rnd(L.colors));
@@ -9741,17 +10063,19 @@ function mfPickVictim(votes) {
   };
   registerGame({
     id: 'anagram', title: 'Анаграммы', icon: '🔠', color: '#8e5be8',
-    cats: ['Для компании', 'Командные'], teams: { min: 2, max: 6 }, mins: 15,
-    tagline: 'Буквы слова перемешаны. Успейте собрать его в уме, пока не открылись подсказки: чем позже, тем больше очков.',
-    rules: '<ul><li>Команда по очереди получает слово: на экране перемешанные буквы и тема. Время идёт.</li><li>Называйте слово вслух. Следящая команда нажимает «Угадали», если слово названо верно.</li><li>За слово можно получить до 5 очков. Каждые несколько секунд на своём месте открывается одна буква, и очки за слово падают: 5, 4, 3, 2, 1.</li><li>Не успели или пропустили: слово покажем, очков нет.</li></ul>',
+    cats: ['Для компании', 'Командные'], teams: { min: 1, max: 6 }, mins: 15,
+    tagline: 'Соберите слово из перемешанных букв. Играйте компанией вслух или введите ответ в одиночном режиме.',
+    rules: '<ul><li>Команда по очереди получает слово: на экране перемешанные буквы и тема. Время идёт.</li><li>В одиночном режиме введите ответ и нажмите «Проверить». Регистр и различие Е/Ё не влияют на проверку. Запас ручных подсказок общий на всю партию, каждая открывает букву и уменьшает цену ответа.</li><li>Называйте слово вслух. Следящая команда нажимает «Угадали», если слово названо верно.</li><li>За слово можно получить до 5 очков. Каждые несколько секунд на своём месте открывается одна буква, и очки за слово падают: 5, 4, 3, 2, 1.</li><li>Не успели или пропустили: слово покажем, очков нет.</li></ul>',
     opts: [
       { key: 'level', label: 'Длина слов', values: [['easy', 'Лёгкие, 5–6 букв'], ['mid', 'Средние, 7–8 букв'], ['hard', 'Сложные, 9–11 букв']], def: 'mid' },
-      { key: 'rounds', label: 'Слов у каждой команды', values: [2, 3, 5], def: 3 },
+      { key: 'hints', label: 'Подсказок на одиночную партию', values: [[0, 'Без подсказок'], [1, 'Одна'], [3, 'Три']], def: 3, when: (opts, n) => n === 1 },
+      { key: 'rounds', label: 'Слов у каждого участника', values: [2, 3, 5], def: 3 },
       { key: 'time', label: 'Время на слово', values: [[30, '30 секунд'], [45, '45 секунд'], [60, '60 секунд']], def: 45 }
     ],
     cards: () => A.easy.length + A.mid.length + A.hard.length,
     start(api) {
-      const deck = decks[api.opts.level] || decks.mid, TIME = api.opts.time, STEP = TIME / 5;
+      const deck = decks[api.opts.level] || decks.mid, TIME = api.opts.time, STEP = TIME / 5, solo = api.n === 1;
+      let hintsLeft = api.opts.hints ?? 3, solved = 0, streak = 0, bestStreak = 0;
       rotate(api, api.opts.rounds, (ti, k, total, next, last) => {
         const word = deck.draw(), theme = TH[word] || '', letters = scramble(word);
         const judge = api.teams[(ti + 1) % api.n].name;
@@ -9761,30 +10085,46 @@ function mfPickVictim(votes) {
         const tiles = h('div', { class: 'an-tiles', style: '--n:' + word.length, role: 'img', 'aria-label': 'Буквы: ' + letters.join(', ') }, letters.map(c => h('span', { class: 'an-tile' }, c.toUpperCase())));
         const slots = h('div', { class: 'an-slots', style: '--n:' + word.length, 'aria-hidden': 'true' });
         const worth = h('div', { class: 'an-worth' });
-        const msg = h('div', { class: 'mid-t an-msg' }), actions = h('div', { class: 'an-actions' });
+        const msg = h('div', { class: 'mid-t an-msg', 'aria-live': 'polite' }), actions = h('div', { class: 'an-actions' }), stats = h('div', { class: 'an-solo-stat' });
+        const input = solo ? h('input', { class: 'input', type: 'text', maxlength: 30, 'aria-label': 'Ваш ответ', placeholder: 'Введите слово', autocomplete: 'off', spellcheck: 'false', 'data-primary': true }) : null;
+        const checkButton = h('button', { class: 'btn good', type: 'submit' }, 'Проверить');
+        const hintButton = btn('Подсказка', () => { if (over || hintsLeft <= 0 || shown >= 4) return; shown++; hintsLeft--; sfx.ding(); paint(); }, 'paper small');
+        const form = solo ? h('form', { class: 'an-answer', onsubmit: e => {
+          e.preventDefault(); if (over) return;
+          const normalize = value => value.normalize('NFC').trim().toLowerCase().replace(/ё/g, 'е');
+          if (!input.value.trim()) { msg.textContent = 'Введите слово.'; return; }
+          if (normalize(input.value) === normalize(word)) done(true);
+          else { sfx.bad(); msg.textContent = 'Пока не подходит. Попробуйте ещё.'; input.select(); }
+        } }, input, checkButton) : null;
         const pts = () => Math.max(1, 5 - shown);
         function paint() {
           const open = new Set(order.slice(0, shown));
           slots.replaceChildren(...[...word].map((c, i) => h('span', { class: 'an-slot' + (open.has(i) || over ? ' on' : '') + (over && !open.has(i) ? ' lost' : '') }, open.has(i) || over ? c.toUpperCase() : '')));
           worth.textContent = over ? '' : 'За слово: ' + pts() + ' ' + plural(pts(), 'очко', 'очка', 'очков');
+          if (solo) {
+            hintButton.textContent = 'Подсказка (' + hintsLeft + ')'; hintButton.disabled = over || hintsLeft <= 0 || shown >= 4;
+            stats.textContent = 'Угадано: ' + solved + ' · Серия: ' + streak + ' · Лучшая: ' + bestStreak;
+          }
         }
         const timer = Timer(TIME, {
           onSecond: s => { const n = Math.min(4, Math.floor((TIME - s) / STEP)); if (!over && n > shown) { shown = n; sfx.tick(); paint(); } },
-          onEnd: () => { if (over) return; sfx.buzz(); finish('Время вышло! Слово: ' + word.toUpperCase() + '.'); }
+          onEnd: () => { if (over) return; streak = 0; sfx.buzz(); finish('Время вышло! Слово: ' + word.toUpperCase() + '.'); }
         });
         function finish(text) {
           over = true; timer.stop(); paint(); msg.textContent = text;
-          actions.replaceChildren(btn(last ? 'Итоги' : 'Дальше', next, 'big', { 'data-primary': true }));
+          if (solo) { input.disabled = true; checkButton.disabled = true; }
+          if (solo && last) api.record({ metric: 'solo-score', label: 'Очки', value: api.teams[0].score, unit: '', settings: { level: api.opts.level, time: TIME, rounds: api.opts.rounds, hints: api.opts.hints ?? 3 }, description: 'Один игрок · ' + ({ easy: '5–6 букв', mid: '7–8 букв', hard: '9–11 букв' }[api.opts.level]) + ' · ' + api.opts.rounds + ' ' + plural(api.opts.rounds, 'слово', 'слова', 'слов') + ' · ' + TIME + ' с · Подсказок: ' + (api.opts.hints ?? 3) });
+          actions.replaceChildren(btn(last ? 'Итоги' : 'Дальше', solo && last ? () => api.end({ custom: true, win: solved > 0, title: 'Анаграммы завершены', sub: 'Угадано: ' + solved + ' из ' + total + ' · Лучшая серия: ' + bestStreak, lines: [] }) : next, 'big', { 'data-primary': true }));
         }
         function done(ok) {
           if (over) return;
-          if (ok) { const p = pts(); sfx.ok(); api.score(ti, p); finish(api.teams[ti].name + ': ' + word.toUpperCase() + ', +' + p + ' ' + plural(p, 'очко', 'очка', 'очков') + '.'); }
-          else { sfx.bad(); finish('Пропуск. Слово: ' + word.toUpperCase() + '.'); }
+          if (ok) { const p = pts(); solved++; streak++; bestStreak = Math.max(bestStreak, streak); sfx.ok(); api.score(ti, p); finish(api.teams[ti].name + ': ' + word.toUpperCase() + ', +' + p + ' ' + plural(p, 'очко', 'очка', 'очков') + '.'); }
+          else { streak = 0; sfx.bad(); finish('Пропуск. Слово: ' + word.toUpperCase() + '.'); }
         }
-        actions.replaceChildren(judgeRow(api, '', 'Угадали', done, 'Пропуск'));
+        actions.replaceChildren(solo ? h('div', { class: 'row' }, hintButton, btn('Пропуск', () => done(false), 'paper')) : judgeRow(api, '', 'Угадали', done, 'Пропуск'));
         api.show(h('div', { class: 'an-box' },
-          h('div', { class: 'an-head' }, h('div', { class: 'kicker' }, 'Слово ' + k + ' из ' + total + ' · ' + theme + ' · ' + word.length + ' букв'), h('div', { class: 'an-judge' }, 'Следит: ' + judge), worth),
-          tiles, slots, timer.el, msg, actions
+          h('div', { class: 'an-head' }, h('div', { class: 'kicker' }, 'Слово ' + k + ' из ' + total + ' · ' + theme + ' · ' + word.length + ' букв'), solo ? null : h('div', { class: 'an-judge' }, 'Следит: ' + judge), worth),
+          tiles, slots, timer.el, form, solo ? stats : null, msg, actions
         ), { turn: ti, role: 'Собирает слово' });
         paint(); timer.start();
       });
@@ -9882,7 +10222,10 @@ function mfPickVictim(votes) {
           timer = api.delay(() => {
             [a, b].forEach(k => { const e = cards[k]; e.done = true; e.owner = ti; e.el.classList.remove('open'); e.el.classList.add('done'); e.el.disabled = true; e.el.style.setProperty('--tc', api.teams[ti].color); label(k, 'done'); });
             found++; open = []; updateReports(); sfx.ok(); api.score(ti, 1);
-            if (found >= pairs) { api.save(); say('Все пары найдены!'); timer = api.delay(() => api.end(solo ? { custom: true, win: true, title: 'Все пары найдены!', sub: 'Пар: ' + found + ' из ' + pairs + ' · Попыток: ' + attempts, lines: [] } : {}), 1100); return; }
+            if (found >= pairs) {
+              if (solo) api.record({ metric: 'attempts', label: 'Попытки', value: attempts, direction: 'min', unit: '', settings: { grid: o.grid, mode: o.mode, theme: o.mode === 'emoji' ? null : theme }, description: o.grid.replace('x', '×') + ' · ' + (o.mode === 'emoji' ? 'Эмодзи' : theme) });
+              Evening.finish(api); api.save(); say('Все пары найдены!'); timer = api.delay(() => api.end(solo ? { custom: true, win: true, title: 'Все пары найдены!', sub: 'Пар: ' + found + ' из ' + pairs + ' · Попыток: ' + attempts, lines: [] } : {}), 1100); return;
+            }
             say((solo ? 'Пара! ' : 'Пара! ' + api.teams[ti].name + ' ходит ещё. ') + status()); locked = false; api.save();
           }, wait ?? 450);
         } else {
@@ -10838,6 +11181,7 @@ function mfPickVictim(votes) {
       function win() {
         over = true; clearInterval(tick); sfx.win(); api.save();
         const total = Math.round(elapsed()); clock.textContent = fmt(total);
+        api.record({ metric: 'time', label: 'Время', value: total, direction: 'min', unit: 'seconds', settings: { size: N, puzzle: rows.join('/'), errors: showErr }, description: N + '×' + N + ' · ' + name + ' · ' + (showErr ? 'С подсветкой ошибок' : 'Без подсветки ошибок') + ' · Штрафы включены' });
         cells.forEach((c, i) => { c.classList.remove('ng-x'); if (sol[i]) { const ch = rows[Math.floor(i / N)][i % N]; c.style.setProperty('--fc', NG_PAL[ch] || '#333'); c.classList.add('ng-rev'); c.style.animationDelay = (Math.floor(i / N) * 60 + (i % N) * 25) + 'ms'; } });
         board.classList.add('ng-done'); cnt.textContent = 'Готово!'; bUndo.disabled = true; bHint.disabled = true; mFill.disabled = mCross.disabled = true;
         try { fx.burst(board, 12); } catch (x) { }
@@ -11347,8 +11691,9 @@ function mfPickVictim(votes) {
       }
       function finish() {
         if (!coop) return api.end({ win: true });
-        const max = 4 * N, ratio = total / max, key = 'scale.best.' + N;
-        const prev = store.get(key, 0), rec = total > prev; if (rec) store.set(key, total);
+        const max = 4 * N, ratio = total / max;
+        const record = api.record({ metric: 'together-score', label: 'Общий счёт', value: total, settings: { rounds: N, players: n }, description: 'Вместе · Раундов: ' + N + ' · Игроков: ' + n });
+        const prev = record && !record.first ? record.previousBest : 0, rec = record ? record.first || record.improved : false;
         const title = ratio >= .7 ? 'Телепаты!' : ratio >= .5 ? 'Отлично!' : ratio >= .3 ? 'Хорошо!' : 'Ещё потренируйтесь';
         const lines = ['Счёт: ' + total + ' из ' + max + '.', rec ? (prev ? 'Новый рекорд! Прошлый: ' + prev + '.' : 'Рекорд установлен!') : 'Рекорд при ' + N + ' раундах: ' + prev + '.'];
         api.end({ custom: true, title, sub: '', lines, win: ratio >= .3 });
@@ -11570,7 +11915,6 @@ function mfPickVictim(votes) {
       const mode = api.opts.mode === 'compete' ? 'compete' : 'together';
       const R = [8, 12, 16].includes(+api.opts.rounds) ? +api.opts.rounds : 12;
       const custom = +api.opts.custom === 1;
-      const recKey = 'tp.rec.' + n + '.' + R + '.' + (custom ? 'c' : 'f');
       let r = 0, topic = '', opts = [], picks = [], locked = false;
       let streak = mode === 'together' ? 0 : names.map(() => 0), best = 0, matched = 0, agreeSum = 0;
 
@@ -11632,8 +11976,8 @@ function mfPickVictim(votes) {
         const lines = ['Совпало раундов: ' + matched + ' из ' + R + ' · лучшая серия: ' + best];
         if (mode === 'together') {
           const pct = Math.round(agreeSum / R * 100);
-          const old = store.get(recKey, 0), rec = pct > old;
-          if (rec) store.set(recKey, pct);
+          const result = api.record({ metric: 'together-percent', label: 'Совпадения', value: pct, unit: '%', settings: { players: n, rounds: R, custom }, description: 'Вместе · Игроков: ' + n + ' · Раундов: ' + R + ' · ' + (custom ? 'Со своим ответом' : 'Только варианты') });
+          const old = result && !result.first ? result.previousBest : 0, rec = result ? result.first || result.improved : false;
           lines.push(rec && old ? 'Новый рекорд! Прошлый: ' + old + '%' : rec ? 'Первый рекорд записан' : 'Рекорд для такой партии: ' + old + '%');
           const verdict = pct >= 90 ? 'Один разум в нескольких телах' : pct >= 70 ? 'Вы на одной волне' : pct >= 50 ? 'Хорошая связь: вы чувствуете друг друга' : pct >= 30 ? 'Есть что обсудить: думаете по-разному' : 'Вы загадка друг для друга, и это интересно';
           return api.end({ custom: true, title: 'Телепатия: ' + pct + '%', sub: verdict, lines, win: pct >= 30 });
@@ -11958,8 +12302,8 @@ function mfPickVictim(votes) {
         if (over) return; over = true;
         const pct = tries ? Math.round(hits * 100 / tries) : 0;
         const v = KM_VERDICTS.find(x => pct >= x[0]);
-        const rk = 'knowme.rec', key = api.teams.map(t => t.name).sort().join('+') + '#' + total, all = store.get(rk, {}) || {};
-        const prev = all[key]; const rec = prev == null || pct > prev; if (rec) { all[key] = pct; store.set(rk, all); }
+        const result = api.record({ metric: 'knowledge', label: 'Индекс знания', value: pct, unit: '%', settings: { people: api.teams.map(t => t.name).sort(), rounds: total, together }, description: 'Раундов: ' + total + ' · ' + (together ? 'Вместе' : 'Друг против друга') + ' · ' + api.teams.map(t => t.name).join(', ') });
+        const prev = result && !result.first ? result.previousBest : null, rec = result ? result.first || result.improved : false;
         const lines = [
           h('div', { class: 'km-index' }, h('div', { class: 'km-pct' }, pct + '%'), h('div', { class: 'km-cap' }, 'Индекс знания'), h('div', { class: 'km-bar' }, h('i', { style: { width: pct + '%' } }))),
           h('p', { class: 'mid-t' }, v[2] + '. ' + v[3]),

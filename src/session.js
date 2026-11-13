@@ -1,3 +1,4 @@
+const newRunId = () => Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
 /* Время партии: пауза останавливает отсчёт и отложенные игровые действия. */
 const GameClock = (() => {
   let active = false, origin = 0, pausedAt = 0, epoch = 0;
@@ -38,12 +39,12 @@ const SaveChecks = {
   text: (value, max = 1000) => typeof value === 'string' && value.length > 0 && value.length <= max
 };
 const Saves = {
-  key: id => 'igroteka.save.' + id,
-  read(game) {
+  key: (id, evening = null) => evening ? 'igroteka.evening.save.' + evening.runId + '.' + evening.index : 'igroteka.save.' + id,
+  read(game, evening = null) {
     if (!game.saveVersion) return { status: 'none' };
     let raw;
     try {
-      raw = localStorage.getItem(this.key(game.id));
+      raw = localStorage.getItem(this.key(game.id, evening));
       if (raw == null) return { status: 'none' };
       if (raw.length > 500000) return { status: 'invalid' };
       const save = JSON.parse(raw), t = game.teams || { min: 2, max: 8 };
@@ -59,16 +60,16 @@ const Saves = {
       return { status: 'ok', data: save };
     } catch (e) { return { status: raw == null ? 'none' : 'invalid' }; }
   },
-  write(game, teams, opts, state) {
+  write(game, teams, opts, state, context = {}) {
     try {
-      localStorage.setItem(this.key(game.id), JSON.stringify({ version: 1, game: game.id, gameVersion: game.saveVersion, at: Date.now(), teams, opts, state }));
+      localStorage.setItem(this.key(game.id, context.evening), JSON.stringify({ version: 1, game: game.id, gameVersion: game.saveVersion, at: Date.now(), runId: context.sessionId, teams, opts, state }));
       return true;
     } catch (e) { return false; }
   },
-  remove(id) { try { localStorage.removeItem(this.key(id)); return true; } catch (e) { return false; } },
-  resume(game) {
-    const saved = this.read(game);
-    if (saved.status === 'ok') { keepAwake(); startSession(game, saved.data.teams, saved.data.opts, saved.data.state); }
+  remove(id, evening = null) { try { localStorage.removeItem(this.key(id, evening)); return true; } catch (e) { return false; } },
+  resume(game, evening = null) {
+    const saved = this.read(game, evening);
+    if (saved.status === 'ok') { keepAwake(); startSession(game, saved.data.teams, saved.data.opts, saved.data.state, { evening, sessionId: saved.data.runId }); }
     else { const m = modal(h('p', { class: 'mid-t' }, 'Не удалось прочитать сохранение. Начните новую партию в меню игры.'), [btn('В меню игры', () => { m.close(); Intro(game); })]); }
   },
   control(game, onDelete) {

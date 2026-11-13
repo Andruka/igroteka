@@ -209,7 +209,6 @@
       const mode = api.opts.mode === 'compete' ? 'compete' : 'together';
       const R = [8, 12, 16].includes(+api.opts.rounds) ? +api.opts.rounds : 12;
       const custom = +api.opts.custom === 1;
-      const recKey = 'tp.rec.' + n + '.' + R + '.' + (custom ? 'c' : 'f');
       let r = 0, topic = '', opts = [], picks = [], locked = false;
       let streak = mode === 'together' ? 0 : names.map(() => 0), best = 0, matched = 0, agreeSum = 0;
 
@@ -271,8 +270,8 @@
         const lines = ['Совпало раундов: ' + matched + ' из ' + R + ' · лучшая серия: ' + best];
         if (mode === 'together') {
           const pct = Math.round(agreeSum / R * 100);
-          const old = store.get(recKey, 0), rec = pct > old;
-          if (rec) store.set(recKey, pct);
+          const result = api.record({ metric: 'together-percent', label: 'Совпадения', value: pct, unit: '%', settings: { players: n, rounds: R, custom }, description: 'Вместе · Игроков: ' + n + ' · Раундов: ' + R + ' · ' + (custom ? 'Со своим ответом' : 'Только варианты') });
+          const old = result && !result.first ? result.previousBest : 0, rec = result ? result.first || result.improved : false;
           lines.push(rec && old ? 'Новый рекорд! Прошлый: ' + old + '%' : rec ? 'Первый рекорд записан' : 'Рекорд для такой партии: ' + old + '%');
           const verdict = pct >= 90 ? 'Один разум в нескольких телах' : pct >= 70 ? 'Вы на одной волне' : pct >= 50 ? 'Хорошая связь: вы чувствуете друг друга' : pct >= 30 ? 'Есть что обсудить: думаете по-разному' : 'Вы загадка друг для друга, и это интересно';
           return api.end({ custom: true, title: 'Телепатия: ' + pct + '%', sub: verdict, lines, win: pct >= 30 });

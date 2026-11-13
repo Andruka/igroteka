@@ -154,8 +154,9 @@
       }
       function finish() {
         if (!coop) return api.end({ win: true });
-        const max = 4 * N, ratio = total / max, key = 'scale.best.' + N;
-        const prev = store.get(key, 0), rec = total > prev; if (rec) store.set(key, total);
+        const max = 4 * N, ratio = total / max;
+        const record = api.record({ metric: 'together-score', label: 'Общий счёт', value: total, settings: { rounds: N, players: n }, description: 'Вместе · Раундов: ' + N + ' · Игроков: ' + n });
+        const prev = record && !record.first ? record.previousBest : 0, rec = record ? record.first || record.improved : false;
         const title = ratio >= .7 ? 'Телепаты!' : ratio >= .5 ? 'Отлично!' : ratio >= .3 ? 'Хорошо!' : 'Ещё потренируйтесь';
         const lines = ['Счёт: ' + total + ' из ' + max + '.', rec ? (prev ? 'Новый рекорд! Прошлый: ' + prev + '.' : 'Рекорд установлен!') : 'Рекорд при ' + N + ' раундах: ' + prev + '.'];
         api.end({ custom: true, title, sub: '', lines, win: ratio >= .3 });

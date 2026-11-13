@@ -20,6 +20,12 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     await p.evaluate(([id, sc, rec, t]) => {
       store.set('n.' + id, 2); store.set('o.' + id + '.mode', 'duet'); store.set('o.' + id + '.score', sc); store.set('o.' + id + '.drounds', 4); store.set('o.' + id + '.time', t);
       if (rec != null) store.set('duet.' + id + '.4', rec); else localStorage.removeItem('igroteka.duet.' + id + '.4');
+      if (rec != null) {
+        const game = G.games.find(g => g.id === id), opts = {};
+        game.opts.forEach(o => { opts[o.key] = store.get('o.' + id + '.' + o.key, o.def); });
+        const spec = duetRecordSpec({ opts }, 4, rec), key = Records.key(id, spec);
+        store.set('records.v1', { [key]: { game: id, label: spec.label, description: spec.description, direction: 'max', unit: '', best: rec, last: rec, plays: 1, at: Date.now(), lastRun: 'fixture' } });
+      }
       Intro(G.games.find(g => g.id === id));
     }, [id, score, record, G_.time]);
     await click(p, 'Играть'); await p.waitForTimeout(400);
@@ -60,7 +66,7 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
       const exp = id === 'taboo' ? 2 : 4;
       ok(sc[0] === exp && sc[1] === exp, `${tag}: общий счёт у обоих ${sc} (ожидалось ${exp})`);
       ok(+(await res.getAttribute('data-shared')) === exp, `${tag}: итоговое «Мы»`);
-      const isNew = +(await res.getAttribute('data-record')) === 1, stored = await p.evaluate(id => store.get('duet.' + id + '.4', 0), id);
+      const isNew = +(await res.getAttribute('data-record')) === 1, stored = await p.evaluate(id => Object.values(Records.read()).find(row => row.game === id).best, id);
       if (record == null) ok(isNew && stored === exp && title.includes('Новый рекорд'), `${tag}: новый рекорд записан (${stored})`);
       else ok(!isNew && stored === record && !title.includes('Новый рекорд'), `${tag}: рекорд ${record} не побит, не перезаписан`);
     }

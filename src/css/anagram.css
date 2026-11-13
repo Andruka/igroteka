@@ -10,6 +10,11 @@
 .an-msg{text-align:center}.an-msg:empty{display:none}.an-judge{font-weight:800;opacity:.85}
 .an-head .kicker{flex:1 1 100%}.an-head{gap:.1rem 1rem}
 .an-actions{margin-top:.2rem}
+.an-answer{display:flex;gap:8px;width:100%;max-width:600px;margin:0 auto}
+.an-answer .input{flex:1;min-width:0;width:0;font-size:18px}
+.an-answer .btn{flex-shrink:0}
+.an-solo-stat{text-align:center;font-size:.85em}
+@media(max-width:600px){.an-answer .btn{font-size:14px;padding:.5em .7em}.an-answer .input{padding:.5em}.an-box:has(.an-answer){gap:.3rem}.an-box:has(.an-answer) .an-tiles{--w:clamp(24px,min(calc((100vw - 48px) / var(--n,8) - 6px),5.8vh),80px)}}
 @media (max-height:700px){.an-tile{box-shadow:0 3px 0 #141a46}}
 .an-box{display:flex;flex-direction:column;gap:.45rem;width:100%}
 .an-head{flex-wrap:wrap}

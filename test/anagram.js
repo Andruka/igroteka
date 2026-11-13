@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
 const path = require('path');
 const file = 'file://' + path.resolve(__dirname, '../index.html');
 (async () => {
-  const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+  const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--no-sandbox'] });
   let bad = 0; const ok = (c, m) => { console.log((c ? 'ok   ' : 'FAIL ') + m); if (!c) bad++; };
   for (const [w, h] of [[375, 667], [768, 1024], [1280, 720], [1920, 1080]]) {
     const p = await b.newPage({ viewport: { width: w, height: h } }); const errs = [];

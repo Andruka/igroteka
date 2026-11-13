@@ -4,11 +4,12 @@ const DUET_OPTS = () => [
   { key: 'score', label: 'Дуэт: счёт', values: [['together', 'Вместе (рекорд пары)'], ['versus', 'Друг против друга']], def: 'together', when: opts => opts.mode === 'duet' },
   { key: 'drounds', label: 'Дуэт: раундов', values: [4, 6, 10], def: 6, when: opts => opts.mode === 'duet' }
 ];
+const duetRecordSpec = (api, total, value) => ({ metric: 'duet-shared', label: 'Общий счёт', value, settings: { rounds: total, time: api.opts.time, level: api.opts.level ?? null, cats: (api.opts.cats || []).slice().sort() }, description: 'Дуэт · Раундов: ' + total + ' · ' + api.opts.time + ' с · Уровень: ' + (api.opts.level ?? 'общий') + ((api.opts.cats || []).length ? ' · ' + api.opts.cats.join(', ') : '') });
 const duetOn = api => api.opts.mode === 'duet';
 function duetRun(api, id, playRound) {
   if (api.n !== 2) { startSession(api.game, api.teams.slice(0, 2).map(t => ({ name: t.name, color: t.color })), api.opts); return; }
   const total = [4, 6, 10].includes(api.opts.drounds) ? api.opts.drounds : 6, together = api.opts.score !== 'versus';
-  const key = 'duet.' + id + '.' + total, record = +store.get(key, 0) || 0, names = [api.teams[0].name, api.teams[1].name];
+  const spec = duetRecordSpec(api, total, 0), record = (Records.read()[Records.key(id, spec)] || {}).best || 0, names = [api.teams[0].name, api.teams[1].name];
   let shared = 0, k = 0; const strips = [];
   const sync = () => strips.forEach(el => { el.replaceChildren('Мы: ', h('b', null, shared), record ? ' · Рекорд пары: ' + record : ' · рекорда пока нет'); });
   const D = {
@@ -34,7 +35,8 @@ function duetRun(api, id, playRound) {
     },
     finish() {
       if (together) {
-        const nr = shared > record; if (nr) store.set(key, shared);
+        const result = api.record(duetRecordSpec(api, total, shared));
+        const nr = result ? result.first || result.improved : shared > record;
         api.end({ custom: true, win: shared > 0, title: nr ? 'Новый рекорд!' : shared === record && shared > 0 ? 'Повторили рекорд!' : 'Хорошая игра!',
           sub: 'Раундов: ' + total, lines: [h('p', { class: 'mid-t du-result', 'data-record': nr ? 1 : 0, 'data-shared': shared }, 'Мы: ' + pts(shared)), h('p', { class: 'mid-t muted' }, nr ? (record ? 'Прошлый рекорд пары: ' + record + '.' : 'Это первый рекорд пары.') : 'Рекорд пары: ' + record + '.')] });
       } else {

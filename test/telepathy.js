@@ -57,7 +57,7 @@ const file = 'file://' + path.resolve(__dirname, '../index.html');
     const title = await p.locator('h1.big').innerText();
     ok(/Телепатия: 100%/.test(title), `${n} игр.: итог «${title}» (ожидалось 100%, порядок общий для раунда)`);
     ok(await p.locator('text=Рекорд').count() > 0, `${n} игр.: рекорд показан`);
-    const rec = await p.evaluate(n => store.get('tp.rec.' + n + '.8.f'), n); ok(rec === 100, `${n} игр.: рекорд сохранён в store`);
+    const rec = await p.evaluate(() => Object.values(Records.read()).find(row => row.game === 'telepathy').best); ok(rec === 100, `${n} игр.: рекорд сохранён в store`);
     ok(!p.errs.length, `${n} игр.: без ошибок` + (p.errs[0] ? ': ' + p.errs[0] : '')); await p.close();
   }
 

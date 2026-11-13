@@ -310,8 +310,8 @@
         if (over) return; over = true;
         const pct = tries ? Math.round(hits * 100 / tries) : 0;
         const v = KM_VERDICTS.find(x => pct >= x[0]);
-        const rk = 'knowme.rec', key = api.teams.map(t => t.name).sort().join('+') + '#' + total, all = store.get(rk, {}) || {};
-        const prev = all[key]; const rec = prev == null || pct > prev; if (rec) { all[key] = pct; store.set(rk, all); }
+        const result = api.record({ metric: 'knowledge', label: 'Индекс знания', value: pct, unit: '%', settings: { people: api.teams.map(t => t.name).sort(), rounds: total, together }, description: 'Раундов: ' + total + ' · ' + (together ? 'Вместе' : 'Друг против друга') + ' · ' + api.teams.map(t => t.name).join(', ') });
+        const prev = result && !result.first ? result.previousBest : null, rec = result ? result.first || result.improved : false;
         const lines = [
           h('div', { class: 'km-index' }, h('div', { class: 'km-pct' }, pct + '%'), h('div', { class: 'km-cap' }, 'Индекс знания'), h('div', { class: 'km-bar' }, h('i', { style: { width: pct + '%' } }))),
           h('p', { class: 'mid-t' }, v[2] + '. ' + v[3]),

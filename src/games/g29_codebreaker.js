@@ -43,7 +43,10 @@ function mmFeedback(secret, guess) {
       let initial = api.saved, k = initial ? initial.round : 1;
       play();
       function play() {
-        if (k > total) return api.end();
+        if (k > total) {
+          if (api.n === 1) api.record({ metric: 'solo-score', label: 'Очки', value: api.teams[0].score, settings: { lvl: api.opts.lvl, rounds: api.opts.rounds, time: api.opts.time }, description: ({ classic: 'Классика', hard: 'Сложнее', expert: 'Эксперт' }[api.opts.lvl]) + ' · Кодов: ' + api.opts.rounds + ' · ' + (api.opts.time ? api.opts.time + ' с на код' : 'Без таймера') });
+          return api.end();
+        }
         const saved = initial; initial = null;
         const ti = (k - 1) % api.n, last = k === total, next = () => { k++; play(); };
         const secret = saved ? saved.secret : range(L.len).map(() => rnd(L.colors));

@@ -1,0 +1,31 @@
+.catalog-features{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.catalog-features .btn{min-height:44px;flex:1;max-width:250px}
+.progress-page{display:flex;flex-direction:column;gap:18px}
+.progress-page>h1{font-size:clamp(32px,5vw,64px);margin-top:12px}
+.progress-page>.btn{align-self:flex-start}
+.progress-page [hidden]{display:none!important}
+.progress-page .panel{display:flex;flex-direction:column;gap:14px;min-width:0}
+.progress-page .input{box-sizing:border-box;max-width:100%}
+.evening-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.evening-columns .teamrow{margin-bottom:8px}
+.evening-columns h2{font-size:1.35em}
+.evening-preview{display:flex;flex-direction:column;gap:14px;padding-left:1.5em}
+.evening-editor li{padding-left:4px;min-width:0}
+.evening-editor .input{width:100%;min-height:44px;font-size:16px}
+.evening-order{margin-top:6px;gap:8px}
+.evening-order .btn{min-width:44px;min-height:44px}
+.evening-message{font-size:.9em;line-height:1.45}
+.evening-stages{padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.evening-stages li{font-size:.9em}
+.evening-total{display:flex;justify-content:space-between;gap:16px}
+.evening-banner{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 16px;background:rgba(14,18,51,.5);font-size:.85em}
+.evening-banner .btn{min-height:40px}
+.stage-scores{font-size:.9em}
+.results-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.results-grid h2{font-size:1.3em}
+.result-best{font-weight:800;font-size:1.1em}
+.legacy-results p{font-size:.85em;overflow-wrap:anywhere}
+.record-result{border:2px solid var(--mint);border-radius:14px;padding:14px;max-width:680px;box-sizing:border-box;font-size:.9em}
+.record-result small{display:block;opacity:.85;margin:6px 0}
+.record-result[data-new-record=true]{background:rgba(47,214,160,.12)}
+@media(max-width:700px){.evening-columns{grid-template-columns:minmax(0,1fr)}.evening-columns .huge{font-size:1.1em;width:100%;padding:.7em}.progress-page{gap:14px}.catalog-features .btn{font-size:13px}.evening-banner{font-size:12px}}
